@@ -1,0 +1,54 @@
+.h5peditor-dragnbar {
+  font-size: 1.25em;
+  overflow: hidden;
+  padding: 0.1em 0;
+  background: #fff;
+}
+.h5p-dragnbar-ul {
+  float: right;
+  margin: 0;
+  list-style: none;
+}
+.h5p-dragnbar-li {
+  float: left;
+  margin: 0;
+  padding: 0;
+}
+.h5p-dragnbar-a {
+  border: 0.1em dashed #a2a6a2;
+  margin-right: 0.1em;
+  display: block;
+  padding: 0.25em 0 0;
+  line-height: 1.75em;
+  width: 2.25em;
+  text-align: center;
+  background: #e9f1f4;
+  font-family: "H5P.InteractiveVideo FontAwesome";
+}
+.h5p-dragnbar-a, .h5p-dragnbar-a:visited, .h5p-dragnbar-a:link {
+  color: #969999;
+}
+.h5p-dragnbar-a:before {
+  content: "?";
+}
+.h5p-dragnbar-a:hover {
+  text-decoration: none;
+}
+.h5p-dragnbar-text-button:before {
+  content: "T";
+}
+.h5p-dragnbar-table-button:before {
+  content: "\f0ce";
+}
+.h5p-dragnbar-image-button {
+  background: #dce7d6;
+}
+.h5p-dragnbar-image-button:before {
+  content: "\f03e";
+}
+.h5p-dragnbar-multichoice-button {
+  background: #ebebeb;
+}
+.h5p-dragnbar-multichoice-button:before {
+  content: "\f046";
+}
