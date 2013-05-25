@@ -8,7 +8,7 @@
   "author": "Frode Petterson",
   "preloadedJs": [
     {
-      "path": "scripts/interactive-video-editor.js"
+      "path": "Scripts/interactive-video-editor.js"
     }
   ],
   "preloadedCss": [
