@@ -1,5 +1,5 @@
 .h5peditor-dragnbar {
-  font-size: 1.25em;
+  font-size: 1em;
   overflow: hidden;
   padding: 0.1em 0;
   background: #fff;
@@ -23,7 +23,7 @@
   width: 2.25em;
   text-align: center;
   background: #e9f1f4;
-  font-family: "H5P.InteractiveVideo FontAwesome";
+  font-family: "H5PInteractiveVideoFontAwesome";
 }
 .h5p-dragnbar-a, .h5p-dragnbar-a:visited, .h5p-dragnbar-a:link {
   color: #969999;

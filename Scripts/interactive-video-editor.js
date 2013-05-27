@@ -34,6 +34,12 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     this.params = params;
     this.setValue = setValue;
+    this.children = [];
+
+    this.passReadies = true;
+    parent.ready(function () {
+      that.passReadies = false;
+    });
   };
 
   /**
@@ -102,15 +108,44 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         that.IV.play(true);
       }
 
-//      // Edit element when it is dropped.
-//      if (that.dnb.newElement) {
-//        that.dnb.dnd.$element.dblclick();
-//      }
+      // Edit element when it is dropped.
+      if (that.dnb.newElement) {
+        that.dnb.dnd.$element.dblclick();
+      }
     };
 
     this.$bar = $('<div class="h5peditor-dragnbar"></div>').prependTo(this.$editor);
-
     this.dnb.attach(this.$bar);
+
+    if (this.forms === undefined) {
+      // Process semantics to make forms
+      this.forms = [];
+      for (var i = 0; i < this.params.length; i++) {
+        this.processInteraction(i);
+      }
+    }
+  };
+
+  /**
+   * Create form for interaction.
+   *
+   * @param {type} index
+   * @returns {undefined}
+   */
+  C.prototype.processInteraction = function (index) {
+    if (this.children[index] === undefined) {
+      this.children[index] = [];
+    }
+    var tmpChildren = this.children;
+
+    var $form = H5P.jQuery('<div></div>');
+    H5PEditor.processSemanticsChunk(this.field.field.fields, this.params[index], $form, this);
+    $form.children('.library:first').children('label, select').hide().end().children('.libwrap').css('margin-top', '0');
+
+    tmpChildren[index] = this.children;
+    this.children = tmpChildren;
+
+    this.forms[index] = $form;
   };
 
   /**
@@ -128,7 +163,41 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       }
       that.dnb.dnd.press($interaction, event.pageX, event.pageY);
       return false;
+    }).dblclick(function () {
+      var id = $interaction.data('id');
+      var $form = that.forms[id];
+      that.IV.$dialog.data('id', id).children('.h5p-dialog-interaction').html('').attr('class', 'h5p-dialog-interaction').append($form);
+
+      that.IV.showDialog();
     });
+  };
+
+  /**
+   * Validate the current dialog to see if it can be closed.
+   *
+   * @returns {Boolean}
+   */
+  C.prototype.validateDialog = function () {
+    var id = this.IV.$dialog.data('id');
+
+    var valid = true;
+    var elementKids = this.children[id];
+    for (var i = 0; i < elementKids.length; i++) {
+      if (elementKids[i].validate() === false) {
+        valid = false;
+      }
+    }
+
+    if (valid) {
+      this.forms[id].detach();
+      this.IV.toggleInteraction(id);
+      if (this.dnb.dnd.$coordinates !== undefined) {
+        this.dnb.dnd.$coordinates.remove();
+        delete this.dnb.dnd.$coordinates;
+      }
+    }
+
+    return valid;
   };
 
   /**
@@ -179,6 +248,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
         that.params.push(interaction);
         var i = that.params.length - 1;
+        that.processInteraction(i);
         return that.IV.toggleInteraction(i, time);
       }
     };
@@ -196,6 +266,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     if (this.IV !== undefined) {
       this.IV.remove();
       delete this.IV;
+
+      if (this.dnb.dnd.$coordinates !== undefined) {
+        this.dnb.dnd.$coordinates.remove();
+        delete this.dnb.dnd.$coordinates;
+      }
     }
   };
 
@@ -240,6 +315,21 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   };
 
   /**
+   * Collect functions to execute once the tree is complete.
+   *
+   * @param {function} ready
+   * @returns {undefined}
+   */
+  C.prototype.ready = function (ready) {
+    if (this.passReadies) {
+      this.parent.ready(ready);
+    }
+    else {
+      this.readies.push(ready);
+    }
+  };
+
+  /**
    * Translate UI texts for this library.
    *
    * @param {String} key
@@ -258,6 +348,7 @@ H5PEditor.language['H5PEditor.InteractiveVideo'] = {
   libraryStrings: {
     selectVideo: 'You must select a video before adding interactions.',
     notVideoField: '":path" is not a video.',
-    insertElement: 'Click and drag to place :type'
+    insertElement: 'Click and drag to place :type',
+    popupTitle: 'Edit :type'
   }
 };
