@@ -298,7 +298,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           that.IV.pause(true);
         }
 
-        var time = Math.floor(that.IV.video.getTime());
+        var from = Math.floor(that.IV.video.getTime());
+        var to = from + 20;
+        var duration = Math.floor(that.IV.video.getDuration());
         var interaction = {
           action: {
             library: library,
@@ -306,14 +308,16 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           },
           x: 0,
           y: 0,
-          from: time,
-          to: time + 10
+          duration: {
+            from: from,
+            to: to > duration ? duration : to
+          }
         };
 
         that.params.push(interaction);
         var i = that.params.length - 1;
         that.processInteraction(i);
-        return that.IV.toggleInteraction(i, time);
+        return that.IV.toggleInteraction(i, from);
       }
     };
   };

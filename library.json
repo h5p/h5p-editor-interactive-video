@@ -51,6 +51,11 @@
       "machineName": "H5P.Summary",
       "majorVersion": 1,
       "minorVersion": 0
+    },
+    {
+      "machineName": "H5PEditor.Duration",
+      "majorVersion": 1,
+      "minorVersion": 0
     }
   ]
 }
