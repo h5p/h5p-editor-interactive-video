@@ -166,20 +166,41 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }).dblclick(function () {
       var id = $interaction.data('id');
       var $form = that.forms[id];
-      that.IV.$dialog.data('id', id).children('.h5p-dialog-interaction').html('').attr('class', 'h5p-dialog-interaction').append($form);
+      that.IV.$dialog.children('.h5p-dialog-interaction').html('').attr('class', 'h5p-dialog-interaction').append($form);
 
       that.IV.showDialog();
+
+      // Make room for buttons
+      var $content = that.IV.$dialog.children('.h5p-dialog-interaction');
+      var heightEm = ($content.height() / parseFloat($content.css('fontSize')));
+      $content.css({
+        height: (heightEm - 2) + 'em',
+        width: '100%'
+      });
+
+      that.IV.$dialog.children('.h5p-dialog-hide').hide();
+      $('<div class="h5p-dialog-buttons"><a href="#" class="h5p-button h5p-done">' + C.t('done') + '</a><a href="#" class="h5p-button h5p-remove">' + C.t('remove') + '</a></div>').appendTo(that.IV.$dialog).children('.h5p-done').click(function () {
+        if (that.validDialog(id)) {
+          that.hideDialog();
+        }
+        return false;
+      }).end().children('.h5p-remove').click(function () {
+        if (confirm(C.t('removeInteraction'))) {
+          that.removeInteraction(id);
+          that.hideDialog();
+        }
+        return false;
+      });
     });
   };
 
   /**
    * Validate the current dialog to see if it can be closed.
    *
+   * @param {Integer} id Dialog index.
    * @returns {Boolean}
    */
-  C.prototype.validateDialog = function () {
-    var id = this.IV.$dialog.data('id');
-
+  C.prototype.validDialog = function (id) {
     var valid = true;
     var elementKids = this.children[id];
     for (var i = 0; i < elementKids.length; i++) {
@@ -198,6 +219,49 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }
 
     return valid;
+  };
+
+  /**
+   * Revert our customization to the dialog.
+   *
+   * @returns {undefined}
+   */
+  C.prototype.hideDialog = function () {
+    this.IV.hideDialog();
+    this.IV.$dialog.children('.h5p-dialog-interaction').css({
+      height: '',
+      width: ''
+    });
+    this.IV.$dialog.children('.h5p-dialog-hide').show();
+    this.IV.$dialog.children('.h5p-dialog-buttons').remove();
+  };
+
+  /**
+   * Remove interaction from video.
+   *
+   * @param {Integer} id
+   * @returns {undefined}
+   */
+  C.prototype.removeInteraction = function (id) {
+    this.forms.splice(id, 1);
+    this.params.splice(id, 1);
+    H5PEditor.removeChildren(this.children[id]);
+    this.children.splice(id, 1);
+    this.IV.visibleInteractions[id].remove();
+    this.IV.visibleInteractions.splice(id, 1);
+
+    // Update ids
+    for (var i = 0; i < this.params.length; i++) {
+      if (this.IV.visibleInteractions[i] !== undefined) {
+        this.IV.visibleInteractions[i].data('id', i);
+      }
+    }
+
+    if (this.dnb.dnd.$coordinates !== undefined) {
+      // Remove coordiantes picker
+      this.dnb.dnd.$coordinates.remove();
+      delete this.dnb.dnd.$coordinates;
+    }
   };
 
   /**
@@ -349,6 +413,9 @@ H5PEditor.language['H5PEditor.InteractiveVideo'] = {
     selectVideo: 'You must select a video before adding interactions.',
     notVideoField: '":path" is not a video.',
     insertElement: 'Click and drag to place :type',
-    popupTitle: 'Edit :type'
+    popupTitle: 'Edit :type',
+    done: 'Done',
+    remove: 'Remove',
+    removeInteraction: 'Are you sure you wish to remove this interaction?'
   }
 };

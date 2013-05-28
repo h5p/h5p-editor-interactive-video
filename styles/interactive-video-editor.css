@@ -52,3 +52,25 @@
 .h5p-dragnbar-multichoice-button:before {
   content: "\f046";
 }
+
+.h5p-dialog-buttons {
+  height: 2em;
+}
+.h5p-button {
+  display: block;
+  margin: 0.625em 0 0.625em 0.625em;
+  padding: 0 1em;
+  background: #e6e6e6;
+  border: 1px solid #dcdcdc;
+  border-radius: 0.5em;
+  float: right;
+}
+a.h5p-button:link, a.h5p-button:visited {
+  color: #595655;
+}
+.h5p-button:hover {
+  text-decoration: none;
+}
+.h5p-button.h5p-remove {
+  background: #e6c9c9;
+}
