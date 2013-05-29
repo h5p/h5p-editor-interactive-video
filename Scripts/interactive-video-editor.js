@@ -32,8 +32,14 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       });
     });
 
-    this.params = params;
-    this.setValue = setValue;
+    if (params === undefined) {
+      this.params = [];
+      setValue(field, this.params);
+    }
+    else {
+      this.params = params;
+    }
+
     this.children = [];
 
     this.passReadies = true;
@@ -170,16 +176,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
       that.IV.showDialog();
 
-      // Make room for buttons
-      var $content = that.IV.$dialog.children('.h5p-dialog-interaction');
-      var heightEm = ($content.height() / parseFloat($content.css('fontSize')));
-      $content.css({
-        height: (heightEm - 2) + 'em',
-        width: '100%'
-      });
-
+      // Add dialog buttons
       that.IV.$dialog.children('.h5p-dialog-hide').hide();
-      $('<div class="h5p-dialog-buttons"><a href="#" class="h5p-button h5p-done">' + C.t('done') + '</a><a href="#" class="h5p-button h5p-remove">' + C.t('remove') + '</a></div>').appendTo(that.IV.$dialog).children('.h5p-done').click(function () {
+      var $buttons = $('<div class="h5p-dialog-buttons"><a href="#" class="h5p-button h5p-done">' + C.t('done') + '</a><a href="#" class="h5p-button h5p-remove">' + C.t('remove') + '</a></div>').appendTo(that.IV.$dialog).children('.h5p-done').click(function () {
         if (that.validDialog(id)) {
           that.hideDialog();
         }
@@ -190,6 +189,14 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           that.hideDialog();
         }
         return false;
+      }).end();
+
+      // Make room for buttons
+      var $content = that.IV.$dialog.children('.h5p-dialog-interaction');
+      var fontSize = parseFloat($content.css('fontSize'));
+      $content.css({
+        height: (($content.height() / fontSize) - ($buttons.height() / fontSize)) + 'em',
+        width: '100%'
       });
     });
   };
