@@ -172,7 +172,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }).dblclick(function () {
       var id = $interaction.data('id');
       var $form = that.forms[id];
-      that.IV.$dialog.children('.h5p-dialog-interaction').html('').attr('class', 'h5p-dialog-interaction').append($form);
+      that.IV.$dialog.children('.h5p-dialog-inner').html('<div class="h5p-dialog-interaction"></div>').children().append($form);
 
       that.IV.showDialog();
 
@@ -192,7 +192,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       }).end();
 
       // Make room for buttons
-      var $content = that.IV.$dialog.children('.h5p-dialog-interaction');
+      var $content = that.IV.$dialog.children('.h5p-dialog-inner');
       var fontSize = parseFloat($content.css('fontSize'));
       $content.css({
         height: (($content.height() / fontSize) - ($buttons.height() / fontSize)) + 'em',
@@ -235,7 +235,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    */
   C.prototype.hideDialog = function () {
     this.IV.hideDialog();
-    this.IV.$dialog.children('.h5p-dialog-interaction').css({
+    this.IV.$dialog.children('.h5p-dialog-inner').css({
       height: '',
       width: ''
     });
