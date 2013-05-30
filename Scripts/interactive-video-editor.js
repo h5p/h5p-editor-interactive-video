@@ -92,7 +92,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     // Create new player.
     this.IV = new H5P.InteractiveVideo({
       interactiveVideo: {
-        video: this.video,
+        video: {
+          files: this.video
+        },
         interactions: this.params
       }
     }, H5PEditor.contentId);
