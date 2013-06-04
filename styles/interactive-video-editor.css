@@ -163,3 +163,66 @@ div.field.wizard .h5peditor-tab-interactions:before {
 div.field.wizard .h5peditor-tab-summary:before {
   content: "\f0ca";
 }
+
+div.h5peditor textarea, div.h5peditor input[type="text"], div.h5peditor .ckeditor {
+  border: 1px solid #dbdbdb;
+  border-radius: 0;
+  background: #fff;
+}
+div.h5peditor textarea:focus, div.h5peditor input[type="text"]:focus {
+  background: transparent;
+  border-color: #dbdbdb;
+  box-shadow: 0 0 0.25em #dbdbdb inset;
+}
+.h5peditor .h5peditor-field-description {
+  color: #9d9d9d;
+}
+.h5peditor .h5peditor-label {
+  font-weight: normal;
+}
+.h5peditor span.h5peditor-label:after {
+  content: ":";
+}
+.h5peditor .group {
+  border-radius: 0;
+  border-color: #dedede;
+  box-shadow: none;
+  background: #f9f9f9;
+}
+.h5peditor .group .group {
+  background: #f9f9f9;
+}
+.h5peditor .title {
+  background: #efefef;
+}
+.h5peditor .expanded > .title {
+  border-color: #dedede;
+}
+.h5peditor .h5p-ul .h5p-li {
+  border-radius: 0;
+  border: 1px solid #dedede;
+  background: #efefef;
+}
+.h5peditor .h5p-ul .h5p-li:hover {
+  background: #f9f9f9;
+}
+
+.h5peditor .h5p-ul .h5p-li > .order, .h5peditor .h5p-ul .h5p-li > .remove {
+  background: transparent;
+  border: 0;
+  width: auto;
+  height: auto;
+}
+.h5peditor .h5p-ul .h5p-li > .order:before {
+  font-family: "H5PInteractiveVideoFontAwesome";
+  content: "\f0dc";
+}
+.h5peditor .h5p-ul .h5p-li > .remove:before {
+  font-family: "H5PInteractiveVideoFontAwesome";
+  content: "\f00d";
+  color: #d35f5e;
+}
+.h5peditor .h5p-ul .h5p-li > .order:hover, .h5peditor .h5p-ul .h5p-li > .remove:hover {
+  text-decoration: none;
+}
+
