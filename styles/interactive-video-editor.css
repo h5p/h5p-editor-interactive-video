@@ -46,8 +46,11 @@
 .h5p-dragnbar-image-button:before {
   content: "\f03e";
 }
-.h5p-dragnbar-multichoice-button, .h5p-dragnbar-blanks-button {
+.h5p-dragnbar-summary-button, .h5p-dragnbar-multichoice-button, .h5p-dragnbar-blanks-button {
   background: #ebebeb;
+}
+.h5p-dragnbar-summary-button:before {
+  content: "\f0ca";
 }
 .h5p-dragnbar-multichoice-button:before {
   content: "\f046";
