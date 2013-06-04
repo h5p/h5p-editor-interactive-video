@@ -1,20 +1,20 @@
-.h5peditor-dragnbar {
+.h5p-interactivevideo-editor .h5peditor-dragnbar {
   font-size: 1em;
   overflow: hidden;
   padding: 0.1em 0;
   background: #fff;
 }
-.h5p-dragnbar-ul {
+.h5p-interactivevideo-editor .h5p-dragnbar-ul {
   float: right;
   margin: 0;
   list-style: none;
 }
-.h5p-dragnbar-li {
+.h5p-interactivevideo-editor .h5p-dragnbar-li {
   float: left;
   margin: 0;
   padding: 0;
 }
-.h5p-dragnbar-a {
+.h5p-interactivevideo-editor .h5p-dragnbar-a {
   border: 0.1em dashed #a2a6a2;
   margin-right: 0.1em;
   display: block;
@@ -25,44 +25,44 @@
   background: #e9f1f4;
   font-family: "H5PInteractiveVideoFontAwesome";
 }
-.h5p-dragnbar-a, .h5p-dragnbar-a:visited, .h5p-dragnbar-a:link {
+.h5p-interactivevideo-editor .h5p-dragnbar-a, .h5p-interactivevideo-editor .h5p-dragnbar-a:visited, .h5p-interactivevideo-editor .h5p-dragnbar-a:link {
   color: #969999;
 }
-.h5p-dragnbar-a:before {
+.h5p-interactivevideo-editor .h5p-dragnbar-a:before {
   content: "?";
 }
-.h5p-dragnbar-a:hover {
+.h5p-interactivevideo-editor .h5p-dragnbar-a:hover {
   text-decoration: none;
 }
-.h5p-dragnbar-text-button:before {
+.h5p-interactivevideo-editor .h5p-dragnbar-text-button:before {
   content: "T";
 }
-.h5p-dragnbar-table-button:before {
+.h5p-interactivevideo-editor .h5p-dragnbar-table-button:before {
   content: "\f0ce";
 }
-.h5p-dragnbar-image-button {
+.h5p-interactivevideo-editor .h5p-dragnbar-image-button {
   background: #dce7d6;
 }
-.h5p-dragnbar-image-button:before {
+.h5p-interactivevideo-editor .h5p-dragnbar-image-button:before {
   content: "\f03e";
 }
-.h5p-dragnbar-summary-button, .h5p-dragnbar-multichoice-button, .h5p-dragnbar-blanks-button {
+.h5p-interactivevideo-editor .h5p-dragnbar-summary-button, .h5p-interactivevideo-editor .h5p-dragnbar-multichoice-button, .h5p-interactivevideo-editor .h5p-dragnbar-blanks-button {
   background: #ebebeb;
 }
-.h5p-dragnbar-summary-button:before {
+.h5p-interactivevideo-editor .h5p-dragnbar-summary-button:before {
   content: "\f0ca";
 }
-.h5p-dragnbar-multichoice-button:before {
+.h5p-interactivevideo-editor .h5p-dragnbar-multichoice-button:before {
   content: "\f046";
 }
-.h5p-dragnbar-blanks-button:before {
+.h5p-interactivevideo-editor .h5p-dragnbar-blanks-button:before {
   content: "\f0ae";
 }
 
-.h5p-dialog-buttons {
+.h5p-interactivevideo-editor .h5p-dialog-buttons {
   overflow: hidden;
 }
-.h5p-button {
+.h5p-interactivevideo-editor .h5p-button {
   display: block;
   margin: 0.625em 0 0 0.625em;
   padding: 0 1em;
@@ -71,43 +71,43 @@
   border-radius: 0.5em;
   float: right;
 }
-a.h5p-button:link, a.h5p-button:visited {
+.h5p-interactivevideo-editor a.h5p-button:link, .h5p-interactivevideo-editor a.h5p-button:visited {
   color: #595655;
 }
-.h5p-button:hover {
+.h5p-interactivevideo-editor .h5p-button:hover {
   text-decoration: none;
 }
-.h5p-button.h5p-remove {
+.h5p-interactivevideo-editor .h5p-button.h5p-remove {
   background: #e6c9c9;
 }
-.h5p-interactive-video a:focus {
+.h5p-interactivevideo-editor .h5p-interactive-video a:focus {
   box-shadow: none;
 }
 
-.field.wizard > div.h5peditor-label {
+.h5p-interactivevideo-editor .field.wizard > div.h5peditor-label {
   display: block;
   background: #e9e9e9;
   font-size: 1.5em;
   line-height: 1.5em;
   padding: 0.5em 0.75em;
 }
-.field.wizard > div.h5peditor-label:before {
+.h5p-interactivevideo-editor .field.wizard > div.h5peditor-label:before {
   font-family: "H5PInteractiveVideoFontAwesome";
   margin: 0 0.5em 0 0;
   content: "\f01d";
 }
-.h5peditor-form {
+.h5p-interactivevideo-editor .h5peditor-form {
   border-radius: 0;
   padding: 0;
   background: #fff;
   border: 1px solid #dedede;
 }
-div.field.wizard > .h5peditor-tabs {
+.h5p-interactivevideo-editor div.field.wizard > .h5peditor-tabs {
   margin: 0;
   border-top: 1px solid #dedede;
   border-bottom: 1px solid #dedede;
 }
-div.field.wizard .h5peditor-tab-a {
+.h5p-interactivevideo-editor .field.wizard .h5peditor-tab-a {
   background: #efefef;
   margin: 0;
   color: #666666;
@@ -116,10 +116,10 @@ div.field.wizard .h5peditor-tab-a {
   border-right: 1px #dedede solid;
   text-align: center;
 }
-div.field.wizard .h5peditor-tab-a:last-child {
+.h5p-interactivevideo-editor .field.wizard .h5peditor-tab-a:last-child {
   border-right: 0;
 }
-div.field.wizard .h5peditor-tab-a:before, div.field.wizard .h5peditor-tab-a:after {
+.h5p-interactivevideo-editor .field.wizard .h5peditor-tab-a:before, .h5p-interactivevideo-editor .field.wizard .h5peditor-tab-a:after {
   border: 0;
   position: inherit;
   left: auto;
@@ -129,100 +129,100 @@ div.field.wizard .h5peditor-tab-a:before, div.field.wizard .h5peditor-tab-a:afte
   font-family: "H5PInteractiveVideoFontAwesome";
   margin: 0 0.5em 0 0;
 }
-div.field.wizard .h5peditor-tab-a.h5peditor-active {
+.h5p-interactivevideo-editor .field.wizard .h5peditor-tab-a.h5peditor-active {
   background: #f9f9f9;
   border-top-color: #f9f9f9;
   border-bottom-color: #dddddd;
 }
-.h5peditor .common {
+.h5p-interactivevideo-editor .common {
   background: #fff;
   border-radius: 0;
   margin: 0;
 }
-.h5peditor .common > .h5peditor-label {
+.h5p-interactivevideo-editor .common > .h5peditor-label {
   background: #e9e9e9;
   border-radius: 0;
   border-top: 1px solid #dedede;
   border-bottom: 1px solid #dedede;
 }
-.h5peditor-panes > .field {
+.h5p-interactivevideo-editor .h5peditor-panes > .field {
   margin: 0;
   padding: 0.5em;
 }
-.field.interactiveVideo {
+.h5p-interactivevideo-editor .field.interactiveVideo {
   margin: 0;
   padding: 0;
 }
 
-div.field.wizard .h5peditor-tab-video:before {
-  content: "\f01b";
+.h5p-interactivevideo-editor .field.wizard .h5peditor-tab-video:before {
+  content: "\f093";
 }
-div.field.wizard .h5peditor-tab-interactions:before {
+.h5p-interactivevideo-editor .field.wizard .h5peditor-tab-interactions:before {
   content: "\f08d";
 }
-div.field.wizard .h5peditor-tab-summary:before {
+.h5p-interactivevideo-editor .field.wizard .h5peditor-tab-summary:before {
   content: "\f0ca";
 }
 
-div.h5peditor textarea, div.h5peditor input[type="text"], div.h5peditor .ckeditor {
+.h5p-interactivevideo-editor textarea, .h5p-interactivevideo-editor input[type="text"], .h5p-interactivevideo-editor .ckeditor {
   border: 1px solid #dbdbdb;
   border-radius: 0;
   background: #fff;
 }
-div.h5peditor textarea:focus, div.h5peditor input[type="text"]:focus {
+.h5p-interactivevideo-editor textarea:focus, .h5p-interactivevideo-editor input[type="text"]:focus {
   background: transparent;
   border-color: #dbdbdb;
   box-shadow: 0 0 0.25em #dbdbdb inset;
 }
-.h5peditor .h5peditor-field-description {
+.h5p-interactivevideo-editor .h5peditor-field-description {
   color: #9d9d9d;
 }
-.h5peditor .h5peditor-label {
+.h5p-interactivevideo-editor .h5peditor-label {
   font-weight: normal;
 }
-.h5peditor span.h5peditor-label:after {
+.h5p-interactivevideo-editor span.h5peditor-label:after {
   content: ":";
 }
-.h5peditor .group {
+.h5p-interactivevideo-editor .group {
   border-radius: 0;
   border-color: #dedede;
   box-shadow: none;
   background: #f9f9f9;
 }
-.h5peditor .group .group {
+.h5p-interactivevideo-editor .group .group {
   background: #f9f9f9;
 }
-.h5peditor .title {
+.h5p-interactivevideo-editor .title {
   background: #efefef;
 }
-.h5peditor .expanded > .title {
+.h5p-interactivevideo-editor .expanded > .title {
   border-color: #dedede;
 }
-.h5peditor .h5p-ul .h5p-li {
+.h5p-interactivevideo-editor .h5p-ul .h5p-li {
   border-radius: 0;
   border: 1px solid #dedede;
   background: #efefef;
 }
-.h5peditor .h5p-ul .h5p-li:hover {
+.h5p-interactivevideo-editor .h5p-ul .h5p-li:hover {
   background: #f9f9f9;
 }
 
-.h5peditor .h5p-ul .h5p-li > .order, .h5peditor .h5p-ul .h5p-li > .remove {
+.h5p-interactivevideo-editor .h5p-ul .h5p-li > .order, .h5p-interactivevideo-editor .h5p-ul .h5p-li > .remove {
   background: transparent;
   border: 0;
   width: auto;
   height: auto;
 }
-.h5peditor .h5p-ul .h5p-li > .order:before {
+.h5p-interactivevideo-editor .h5p-ul .h5p-li > .order:before {
   font-family: "H5PInteractiveVideoFontAwesome";
   content: "\f0dc";
 }
-.h5peditor .h5p-ul .h5p-li > .remove:before {
+.h5p-interactivevideo-editor .h5p-ul .h5p-li > .remove:before {
   font-family: "H5PInteractiveVideoFontAwesome";
   content: "\f00d";
   color: #d35f5e;
 }
-.h5peditor .h5p-ul .h5p-li > .order:hover, .h5peditor .h5p-ul .h5p-li > .remove:hover {
+.h5p-interactivevideo-editor .h5p-ul .h5p-li > .order:hover, .h5p-interactivevideo-editor .h5p-ul .h5p-li > .remove:hover {
   text-decoration: none;
 }
 

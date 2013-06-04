@@ -59,17 +59,16 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     // Find field when tree is ready.
     this.parent.ready(function () {
-      var path = that.field.video;
+      var videoField = H5PEditor.findField(that.field.video, that.parent);
 
-      that.field.video = H5PEditor.findField(that.field.video, that.parent);
-      if (!that.field.video) {
-        throw H5PEditor.t('core', 'unknownFieldPath', {':path': path});
+      if (!videoField) {
+        throw H5PEditor.t('core', 'unknownFieldPath', {':path': that.field.video});
       }
-      if (that.field.video.field.type !== 'video') {
-        throw C.t('notVideoField', {':path': path});
+      if (videoField.field.type !== 'video') {
+        throw C.t('notVideoField', {':path': that.field.video});
       }
 
-      callback(that.field.video);
+      callback(videoField);
     });
   };
 
