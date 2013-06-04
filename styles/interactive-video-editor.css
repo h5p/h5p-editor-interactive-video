@@ -80,3 +80,83 @@ a.h5p-button:link, a.h5p-button:visited {
 .h5p-interactive-video a:focus {
   box-shadow: none;
 }
+
+.field.wizard > div.h5peditor-label {
+  display: block;
+  background: #e9e9e9;
+  font-size: 1.5em;
+  line-height: 1.5em;
+  padding: 0.5em 0.75em;
+}
+.field.wizard > div.h5peditor-label:before {
+  font-family: "H5PInteractiveVideoFontAwesome";
+  margin: 0 0.5em 0 0;
+  content: "\f01d";
+}
+.h5peditor-form {
+  border-radius: 0;
+  padding: 0;
+  background: #fff;
+  border: 1px solid #dedede;
+}
+div.field.wizard > .h5peditor-tabs {
+  margin: 0;
+  border-top: 1px solid #dedede;
+  border-bottom: 1px solid #dedede;
+}
+div.field.wizard .h5peditor-tab-a {
+  background: #efefef;
+  margin: 0;
+  color: #666666;
+  border-top: 3px solid #efefef;
+  border-bottom: 3px solid #efefef;
+  border-right: 1px #dedede solid;
+  text-align: center;
+}
+div.field.wizard .h5peditor-tab-a:last-child {
+  border-right: 0;
+}
+div.field.wizard .h5peditor-tab-a:before, div.field.wizard .h5peditor-tab-a:after {
+  border: 0;
+  position: inherit;
+  left: auto;
+  top: auto;
+  width: auto;
+  height: auto;
+  font-family: "H5PInteractiveVideoFontAwesome";
+  margin: 0 0.5em 0 0;
+}
+div.field.wizard .h5peditor-tab-a.h5peditor-active {
+  background: #f9f9f9;
+  border-top-color: #f9f9f9;
+  border-bottom-color: #dddddd;
+}
+.h5peditor .common {
+  background: #fff;
+  border-radius: 0;
+  margin: 0;
+}
+.h5peditor .common > .h5peditor-label {
+  background: #e9e9e9;
+  border-radius: 0;
+  border-top: 1px solid #dedede;
+  border-bottom: 1px solid #dedede;
+}
+.h5peditor-panes > .field {
+  margin: 0;
+  padding: 0.5em;
+}
+.field.interactiveVideo {
+  margin: 0;
+  padding: 0;
+}
+
+div.field.wizard .h5peditor-tab-video:before {
+  content: "\f01b";
+}
+div.field.wizard .h5peditor-tab-interactions:before {
+  content: "\f08d";
+}
+div.field.wizard .h5peditor-tab-summary:before {
+  content: "\f0ca";
+}
