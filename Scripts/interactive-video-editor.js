@@ -78,9 +78,18 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @returns {unresolved}
    */
   C.prototype.setActive = function () {
-    if (this.IV !== undefined) {
+    if (this.IV !== undefined && this.IV.resizeEvent !== undefined) {
+      // A video has been loaded, no need to recreate.
       return;
     }
+
+    // Reset css
+    this.$editor.css({
+      width: '',
+      height: '',
+      fontSize: ''
+    });
+
     if (this.video === undefined) {
       this.$editor.html(C.t('selectVideo')).removeClass('h5p-interactive-video');
       return;
