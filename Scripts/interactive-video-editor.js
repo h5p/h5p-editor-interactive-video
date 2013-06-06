@@ -316,7 +316,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         }
 
         var from = Math.floor(that.IV.video.getTime());
-        var to = from + 20;
+        var to = from + 10;
         var duration = Math.floor(that.IV.video.getDuration());
         var interaction = {
           action: {
