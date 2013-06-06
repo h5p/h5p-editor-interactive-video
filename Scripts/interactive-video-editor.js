@@ -287,7 +287,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @returns {Array}
    */
   C.prototype.getButtons = function () {
-    var options = this.field.field.fields[0].options;
+    var options = this.field.field.fields[4].options;
 
     var buttons = [];
     for (var i = 0; i < options.length; i++) {
