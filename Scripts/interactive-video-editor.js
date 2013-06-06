@@ -309,7 +309,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     return {
       id: id,
-      title: C.t('insertElement', {':type': id}),
+      title: C.t('insertElement', {':type': id === 'summary' ? 'statements' : id }),
       createElement: function () {
         if (that.IV.playing) {
           that.IV.pause(true);
