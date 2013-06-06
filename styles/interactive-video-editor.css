@@ -225,4 +225,6 @@
 .h5p-interactivevideo-editor .h5p-ul .h5p-li > .order:hover, .h5p-interactivevideo-editor .h5p-ul .h5p-li > .remove:hover {
   text-decoration: none;
 }
-
+.h5p-interactivevideo-editor table.h5p-table, .h5p-interactivevideo-editor .h5p-table td, .h5p-interactivevideo-editor .h5p-table th {
+  border: 1px dashed #999;
+}
