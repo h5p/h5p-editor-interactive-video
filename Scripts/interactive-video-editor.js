@@ -190,6 +190,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       that.IV.$dialog.children('.h5p-dialog-hide').hide();
       var $buttons = $('<div class="h5p-dialog-buttons"><a href="#" class="h5p-button h5p-done">' + C.t('done') + '</a><a href="#" class="h5p-button h5p-remove">' + C.t('remove') + '</a></div>').appendTo(that.IV.$dialog).children('.h5p-done').click(function () {
         if (that.validDialog(id)) {
+          that.IV.visibleInteractions[id].remove();
+          delete that.IV.visibleInteractions[id];
+          that.IV.toggleInteraction(id);
           that.hideDialog();
         }
         return false;
@@ -287,7 +290,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @returns {Array}
    */
   C.prototype.getButtons = function () {
-    var options = this.field.field.fields[4].options;
+    var options = this.field.field.fields[5].options;
 
     var buttons = [];
     for (var i = 0; i < options.length; i++) {
