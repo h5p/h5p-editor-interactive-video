@@ -190,13 +190,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       that.IV.$dialog.children('.h5p-dialog-hide').hide();
       var $buttons = $('<div class="h5p-dialog-buttons"><a href="#" class="h5p-button h5p-done">' + C.t('done') + '</a><a href="#" class="h5p-button h5p-remove">' + C.t('remove') + '</a></div>').appendTo(that.IV.$dialog).children('.h5p-done').click(function () {
         if (that.validDialog(id)) {
-          if (that.IV.visibleInteractions[id] !== undefined) {
-            // Remove old visible
-            that.IV.visibleInteractions[id].remove();
-            delete that.IV.visibleInteractions[id];
-          }
-          // Check if we should show again
-          that.IV.toggleInteraction(id);
           that.hideDialog();
         }
         return false;
@@ -235,8 +228,16 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     if (valid) {
       this.forms[id].detach();
+
+      // Remove old visible
+      this.IV.visibleInteractions[id].remove();
+      delete this.IV.visibleInteractions[id];
+
+      // Check if we should show again
       this.IV.toggleInteraction(id);
+
       if (this.dnb.dnd.$coordinates !== undefined) {
+        // Remove that coordinates picker....
         this.dnb.dnd.$coordinates.remove();
         delete this.dnb.dnd.$coordinates;
       }
