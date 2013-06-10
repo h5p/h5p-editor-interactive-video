@@ -23,7 +23,7 @@
   width: 2.25em;
   text-align: center;
   background: #e9f1f4;
-  font-family: "H5PInteractiveVideoFontAwesome";
+  font-family: "H5PFontAwesome";
 }
 .h5p-interactivevideo-editor .h5p-dragnbar-a, .h5p-interactivevideo-editor .h5p-dragnbar-a:visited, .h5p-interactivevideo-editor .h5p-dragnbar-a:link {
   color: #969999;
@@ -92,7 +92,7 @@
   padding: 0.5em 0.75em;
 }
 .h5p-interactivevideo-editor .field.wizard > div.h5peditor-label:before {
-  font-family: "H5PInteractiveVideoFontAwesome";
+  font-family: "H5PFontAwesome";
   margin: 0 0.5em 0 0;
   content: "\f01d";
 }
@@ -126,7 +126,7 @@
   top: auto;
   width: auto;
   height: auto;
-  font-family: "H5PInteractiveVideoFontAwesome";
+  font-family: "H5PFontAwesome";
   margin: 0 0.5em 0 0;
 }
 .h5p-interactivevideo-editor .field.wizard .h5peditor-tab-a.h5peditor-active {
@@ -214,11 +214,11 @@
   height: auto;
 }
 .h5p-interactivevideo-editor .h5p-ul .h5p-li > .order:before {
-  font-family: "H5PInteractiveVideoFontAwesome";
+  font-family: "H5PFontAwesome";
   content: "\f0dc";
 }
 .h5p-interactivevideo-editor .h5p-ul .h5p-li > .remove:before {
-  font-family: "H5PInteractiveVideoFontAwesome";
+  font-family: "H5PFontAwesome";
   content: "\f00d";
   color: #d35f5e;
 }
