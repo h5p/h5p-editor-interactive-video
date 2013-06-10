@@ -114,6 +114,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     // Update params when the element is dropped.
     this.dnb.stopMovingCallback = function (x, y) {
+      that.IV.positionLabel(that.dnb.dnd.$element);
       var params = that.params[that.dnb.dnd.$element.data('id')];
       params.x = x;
       params.y = y;
