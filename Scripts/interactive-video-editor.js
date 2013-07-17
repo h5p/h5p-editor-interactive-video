@@ -392,7 +392,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   C.prototype.appendTo = function ($wrapper) {
     this.$item = $(this.createHtml()).appendTo($wrapper);
     this.$editor = this.$item.children('.h5peditor-interactions');
-    this.$errors = this.$item.children('.errors');
+    this.$errors = this.$item.children('.h5p-errors');
     this.$bar = this.$item.children('.h5peditor-dragnbar');
   };
 
