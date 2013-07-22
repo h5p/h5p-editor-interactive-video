@@ -205,18 +205,27 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
       // Add dialog buttons
       that.IV.$dialog.children('.h5p-dialog-hide').hide();
-      var $buttons = $('<div class="h5p-dialog-buttons"><a href="#" class="h5p-button h5p-done">' + C.t('done') + '</a><a href="#" class="h5p-button h5p-remove">' + C.t('remove') + '</a></div>').appendTo(that.IV.$dialog).children('.h5p-done').click(function () {
-        if (that.validDialog(id)) {
-          that.hideDialog();
-        }
-        return false;
-      }).end().children('.h5p-remove').click(function () {
-        if (confirm(C.t('removeInteraction'))) {
-          that.removeInteraction(id);
-          that.hideDialog();
-        }
-        return false;
-      }).end();
+      var $doneButton = $('<a href="#" class="h5p-button h5p-done">' + C.t('done') + '</a>')
+        .click(function () {
+          if (that.validDialog(id)) {
+            that.hideDialog();
+          }
+          return false;
+        });
+
+      var $removeButton = $('<a href="#" class="h5p-button h5p-remove">' + C.t('remove') + '</a>')
+        .click(function () {
+          if (confirm(C.t('removeInteraction'))) {
+            that.removeInteraction(id);
+            that.hideDialog();
+          }
+          return false;
+        });
+
+      var $buttons = $('<div class="h5p-dialog-buttons"></div>')
+        .append($doneButton)
+        .append($removeButton)
+        .appendTo(that.IV.$dialog);
 
       // Make room for buttons
       var $content = that.IV.$dialog.children('.h5p-dialog-inner');
