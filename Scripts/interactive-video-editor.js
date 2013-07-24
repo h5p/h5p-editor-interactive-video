@@ -207,6 +207,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       that.IV.$dialog.children('.h5p-dialog-hide').hide();
       var $doneButton = $('<a href="#" class="h5p-button h5p-done">' + C.t('done') + '</a>')
         .click(function () {
+          // Need to do this before validDialog is run. (Hence it is not in the hideDialog function)
+          if (H5PEditor.Html) {
+            H5PEditor.Html.removeWysiwyg();
+          }
           if (that.validDialog(id)) {
             that.hideDialog();
           }
@@ -215,6 +219,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
       var $removeButton = $('<a href="#" class="h5p-button h5p-remove">' + C.t('remove') + '</a>')
         .click(function () {
+          // Need to do this before validDialog is run. (Hence it is not in the hideDialog function)
+          if (H5PEditor.Html) {
+            H5PEditor.Html.removeWysiwyg();
+          }
           if (confirm(C.t('removeInteraction'))) {
             that.removeInteraction(id);
             that.hideDialog();
