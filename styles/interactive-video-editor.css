@@ -34,6 +34,9 @@
 .h5p-interactivevideo-editor .h5p-dragnbar-a:hover {
   text-decoration: none;
 }
+.h5p-interactivevideo-editor .h5p-dragnbar-nil-button:before {
+  content: "\f146";
+}
 .h5p-interactivevideo-editor .h5p-dragnbar-text-button:before {
   content: "T";
 }

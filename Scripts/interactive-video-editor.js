@@ -375,6 +375,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           }
         };
 
+        if (interaction.action.library === 'H5P.Nil 1.0') {
+          interaction.label = 'Lorem ipsum dolor sit amet...';
+        }
+
         that.params.push(interaction);
         var i = that.params.length - 1;
         that.processInteraction(i);
