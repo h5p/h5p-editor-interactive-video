@@ -2,10 +2,14 @@
   "title": "H5PEditor.InteractiveVideo",
   "majorVersion": 1,
   "minorVersion": 0,
-  "patchVersion": 6,
+  "patchVersion": 7,
   "runnable": 0,
   "machineName": "H5PEditor.InteractiveVideo",
   "author": "Frode Petterson",
+  "coreApi": {
+    "majorVersion": 1,
+    "minorVersion": 1
+  },
   "preloadedJs": [
     {
       "path": "Scripts/interactive-video-editor.js"
