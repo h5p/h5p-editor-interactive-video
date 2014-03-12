@@ -49,7 +49,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     parent.ready(function () {
       that.passReadies = false;
     });
-  };
+  }
 
   /**
    * Find the video field to use for the video, then run the callback.
@@ -166,7 +166,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     
     var $bookmark = this.IV.addBookmark(i, tenth);
     $bookmark.addClass('h5p-show');
-  }
+  };
   
   /**
    * Gets called whenever a bookmark is added to the UI.
@@ -208,7 +208,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         .focus();
       console.log($text.html());
     });
-  }
+  };
 
   /**
    *
