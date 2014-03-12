@@ -1,8 +1,8 @@
 {
   "title": "H5PEditor.InteractiveVideo",
   "majorVersion": 1,
-  "minorVersion": 0,
-  "patchVersion": 6,
+  "minorVersion": 1,
+  "patchVersion": 0,
   "runnable": 0,
   "machineName": "H5PEditor.InteractiveVideo",
   "author": "Frode Petterson",
@@ -45,7 +45,7 @@
     {
       "machineName": "H5P.InteractiveVideo",
       "majorVersion": 1,
-      "minorVersion": 0
+      "minorVersion": 1
     },
     {
       "machineName": "H5P.Summary",

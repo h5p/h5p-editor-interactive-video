@@ -240,3 +240,52 @@
   border-top: 0;
   line-height: 100%;
 }
+
+.h5p-interactivevideo-editor .h5p-add-bookmark {
+  padding: 0 12px 8px;
+  color: #fefefe;
+  display: block;
+  font-style: italic;
+}
+.h5p-interactivevideo-editor .h5p-add-bookmark:hover {
+  text-decoration: none;
+  color: #dbd7d1;
+}
+.h5p-interactivevideo-editor .h5p-add-bookmark:before {
+  font-family: H5PFontAwesome4;
+  content: "\f055";
+  margin-right: 8px;
+  font-style: normal;
+}
+.h5p-interactivevideo-editor .h5p-bookmark .h5p-bookmark-label {
+  padding-right: 30px;
+}
+.h5p-interactivevideo-editor .h5p-remove-bookmark:before {
+  font-family: H5PFontAwesome4;
+  content: "\f057";
+  color: #fefefe;
+  position: absolute;
+  top: 0;
+  right: 8px;
+}
+.h5p-interactivevideo-editor .h5p-remove-bookmark:hover:before {
+  color: #dbd7d1;
+}
+.h5p-interactivevideo-editor .h5p-bookmark.h5p-force-show .h5p-bookmark-label {
+  visibility: visible;
+  opacity: 1;
+}
+.h5p-interactivevideo-editor input[type="text"].h5p-bookmark-input {
+  background: transparent;
+  border: 0;
+  color: #fefefe;
+  outline: none;
+  font-size: 1em;
+  box-shadow: none;
+  margin: 0;
+}
+.h5p-interactivevideo-editor .h5p-bookmark-input:before {
+  font-family: H5PFontAwesome4;
+  content: "\f02e";
+  margin-right: 8px;
+}
