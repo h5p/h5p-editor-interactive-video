@@ -214,6 +214,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           if (that.validDialog(id)) {
             that.hideDialog();
           }
+          that.IV.drawSliderInteractions();
           return false;
         });
 
@@ -227,6 +228,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
             that.removeInteraction(id);
             that.hideDialog();
           }
+          that.IV.drawSliderInteractions();
           return false;
         });
 
