@@ -140,7 +140,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * Add bookmark
    */
   C.prototype.addBookmark = function () {
-    this.IV.controls.$bookmarksChooser.removeClass('h5p-show');
     var time = this.IV.video.getTime();
     
     // Find out where to place the bookmark
@@ -156,6 +155,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       return; // Not space for another bookmark.
     }
     
+    // Hide dialog
+    this.IV.controls.$bookmarksChooser.removeClass('h5p-show');
+    
     // Move other increament other ids.
     this.IV.$.trigger('bookmarksChanged', [i, 1]);
     
@@ -166,6 +168,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     
     var $bookmark = this.IV.addBookmark(i, tenth);
     $bookmark.addClass('h5p-show');
+    $bookmark.find('.h5p-bookmark-text').click();
   };
   
   /**
@@ -184,14 +187,14 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         return false;
       });
       
-    // TODO: Click to edit label.
+    // Click to edit label.
     var $text = $bookmark.find('.h5p-bookmark-text').click(function () {
       if ($bookmark.hasClass('h5p-force-show')) {
         return; // Double click
       }
       $bookmark.addClass('h5p-force-show');
 
-      var $input = $text.html('<input type="text" class="h5p-bookmark-input" style="width:' + ($text.width() - 18) + 'px" maxlength="255" value="' + $text.text() + '"/>')
+      var $input = $text.html('<input type="text" class="h5p-bookmark-input" style="width:' + ($text.width() - 19) + 'px" maxlength="255" value="' + $text.text() + '"/>')
         .children()
         .blur(function () {
           var newText = $input.val();
@@ -205,8 +208,17 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           self.params.bookmarks[id].label = newText;
           self.IV.controls.$bookmarksChooser.find('li:eq(' + id + ')').text(newText);
         })
+        .keydown(function (event) {
+          if (event.which === 13) {
+            $input.blur();
+          }
+        })
         .focus();
-      console.log($text.html());
+        
+      if ($input.val() === C.t('newBookmark')) {
+        // Delete default value when editing
+        $input.val('');
+      }
     });
   };
 
