@@ -284,7 +284,10 @@
   box-shadow: none;
   margin: 0;
 }
-.h5p-interactivevideo-editor .h5p-bookmark-input:before {
+.h5p-interactivevideo-editor input[type="text"].h5p-bookmark-input::-ms-clear {
+  display: none;
+}
+.h5p-interactivevideo-editor .h5p-bookmark-text:before {
   font-family: H5PFontAwesome4;
   content: "\f02e";
   margin-right: 8px;

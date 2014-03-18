@@ -209,12 +209,16 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       });
       
     // Click to edit label.
-    var $text = $bookmark.find('.h5p-bookmark-text').click(function () {
+    $bookmark.find('.h5p-bookmark-text').click(function () {
       if ($bookmark.hasClass('h5p-force-show')) {
         return; // Double click
       }
       $bookmark.addClass('h5p-force-show');
-
+      var $text = $(this);
+      
+      /* This is a IE-fix. Without this, text is not shown when editing */
+      $text.css({overflow: 'visible'});
+      
       var $input = $text.html('<input type="text" class="h5p-bookmark-input" style="width:' + ($text.width() - 19) + 'px" maxlength="255" value="' + $text.text() + '"/>')
         .children()
         .blur(function () {
@@ -224,6 +228,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           }
           $text.text(newText);
           $bookmark.removeClass('h5p-force-show').mouseover().mouseout();
+          $text.css({overflow: 'hidden'});
           
           var id = $bookmark.data('id');
           self.params.bookmarks[id].label = newText;
