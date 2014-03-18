@@ -153,7 +153,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     var tenth = Math.floor(time * 10) / 10;
     if (this.IV.bookmarksMap[tenth] !== undefined) {
       // Create warning:
-      this.displayMessage(C.t('bookmarkAllreadyExists'));
+      this.displayMessage(C.t('bookmarkAlreadyExists'));
       return; // Not space for another bookmark.
     }
     
@@ -177,14 +177,19 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * Display a popup containing a message.
    */
   C.prototype.displayMessage = function (message) {
+    var timeout = undefined;
     var $warning = $('<div/>', {
       'class': 'h5p-iv-message-popup',
-      text: message
+      text: message,
+      click: function () {
+        clearTimeout(timeout);
+        $warning.remove();
+      }
     }).appendTo(this.$editor);
     
-    setTimeout(function(){
+    timeout = setTimeout(function(){
       $warning.remove();
-    }, 2000);
+    }, 3000);
   };
   
   /**
@@ -602,6 +607,6 @@ H5PEditor.language['H5PEditor.InteractiveVideo'] = {
     removeInteraction: 'Are you sure you wish to remove this interaction?',
     addBookmark: 'Add bookmark',
     newBookmark: 'New bookmark',
-    bookmarkAllreadyExists: 'Bookmark allready exists here. Move playhead and add a bookmark at another time.'
+    bookmarkAlreadyExists: 'Bookmark already exists here. Move playhead and add a bookmark at another time.'
   }
 };
