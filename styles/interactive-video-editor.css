@@ -284,8 +284,32 @@
   box-shadow: none;
   margin: 0;
 }
-.h5p-interactivevideo-editor .h5p-bookmark-input:before {
+.h5p-interactivevideo-editor input[type="text"].h5p-bookmark-input::-ms-clear {
+  display: none;
+}
+.h5p-interactivevideo-editor .h5p-bookmark-text:before {
   font-family: H5PFontAwesome4;
   content: "\f02e";
   margin-right: 8px;
+}
+.h5p-interactivevideo-editor .h5p-iv-message-popup {
+  position: absolute;
+  bottom: 36px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  padding: .3em;
+  z-index: 11;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  border-top: 1px solid #ffcd0d;
+  background-color: #fcffcc;
+  text-align: center;
+  font-size: .6em;
+}
+.h5p-interactivevideo-editor .h5p-iv-message-popup:before {
+  font-family: "H5PFontAwesome";
+  content: '\f05a';
+  padding-right: .3em;
+  font-size: 1.1em;
 }

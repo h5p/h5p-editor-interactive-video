@@ -152,6 +152,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     
     var tenth = Math.floor(time * 10) / 10;
     if (this.IV.bookmarksMap[tenth] !== undefined) {
+      // Create warning:
+      this.displayMessage(C.t('bookmarkAlreadyExists'));
       return; // Not space for another bookmark.
     }
     
@@ -172,6 +174,25 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   };
   
   /**
+   * Display a popup containing a message.
+   */
+  C.prototype.displayMessage = function (message) {
+    var timeout = undefined;
+    var $warning = $('<div/>', {
+      'class': 'h5p-iv-message-popup',
+      text: message,
+      click: function () {
+        clearTimeout(timeout);
+        $warning.remove();
+      }
+    }).appendTo(this.$editor);
+    
+    timeout = setTimeout(function(){
+      $warning.remove();
+    }, 3000);
+  };
+  
+  /**
    * Gets called whenever a bookmark is added to the UI.
    */
   C.prototype.bookmarkAdded = function ($bookmark) {
@@ -188,12 +209,16 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       });
       
     // Click to edit label.
-    var $text = $bookmark.find('.h5p-bookmark-text').click(function () {
+    $bookmark.find('.h5p-bookmark-text').click(function () {
       if ($bookmark.hasClass('h5p-force-show')) {
         return; // Double click
       }
       $bookmark.addClass('h5p-force-show');
-
+      var $text = $(this);
+      
+      /* This is a IE-fix. Without this, text is not shown when editing */
+      $text.css({overflow: 'visible'});
+      
       var $input = $text.html('<input type="text" class="h5p-bookmark-input" style="width:' + ($text.width() - 19) + 'px" maxlength="255" value="' + $text.text() + '"/>')
         .children()
         .blur(function () {
@@ -203,6 +228,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           }
           $text.text(newText);
           $bookmark.removeClass('h5p-force-show').mouseover().mouseout();
+          $text.css({overflow: 'hidden'});
           
           var id = $bookmark.data('id');
           self.params.bookmarks[id].label = newText;
@@ -585,6 +611,7 @@ H5PEditor.language['H5PEditor.InteractiveVideo'] = {
     remove: 'Remove',
     removeInteraction: 'Are you sure you wish to remove this interaction?',
     addBookmark: 'Add bookmark',
-    newBookmark: 'New bookmark'
+    newBookmark: 'New bookmark',
+    bookmarkAlreadyExists: 'Bookmark already exists here. Move playhead and add a bookmark at another time.'
   }
 };
