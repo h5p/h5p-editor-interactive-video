@@ -6,6 +6,10 @@
   "runnable": 0,
   "machineName": "H5PEditor.InteractiveVideo",
   "author": "Frode Petterson",
+  "coreApi": {
+    "majorVersion": 1,
+    "minorVersion": 1
+  },
   "preloadedJs": [
     {
       "path": "Scripts/interactive-video-editor.js"
