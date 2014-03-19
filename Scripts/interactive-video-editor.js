@@ -124,7 +124,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     if (this.forms === undefined) {
       // Process semantics to make forms
       this.forms = [];
-      for (var i = 0; i < this.params.length; i++) {
+      for (var i = 0; i < this.params.interactions.length; i++) {
         this.processInteraction(i);
       }
     }
@@ -261,7 +261,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     // Update params when the element is dropped.
     this.dnb.stopMovingCallback = function (x, y) {
       that.IV.positionLabel(that.dnb.dnd.$element);
-      var params = that.params[that.dnb.dnd.$element.data('id')];
+      var params = that.params.interactions[that.dnb.dnd.$element.data('id')];
       params.x = x;
       params.y = y;
     };
@@ -293,7 +293,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     var tmpChildren = this.children;
 
     var $form = H5P.jQuery('<div></div>');
-    H5PEditor.processSemanticsChunk(this.field.fields[0].field.fields, this.params[index], $form, this);
+    H5PEditor.processSemanticsChunk(this.field.fields[0].field.fields, this.params.interactions[index], $form, this);
     $form.children('.library:first').children('label, select').hide().end().children('.libwrap').css('margin-top', '0');
 
     tmpChildren[index] = this.children;
@@ -338,7 +338,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           if (that.validDialog(id)) {
             that.hideDialog();
           }
-          that.IV.drawSliderInteractions();
+          that.IV.addSliderInteractions();
           return false;
         });
 
@@ -352,7 +352,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
             that.removeInteraction(id);
             that.hideDialog();
           }
-          that.IV.drawSliderInteractions();
+          that.IV.addSliderInteractions();
           return false;
         });
 
@@ -437,14 +437,14 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    */
   C.prototype.removeInteraction = function (id) {
     this.forms.splice(id, 1);
-    this.params.splice(id, 1);
+    this.params.interactions.splice(id, 1);
     H5PEditor.removeChildren(this.children[id]);
     this.children.splice(id, 1);
     this.IV.visibleInteractions[id].remove();
     this.IV.visibleInteractions.splice(id, 1);
 
     // Update ids
-    for (var i = 0; i < this.params.length; i++) {
+    for (var i = 0; i < this.params.interactions.length; i++) {
       if (this.IV.visibleInteractions[i] !== undefined) {
         this.IV.visibleInteractions[i].data('id', i);
       }
@@ -505,8 +505,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           interaction.label = 'Lorem ipsum dolor sit amet...';
         }
 
-        that.params.push(interaction);
-        var i = that.params.length - 1;
+        that.params.interactions.push(interaction);
+        var i = that.params.interactions.length - 1;
         that.processInteraction(i);
         return that.IV.toggleInteraction(i, from);
       }
