@@ -399,7 +399,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     this.video = files;
 
     if (this.IV !== undefined) {
-      this.IV.remove();
       delete this.IV;
 
       this.removeCoordinatesPicker();
