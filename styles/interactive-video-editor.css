@@ -89,7 +89,9 @@
 .h5p-interactivevideo-editor .h5p-interactive-video a:focus {
   box-shadow: none;
 }
-
+.h5p-interactivevideo-editor .h5p-interactive-video .h5p-interaction-label:hover {
+  cursor: pointer;
+}
 .h5p-interactivevideo-editor .tree > .field.wizard > div.h5peditor-label {
   display: block;
   background: #e9e9e9;
