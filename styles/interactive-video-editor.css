@@ -43,6 +43,9 @@
 .h5p-interactivevideo-editor .h5p-dragnbar-table-button:before {
   content: "\f0ce";
 }
+.h5p-interactivevideo-editor .h5p-dragnbar-link-button:before {
+  content: "\f0c1";
+}
 .h5p-interactivevideo-editor .h5p-dragnbar-image-button {
   background: #dce7d6;
 }
