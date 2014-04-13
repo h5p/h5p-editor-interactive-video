@@ -313,7 +313,7 @@
   font-size: .6em;
 }
 .h5p-interactivevideo-editor .h5p-iv-message-popup:before {
-  font-family: "H5PFontAwesome";
+  font-family: "H5PFontAwesome4";
   content: '\f05a';
   padding-right: .3em;
   font-size: 1.1em;
