@@ -2,7 +2,7 @@
   "title": "H5PEditor.InteractiveVideo",
   "majorVersion": 1,
   "minorVersion": 1,
-  "patchVersion": 2,
+  "patchVersion": 3,
   "runnable": 0,
   "machineName": "H5PEditor.InteractiveVideo",
   "author": "Frode Petterson",
@@ -21,6 +21,11 @@
     }
   ],
   "preloadedDependencies": [
+    {
+      "machineName": "FontAwesome",
+      "majorVersion": 4,
+      "minorVersion": 1
+    },
     {
       "machineName": "H5P.DragNBar",
       "majorVersion": 1,
