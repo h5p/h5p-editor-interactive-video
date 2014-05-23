@@ -23,7 +23,7 @@
   width: 2.25em;
   text-align: center;
   background: #e9f1f4;
-  font-family: H5PFontAwesome4;
+  font-family: 'H5PFontAwesome4';
 }
 .h5p-interactivevideo-editor .h5p-dragnbar-a, .h5p-interactivevideo-editor .h5p-dragnbar-a:visited, .h5p-interactivevideo-editor .h5p-dragnbar-a:link {
   color: #969999;
@@ -103,7 +103,7 @@
   padding: 0.5em 0.75em;
 }
 .h5p-interactivevideo-editor .tree > .field.wizard > div.h5peditor-label:before {
-  font-family: H5PFontAwesome4;
+  font-family: 'H5PFontAwesome4';
   margin: 0 0.5em 0 0;
   content: "\f01d";
 }
@@ -142,7 +142,7 @@
   top: auto;
   width: auto;
   height: auto;
-  font-family: H5PFontAwesome4;
+  font-family: 'H5PFontAwesome4';
   margin: 0 0.5em 0 0;
 }
 .h5p-interactivevideo-editor .field.wizard .h5peditor-tab-a.h5peditor-active {
