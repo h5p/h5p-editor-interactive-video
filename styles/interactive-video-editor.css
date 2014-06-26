@@ -90,12 +90,11 @@
 }
 
 .h5p-interactivevideo-editor .h5p-button.h5p-remove {
-  color: #696969;
-  background: rgba(234,234,234,1);
+  color: #646464;
+  background: #e2e2e2;
 }
-
 .h5p-interactivevideo-editor .h5p-button.h5p-remove:hover {
-  background: rgba(219,219,219,1);
+  background: #ededed;
 }
 
 .h5p-interactivevideo-editor .h5p-interactive-video a:focus {
