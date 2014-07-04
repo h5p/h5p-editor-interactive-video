@@ -536,6 +536,12 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @returns {undefined}
    */
   C.prototype.appendTo = function ($wrapper) {
+    // Added to support older versions of core. Needed when using IV in CP.
+    var $libwrap = $wrapper.parent().parent();
+    if ($libwrap.hasClass('libwrap')) {
+      $libwrap.addClass('h5p-interactivevideo-editor');
+    }
+    
     this.$item = $(this.createHtml()).appendTo($wrapper);
     this.$editor = this.$item.children('.h5peditor-interactions');
     this.$errors = this.$item.children('.h5p-errors');
