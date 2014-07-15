@@ -326,3 +326,7 @@
   padding-right: .3em;
   font-size: 1.1em;
 }
+
+.h5p-interactivevideo-editor .h5p-interaction:focus {
+  outline: none;
+}
