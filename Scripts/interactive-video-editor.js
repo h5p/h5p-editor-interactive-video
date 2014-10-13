@@ -110,7 +110,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       }
     }, H5PEditor.contentId);
     this.IV.editor = this; // TODO: Remove this and rely on events! (that's how JS is meant to be played)
-    this.IV.$.on('bookmarkAdded', function (event, $bookmark) {
+    this.IV.registerH5PEventListener('bookmarkAdded', function (event, $bookmark) {
       that.bookmarkAdded($bookmark);
     });
     this.IV.attach(this.$editor);
@@ -161,7 +161,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     this.IV.controls.$bookmarksChooser.removeClass('h5p-show');
     
     // Move other increament other ids.
-    this.IV.$.trigger('bookmarksChanged', [i, 1]);
+    this.IV.triggerH5PEvent('bookmarksChanged', [i, 1]);
     
     this.params.bookmarks.splice(i, 0, {
       time: time,
@@ -203,7 +203,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       .click(function () {
         var id = $bookmark.data('id');
         self.params.bookmarks.splice(id, 1);
-        self.IV.$.trigger('bookmarksChanged', [id, -1]);
+        self.IV.triggerH5PEvent('bookmarksChanged', [id, -1]);
         $bookmark.remove();
         return false;
       });
