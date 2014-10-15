@@ -450,7 +450,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   C.prototype.getButtons = function (libraries) {
     var buttons = [];
     for (var i = 0; i < libraries.length; i++) {
-      buttons.push(this.getButton(libraries[i]));
+      if (libraries[i].restricted === undefined || !libraries[i].restricted) {
+        buttons.push(this.getButton(libraries[i]));
+      }
     }
 
     return buttons;
