@@ -126,8 +126,6 @@
   border: none;
   color: #e40000;
 }
-
-
 .h5p-interactivevideo-editor .h5p-interactive-video a:focus {
   box-shadow: none;
 }
@@ -140,6 +138,7 @@
   font-size: 1.5em;
   line-height: 1.5em;
   padding: 0.5em 0.75em;
+  color: #444;
 }
 .h5p-interactivevideo-editor .tree > .field.wizard > div.h5peditor-label:before {
   font-family: 'H5PFontAwesome4';
@@ -215,15 +214,14 @@
   margin: 0;
   padding: 0;
 }
-
 .h5p-interactivevideo-editor .field.wizard .h5peditor-tab-video:before {
-  content: "\f093";
+  content: "1";
 }
 .h5p-interactivevideo-editor .field.wizard .h5peditor-tab-assets:before {
-  content: "\f08d";
+  content: "2";
 }
 .h5p-interactivevideo-editor .field.wizard .h5peditor-tab-summary:before {
-  content: "\f0ca";
+  content: "3";
 }
 
 .h5p-interactivevideo-editor textarea, .h5p-interactivevideo-editor input[type="text"], .h5p-interactivevideo-editor .ckeditor {
