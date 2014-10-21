@@ -75,27 +75,42 @@
 .h5p-interactivevideo-editor .h5p-button {
   display: block;
   margin: 0.625em 0 0 0.625em;
-  border-radius: 0;
-  border: none;
   box-shadow: none;
-  color: rgba(255,255,255,1);
-  background: rgba(38,102,166,1);
-  padding: 0.4em 1.5em;
+  padding: 0.2em 0.75em;
   float: right;
-  transition: background 0.15s ease, color 0.15s ease;
+  background: #f2f2f2;
+  background: -webkit-linear-gradient(top,#fff 0,#f2f2f2 100%);
+  background: -moz-linear-gradient(top,#fff 0,#f2f2f2 100%);
+  background: -ms-linear-gradient(top,#fff 0,#f2f2f2 100%);
+  background: -o-linear-gradient(top,#fff 0,#f2f2f2 100%);
+  border: 1px solid #ccc;
+  border-radius: 0.25em;
+  font-size: 0.75em;
+  color: #333;    
+  cursor: pointer;
 }
 
 .h5p-interactivevideo-editor .h5p-button:hover {
   text-decoration: none;
-  background: rgba(30,83,145,1);
+  text-decoration: none;
+  border-color: #999;
 }
 
-.h5p-interactivevideo-editor .h5p-button.h5p-remove {
-  color: #646464;
-  background: #e2e2e2;
+.h5p-interactivevideo-editor .h5p-button.h5p-done {
+  color: #fff;
+  background: #3673B5;
+  background: -webkit-linear-gradient(top,#5A94D3 0,#3673B5 100%);
+  background: -moz-linear-gradient(top,#5A94D3 0,#3673B5 100%);
+  background: -ms-linear-gradient(top,#5A94D3 0,#3673B5 100%);
+  background: -o-linear-gradient(top,#5A94D3 0,#3673B5 100%);
+  border-color: #20588F;
 }
-.h5p-interactivevideo-editor .h5p-button.h5p-remove:hover {
-  background: #ededed;
+.h5p-interactivevideo-editor .h5p-button.h5p-done:hover {
+  background: #3275bc;
+  background: -webkit-linear-gradient(top,#3275bc 0,#285585 100%);
+  background: -moz-linear-gradient(top,#3275bc 0,#285585 100%);
+  background: -ms-linear-gradient(top,#3275bc 0,#285585 100%);
+  background: -o-linear-gradient(top,#3275bc 0,#285585 100%);
 }
 
 .h5p-interactivevideo-editor .h5p-interactive-video a:focus {
@@ -241,7 +256,7 @@
   border: 0;
   width: auto;
   height: auto;
-  font-size: 1.2em;
+  font-size: 1.5em;
 }
 
 .h5p-interactivevideo-editor .h5p-ul .h5p-li > .order:hover, .h5p-interactivevideo-editor .h5p-ul .h5p-li > .remove:hover {
