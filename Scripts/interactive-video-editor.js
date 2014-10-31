@@ -128,7 +128,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         this.processInteraction(i);
       }
     }
-    
+
     // Add "Add bookmark" to bookmarks menu.
     $('<a href="#" class="h5p-add-bookmark">' + C.t('addBookmark') + '</a>').appendTo(that.IV.controls.$bookmarksChooser).click(function () {
       that.addBookmark();
@@ -141,7 +141,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    */
   C.prototype.addBookmark = function () {
     var time = this.IV.video.getTime();
-    
+
     // Find out where to place the bookmark
     for (var i = 0; i < this.params.bookmarks.length; i++) {
       if (this.params.bookmarks[i].time > time) {
@@ -149,30 +149,30 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         break;
       }
     }
-    
+
     var tenth = Math.floor(time * 10) / 10;
     if (this.IV.bookmarksMap[tenth] !== undefined) {
       // Create warning:
       this.displayMessage(C.t('bookmarkAlreadyExists'));
       return; // Not space for another bookmark.
     }
-    
+
     // Hide dialog
     this.IV.controls.$bookmarksChooser.removeClass('h5p-show');
-    
+
     // Move other increament other ids.
     this.IV.$.trigger('bookmarksChanged', [i, 1]);
-    
+
     this.params.bookmarks.splice(i, 0, {
       time: time,
       label: C.t('newBookmark')
     });
-    
+
     var $bookmark = this.IV.addBookmark(i, tenth);
     $bookmark.addClass('h5p-show');
     $bookmark.find('.h5p-bookmark-text').click();
   };
-  
+
   /**
    * Display a popup containing a message.
    */
@@ -186,18 +186,18 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         $warning.remove();
       }
     }).appendTo(this.$editor);
-    
+
     timeout = setTimeout(function(){
       $warning.remove();
     }, 3000);
   };
-  
+
   /**
    * Gets called whenever a bookmark is added to the UI.
    */
   C.prototype.bookmarkAdded = function ($bookmark) {
     var self = this;
-    
+
     $('<a class="h5p-remove-bookmark" href="#"></a>')
       .appendTo($bookmark.find('.h5p-bookmark-label'))
       .click(function () {
@@ -207,7 +207,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         $bookmark.remove();
         return false;
       });
-      
+
     // Click to edit label.
     $bookmark.find('.h5p-bookmark-text').click(function () {
       if ($bookmark.hasClass('h5p-force-show')) {
@@ -215,10 +215,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       }
       $bookmark.addClass('h5p-force-show');
       var $text = $(this);
-      
+
       /* This is a IE-fix. Without this, text is not shown when editing */
       $text.css({overflow: 'visible'});
-      
+
       var $input = $text.html('<input type="text" class="h5p-bookmark-input" style="width:' + ($text.width() - 19) + 'px" maxlength="255" value="' + $text.text() + '"/>')
         .children()
         .blur(function () {
@@ -229,7 +229,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           $text.text(newText);
           $bookmark.removeClass('h5p-force-show').mouseover().mouseout();
           $text.css({overflow: 'hidden'});
-          
+
           var id = $bookmark.data('id');
           self.params.bookmarks[id].label = newText;
           self.IV.controls.$bookmarksChooser.find('li:eq(' + id + ')').text(newText);
@@ -240,7 +240,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           }
         })
         .focus();
-        
+
       if ($input.val() === C.t('newBookmark')) {
         // Delete default value when editing
         $input.val('');
@@ -314,7 +314,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     if (that.dnb !== undefined) {
       that.dnb.add($interaction);
     }
-      
+
     $interaction.mousedown(function (event) {
       if (that.dnb !== undefined && that.IV.playing) {
         that.IV.pause(true);
@@ -394,7 +394,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
       // Check if we should show again
       this.IV.toggleInteraction(id);
-      
+
       this.dnb.blur();
     }
 
@@ -436,7 +436,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         this.IV.visibleInteractions[i].data('id', i);
       }
     }
-    
+
     if (this.dnb !== undefined) {
       this.dnb.blur();
     }
@@ -450,7 +450,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   C.prototype.getButtons = function (libraries) {
     var buttons = [];
     for (var i = 0; i < libraries.length; i++) {
-      buttons.push(this.getButton(libraries[i]));
+      if (libraries[i].restricted === undefined || !libraries[i].restricted) {
+        buttons.push(this.getButton(libraries[i]));
+      }
     }
 
     return buttons;
@@ -523,6 +525,12 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @returns {undefined}
    */
   C.prototype.appendTo = function ($wrapper) {
+    // Added to support older versions of core. Needed when using IV in CP.
+    var $libwrap = $wrapper.parent().parent();
+    if ($libwrap.hasClass('libwrap')) {
+      $libwrap.addClass('h5p-interactivevideo-editor');
+    }
+
     this.$item = $(this.createHtml()).appendTo($wrapper);
     this.$editor = this.$item.children('.h5peditor-interactions');
     this.$errors = this.$item.children('.h5p-errors');
