@@ -78,7 +78,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @returns {unresolved}
    */
   C.prototype.setActive = function () {
-    if (this.IV !== undefined && this.IV.resizeEvent !== undefined) {
+    if (this.IV !== undefined) { // TODO: Check if video is loaded somehow?
       // A video has been loaded, no need to recreate.
       return;
     }
@@ -187,15 +187,14 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   C.prototype.newInteraction = function ($interaction) {
     var that = this;
 
+    if (that.dnb !== undefined) {
+      that.dnb.add($interaction);
+    }
+      
     $interaction.mousedown(function (event) {
-      if (that.dnb === undefined) {
-        return false;
-      }
-      if (that.IV.playing) {
+      if (that.dnb !== undefined && that.IV.playing) {
         that.IV.pause(true);
       }
-      that.dnb.dnd.press($interaction, event.pageX, event.pageY);
-      return false;
     }).dblclick(function () {
       var id = $interaction.data('id');
       var $form = that.forms[id];
@@ -271,23 +270,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
       // Check if we should show again
       this.IV.toggleInteraction(id);
-
-      this.removeCoordinatesPicker();
+      
+      this.dnb.blur();
     }
 
     return valid;
-  };
-
-  /**
-   * Removes that fine coordinates picker.....
-   *
-   * @returns {undefined}
-   */
-  C.prototype.removeCoordinatesPicker = function () {
-    if (this.dnb !== undefined && this.dnb.dnd.$coordinates !== undefined) {
-      this.dnb.dnd.$coordinates.remove();
-      delete this.dnb.dnd.$coordinates;
-    }
   };
 
   /**
@@ -325,8 +312,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         this.IV.visibleInteractions[i].data('id', i);
       }
     }
-
-    this.removeCoordinatesPicker();
+    
+    if (this.dnb !== undefined) {
+      this.dnb.blur();
+    }
   };
 
   /**
@@ -399,10 +388,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     this.video = files;
 
     if (this.IV !== undefined) {
-      this.IV.remove();
       delete this.IV;
-
-      this.removeCoordinatesPicker();
     }
   };
 
