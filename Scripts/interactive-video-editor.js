@@ -33,7 +33,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     });
 
     if (params === undefined) {
-      this.params = [];
+      this.params = {
+        interactions: [],
+        bookmarks: []
+      };
       setValue(field, this.params);
     }
     else {
@@ -46,7 +49,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     parent.ready(function () {
       that.passReadies = false;
     });
-  };
+  }
 
   /**
    * Find the video field to use for the video, then run the callback.
@@ -78,7 +81,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @returns {unresolved}
    */
   C.prototype.setActive = function () {
-    if (this.IV !== undefined && this.IV.resizeEvent !== undefined) {
+    if (this.IV !== undefined) { // TODO: Check if video is loaded somehow?
       // A video has been loaded, no need to recreate.
       return;
     }
@@ -103,25 +106,146 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         video: {
           files: this.video
         },
-        interactions: this.params
+        assets: this.params
       }
     }, H5PEditor.contentId);
-    this.IV.editor = this;
+    this.IV.editor = this; // TODO: Remove this and rely on events! (that's how JS is meant to be played)
+    this.IV.$.on('bookmarkAdded', function (event, $bookmark) {
+      that.bookmarkAdded($bookmark);
+    });
     this.IV.attach(this.$editor);
 
     // Add DragNBar.
     this.$bar = $('<div class="h5peditor-dragnbar">' + C.t('loading') + '</div>').prependTo(this.$editor);
-    $.post(H5PEditor.ajaxPath + 'libraries', {libraries: this.field.field.fields[5].options}, function (libraries) {
+    $.post(H5PEditor.ajaxPath + 'libraries', {libraries: this.field.fields[0].field.fields[5].options}, function (libraries) {
       that.createDragNBar(libraries);
     });
 
     if (this.forms === undefined) {
       // Process semantics to make forms
       this.forms = [];
-      for (var i = 0; i < this.params.length; i++) {
+      for (var i = 0; i < this.params.interactions.length; i++) {
         this.processInteraction(i);
       }
     }
+
+    // Add "Add bookmark" to bookmarks menu.
+    $('<a href="#" class="h5p-add-bookmark">' + C.t('addBookmark') + '</a>').appendTo(that.IV.controls.$bookmarksChooser).click(function () {
+      that.addBookmark();
+      return false;
+    });
+  };
+
+  /**
+   * Add bookmark
+   */
+  C.prototype.addBookmark = function () {
+    var time = this.IV.video.getTime();
+
+    // Find out where to place the bookmark
+    for (var i = 0; i < this.params.bookmarks.length; i++) {
+      if (this.params.bookmarks[i].time > time) {
+        // Insert before this.
+        break;
+      }
+    }
+
+    var tenth = Math.floor(time * 10) / 10;
+    if (this.IV.bookmarksMap[tenth] !== undefined) {
+      // Create warning:
+      this.displayMessage(C.t('bookmarkAlreadyExists'));
+      return; // Not space for another bookmark.
+    }
+
+    // Hide dialog
+    this.IV.controls.$bookmarksChooser.removeClass('h5p-show');
+
+    // Move other increament other ids.
+    this.IV.$.trigger('bookmarksChanged', [i, 1]);
+
+    this.params.bookmarks.splice(i, 0, {
+      time: time,
+      label: C.t('newBookmark')
+    });
+
+    var $bookmark = this.IV.addBookmark(i, tenth);
+    $bookmark.addClass('h5p-show');
+    $bookmark.find('.h5p-bookmark-text').click();
+  };
+
+  /**
+   * Display a popup containing a message.
+   */
+  C.prototype.displayMessage = function (message) {
+    var timeout = undefined;
+    var $warning = $('<div/>', {
+      'class': 'h5p-iv-message-popup',
+      text: message,
+      click: function () {
+        clearTimeout(timeout);
+        $warning.remove();
+      }
+    }).appendTo(this.$editor);
+
+    timeout = setTimeout(function(){
+      $warning.remove();
+    }, 3000);
+  };
+
+  /**
+   * Gets called whenever a bookmark is added to the UI.
+   */
+  C.prototype.bookmarkAdded = function ($bookmark) {
+    var self = this;
+
+    $('<a class="h5p-remove-bookmark" href="#"></a>')
+      .appendTo($bookmark.find('.h5p-bookmark-label'))
+      .click(function () {
+        var id = $bookmark.data('id');
+        self.params.bookmarks.splice(id, 1);
+        self.IV.$.trigger('bookmarksChanged', [id, -1]);
+        $bookmark.remove();
+        return false;
+      });
+
+    // Click to edit label.
+    $bookmark.find('.h5p-bookmark-text').click(function () {
+      if ($bookmark.hasClass('h5p-force-show')) {
+        return; // Double click
+      }
+      $bookmark.addClass('h5p-force-show');
+      var $text = $(this);
+
+      /* This is a IE-fix. Without this, text is not shown when editing */
+      $text.css({overflow: 'visible'});
+
+      var $input = $text.html('<input type="text" class="h5p-bookmark-input" style="width:' + ($text.width() - 19) + 'px" maxlength="255" value="' + $text.text() + '"/>')
+        .children()
+        .blur(function () {
+          var newText = $input.val();
+          if (H5P.trim(newText) === '') {
+            newText = C.t('newBookmark');
+          }
+          $text.text(newText);
+          $bookmark.removeClass('h5p-force-show').mouseover().mouseout();
+          $text.css({overflow: 'hidden'});
+
+          var id = $bookmark.data('id');
+          self.params.bookmarks[id].label = newText;
+          self.IV.controls.$bookmarksChooser.find('li:eq(' + id + ')').text(newText);
+        })
+        .keydown(function (event) {
+          if (event.which === 13) {
+            $input.blur();
+          }
+        })
+        .focus();
+
+      if ($input.val() === C.t('newBookmark')) {
+        // Delete default value when editing
+        $input.val('');
+      }
+    });
   };
 
   /**
@@ -137,7 +261,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     // Update params when the element is dropped.
     this.dnb.stopMovingCallback = function (x, y) {
       that.IV.positionLabel(that.dnb.dnd.$element);
-      var params = that.params[that.dnb.dnd.$element.data('id')];
+      var params = that.params.interactions[that.dnb.dnd.$element.data('id')];
       params.x = x;
       params.y = y;
     };
@@ -169,7 +293,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     var tmpChildren = this.children;
 
     var $form = H5P.jQuery('<div></div>');
-    H5PEditor.processSemanticsChunk(this.field.field.fields, this.params[index], $form, this);
+    H5PEditor.processSemanticsChunk(this.field.fields[0].field.fields, this.params.interactions[index], $form, this);
     $form.children('.library:first').children('label, select').hide().end().children('.libwrap').css('margin-top', '0');
 
     tmpChildren[index] = this.children;
@@ -187,15 +311,14 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   C.prototype.newInteraction = function ($interaction) {
     var that = this;
 
+    if (that.dnb !== undefined) {
+      that.dnb.add($interaction);
+    }
+
     $interaction.mousedown(function (event) {
-      if (that.dnb === undefined) {
-        return false;
-      }
-      if (that.IV.playing) {
+      if (that.dnb !== undefined && that.IV.playing) {
         that.IV.pause(true);
       }
-      that.dnb.dnd.press($interaction, event.pageX, event.pageY);
-      return false;
     }).dblclick(function () {
       var id = $interaction.data('id');
       var $form = that.forms[id];
@@ -214,7 +337,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           if (that.validDialog(id)) {
             that.hideDialog();
           }
-          that.IV.drawSliderInteractions();
+          that.IV.addSliderInteractions();
           return false;
         });
 
@@ -228,7 +351,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
             that.removeInteraction(id);
             that.hideDialog();
           }
-          that.IV.drawSliderInteractions();
+          that.IV.addSliderInteractions();
           return false;
         });
 
@@ -272,22 +395,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       // Check if we should show again
       this.IV.toggleInteraction(id);
 
-      this.removeCoordinatesPicker();
+      this.dnb.blur();
     }
 
     return valid;
-  };
-
-  /**
-   * Removes that fine coordinates picker.....
-   *
-   * @returns {undefined}
-   */
-  C.prototype.removeCoordinatesPicker = function () {
-    if (this.dnb !== undefined && this.dnb.dnd.$coordinates !== undefined) {
-      this.dnb.dnd.$coordinates.remove();
-      delete this.dnb.dnd.$coordinates;
-    }
   };
 
   /**
@@ -313,20 +424,22 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    */
   C.prototype.removeInteraction = function (id) {
     this.forms.splice(id, 1);
-    this.params.splice(id, 1);
+    this.params.interactions.splice(id, 1);
     H5PEditor.removeChildren(this.children[id]);
     this.children.splice(id, 1);
     this.IV.visibleInteractions[id].remove();
     this.IV.visibleInteractions.splice(id, 1);
 
     // Update ids
-    for (var i = 0; i < this.params.length; i++) {
+    for (var i = 0; i < this.params.interactions.length; i++) {
       if (this.IV.visibleInteractions[i] !== undefined) {
         this.IV.visibleInteractions[i].data('id', i);
       }
     }
 
-    this.removeCoordinatesPicker();
+    if (this.dnb !== undefined) {
+      this.dnb.blur();
+    }
   };
 
   /**
@@ -337,7 +450,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   C.prototype.getButtons = function (libraries) {
     var buttons = [];
     for (var i = 0; i < libraries.length; i++) {
-      buttons.push(this.getButton(libraries[i]));
+      if (libraries[i].restricted === undefined || !libraries[i].restricted) {
+        buttons.push(this.getButton(libraries[i]));
+      }
     }
 
     return buttons;
@@ -381,8 +496,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           interaction.label = 'Lorem ipsum dolor sit amet...';
         }
 
-        that.params.push(interaction);
-        var i = that.params.length - 1;
+        that.params.interactions.push(interaction);
+        var i = that.params.interactions.length - 1;
         that.processInteraction(i);
         return that.IV.toggleInteraction(i, from);
       }
@@ -399,10 +514,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     this.video = files;
 
     if (this.IV !== undefined) {
-      this.IV.remove();
       delete this.IV;
-
-      this.removeCoordinatesPicker();
     }
   };
 
@@ -413,6 +525,12 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @returns {undefined}
    */
   C.prototype.appendTo = function ($wrapper) {
+    // Added to support older versions of core. Needed when using IV in CP.
+    var $libwrap = $wrapper.parent().parent();
+    if ($libwrap.hasClass('libwrap')) {
+      $libwrap.addClass('h5p-interactivevideo-editor');
+    }
+
     this.$item = $(this.createHtml()).appendTo($wrapper);
     this.$editor = this.$item.children('.h5peditor-interactions');
     this.$errors = this.$item.children('.h5p-errors');
@@ -485,6 +603,9 @@ H5PEditor.language['H5PEditor.InteractiveVideo'] = {
     done: 'Done',
     loading: 'Loading...',
     remove: 'Remove',
-    removeInteraction: 'Are you sure you wish to remove this interaction?'
+    removeInteraction: 'Are you sure you wish to remove this interaction?',
+    addBookmark: 'Add bookmark',
+    newBookmark: 'New bookmark',
+    bookmarkAlreadyExists: 'Bookmark already exists here. Move playhead and add a bookmark at another time.'
   }
 };
