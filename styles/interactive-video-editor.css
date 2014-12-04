@@ -18,7 +18,7 @@
 }
 .h5p-interactivevideo-editor .h5p-dragnbar-ul {
   float: left;
-  margin: 0;
+  margin: 0em 0em 0em 0.25em;
   list-style: none;
   padding: 0;
 }
