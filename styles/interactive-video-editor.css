@@ -30,9 +30,8 @@
   border-right: none;
 }
 .h5p-interactivevideo-editor .h5p-dragnbar-a {
-  font-size: 16px;
   width: 1em;
-  line-height: 1.7em;
+  height: 1em;
   text-align: center;
   border: 1px solid #ccc;
   border-radius: 0.25em;
@@ -82,6 +81,7 @@
 .h5p-interactivevideo-editor .h5p-dragnbar-dragtext-button:before,
 .h5p-interactivevideo-editor .h5p-dragnbar-singlechoice-button:before {
   font-family: 'H5Picons';
+  font-size: 1.3em;
 }
 .h5p-interactivevideo-editor .h5p-dragnbar-summary-button:before {
   content: "\e992";
