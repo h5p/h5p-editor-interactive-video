@@ -140,7 +140,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * Add bookmark
    */
   C.prototype.addBookmark = function () {
-    var time = this.IV.video.getTime();
+    var time = this.IV.video.getCurrentTime();
 
     // Find out where to place the bookmark
     for (var i = 0; i < this.params.bookmarks.length; i++) {
@@ -270,6 +270,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       if (that.IV.playing) {
         that.IV.play(true);
       }
+      that.IV.$overlay.removeClass('h5p-visible');
 
       // Edit element when it is dropped.
       if (that.dnb.newElement) {
@@ -316,8 +317,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }
 
     $interaction.mousedown(function (event) {
-      if (that.dnb !== undefined && that.IV.playing) {
-        that.IV.pause(true);
+      that.IV.$overlay.addClass('h5p-visible');
+      if (that.dnb !== undefined && that.IV.currentState === 1) {
+        that.IV.video.pause();
       }
     }).dblclick(function () {
       var id = $interaction.data('id');
@@ -476,7 +478,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           that.IV.pause(true);
         }
 
-        var from = Math.floor(that.IV.video.getTime());
+        var from = Math.floor(that.IV.video.getCurrentTime());
         var to = from + 10;
         var duration = Math.floor(that.IV.video.getDuration());
         var interaction = {
@@ -495,6 +497,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         if (interaction.action.library === 'H5P.Nil 1.0') {
           interaction.label = 'Lorem ipsum dolor sit amet...';
         }
+
+        that.IV.$overlay.addClass('h5p-visible');
 
         that.params.interactions.push(interaction);
         var i = that.params.interactions.length - 1;
