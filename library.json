@@ -54,7 +54,7 @@
     {
       "machineName": "H5P.MultiChoice",
       "majorVersion": 1,
-      "minorVersion": 0
+      "minorVersion": 1
     },
     {
       "machineName": "H5P.InteractiveVideo",
@@ -74,7 +74,7 @@
     {
       "machineName": "H5P.Blanks",
       "majorVersion": 1,
-      "minorVersion": 0
+      "minorVersion": 1
     },
     {
       "machineName": "H5P.Nil",
@@ -84,7 +84,17 @@
     {
       "machineName": "H5P.DragQuestion",
       "majorVersion": 1,
-      "minorVersion": 0
+      "minorVersion": 1
+    },
+    {
+      "machineName": "H5P.MarkTheWords",
+      "majorVersion": 1,
+      "minorVersion": 1
+    },
+    {
+      "machineName": "H5P.DragText",
+      "majorVersion": 1,
+      "minorVersion": 1
     }
   ]
 }
