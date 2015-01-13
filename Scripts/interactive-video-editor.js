@@ -595,7 +595,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     return H5PEditor.t('H5PEditor.InteractiveVideo', key, vars);
   };
 
-  return C;
+  return InteractiveVideoEditor;
 })(H5P.jQuery);
 
 // Default english translations
