@@ -117,7 +117,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     // Add DragNBar.
     this.$bar = $('<div class="h5peditor-dragnbar">' + t('loading') + '</div>').prependTo(this.$editor);
-    $.post(H5PEditor.ajaxPath + 'libraries', {libraries: this.field.fields[0].field.fields[5].options}, function (libraries) {
+    var interactions = findField('interactions', this.field.fields);
+    var action = findField('action', interactions.field.fields);
+    $.post(H5PEditor.ajaxPath + 'libraries', {libraries: action.options}, function (libraries) {
       that.createDragNBar(libraries);
     });
 
@@ -593,6 +595,22 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    */
   var t = function (key, vars) {
     return H5PEditor.t('H5PEditor.InteractiveVideo', key, vars);
+  };
+
+  /**
+   * Look for field with the given name in the given collection.
+   *
+   * @private
+   * @param {String} name of field
+   * @param {Array} fields collection to look in
+   * @returns {Object} field object
+   */
+  var findField = function (name, fields) {
+    for (var i = 0; i < fields.length; i++) {
+      if (fields[i].name === name) {
+        return fields[i];
+      }
+    }
   };
 
   return InteractiveVideoEditor;
