@@ -16,7 +16,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @param {function} setValue
    * @returns {_L8.C}
    */
-  function C(parent, field, params, setValue) {
+  function InteractiveVideoEditor(parent, field, params, setValue) {
     var that = this;
 
     this.parent = parent;
@@ -57,7 +57,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @param {function} callback
    * @returns {undefined}
    */
-  C.prototype.findVideoField = function (callback) {
+   InteractiveVideoEditor.prototype.findVideoField = function (callback) {
     var that = this;
 
     // Find field when tree is ready.
@@ -68,7 +68,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         throw H5PEditor.t('core', 'unknownFieldPath', {':path': that.field.video});
       }
       if (videoField.field.type !== 'video') {
-        throw C.t('notVideoField', {':path': that.field.video});
+        throw t('notVideoField', {':path': that.field.video});
       }
 
       callback(videoField);
@@ -80,7 +80,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    *
    * @returns {unresolved}
    */
-  C.prototype.setActive = function () {
+  InteractiveVideoEditor.prototype.setActive = function () {
     if (this.IV !== undefined) { // TODO: Check if video is loaded somehow?
       // A video has been loaded, no need to recreate.
       return;
@@ -94,7 +94,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     });
 
     if (this.video === undefined) {
-      this.$editor.html(C.t('selectVideo')).removeClass('h5p-interactive-video');
+      this.$editor.html(t('selectVideo')).removeClass('h5p-interactive-video');
       return;
     }
 
@@ -116,7 +116,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     this.IV.attach(this.$editor);
 
     // Add DragNBar.
-    this.$bar = $('<div class="h5peditor-dragnbar">' + C.t('loading') + '</div>').prependTo(this.$editor);
+    this.$bar = $('<div class="h5peditor-dragnbar">' + t('loading') + '</div>').prependTo(this.$editor);
     $.post(H5PEditor.ajaxPath + 'libraries', {libraries: this.field.fields[0].field.fields[5].options}, function (libraries) {
       that.createDragNBar(libraries);
     });
@@ -130,7 +130,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }
 
     // Add "Add bookmark" to bookmarks menu.
-    $('<a href="#" class="h5p-add-bookmark">' + C.t('addBookmark') + '</a>').appendTo(that.IV.controls.$bookmarksChooser).click(function () {
+    $('<a href="#" class="h5p-add-bookmark">' + t('addBookmark') + '</a>').appendTo(that.IV.controls.$bookmarksChooser).click(function () {
       that.addBookmark();
       return false;
     });
@@ -139,7 +139,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   /**
    * Add bookmark
    */
-  C.prototype.addBookmark = function () {
+  InteractiveVideoEditor.prototype.addBookmark = function () {
     var time = this.IV.video.getCurrentTime();
 
     // Find out where to place the bookmark
@@ -153,7 +153,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     var tenth = Math.floor(time * 10) / 10;
     if (this.IV.bookmarksMap[tenth] !== undefined) {
       // Create warning:
-      this.displayMessage(C.t('bookmarkAlreadyExists'));
+      this.displayMessage(t('bookmarkAlreadyExists'));
       return; // Not space for another bookmark.
     }
 
@@ -165,7 +165,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     this.params.bookmarks.splice(i, 0, {
       time: time,
-      label: C.t('newBookmark')
+      label: t('newBookmark')
     });
 
     var $bookmark = this.IV.addBookmark(i, tenth);
@@ -176,8 +176,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   /**
    * Display a popup containing a message.
    */
-  C.prototype.displayMessage = function (message) {
-    var timeout = undefined;
+  InteractiveVideoEditor.prototype.displayMessage = function (message) {
+    var timeout;
     var $warning = $('<div/>', {
       'class': 'h5p-iv-message-popup',
       text: message,
@@ -195,7 +195,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   /**
    * Gets called whenever a bookmark is added to the UI.
    */
-  C.prototype.bookmarkAdded = function ($bookmark) {
+  InteractiveVideoEditor.prototype.bookmarkAdded = function ($bookmark) {
     var self = this;
 
     $('<a class="h5p-remove-bookmark" href="#"></a>')
@@ -224,7 +224,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         .blur(function () {
           var newText = $input.val();
           if (H5P.trim(newText) === '') {
-            newText = C.t('newBookmark');
+            newText = t('newBookmark');
           }
           $text.text(newText);
           $bookmark.removeClass('h5p-force-show').mouseover().mouseout();
@@ -241,7 +241,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         })
         .focus();
 
-      if ($input.val() === C.t('newBookmark')) {
+      if ($input.val() === t('newBookmark')) {
         // Delete default value when editing
         $input.val('');
       }
@@ -253,7 +253,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @param {type} libraries
    * @returns {undefined}
    */
-  C.prototype.createDragNBar = function (libraries) {
+  InteractiveVideoEditor.prototype.createDragNBar = function (libraries) {
     var that = this;
 
     this.dnb = new H5P.DragNBar(this.getButtons(libraries), this.IV.$videoWrapper);
@@ -287,7 +287,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @param {type} index
    * @returns {undefined}
    */
-  C.prototype.processInteraction = function (index) {
+  InteractiveVideoEditor.prototype.processInteraction = function (index) {
     if (this.children[index] === undefined) {
       this.children[index] = [];
     }
@@ -309,7 +309,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @param {jQuery} $interaction
    * @returns {undefined}
    */
-  C.prototype.newInteraction = function ($interaction) {
+  InteractiveVideoEditor.prototype.newInteraction = function ($interaction) {
     var that = this;
 
     if (that.dnb !== undefined) {
@@ -330,7 +330,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
       // Add dialog buttons
       that.IV.$dialog.children('.h5p-dialog-hide').hide();
-      var $doneButton = $('<a href="#" class="h5p-button h5p-done">' + C.t('done') + '</a>')
+      var $doneButton = $('<a href="#" class="h5p-button h5p-done">' + t('done') + '</a>')
         .click(function () {
           // Need to do this before validDialog is run. (Hence it is not in the hideDialog function)
           if (H5PEditor.Html) {
@@ -343,13 +343,13 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           return false;
         });
 
-      var $removeButton = $('<a href="#" class="h5p-button h5p-remove">' + C.t('remove') + '</a>')
+      var $removeButton = $('<a href="#" class="h5p-button h5p-remove">' + t('remove') + '</a>')
         .click(function () {
           // Need to do this before validDialog is run. (Hence it is not in the hideDialog function)
           if (H5PEditor.Html) {
             H5PEditor.Html.removeWysiwyg();
           }
-          if (confirm(C.t('removeInteraction'))) {
+          if (confirm(t('removeInteraction'))) {
             that.removeInteraction(id);
             that.hideDialog();
           }
@@ -378,7 +378,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @param {Integer} id Dialog index.
    * @returns {Boolean}
    */
-  C.prototype.validDialog = function (id) {
+  InteractiveVideoEditor.prototype.validDialog = function (id) {
     var valid = true;
     var elementKids = this.children[id];
     for (var i = 0; i < elementKids.length; i++) {
@@ -408,7 +408,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    *
    * @returns {undefined}
    */
-  C.prototype.hideDialog = function () {
+  InteractiveVideoEditor.prototype.hideDialog = function () {
     this.IV.hideDialog();
     this.IV.$dialog.children('.h5p-dialog-inner').css({
       height: '',
@@ -424,7 +424,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @param {Integer} id
    * @returns {undefined}
    */
-  C.prototype.removeInteraction = function (id) {
+  InteractiveVideoEditor.prototype.removeInteraction = function (id) {
     this.forms.splice(id, 1);
     this.params.interactions.splice(id, 1);
     H5PEditor.removeChildren(this.children[id]);
@@ -449,7 +449,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    *
    * @returns {Array}
    */
-  C.prototype.getButtons = function (libraries) {
+  InteractiveVideoEditor.prototype.getButtons = function (libraries) {
     var buttons = [];
     for (var i = 0; i < libraries.length; i++) {
       if (libraries[i].restricted === undefined || !libraries[i].restricted) {
@@ -464,15 +464,15 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * Returns button data for the given library.
    *
    * @param {String} library
-   * @returns {_L8.C.prototype.getButton.Anonym$3}
+   * @returns {_L8.InteractiveVideoEditor.prototype.getButton.Anonym$3}
    */
-  C.prototype.getButton = function (library) {
+  InteractiveVideoEditor.prototype.getButton = function (library) {
     var that = this;
     var id = library.name.split('.')[1].toLowerCase();
 
     return {
       id: id,
-      title: C.t('insertElement', {':type': id === 'summary' ? 'statements' : library.title.toLowerCase() }),
+      title: t('insertElement', {':type': id === 'summary' ? 'statements' : library.title.toLowerCase() }),
       createElement: function () {
         if (that.IV.playing) {
           that.IV.pause(true);
@@ -514,7 +514,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @param {Object} files
    * @returns {undefined}
    */
-  C.prototype.setVideo = function (files) {
+  InteractiveVideoEditor.prototype.setVideo = function (files) {
     this.video = files;
 
     if (this.IV !== undefined) {
@@ -528,7 +528,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @param {type} $wrapper
    * @returns {undefined}
    */
-  C.prototype.appendTo = function ($wrapper) {
+  InteractiveVideoEditor.prototype.appendTo = function ($wrapper) {
     // Added to support older versions of core. Needed when using IV in CP.
     var $libwrap = $wrapper.parent().parent();
     if ($libwrap.hasClass('libwrap')) {
@@ -546,8 +546,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    *
    * @returns {@exp;H5PEditor@call;createItem}
    */
-  C.prototype.createHtml = function () {
-    return H5PEditor.createItem(this.field.widget, '<div class="h5peditor-interactions">' + C.t('selectVideo') + '</div>');
+  InteractiveVideoEditor.prototype.createHtml = function () {
+    return H5PEditor.createItem(this.field.widget, '<div class="h5peditor-interactions">' + t('selectVideo') + '</div>');
   };
 
   /**
@@ -555,7 +555,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    *
    * @returns {Boolean}
    */
-  C.prototype.validate = function () {
+  InteractiveVideoEditor.prototype.validate = function () {
     return true;
   };
 
@@ -564,7 +564,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    *
    * @returns {undefined}
    */
-  C.prototype.remove = function () {
+  InteractiveVideoEditor.prototype.remove = function () {
     this.$item.remove();
   };
 
@@ -574,7 +574,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @param {function} ready
    * @returns {undefined}
    */
-  C.prototype.ready = function (ready) {
+  InteractiveVideoEditor.prototype.ready = function (ready) {
     if (this.passReadies) {
       this.parent.ready(ready);
     }
@@ -586,11 +586,12 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   /**
    * Translate UI texts for this library.
    *
+   * @private
    * @param {String} key
    * @param {Object} vars
    * @returns {@exp;H5PEditor@call;t}
    */
-  C.t = function (key, vars) {
+  var t = function (key, vars) {
     return H5PEditor.t('H5PEditor.InteractiveVideo', key, vars);
   };
 
