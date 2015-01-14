@@ -52,6 +52,11 @@
       "minorVersion": 0
     },
     {
+      "machineName": "H5P.SingleChoiceSet",
+      "majorVersion": 1,
+      "minorVersion": 0
+    },
+    {
       "machineName": "H5P.MultiChoice",
       "majorVersion": 1,
       "minorVersion": 1

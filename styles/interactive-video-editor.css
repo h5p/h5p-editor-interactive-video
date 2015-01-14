@@ -79,7 +79,7 @@
 .h5p-interactivevideo-editor .h5p-dragnbar-summary-button:before,
 .h5p-interactivevideo-editor .h5p-dragnbar-markthewords-button:before,
 .h5p-interactivevideo-editor .h5p-dragnbar-dragtext-button:before,
-.h5p-interactivevideo-editor .h5p-dragnbar-singlechoice-button:before {
+.h5p-interactivevideo-editor .h5p-dragnbar-singlechoiceset-button:before {
   font-family: 'H5Picons';
   font-size: 1.2em;
   vertical-align: top;
@@ -102,11 +102,9 @@
 .h5p-interactivevideo-editor .h5p-dragnbar-dragtext-button:before {
   content: "\e600";
 }
-.h5p-interactivevideo-editor .h5p-dragnbar-singlechoice-button:before {
+.h5p-interactivevideo-editor .h5p-dragnbar-singlechoiceset-button:before {
   content: "\e603";
 }
-
-
 
 .h5p-interactivevideo-editor .h5p-dialog-buttons {
   overflow: hidden;
