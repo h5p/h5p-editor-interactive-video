@@ -123,14 +123,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       that.createDragNBar(libraries);
     });
 
-    if (this.forms === undefined) {
-      // Process semantics to make forms
-      this.forms = [];
-      for (var i = 0; i < this.params.interactions.length; i++) {
-        this.processInteraction(i);
-      }
-    }
-
     // Add "Add bookmark" to bookmarks menu.
     $('<a href="#" class="h5p-add-bookmark">' + t('addBookmark') + '</a>').appendTo(that.IV.controls.$bookmarksChooser).click(function () {
       that.addBookmark();
@@ -262,16 +254,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     // Update params when the element is dropped.
     this.dnb.stopMovingCallback = function (x, y) {
-      that.IV.positionLabel(that.dnb.dnd.$element);
-      var params = that.params.interactions[that.dnb.dnd.$element.data('id')];
-      params.x = x;
-      params.y = y;
+      that.interaction.positionLabel(that.IV.$videoWrapper.width());
+      that.interaction.setPosition(x, y);
     };
 
     this.dnb.dnd.releaseCallback = function () {
-      if (that.IV.playing) {
-        that.IV.play(true);
-      }
       that.IV.$overlay.removeClass('h5p-visible');
 
       // Edit element when it is dropped.
@@ -289,20 +276,31 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @param {type} index
    * @returns {undefined}
    */
-  InteractiveVideoEditor.prototype.processInteraction = function (index) {
-    if (this.children[index] === undefined) {
-      this.children[index] = [];
-    }
-    var tmpChildren = this.children;
+  InteractiveVideoEditor.prototype.processInteraction = function (interaction, parameters) {
+    self = this;
 
-    var $form = H5P.jQuery('<div></div>');
-    H5PEditor.processSemanticsChunk(this.field.fields[0].field.fields, this.params.interactions[index], $form, this);
-    $form.children('.library:first').children('label, select').hide().end().children('.libwrap').css('margin-top', '0');
+    // Create form
+    interaction.$form = H5P.jQuery('<div/>');
+    var interactions = findField('interactions', this.field.fields);
+    H5PEditor.processSemanticsChunk(interactions.field.fields, parameters, interaction.$form, this);
 
-    tmpChildren[index] = this.children;
-    this.children = tmpChildren;
+    // Keep track of form elements
+    interaction.children = this.children;
+    this.children = undefined;
 
-    this.forms[index] = $form;
+    // Customize form
+    interaction.$form.children('.library:first').children('label, select').hide().end().children('.libwrap').css('margin-top', '0');
+
+    interaction.on('display', function ($interaction) {
+      // Customize rendering of interaction
+      self.newInteraction(interaction, $interaction);
+
+      if (!interaction.isButton()) {
+        $('<div/>', {
+          'class': 'h5p-interaction-overlay'
+        }).appendTo($interaction);
+      }
+    });
   };
 
   /**
@@ -311,35 +309,36 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @param {jQuery} $interaction
    * @returns {undefined}
    */
-  InteractiveVideoEditor.prototype.newInteraction = function ($interaction) {
+  InteractiveVideoEditor.prototype.newInteraction = function (interaction, $interaction) {
     var that = this;
 
     if (that.dnb !== undefined) {
       that.dnb.add($interaction);
     }
 
+    // Disable the normal dialog
+    interaction.dialogDisabled = true;
+
     $interaction.mousedown(function (event) {
+      // Add overlay to prevent the mouse from leaving the current body
       that.IV.$overlay.addClass('h5p-visible');
-      if (that.dnb !== undefined && that.IV.currentState === 1) {
+
+      // Pause video
+      if (that.dnb !== undefined) {
         that.IV.video.pause();
       }
+
+      that.interaction = interaction;
     }).dblclick(function () {
-      var id = $interaction.data('id');
-      var $form = that.forms[id];
-      that.IV.$dialog.children('.h5p-dialog-inner').html('<div class="h5p-dialog-interaction"></div>').children().append($form);
-
-      that.IV.showDialog();
-
       // Add dialog buttons
-      that.IV.$dialog.children('.h5p-dialog-hide').hide();
       var $doneButton = $('<a href="#" class="h5p-button h5p-done">' + t('done') + '</a>')
         .click(function () {
-          // Need to do this before validDialog is run. (Hence it is not in the hideDialog function)
           if (H5PEditor.Html) {
+            // Need to do this before form is validated
             H5PEditor.Html.removeWysiwyg();
           }
-          if (that.validDialog(id)) {
-            that.hideDialog();
+          if (that.validDialog(interaction)) {
+            that.IV.dialog.close();
           }
           that.IV.addSliderInteractions();
           return false;
@@ -347,42 +346,36 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
       var $removeButton = $('<a href="#" class="h5p-button h5p-remove">' + t('remove') + '</a>')
         .click(function () {
-          // Need to do this before validDialog is run. (Hence it is not in the hideDialog function)
           if (H5PEditor.Html) {
+            // Need to do this before form is validated
             H5PEditor.Html.removeWysiwyg();
           }
           if (confirm(t('removeInteraction'))) {
-            that.removeInteraction(id);
-            that.hideDialog();
+            that.removeInteraction(interaction);
+            that.IV.dialog.close();
           }
+          // TODO: Keep track of dots using the Interaction class
           that.IV.addSliderInteractions();
           return false;
         });
 
       var $buttons = $('<div class="h5p-dialog-buttons"></div>')
         .append($doneButton)
-        .append($removeButton)
-        .appendTo(that.IV.$dialog);
+        .append($removeButton);
 
-      // Make room for buttons
-      var $content = that.IV.$dialog.children('.h5p-dialog-inner');
-      var fontSize = parseFloat($content.css('fontSize'));
-      $content.css({
-        height: (($content.height() / fontSize) - ($buttons.height() / fontSize)) + 'em',
-        width: '100%'
-      });
+      that.IV.dialog.open(interaction.$form, $buttons);
     });
   };
 
   /**
    * Validate the current dialog to see if it can be closed.
    *
-   * @param {Integer} id Dialog index.
+   * @param {} interaction
    * @returns {Boolean}
    */
-  InteractiveVideoEditor.prototype.validDialog = function (id) {
+  InteractiveVideoEditor.prototype.validDialog = function (interaction) {
     var valid = true;
-    var elementKids = this.children[id];
+    var elementKids = interaction.children;
     for (var i = 0; i < elementKids.length; i++) {
       if (elementKids[i].validate() === false) {
         valid = false;
@@ -390,14 +383,14 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }
 
     if (valid) {
-      this.forms[id].detach();
+      // Keep form
+      interaction.$form.detach();
 
-      // Remove old visible
-      this.IV.visibleInteractions[id].remove();
-      delete this.IV.visibleInteractions[id];
+      // Remove interaction from display
+      interaction.remove();
 
       // Check if we should show again
-      this.IV.toggleInteraction(id);
+      interaction.toggle(this.IV.video.getCurrentTime());
 
       this.dnb.blur();
     }
@@ -426,20 +419,16 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @param {Integer} id
    * @returns {undefined}
    */
-  InteractiveVideoEditor.prototype.removeInteraction = function (id) {
-    this.forms.splice(id, 1);
-    this.params.interactions.splice(id, 1);
-    H5PEditor.removeChildren(this.children[id]);
-    this.children.splice(id, 1);
-    this.IV.visibleInteractions[id].remove();
-    this.IV.visibleInteractions.splice(id, 1);
-
-    // Update ids
-    for (var i = 0; i < this.params.interactions.length; i++) {
-      if (this.IV.visibleInteractions[i] !== undefined) {
-        this.IV.visibleInteractions[i].data('id', i);
+  InteractiveVideoEditor.prototype.removeInteraction = function (interaction) {
+    for (var i = 0; i < this.IV.interactions.length; i++) {
+      if (this.IV.interactions[i] === interaction) {
+        this.params.interactions.splice(i, 1);
+        this.IV.interactions.splice(i, 1);
+        break;
       }
     }
+    H5PEditor.removeChildren(interaction.children);
+    interaction.remove();
 
     if (this.dnb !== undefined) {
       this.dnb.blur();
@@ -476,36 +465,37 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       id: id,
       title: t('insertElement', {':type': id === 'summary' ? 'statements' : library.title.toLowerCase() }),
       createElement: function () {
-        if (that.IV.playing) {
-          that.IV.pause(true);
-        }
+        that.IV.video.pause();
 
         var from = Math.floor(that.IV.video.getCurrentTime());
         var to = from + 10;
         var duration = Math.floor(that.IV.video.getDuration());
-        var interaction = {
+        var newInteraction = {
           action: {
             library: library.uberName,
             params: {}
           },
           x: 0,
           y: 0,
+          width: 10,
+          height: 10,
           duration: {
             from: from,
             to: to > duration ? duration : to
           }
         };
 
-        if (interaction.action.library === 'H5P.Nil 1.0') {
-          interaction.label = 'Lorem ipsum dolor sit amet...';
+        if (newInteraction.action.library === 'H5P.Nil 1.0') {
+          newInteraction.label = 'Lorem ipsum dolor sit amet...';
         }
 
         that.IV.$overlay.addClass('h5p-visible');
 
-        that.params.interactions.push(interaction);
+        that.params.interactions.push(newInteraction);
         var i = that.params.interactions.length - 1;
-        that.processInteraction(i);
-        return that.IV.toggleInteraction(i, from);
+        that.interaction = that.IV.initInteraction(i);
+
+        return that.interaction.toggle(from);
       }
     };
   };
