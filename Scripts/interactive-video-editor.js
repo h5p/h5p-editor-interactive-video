@@ -268,6 +268,13 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     };
 
     this.dnb.attach(this.$bar);
+
+    this.dnr = new H5P.DragNResize(this.IV.$videoWrapper);
+
+    this.dnr.resizeCallback = function (width, height) {
+      self.IV.$overlay.removeClass('h5p-visible');
+      that.interaction.setHeight(width, height);
+    };
   };
 
   /**
@@ -299,6 +306,12 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         $('<div/>', {
           'class': 'h5p-interaction-overlay'
         }).appendTo($interaction);
+        self.dnr.add($interaction);
+        $interaction.children('.h5p-dragnresize-handle').mousedown(function () {
+          self.interaction = interaction;
+          self.IV.$overlay.addClass('h5p-visible');
+          self.IV.video.pause();
+        });
       }
     });
   };
