@@ -4,7 +4,7 @@
   "license": "MIT",
   "author": "Amendor AS (icc)",
   "majorVersion": 1,
-  "minorVersion": 3,
+  "minorVersion": 4,
   "patchVersion": 0,
   "runnable": 0,
   "coreApi": {
@@ -65,7 +65,7 @@
     {
       "machineName": "H5P.InteractiveVideo",
       "majorVersion": 1,
-      "minorVersion": 3
+      "minorVersion": 4
     },
     {
       "machineName": "H5P.Summary",
