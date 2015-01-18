@@ -312,10 +312,15 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           'class': 'h5p-interaction-overlay'
         }).appendTo($interaction);
         self.dnr.add($interaction);
-        $interaction.children('.h5p-dragnresize-handle').mousedown(function () {
+        $interaction.children('.h5p-dragnresize-handle').unbind('mousedown').mousedown(function (event) {
           self.interaction = interaction;
           self.IV.$overlay.addClass('h5p-visible');
           self.IV.video.pause();
+
+          self.dnr.$element = $interaction;
+          self.dnr.press(event.clientX, event.clientY);
+
+          return false;
         });
       }
     });
