@@ -57,7 +57,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @param {function} callback
    * @returns {undefined}
    */
-   InteractiveVideoEditor.prototype.findVideoField = function (callback) {
+  InteractiveVideoEditor.prototype.findVideoField = function (callback) {
     var that = this;
 
     // Find field when tree is ready.
@@ -261,6 +261,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     this.dnb.dnd.releaseCallback = function () {
       that.IV.$overlay.removeClass('h5p-visible');
 
+      if (that.IV.lastState !== PAUSED && that.IV.lastState !== ENDED) {
+        // Resume playing
+        that.IV.video.play();
+      }
+
       // Edit element when it is dropped.
       if (that.dnb.newElement) {
         that.dnb.dnd.$element.dblclick();
@@ -336,13 +341,21 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       // Add overlay to prevent the mouse from leaving the current body
       that.IV.$overlay.addClass('h5p-visible');
 
+      // Keep track of last state
+      that.IV.lastState = that.IV.currentState;
+
       // Pause video
-      if (that.dnb !== undefined) {
+      if (that.dnb !== undefined && that.currentState !== PAUSED && that.currentState !== ENDED) {
         that.IV.video.pause();
       }
 
       that.interaction = interaction;
     }).dblclick(function () {
+      if (that.lastState !== PAUSED && that.lastState !== ENDED) {
+        // Pause video
+        that.IV.video.pause();
+      }
+
       // Add dialog buttons
       var $doneButton = $('<a href="#" class="h5p-button h5p-done">' + t('done') + '</a>')
         .click(function () {
@@ -615,6 +628,17 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       }
     }
   };
+
+  /** @constant {number} */
+  var ENDED = 0;
+  /** @constant {number} */
+  var PLAYING = 1;
+  /** @constant {number} */
+  var PAUSED = 2;
+  /** @constant {number} */
+  var BUFFERING = 3;
+  /** @constant {number} */
+  var SEEKING = 4;
 
   return InteractiveVideoEditor;
 })(H5P.jQuery);
