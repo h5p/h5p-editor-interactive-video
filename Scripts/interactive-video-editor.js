@@ -324,6 +324,74 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         });
       }
     });
+
+    // Find library field instance
+    var libraryFieldInstance;
+    for (var i = 0; i < interaction.children.length; i++) {
+      if (interaction.children[i] instanceof H5PEditor.Library) {
+        libraryFieldInstance = interaction.children[i];
+      }
+    }
+
+    if (libraryFieldInstance) {
+      /**
+       * Callback for when library changes.
+       *
+       * @private
+       * @param {String} library
+       */
+      var libraryChange = function () {
+        var lib = libraryFieldInstance.currentLibrary.split(' ')[0];
+        if (lib !== 'H5P.Image') {
+          return;
+        }
+
+        /**
+         * Callback for when image changes.
+         *
+         * @private
+         * @param {Object} params
+         */
+        var imageChange = function (newParams) {
+          if (newParams === undefined || newParams.width === undefined || newParams.height === undefined ) {
+            return; // Skip
+          }
+
+          // Avoid to small images
+          var fontSize = Number(self.IV.$videoWrapper.css('fontSize').replace('px', ''));
+          if (newParams.width < fontSize) {
+            newParams.width = fontSize;
+          }
+          if (newParams.height < fontSize) {
+            newParams.height = fontSize;
+          }
+
+          // Reduce height for tiny images, stretched pixels looks horrible
+          var suggestedHeight = newParams.height / fontSize;
+          if (suggestedHeight < parameters.height) {
+            parameters.height = suggestedHeight;
+          }
+
+          // Calculate new width
+          parameters.width = (parameters.height * (newParams.width / newParams.height));
+        };
+
+        // Add callback to the correct field
+        libraryFieldInstance.forEachChild(function (child) {
+          if (child.field.name === 'file') {
+            child.changes.push(imageChange);
+            return true;
+          }
+        });
+      };
+
+      // Add callback
+      libraryFieldInstance.changes.push(libraryChange);
+      if (libraryFieldInstance.children !== undefined) {
+        // Trigger right away
+        libraryChange();
+      }
+    }
   };
 
   /**
@@ -418,7 +486,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       interaction.$form.detach();
 
       // Remove interaction from display
-      interaction.remove();
+      interaction.remove(true);
 
       // Check if we should show again
       interaction.toggle(this.IV.video.getCurrentTime());
@@ -516,7 +584,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           }
         };
 
-        if (newInteraction.action.library === 'H5P.Nil 1.0') {
+        var lib = library.uberName.split(' ')[0];
+        if (lib === 'H5P.Nil') {
           newInteraction.label = 'Lorem ipsum dolor sit amet...';
         }
 
