@@ -289,12 +289,23 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @returns {undefined}
    */
   InteractiveVideoEditor.prototype.processInteraction = function (interaction, parameters) {
-    self = this;
+    var self = this;
 
     // Create form
     interaction.$form = H5P.jQuery('<div/>');
     var interactions = findField('interactions', this.field.fields);
-    H5PEditor.processSemanticsChunk(interactions.field.fields, parameters, interaction.$form, this);
+
+    // Clone semantics to avoid changing them for all interactions
+    var interactionFields = H5PEditor.$.extend(true, [], interactions.field.fields);
+
+    // Hide some fields for some interaction types
+    var type = interaction.getLibraryName();
+    if (type !== 'H5P.MultiChoice') { // TODO: More tasks
+      hideFields(interactionFields, ['adaptivity']);
+    }
+
+    // Create form elements
+    H5PEditor.processSemanticsChunk(interactionFields, parameters, interaction.$form, this);
 
     // Keep track of form elements
     interaction.children = this.children;
@@ -699,6 +710,23 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     for (var i = 0; i < fields.length; i++) {
       if (fields[i].name === name) {
         return fields[i];
+      }
+    }
+  };
+
+  /**
+   * Hide the given fields from the given form.
+   *
+   * @private
+   * @param {Array} interactionFields to be form
+   * @param {Array} fields to hide
+   */
+  var hideFields = function (interactionFields, fields) {
+    // Find and hide fields in list
+    for (var i = 0; i < fields.length; i++) {
+      var field = findField(fields[i], interactionFields);
+      if (field) {
+        field.widget = 'none';
       }
     }
   };
