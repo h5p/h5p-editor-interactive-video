@@ -78,6 +78,11 @@
       "minorVersion": 0
     },
     {
+      "machineName": "H5PEditor.Timecode",
+      "majorVersion": 1,
+      "minorVersion": 0
+    },
+    {
       "machineName": "H5P.Blanks",
       "majorVersion": 1,
       "minorVersion": 1
