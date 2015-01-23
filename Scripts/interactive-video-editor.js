@@ -277,7 +277,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     this.dnr = new H5P.DragNResize(this.IV.$videoWrapper);
 
     this.dnr.resizeCallback = function (width, height) {
-      self.IV.$overlay.removeClass('h5p-visible');
+      that.IV.$overlay.removeClass('h5p-visible');
       that.interaction.setSize(width, height);
     };
   };
