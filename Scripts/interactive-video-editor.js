@@ -108,9 +108,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       }
     }, H5PEditor.contentId);
     this.IV.editor = this; // TODO: Remove this and rely on events! (that's how JS is meant to be played)
-    this.IV.on('bookmarkAdded', function (event, $bookmark) {
-      that.bookmarkAdded($bookmark);
-    });
+    this.IV.on('bookmarkAdded', that.bookmarkAdded);
     this.IV.attach(this.$editor);
 
     // Add DragNBar.
@@ -193,8 +191,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   /**
    * Gets called whenever a bookmark is added to the UI.
    */
-  C.prototype.bookmarkAdded = function ($bookmark) {
+  C.prototype.bookmarkAdded = function (event) {
     var self = this;
+    var $bookmark = event.data.bookmark;
 
     $('<a class="h5p-remove-bookmark" href="#"></a>')
       .appendTo($bookmark.find('.h5p-bookmark-label'))
