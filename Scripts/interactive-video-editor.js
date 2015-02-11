@@ -40,7 +40,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       setValue(field, this.params);
     }
     else {
-      this.params = params;
+      this.params = $.extend({
+        interactions: [],
+        bookmarks: []
+      }, params);
     }
 
     this.children = [];
@@ -108,7 +111,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       }
     }, H5PEditor.contentId);
     this.IV.editor = this; // TODO: Remove this and rely on events! (that's how JS is meant to be played)
-    this.IV.on('bookmarkAdded', that.bookmarkAdded);
+    this.IV.on('bookmarkAdded', that.bookmarkAdded, that);
     this.IV.attach(this.$editor);
 
     // Add DragNBar.
