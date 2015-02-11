@@ -1,5 +1,6 @@
 {
-  "title": "H5PEditor.InteractiveVideo",
+  "title": "Interactive Video Editor",
+  "license": "MIT",
   "majorVersion": 1,
   "minorVersion": 4,
   "patchVersion": 0,
@@ -8,7 +9,7 @@
   "author": "Joubel AS",
   "coreApi": {
     "majorVersion": 1,
-    "minorVersion": 2
+    "minorVersion": 4
   },
   "preloadedJs": [
     {
@@ -28,6 +29,11 @@
     },
     {
       "machineName": "H5P.DragNBar",
+      "majorVersion": 1,
+      "minorVersion": 0
+    },
+    {
+      "machineName": "H5P.DragNResize",
       "majorVersion": 1,
       "minorVersion": 0
     },
@@ -73,6 +79,11 @@
     },
     {
       "machineName": "H5PEditor.Duration",
+      "majorVersion": 1,
+      "minorVersion": 0
+    },
+    {
+      "machineName": "H5PEditor.Timecode",
       "majorVersion": 1,
       "minorVersion": 0
     },
