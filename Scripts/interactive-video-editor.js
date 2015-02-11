@@ -154,7 +154,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     this.IV.controls.$bookmarksChooser.removeClass('h5p-show');
 
     // Move other increament other ids.
-    this.IV.trigger('bookmarksChanged', [i, 1]);
+    this.IV.trigger('bookmarksChanged', {'index': i, 'number': 1});
 
     this.params.bookmarks.splice(i, 0, {
       time: time,
@@ -197,7 +197,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       .click(function () {
         var id = $bookmark.data('id');
         self.params.bookmarks.splice(id, 1);
-        self.IV.trigger('bookmarksChanged', [id, -1]);
+        self.IV.trigger('bookmarksChanged', {'index': id, 'number': -1});
         $bookmark.remove();
         return false;
       });
@@ -314,7 +314,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     // Customize form
     interaction.$form.children('.library:first').children('label, select').hide().end().children('.libwrap').css('margin-top', '0');
 
-    interaction.on('display', function ($interaction) {
+    interaction.on('display', function (event) {
+      var $interaction = event.data;
       // Customize rendering of interaction
       self.newInteraction(interaction, $interaction);
 
