@@ -300,7 +300,16 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     // Hide some fields for some interaction types
     var type = interaction.getLibraryName();
-    if (type !== 'H5P.MultiChoice') { // TODO: More tasks
+    var xAPIQuestionTypes = [
+      'H5P.MultiChoice',
+      'H5P.SingleChoiceSet',
+      'H5P.Blanks',
+      'H5P.DragQuestion',
+      'H5P.Summary',
+      'H5P.MarkTheWords',
+      'H5P.DragText'
+    ];
+    if (xAPIQuestionTypes.indexOf(type) === -1) {
       hideFields(interactionFields, ['adaptivity']);
     }
 
