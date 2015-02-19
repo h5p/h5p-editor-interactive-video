@@ -1,14 +1,15 @@
 {
-  "title": "H5PEditor.InteractiveVideo",
+  "title": "Interactive Video Editor",
+  "license": "MIT",
   "majorVersion": 1,
-  "minorVersion": 3,
+  "minorVersion": 4,
   "patchVersion": 0,
   "runnable": 0,
   "machineName": "H5PEditor.InteractiveVideo",
-  "author": "Frode Petterson",
+  "author": "Joubel AS",
   "coreApi": {
     "majorVersion": 1,
-    "minorVersion": 2
+    "minorVersion": 4
   },
   "preloadedJs": [
     {
@@ -28,6 +29,11 @@
     },
     {
       "machineName": "H5P.DragNBar",
+      "majorVersion": 1,
+      "minorVersion": 0
+    },
+    {
+      "machineName": "H5P.DragNResize",
       "majorVersion": 1,
       "minorVersion": 0
     },
@@ -52,19 +58,24 @@
       "minorVersion": 0
     },
     {
-      "machineName": "H5P.MultiChoice",
+      "machineName": "H5P.SingleChoiceSet",
       "majorVersion": 1,
       "minorVersion": 1
+    },
+    {
+      "machineName": "H5P.MultiChoice",
+      "majorVersion": 1,
+      "minorVersion": 2
     },
     {
       "machineName": "H5P.InteractiveVideo",
       "majorVersion": 1,
-      "minorVersion": 3
+      "minorVersion": 4
     },
     {
       "machineName": "H5P.Summary",
       "majorVersion": 1,
-      "minorVersion": 1
+      "minorVersion": 2
     },
     {
       "machineName": "H5PEditor.Duration",
@@ -72,9 +83,14 @@
       "minorVersion": 0
     },
     {
+      "machineName": "H5PEditor.Timecode",
+      "majorVersion": 1,
+      "minorVersion": 0
+    },
+    {
       "machineName": "H5P.Blanks",
       "majorVersion": 1,
-      "minorVersion": 1
+      "minorVersion": 2
     },
     {
       "machineName": "H5P.Nil",
@@ -84,17 +100,17 @@
     {
       "machineName": "H5P.DragQuestion",
       "majorVersion": 1,
-      "minorVersion": 1
+      "minorVersion": 2
     },
     {
       "machineName": "H5P.MarkTheWords",
       "majorVersion": 1,
-      "minorVersion": 1
+      "minorVersion": 2
     },
     {
       "machineName": "H5P.DragText",
       "majorVersion": 1,
-      "minorVersion": 1
+      "minorVersion": 2
     }
   ]
 }
