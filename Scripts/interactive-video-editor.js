@@ -111,22 +111,23 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       }
     }, H5PEditor.contentId);
     this.IV.editor = this; // TODO: Remove this and rely on events! (that's how JS is meant to be played)
+    this.IV.on('controls', function () {
+      // Add DragNBar.
+      that.$bar = $('<div class="h5peditor-dragnbar">' + t('loading') + '</div>').prependTo(that.$editor);
+      var interactions = findField('interactions', that.field.fields);
+      var action = findField('action', interactions.field.fields);
+      $.post(H5PEditor.ajaxPath + 'libraries', {libraries: action.options}, function (libraries) {
+        that.createDragNBar(libraries);
+      });
+
+      // Add "Add bookmark" to bookmarks menu.
+      $('<a href="#" class="h5p-add-bookmark">' + t('addBookmark') + '</a>').appendTo(that.IV.controls.$bookmarksChooser).click(function () {
+        that.addBookmark();
+        return false;
+      });
+    });
     this.IV.on('bookmarkAdded', that.bookmarkAdded, that);
     this.IV.attach(this.$editor);
-
-    // Add DragNBar.
-    this.$bar = $('<div class="h5peditor-dragnbar">' + t('loading') + '</div>').prependTo(this.$editor);
-    var interactions = findField('interactions', this.field.fields);
-    var action = findField('action', interactions.field.fields);
-    $.post(H5PEditor.ajaxPath + 'libraries', {libraries: action.options}, function (libraries) {
-      that.createDragNBar(libraries);
-    });
-
-    // Add "Add bookmark" to bookmarks menu.
-    $('<a href="#" class="h5p-add-bookmark">' + t('addBookmark') + '</a>').appendTo(that.IV.controls.$bookmarksChooser).click(function () {
-      that.addBookmark();
-      return false;
-    });
   };
 
   /**

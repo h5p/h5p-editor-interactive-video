@@ -5,8 +5,11 @@
     "insertElement": "Klikk å dra for å plassere :type",
     "popupTitle": "Endre :type",
     "done": "Ferdig",
-    "loading": "Laster.",
+    "loading": "Laster...",
     "remove": "Fjern",
-    "removeInteraction": "Er du sikker på at du vil fjerne denne interaksjonen?"
+    "removeInteraction": "Er du sikker på at du vil fjerne denne interaksjonen?",
+    "addBookmark": "Legg til bokmerke",
+    "newBookmark": "Nytt bokmerke",
+    "bookmarkAlreadyExists": "Det finnes allerde et bokmerke her. Spol og plasser bokmerket på en annen tidskode.""
   }
 }
