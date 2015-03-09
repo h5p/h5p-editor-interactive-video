@@ -260,7 +260,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     };
 
     this.dnb.dnd.releaseCallback = function () {
-      that.IV.$overlay.removeClass('h5p-visible');
+      // Hide overlay. (The timeout is needed because of a bug in FF.)
+      setTimeout(function () {
+        that.IV.$overlay.removeClass('h5p-visible');
+      }, 0);
 
       if (that.IV.lastState !== PAUSED && that.IV.lastState !== ENDED) {
         // Resume playing
@@ -433,8 +436,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     interaction.dialogDisabled = true;
 
     $interaction.mousedown(function (event) {
+
       // Add overlay to prevent the mouse from leaving the current body
       that.IV.$overlay.addClass('h5p-visible');
+
 
       // Keep track of last state
       that.IV.lastState = that.IV.currentState;
