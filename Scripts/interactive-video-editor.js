@@ -600,7 +600,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           action: {
             library: library.uberName,
             params: {},
-            uuid: H5P.createUUID()
+            subContentId: H5P.createUUID()
           },
           x: 0,
           y: 0,
