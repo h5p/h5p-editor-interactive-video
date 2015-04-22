@@ -260,7 +260,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     };
 
     this.dnb.dnd.releaseCallback = function () {
-      that.IV.$overlay.removeClass('h5p-visible');
+      // Hide overlay. (The timeout is needed because of a bug in FF.)
+      setTimeout(function () {
+        that.IV.$overlay.removeClass('h5p-visible');
+      }, 0);
 
       if (that.IV.lastState !== PAUSED && that.IV.lastState !== ENDED) {
         // Resume playing
@@ -323,6 +326,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     // Customize form
     interaction.$form.children('.library:first').children('label, select').hide().end().children('.libwrap').css('margin-top', '0');
+    self.setLibraryName(interaction.$form, type);
 
     interaction.on('display', function (event) {
       var $interaction = event.data;
@@ -417,6 +421,17 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   };
 
   /**
+   * Add library name to library form
+   * @param {jQuery} $form Interaction view form
+   * @param {string} libraryType Library type on format "H5P.{libraryType}"
+   */
+  InteractiveVideoEditor.prototype.setLibraryName = function ($form, libraryType) {
+    var libraryName = libraryType.replace('.', '-').toLowerCase() + '-library';
+    var $libraryForm = $form.children('.library');
+    $libraryForm.addClass(libraryName);
+  };
+
+  /**
    * Called when rendering a new interaction.
    *
    * @param {jQuery} $interaction
@@ -433,8 +448,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     interaction.dialogDisabled = true;
 
     $interaction.mousedown(function (event) {
+
       // Add overlay to prevent the mouse from leaving the current body
       that.IV.$overlay.addClass('h5p-visible');
+
 
       // Keep track of last state
       that.IV.lastState = that.IV.currentState;
@@ -594,7 +611,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         var newInteraction = {
           action: {
             library: library.uberName,
-            params: {}
+            params: {},
+            subContentId: H5P.createUUID()
           },
           x: 0,
           y: 0,
