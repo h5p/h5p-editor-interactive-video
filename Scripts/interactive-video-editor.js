@@ -426,7 +426,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @param {string} libraryType Library type on format "H5P.{libraryType}"
    */
   InteractiveVideoEditor.prototype.setLibraryName = function ($form, libraryType) {
-    var libraryName = libraryType.replace('.', '-').toLowerCase();
+    var libraryName = libraryType.replace('.', '-').toLowerCase() + '-library';
     var $libraryForm = $form.children('.library');
     $libraryForm.addClass(libraryName);
   };

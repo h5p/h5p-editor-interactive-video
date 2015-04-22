@@ -405,6 +405,6 @@
 }
 
 /* Remove h5p-nil library border */
-.h5p-interactivevideo-editor .h5peditor-interactions .h5p-dialog-inner .field.library.h5p-nil {
+.h5p-interactivevideo-editor .h5peditor-interactions .h5p-dialog-inner .field.library.h5p-nil-library {
   display: none;
 }
