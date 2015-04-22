@@ -326,6 +326,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     // Customize form
     interaction.$form.children('.library:first').children('label, select').hide().end().children('.libwrap').css('margin-top', '0');
+    self.setLibraryName(interaction.$form, type);
 
     interaction.on('display', function (event) {
       var $interaction = event.data;
@@ -417,6 +418,17 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         libraryChange();
       }
     }
+  };
+
+  /**
+   * Add library name to library form
+   * @param {jQuery} $form Interaction view form
+   * @param {string} libraryType Library type on format "H5P.{libraryType}"
+   */
+  InteractiveVideoEditor.prototype.setLibraryName = function ($form, libraryType) {
+    var libraryName = libraryType.replace('.', '-').toLowerCase() + '-library';
+    var $libraryForm = $form.children('.library');
+    $libraryForm.addClass(libraryName);
   };
 
   /**
