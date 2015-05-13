@@ -530,6 +530,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       // Remove interaction from display
       interaction.remove(true);
 
+      // Recreate content instance
+      interaction.reCreate();
+
       // Check if we should show again
       interaction.toggle(this.IV.video.getCurrentTime());
 
