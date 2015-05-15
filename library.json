@@ -2,7 +2,7 @@
   "title": "Interactive Video Editor",
   "license": "MIT",
   "majorVersion": 1,
-  "minorVersion": 5,
+  "minorVersion": 6,
   "patchVersion": 0,
   "runnable": 0,
   "machineName": "H5PEditor.InteractiveVideo",
@@ -70,7 +70,7 @@
     {
       "machineName": "H5P.InteractiveVideo",
       "majorVersion": 1,
-      "minorVersion": 5
+      "minorVersion": 6
     },
     {
       "machineName": "H5P.Summary",
