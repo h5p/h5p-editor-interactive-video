@@ -319,6 +319,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     if (xAPIQuestionTypes.indexOf(type) === -1) {
       hideFields(interactionFields, ['adaptivity']);
     }
+    if (type === 'H5P.Nil') {
+      hideFields(interactionFields, ['displayAsButton']);
+    }
 
     // Create form elements
     H5PEditor.processSemanticsChunk(interactionFields, parameters, interaction.$form, this);
@@ -605,9 +608,22 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     var that = this;
     var id = library.name.split('.')[1].toLowerCase();
 
+    // Determine title
+    var title;
+    switch (id) {
+      case 'summary':
+        title = 'statements';
+        break;
+      case 'nil':
+        title = 'label';
+        break;
+      default:
+        title = library.title.toLowerCase();
+    }
+
     return {
       id: id,
-      title: t('insertElement', {':type': id === 'summary' ? 'statements' : library.title.toLowerCase() }),
+      title: t('insertElement', {':type': title }),
       createElement: function () {
         that.IV.video.pause();
 
