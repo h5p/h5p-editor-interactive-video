@@ -111,6 +111,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       }
     }, H5PEditor.contentId);
     this.IV.editor = this; // TODO: Remove this and rely on events! (that's how JS is meant to be played)
+    for (var i = 0; i < this.IV.interactions.length; i++) {
+      this.processInteraction(this.IV.interactions[i], this.params.interactions[i]);
+    }
     this.IV.on('controls', function () {
       // Add DragNBar.
       that.$bar = $('<div class="h5peditor-dragnbar">' + t('loading') + '</div>').prependTo(that.$editor);
@@ -527,6 +530,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       // Remove interaction from display
       interaction.remove(true);
 
+      // Recreate content instance
+      interaction.reCreate();
+
       // Check if we should show again
       interaction.toggle(this.IV.video.getCurrentTime());
 
@@ -634,6 +640,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         that.params.interactions.push(newInteraction);
         var i = that.params.interactions.length - 1;
         that.interaction = that.IV.initInteraction(i);
+        that.processInteraction(that.interaction, newInteraction);
 
         return that.interaction.toggle(from);
       }
