@@ -15,13 +15,31 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     this.parent = parent;
     this.field = field;
 
-    this.findVideoField(function (field) {
+    this.findField(this.field.video, function (field) {
+      if (field.field.type !== 'video') {
+        throw t('notVideoField', {':path': that.field.video});
+      }
+
       if (field.params !== undefined) {
         that.setVideo(field.params);
       }
 
       field.changes.push(function (file) {
         that.setVideo(field.params);
+      });
+    });
+
+    this.findField(this.field.poster, function (field) {
+      if (field.field.type !== 'image') {
+        throw t('notVideoField', {':path': that.field.poster});
+      }
+
+      if (field.params !== undefined) {
+        that.poster = field.params;
+      }
+
+      field.changes.push(function () {
+        that.poster = field.params;
       });
     });
 
@@ -40,23 +58,21 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   }
 
   /**
-   * Find the video field to use for the video, then run the callback.
+   * Find a field, then run the callback.
    *
    * @param {function} callback
    */
-  InteractiveVideoEditor.prototype.findVideoField = function (callback) {
+  InteractiveVideoEditor.prototype.findField = function (path, callback) {
     var that = this;
     // Find field when tree is ready.
     this.parent.ready(function () {
-      var videoField = H5PEditor.findField(that.field.video, that.parent);
+      var field = H5PEditor.findField(path, that.parent);
 
-      if (!videoField) {
-        throw H5PEditor.t('core', 'unknownFieldPath', {':path': that.field.video});
+      if (!field) {
+        throw H5PEditor.t('core', 'unknownFieldPath', {':path': path});
       }
-      if (videoField.field.type !== 'video') {
-        throw t('notVideoField', {':path': that.field.video});
-      }
-      callback(videoField);
+
+      callback(field);
     });
   };
 
@@ -87,7 +103,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     this.IV = new H5P.InteractiveVideo({
       interactiveVideo: {
         video: {
-          files: this.video
+          files: this.video,
+          poster: this.poster
         },
         assets: this.params
       }
