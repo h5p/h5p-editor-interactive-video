@@ -35,11 +35,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       }
 
       if (field.params !== undefined) {
-        that.poster = field.params;
+        that.setPoster(field.params);
       }
 
       field.changes.push(function () {
-        that.poster = field.params;
+        that.setPoster(field.params);
       });
     });
 
@@ -673,6 +673,19 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    */
   InteractiveVideoEditor.prototype.setVideo = function (files) {
     this.video = files;
+
+    if (this.IV !== undefined) {
+      delete this.IV;
+    }
+  };
+
+  /**
+   * Set new poster and remove old player.
+   *
+   * @param {Object} poster
+   */
+  InteractiveVideoEditor.prototype.setPoster = function (poster) {
+    this.poster = poster;
 
     if (this.IV !== undefined) {
       delete this.IV;
