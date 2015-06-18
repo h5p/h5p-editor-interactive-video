@@ -31,7 +31,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     this.findField(this.field.poster, function (field) {
       if (field.field.type !== 'image') {
-        throw t('notVideoField', {':path': that.field.poster});
+        throw t('notImageField', {':path': that.field.poster});
       }
 
       if (field.params !== undefined) {
@@ -789,6 +789,7 @@ H5PEditor.language['H5PEditor.InteractiveVideo'] = {
   libraryStrings: {
     selectVideo: 'You must select a video before adding interactions.',
     notVideoField: '":path" is not a video.',
+    notImageField: '":path" is not a image.',
     insertElement: 'Click and drag to place :type',
     popupTitle: 'Edit :type',
     done: 'Done',

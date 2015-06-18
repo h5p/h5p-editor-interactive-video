@@ -2,6 +2,7 @@
   "libraryStrings": {
     "selectVideo": "Du må sette inn en video før du kan plassere interaksjoner.",
     "notVideoField": "\":path\" er ikke en video.",
+    "notImageField": "\":path\" er ikke et bilde.",
     "insertElement": "Klikk å dra for å plassere :type",
     "popupTitle": "Endre :type",
     "done": "Ferdig",
