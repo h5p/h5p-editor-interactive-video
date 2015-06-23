@@ -353,6 +353,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           self.IV.video.pause();
 
           self.dnr.$element = $interaction;
+          self.dnr.lock = (type === 'H5P.Image');
           self.dnr.press(event.clientX, event.clientY);
 
           return false;
