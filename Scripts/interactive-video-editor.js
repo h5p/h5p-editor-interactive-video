@@ -32,19 +32,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       });
     });
 
-    if (params === undefined) {
-      this.params = {
-        interactions: [],
-        bookmarks: []
-      };
-      setValue(field, this.params);
-    }
-    else {
-      this.params = $.extend({
-        interactions: [],
-        bookmarks: []
-      }, params);
-    }
+    this.params = $.extend({
+      interactions: [],
+      bookmarks: []
+    }, params);
+    setValue(field, this.params);
 
     this.children = [];
 
