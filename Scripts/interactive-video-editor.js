@@ -326,6 +326,18 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       hideFields(interactionFields, ['displayAsButton']);
     }
 
+    // Always show link as poster
+    if (type === 'H5P.Link') {
+      var field = findField('displayAsButton', interactionFields);
+      // Must set default to false and hide
+      field.default = false;
+      field.widget = 'none';
+
+      // Hide label field
+      var labelField = findField('label', interactionFields);
+      labelField.widget = 'none';
+    }
+
     // Create form elements
     H5PEditor.processSemanticsChunk(interactionFields, parameters, interaction.$form, this);
 
@@ -346,14 +358,18 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         $('<div/>', {
           'class': 'h5p-interaction-overlay'
         }).appendTo($interaction);
-        self.dnr.add($interaction);
+        if (type !== 'H5P.Link') {
+          self.dnr.add($interaction);
+        }
         $interaction.children('.h5p-dragnresize-handle').unbind('mousedown').mousedown(function (event) {
           self.interaction = interaction;
           self.IV.$overlay.addClass('h5p-visible');
           self.IV.video.pause();
 
-          self.dnr.$element = $interaction;
-          self.dnr.press(event.clientX, event.clientY);
+          if (type !== 'H5P.Link') {
+            self.dnr.$element = $interaction;
+            self.dnr.press(event.clientX, event.clientY);
+          }
 
           return false;
         });
