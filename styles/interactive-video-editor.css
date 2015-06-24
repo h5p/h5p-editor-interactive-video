@@ -408,3 +408,53 @@
 .h5p-interactivevideo-editor .h5peditor-interactions .h5p-dialog-inner .field.library.h5p-nil-library {
   display: none;
 }
+
+/* interaction semantics wrapper */
+.h5p-interactivevideo-editor .h5p-interaction-semantics-wrapper {
+  margin-right: 0.2em;
+}
+
+.h5p-interactivevideo-editor .h5p-interaction-semantics-wrapper .h5p-interaction-duration {
+  display: inline-block;
+}
+
+.h5p-interactivevideo-editor .h5p-interaction-semantics-wrapper .h5p-interaction-pause {
+  display: inline-block;
+  margin-left: 1em;
+  display: inline-block;
+  vertical-align: baseline;
+  position: relative;
+  bottom: 2px;
+}
+
+.h5p-interactivevideo-editor .h5p-interaction-semantics-wrapper .h5p-interaction-pause input[type="checkbox"] {
+  vertical-align: bottom;
+}
+
+.h5p-interactivevideo-editor .h5p-interaction-semantics-wrapper .h5p-interaction-pause .h5peditor-field-description {
+  margin-left: 1.8em;
+  margin-top: -1em;
+  line-height: 1.2;
+}
+
+.h5p-interactivevideo-editor .h5p-interaction-semantics-wrapper .h5p-interaction-display {
+  margin-top: 0.5em;
+}
+
+.h5p-interactivevideo-editor .h5p-interaction-semantics-wrapper .h5p-interaction-display .h5p-interaction-display-label.hide {
+  display: none;
+}
+
+.h5p-interactivevideo-editor .h5p-interaction-semantics-wrapper input[type="checkbox"] {
+  vertical-align: text-bottom;
+}
+
+.h5p-interactivevideo-editor .h5p-interaction-semantics-wrapper .h5p-interaction-library .field.library > select,
+.h5p-interactivevideo-editor .h5p-interaction-semantics-wrapper .h5p-interaction-library .field.library > label {
+  display: none;
+}
+
+.h5p-interactivevideo-editor .h5p-interaction-semantics-wrapper .h5p-interaction-library .field.library .libwrap {
+  margin-top: 0;
+}
+

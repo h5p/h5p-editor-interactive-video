@@ -1,3 +1,4 @@
+/*global H5PEditor, H5P*/
 H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) {
 
   /**
@@ -293,17 +294,32 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   };
 
   /**
-   * Create form for interaction.
+   * Create interaction form
    *
-   * @param {H5P.InteractiveVideoInteraction} interaction
-   * @param {Object} parameters
+   * @param {H5P.InteractiveVideoInteraction} interaction Interaction the form will be created from
+   * @param {Object} parameters Interaction parameters
    */
-  InteractiveVideoEditor.prototype.processInteraction = function (interaction, parameters) {
+  InteractiveVideoEditor.prototype.createInteractionForm = function (interaction, parameters) {
     var self = this;
-    var allowResize = true;
+
+    var $commonInteractionFields = $(
+      '<div class="h5p-interaction-semantics-wrapper">' +
+        '<div class="h5p-interaction-common-fields">' +
+          '<div class="h5p-interaction-timing">' +
+            '<div class="h5p-interaction-duration"></div>' +
+            '<div class="h5p-interaction-pause"></div>' +
+          '</div>' +
+          '<div class="h5p-interaction-display">' +
+            '<div class="h5p-interaction-button-display"></div>' +
+            '<div class="h5p-interaction-display-label"></div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="h5p-interaction-library"></div>' +
+      '</div>'
+    );
 
     // Create form
-    interaction.$form = H5P.jQuery('<div/>');
+    interaction.$form = $commonInteractionFields;
     var interactions = findField('interactions', this.field.fields);
 
     // Clone semantics to avoid changing them for all interactions
@@ -337,19 +353,54 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       // Hide label field
       var labelField = findField('label', interactionFields);
       labelField.widget = 'none';
-      allowResize = false;
     }
 
-    // Create form elements
-    H5PEditor.processSemanticsChunk(interactionFields, parameters, interaction.$form, this);
+    /**
+     * Process the semantics, and place them at selector
+     * @param {Object} semantics Semantics that will be processed
+     * @param {String} selector jQuery selector string
+     */
+    var processInteractionSemantics = function (semantics, selector) {
+      var $semanticsWrapper = $(selector, $commonInteractionFields);
+      var field = findField(semantics, interactionFields);
+      if (field !== undefined) {
+        H5PEditor.processSemanticsChunk([field], parameters, $semanticsWrapper, self);
+      }
+    };
+
+    processInteractionSemantics('duration', '.h5p-interaction-duration');
+    processInteractionSemantics('pause', '.h5p-interaction-pause');
+    processInteractionSemantics('displayAsButton', '.h5p-interaction-button-display');
+    processInteractionSemantics('label', '.h5p-interaction-display-label');
+    processInteractionSemantics('action', '.h5p-interaction-library');
+
+    $('.h5p-interaction-button-display input:checkbox', $commonInteractionFields).change(function () {
+      var $labelWrapper = $('.h5p-interaction-display .h5p-interaction-display-label', $commonInteractionFields);
+      if ($(this).is(':checked')) {
+        $labelWrapper.removeClass('hide');
+      } else {
+        $labelWrapper.addClass('hide');
+      }
+    });
+
+    self.setLibraryName(interaction.$form, type);
+  };
+
+  /**
+   * Process interaction.
+   *
+   * @param {H5P.InteractiveVideoInteraction} interaction
+   * @param {Object} parameters
+   */
+  InteractiveVideoEditor.prototype.processInteraction = function (interaction, parameters) {
+    var self = this;
+    var type = interaction.getLibraryName();
+    var allowResize = type === 'H5P.Link';
+    this.createInteractionForm(interaction, parameters);
 
     // Keep track of form elements
     interaction.children = this.children;
     this.children = undefined;
-
-    // Customize form
-    interaction.$form.children('.library:first').children('label, select').hide().end().children('.libwrap').css('margin-top', '0');
-    self.setLibraryName(interaction.$form, type);
 
     interaction.on('display', function (event) {
       var $interaction = event.data;
@@ -458,7 +509,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    */
   InteractiveVideoEditor.prototype.setLibraryName = function ($form, libraryType) {
     var libraryName = libraryType.replace('.', '-').toLowerCase() + '-library';
-    var $libraryForm = $form.children('.library');
+    var $libraryForm = $form.find('.library');
     $libraryForm.addClass(libraryName);
   };
 
