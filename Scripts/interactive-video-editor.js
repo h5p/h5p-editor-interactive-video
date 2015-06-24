@@ -709,8 +709,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
             params: {},
             subContentId: H5P.createUUID()
           },
-          x: 0,
-          y: 0,
+          x: 47.813153766, // Center button
+          y: 46.112273361,
           width: 10,
           height: 10,
           duration: {
