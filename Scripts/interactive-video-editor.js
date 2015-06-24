@@ -300,6 +300,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    */
   InteractiveVideoEditor.prototype.processInteraction = function (interaction, parameters) {
     var self = this;
+    var allowResize = true;
 
     // Create form
     interaction.$form = H5P.jQuery('<div/>');
@@ -336,6 +337,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       // Hide label field
       var labelField = findField('label', interactionFields);
       labelField.widget = 'none';
+      allowResize = false;
     }
 
     // Create form elements
@@ -358,7 +360,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         $('<div/>', {
           'class': 'h5p-interaction-overlay'
         }).appendTo($interaction);
-        if (type !== 'H5P.Link') {
+        if (allowResize) {
           self.dnr.add($interaction);
         }
         $interaction.children('.h5p-dragnresize-handle').unbind('mousedown').mousedown(function (event) {
@@ -366,7 +368,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           self.IV.$overlay.addClass('h5p-visible');
           self.IV.video.pause();
 
-          if (type !== 'H5P.Link') {
+          if (allowResize) {
             self.dnr.$element = $interaction;
             self.dnr.lock = (type === 'H5P.Image');
             self.dnr.press(event.clientX, event.clientY);
