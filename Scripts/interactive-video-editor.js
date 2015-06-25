@@ -395,7 +395,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   InteractiveVideoEditor.prototype.processInteraction = function (interaction, parameters) {
     var self = this;
     var type = interaction.getLibraryName();
-    var allowResize = type === 'H5P.Link';
+    var allowResize = (type !== 'H5P.Link');
     this.createInteractionForm(interaction, parameters);
 
     // Keep track of form elements
