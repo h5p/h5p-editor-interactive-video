@@ -47,6 +47,13 @@
   background: -o-linear-gradient(top,#fff 0,#f2f2f2 100%);
   font-family: 'H5PFontAwesome4';
 }
+.h5p-dialog-title:before {
+  content: " ";
+  font-family: 'H5PFontAwesome4';
+  color: #313131;
+  margin-right: 0.5em;
+  vertical-align: middle;
+}
 .h5p-interactivevideo-editor .h5p-dragnbar-a, .h5p-interactivevideo-editor .h5p-dragnbar-a:visited, .h5p-interactivevideo-editor .h5p-dragnbar-a:link {
   color: #333;
 }
@@ -57,19 +64,24 @@
   text-decoration: none;
   border-color: #999;
 }
-.h5p-interactivevideo-editor .h5p-dragnbar-nil-button:before {
+.h5p-interactivevideo-editor .h5p-dragnbar-nil-button:before,
+.h5p-nil-interaction-icon:before {
   content: "\f146";
 }
-.h5p-interactivevideo-editor .h5p-dragnbar-text-button:before {
+.h5p-interactivevideo-editor .h5p-dragnbar-text-button:before,
+.h5p-text-interaction-icon:before {
   content: "T";
 }
-.h5p-interactivevideo-editor .h5p-dragnbar-table-button:before {
+.h5p-interactivevideo-editor .h5p-dragnbar-table-button:before,
+.h5p-table-interaction-icon:before {
   content: "\f0ce";
 }
-.h5p-interactivevideo-editor .h5p-dragnbar-link-button:before {
+.h5p-interactivevideo-editor .h5p-dragnbar-link-button:before,
+.h5p-link-interaction-icon:before {
   content: "\f0c1";
 }
-.h5p-interactivevideo-editor .h5p-dragnbar-image-button:before {
+.h5p-interactivevideo-editor .h5p-dragnbar-image-button:before,
+.h5p-image-interaction-icon:before {
   content: "\f03e";
 }
 
@@ -85,34 +97,68 @@
   font-size: 1.2em;
   vertical-align: top;
 }
-.h5p-interactivevideo-editor .h5p-dragnbar-summary-button:before {
+.h5p-singlechoiceset-interaction-icon:before,
+.h5p-dragtext-interaction-icon:before,
+.h5p-markthewords-interaction-icon:before,
+.h5p-dragquestion-interaction-icon:before,
+.h5p-blanks-interaction-icon:before,
+.h5p-multichoice-interaction-icon:before,
+.h5p-summary-interaction-icon:before {
+  font-family: 'H5Picons';
+}
+
+.h5p-interactivevideo-editor .h5p-dragnbar-summary-button:before,
+.h5p-summary-interaction-icon:before {
   content: "\e992";
 }
-.h5p-interactivevideo-editor .h5p-dragnbar-multichoice-button:before {
+.h5p-interactivevideo-editor .h5p-dragnbar-multichoice-button:before,
+.h5p-multichoice-interaction-icon:before {
   content: "\e993";
 }
-.h5p-interactivevideo-editor .h5p-dragnbar-blanks-button:before {
+.h5p-interactivevideo-editor .h5p-dragnbar-blanks-button:before,
+.h5p-blanks-interaction-icon:before {
   content: "\e994";
 }
-.h5p-interactivevideo-editor .h5p-dragnbar-dragquestion-button:before {
+.h5p-interactivevideo-editor .h5p-dragnbar-dragquestion-button:before,
+.h5p-dragquestion-interaction-icon:before {
   content: "\e991";
 }
-.h5p-interactivevideo-editor .h5p-dragnbar-markthewords-button:before {
+.h5p-interactivevideo-editor .h5p-dragnbar-markthewords-button:before,
+.h5p-markthewords-interaction-icon:before {
   content: "\e601";
 }
-.h5p-interactivevideo-editor .h5p-dragnbar-dragtext-button:before {
+.h5p-interactivevideo-editor .h5p-dragnbar-dragtext-button:before,
+.h5p-dragtext-interaction-icon:before {
   content: "\e600";
 }
-.h5p-interactivevideo-editor .h5p-dragnbar-singlechoiceset-button:before {
+.h5p-interactivevideo-editor .h5p-dragnbar-singlechoiceset-button:before,
+.h5p-singlechoiceset-interaction-icon:before {
   content: "\e603";
 }
 
 .h5p-interactivevideo-editor .h5p-dialog-buttons {
   overflow: hidden;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  background-color: #e9e9e9;
+  padding: 0.5em;
+  box-sizing: border-box;
+  border-bottom: 1px solid #ccc;
 }
+.h5p-interactivevideo-editor .h5p-dialog.h5p-big {
+  padding: 0;
+}
+
+.h5p-interactivevideo-editor .h5p-dialog-title {
+  color: #313131;
+  float: left;
+  margin-top: 0.25em;
+}
+
 .h5p-interactivevideo-editor .h5p-button {
   display: block;
-  margin: 0.625em 0 0 0.625em;
+  margin: 0 0 0 0.625em;
   box-shadow: none;
   padding: 0.25em 2em;
   float: right;
@@ -411,7 +457,7 @@
 
 /* interaction semantics wrapper */
 .h5p-interactivevideo-editor .h5p-interaction-semantics-wrapper {
-  margin-right: 0.2em;
+  padding: 0 0.5em 0.5em;
 }
 
 .h5p-interactivevideo-editor .h5p-interaction-semantics-wrapper .h5p-interaction-duration {
@@ -457,4 +503,3 @@
 .h5p-interactivevideo-editor .h5p-interaction-semantics-wrapper .h5p-interaction-library .field.library .libwrap {
   margin-top: 0;
 }
-
