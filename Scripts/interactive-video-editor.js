@@ -719,11 +719,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     // Determine title
     switch (library.name) {
       case 'H5P.Summary':
-        return 'statements';
+        return 'Statements';
       case 'H5P.Nil':
-        return 'label';
+        return 'Label';
       default:
-        return library.title.toLowerCase();
+        return library.title;
     }
   };
 
@@ -739,7 +739,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     return {
       id: id,
-      title: t('insertElement', {':type':that.getLibraryTitle(library) }),
+      title: t('insertElement', {':type': that.getLibraryTitle(library).toLowerCase() }),
       createElement: function () {
         that.IV.video.pause();
 
