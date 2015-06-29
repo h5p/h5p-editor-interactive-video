@@ -265,6 +265,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   InteractiveVideoEditor.prototype.createDragNBar = function (libraries) {
     var that = this;
 
+    this.libraries = libraries;
     this.dnb = new H5P.DragNBar(this.getButtons(libraries), this.IV.$videoWrapper);
 
     // Update params when the element is dropped.
@@ -550,9 +551,20 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         that.IV.video.pause();
       }
 
+      // Try to figure out a title for the dialog
+      var title = interaction.getTitle();
+      if (title === that.IV.l10n.interaction) {
+        // Try to find something better than the default title
+        title = that.findLibraryTitle(interaction.getLibraryName());
+        if (!title) {
+          // Couldn't find anything, use default
+          title = that.IV.l10n.interaction;
+        }
+      }
+
       var $title = $('<div/>', {
         'class': 'h5p-dialog-title ' + interaction.getClass() + '-icon',
-        html: interaction.getTitle()
+        html: title
       });
 
       // Add dialog buttons
@@ -680,6 +692,42 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   };
 
   /**
+   * Find the title for the given library.
+   *
+   * @param {string} libraryName
+   * @returns {string}
+   */
+  InteractiveVideoEditor.prototype.findLibraryTitle = function (libraryName) {
+    if (!this.libraries) {
+      return;
+    }
+
+    for (var i = 0; i < this.libraries.length; i++) {
+      if (this.libraries[i].name === libraryName) {
+        return this.getLibraryTitle(this.libraries[i]);
+      }
+    }
+  };
+
+  /**
+   * Determines a human readable name for the library to use in the editor.
+   *
+   * @param {string} library
+   * @returns {string}
+   */
+  InteractiveVideoEditor.prototype.getLibraryTitle = function (library) {
+    // Determine title
+    switch (library.name) {
+      case 'H5P.Summary':
+        return 'statements';
+      case 'H5P.Nil':
+        return 'label';
+      default:
+        return library.title.toLowerCase();
+    }
+  };
+
+  /**
    * Returns button data for the given library.
    *
    * @param {string} library
@@ -689,22 +737,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     var that = this;
     var id = library.name.split('.')[1].toLowerCase();
 
-    // Determine title
-    var title;
-    switch (id) {
-      case 'summary':
-        title = 'statements';
-        break;
-      case 'nil':
-        title = 'label';
-        break;
-      default:
-        title = library.title.toLowerCase();
-    }
-
     return {
       id: id,
-      title: t('insertElement', {':type': title }),
+      title: t('insertElement', {':type':that.getLibraryTitle(library) }),
       createElement: function () {
         that.IV.video.pause();
 
