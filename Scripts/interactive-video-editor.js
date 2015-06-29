@@ -123,6 +123,13 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         that.createDragNBar(libraries);
       });
 
+      // Allow resizing
+      that.dnr = new H5P.DragNResize(that.IV.$videoWrapper);
+      that.dnr.resizeCallback = function (width, height) {
+        that.IV.$overlay.removeClass('h5p-visible');
+        that.interaction.setSize(width, height);
+      };
+
       // Add "Add bookmark" to bookmarks menu.
       $('<a href="#" class="h5p-add-bookmark">' + t('addBookmark') + '</a>').appendTo(that.IV.controls.$bookmarksChooser).click(function () {
         that.addBookmark();
@@ -284,13 +291,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     };
 
     this.dnb.attach(this.$bar);
-
-    this.dnr = new H5P.DragNResize(this.IV.$videoWrapper);
-
-    this.dnr.resizeCallback = function (width, height) {
-      that.IV.$overlay.removeClass('h5p-visible');
-      that.interaction.setSize(width, height);
-    };
   };
 
   /**
@@ -620,7 +620,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       // Check if we should show again
       interaction.toggle(this.IV.video.getCurrentTime());
 
-      this.dnb.blur();
+      if (this.dnb) {
+        this.dnb.blur();
+      }
     }
 
     return valid;
