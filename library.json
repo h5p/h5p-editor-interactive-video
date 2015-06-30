@@ -13,10 +13,16 @@
   },
   "preloadedJs": [
     {
+      "path": "Scripts/image-radio-button-group.js"
+    },
+    {
       "path": "Scripts/interactive-video-editor.js"
     }
   ],
   "preloadedCss": [
+    {
+      "path": "styles/image-radio-button-group.css"
+    },
     {
       "path": "styles/interactive-video-editor.css"
     }

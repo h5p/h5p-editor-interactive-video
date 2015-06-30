@@ -340,14 +340,14 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       hideFields(interactionFields, ['adaptivity']);
     }
     if (type === 'H5P.Nil') {
-      hideFields(interactionFields, ['displayAsButton']);
+      hideFields(interactionFields, ['displayType']);
     }
 
     // Always show link as poster
     if (type === 'H5P.Link') {
-      var field = findField('displayAsButton', interactionFields);
+      var field = findField('displayType', interactionFields);
       // Must set default to false and hide
-      field.default = false;
+      field.default = 'poster';
       field.widget = 'none';
 
       // Hide label field
@@ -370,18 +370,21 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     processInteractionSemantics('duration', '.h5p-interaction-duration');
     processInteractionSemantics('pause', '.h5p-interaction-pause');
-    processInteractionSemantics('displayAsButton', '.h5p-interaction-button-display');
+    processInteractionSemantics('displayType', '.h5p-interaction-button-display');
     processInteractionSemantics('label', '.h5p-interaction-display-label');
     processInteractionSemantics('action', '.h5p-interaction-library');
 
-    $('.h5p-interaction-button-display input:checkbox', $commonInteractionFields).change(function () {
-      var $labelWrapper = $('.h5p-interaction-display .h5p-interaction-display-label', $commonInteractionFields);
-      if ($(this).is(':checked')) {
+    var $displayTypeRadios = $('.h5p-interaction-button-display input:radio', $commonInteractionFields);
+    var $labelWrapper = $('.h5p-interaction-display .h5p-interaction-display-label', $commonInteractionFields);
+    $displayTypeRadios.change(function () {
+      if ($(this).val() === 'button') {
         $labelWrapper.removeClass('hide');
       } else {
         $labelWrapper.addClass('hide');
       }
     });
+
+    $labelWrapper.toggleClass('hide', !interaction.isButton());
 
     self.setLibraryName(interaction.$form, type);
   };
