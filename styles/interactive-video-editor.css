@@ -470,11 +470,11 @@
   display: inline-block;
   vertical-align: baseline;
   position: relative;
-  bottom: 9px;
+  bottom: .6em;
 }
 
 .h5p-interactivevideo-editor .h5p-interaction-semantics-wrapper .h5p-interaction-pause input[type="checkbox"] {
-  vertical-align: bottom;
+  vertical-align: middle;
 }
 
 .h5p-interactivevideo-editor .h5p-interaction-semantics-wrapper .h5p-interaction-pause .h5peditor-field-description {
