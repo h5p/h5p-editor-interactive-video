@@ -123,13 +123,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         that.createDragNBar(libraries);
       });
 
-      // Allow resizing
-      that.dnr = new H5P.DragNResize(that.IV.$videoWrapper);
-      that.dnr.resizeCallback = function (width, height) {
-        that.IV.$overlay.removeClass('h5p-visible');
-        that.interaction.setSize(width, height);
-      };
-
       // Add "Add bookmark" to bookmarks menu.
       $('<a href="#" class="h5p-add-bookmark">' + t('addBookmark') + '</a>').appendTo(that.IV.controls.$bookmarksChooser).click(function () {
         that.addBookmark();
@@ -268,6 +261,24 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     this.libraries = libraries;
     this.dnb = new H5P.DragNBar(this.getButtons(libraries), this.IV.$videoWrapper);
 
+    that.dnb.dnr.on('stoppedResizing', function (event) {
+      that.IV.$overlay.removeClass('h5p-visible');
+      // Set size in em
+      that.interaction.setSize(event.data.width, event.data.height);
+    });
+
+    this.dnb.contextMenu.on('contextMenuEdit', function () {
+      that.dnb.dnd.$element.dblclick();
+    });
+
+    this.dnb.contextMenu.on('contextMenuDelete', function () {
+      if (confirm(t('removeInteraction'))) {
+        that.removeInteraction(that.dnb.dnd.$element.data('interaction'));
+        that.IV.dialog.close();
+      }
+      that.IV.addSliderInteractions();
+    });
+
     // Update params when the element is dropped.
     this.dnb.stopMovingCallback = function (x, y) {
       that.interaction.positionLabel(that.IV.$videoWrapper.width());
@@ -363,7 +374,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   InteractiveVideoEditor.prototype.processInteraction = function (interaction, parameters) {
     var self = this;
     var type = interaction.getLibraryName();
-    var allowResize = (type !== 'H5P.Link');
     this.createInteractionForm(interaction, parameters);
 
     // Keep track of form elements
@@ -393,21 +403,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         $('<div/>', {
           'class': 'h5p-interaction-overlay'
         }).appendTo($interaction);
-        if (allowResize) {
-          self.dnr.add($interaction);
-        }
-        $interaction.children('.h5p-dragnresize-handle').unbind('mousedown').mousedown(function (event) {
+        $interaction.children('.h5p-dragnresize-handle').mousedown(function (event) {
           self.interaction = interaction;
           self.IV.$overlay.addClass('h5p-visible');
           self.IV.video.pause();
-
-          if (allowResize) {
-            self.dnr.$element = $interaction;
-            self.dnr.lock = (type === 'H5P.Image');
-            self.dnr.press(event.clientX, event.clientY);
-          }
-
-          return false;
         });
       }
     });
@@ -503,9 +502,13 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    */
   InteractiveVideoEditor.prototype.newInteraction = function (interaction, $interaction) {
     var that = this;
+    var libraryName = interaction.getLibraryName();
+    var disableResize = (libraryName === 'H5P.Link');
+    var lock = (libraryName === 'H5P.Image');
 
     if (that.dnb !== undefined) {
-      that.dnb.add($interaction);
+      $interaction.data('interaction', interaction);
+      that.dnb.add($interaction, {lock: lock, disableResize: disableResize});
     }
 
     // Disable the normal dialog

@@ -36,12 +36,7 @@
     {
       "machineName": "H5P.DragNBar",
       "majorVersion": 1,
-      "minorVersion": 0
-    },
-    {
-      "machineName": "H5P.DragNResize",
-      "majorVersion": 1,
-      "minorVersion": 0
+      "minorVersion": 1
     },
     {
       "machineName": "H5P.Image",
