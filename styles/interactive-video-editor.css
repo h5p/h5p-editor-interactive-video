@@ -460,6 +460,10 @@
   padding: 0 0.5em 0.5em;
 }
 
+.h5p-interactivevideo-editor .h5p-interaction-semantics-wrapper .h5p-interaction-timing {
+  position: relative;
+}
+
 .h5p-interactivevideo-editor .h5p-interaction-semantics-wrapper .h5p-interaction-duration {
   display: inline-block;
 }
@@ -469,12 +473,16 @@
   margin-left: 1em;
   display: inline-block;
   vertical-align: baseline;
-  position: relative;
-  bottom: .6em;
+  position: absolute;
+  height: 28px;
+  bottom: 4px;
+  padding-left: 18px;
 }
 
 .h5p-interactivevideo-editor .h5p-interaction-semantics-wrapper .h5p-interaction-pause input[type="checkbox"] {
-  vertical-align: middle;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 
 .h5p-interactivevideo-editor .h5p-interaction-semantics-wrapper .h5p-interaction-pause .h5peditor-field-description {
