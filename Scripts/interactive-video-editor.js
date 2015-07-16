@@ -56,6 +56,17 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     parent.ready(function () {
       that.passReadies = false;
     });
+
+    this.currentTabIndex = 0;
+    H5P.externalDispatcher.on('wizard-tab-changed', function (event) {
+      if (event.data.library === '/interactiveVideo') {
+        that.currentTabIndex = event.data.tabIndex;
+        // If "Add interactions" tab, wait for it to initialize
+        if (that.currentTabIndex !== 1) {
+          that.startGuidedTour();
+        }
+      }
+    });
   }
 
   /**
@@ -135,6 +146,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         that.addBookmark();
         return false;
       });
+
+      // Need to create the guide after the controls have been added, since it
+      // attach itself to these DOM-elements
+      that.startGuidedTour();
     });
     this.IV.on('bookmarkAdded', that.bookmarkAdded, that);
     this.IV.attach(this.$editor);
@@ -808,12 +823,18 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }
   };
 
+
+  InteractiveVideoEditor.prototype.startGuidedTour = function (force) {
+    H5PEditor.InteractiveVideo.GuidedTours.start(this.currentTabIndex, force || false);
+  };
+
   /**
    * Append field to wrapper.
    *
    * @param {H5P.jQuery} $wrapper
    */
   InteractiveVideoEditor.prototype.appendTo = function ($wrapper) {
+    var self = this;
     // Added to support older versions of core. Needed when using IV in CP.
     var $libwrap = $wrapper.parent().parent();
     if ($libwrap.hasClass('libwrap')) {
@@ -824,8 +845,17 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     this.$editor = this.$item.children('.h5peditor-interactions');
     this.$errors = this.$item.children('.h5p-errors');
     this.$bar = this.$item.children('.h5peditor-dragnbar');
-  };
 
+    $('<span>', {
+      'class': 'h5peditor-guided-tour',
+      html: t('tour'),
+      click: function () {
+        self.startGuidedTour(true);
+        return false;
+      }
+    }).appendTo('.h5p-interactivevideo-editor .field.wizard > .h5peditor-label');
+    self.startGuidedTour();
+  };
   /**
    * Create HTML for the field.
    *
@@ -927,6 +957,7 @@ H5PEditor.language['H5PEditor.InteractiveVideo'] = {
     removeInteraction: 'Are you sure you wish to remove this interaction?',
     addBookmark: 'Add bookmark',
     newBookmark: 'New bookmark',
-    bookmarkAlreadyExists: 'Bookmark already exists here. Move playhead and add a bookmark at another time.'
+    bookmarkAlreadyExists: 'Bookmark already exists here. Move playhead and add a bookmark at another time.',
+    tour: 'Tour'
   }
 };

@@ -11,6 +11,7 @@
     "removeInteraction": "Er du sikker på at du vil fjerne denne interaksjonen?",
     "addBookmark": "Legg til bokmerke",
     "newBookmark": "Nytt bokmerke",
-    "bookmarkAlreadyExists": "Det finnes allerde eit bokmerke her. Spol og plasser bokmerket på ein annen tidskode."
+    "bookmarkAlreadyExists": "Det finnes allerde eit bokmerke her. Spol og plasser bokmerket på ein annen tidskode.",
+    "tour": "Omvising"
   }
 }
