@@ -370,19 +370,27 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     interaction.children = this.children;
     this.children = undefined;
 
-    // Add classes to form elements that needs unique styling
-    interaction.children[interaction.indexes.durationIndex.index].$item.addClass('h5peditor-interaction-' + interaction.indexes.durationIndex.name);
-    interaction.children[interaction.indexes.pauseIndex.index].$item.addClass('h5peditor-interaction-' + interaction.indexes.pauseIndex.name);
-    interaction.children[interaction.indexes.labelIndex.index].$item.addClass('h5peditor-interaction-' + interaction.indexes.labelIndex.name);
+    // Add classes to form elements if they exist
+    if (interaction.children[interaction.indexes.durationIndex.index].$item) {
+      interaction.children[interaction.indexes.durationIndex.index].$item.addClass('h5peditor-interaction-' + interaction.indexes.durationIndex.name);
+    }
 
-    // Remove label when displayType is poster
-    var $displayTypeRadios = $('.h5p-image-radio-button-group input:radio', interaction.$form);
-    var $labelWrapper = interaction.children[interaction.indexes.labelIndex.index].$item;
-    $displayTypeRadios.change(function () {
+    if (interaction.children[interaction.indexes.pauseIndex.index].$item) {
+      interaction.children[interaction.indexes.pauseIndex.index].$item.addClass('h5peditor-interaction-' + interaction.indexes.pauseIndex.name);
+    }
+
+    if (interaction.children[interaction.indexes.labelIndex.index].$item) {
+      interaction.children[interaction.indexes.labelIndex.index].$item.addClass('h5peditor-interaction-' + interaction.indexes.labelIndex.name);
+
+      // Remove label when displayType is poster
+      var $displayTypeRadios = $('.h5p-image-radio-button-group input:radio', interaction.$form);
+      var $labelWrapper = interaction.children[interaction.indexes.labelIndex.index].$item;
+      $displayTypeRadios.change(function () {
+        $labelWrapper.toggleClass('hide', !interaction.isButton());
+      });
+
       $labelWrapper.toggleClass('hide', !interaction.isButton());
-    });
-
-    $labelWrapper.toggleClass('hide', !interaction.isButton());
+    }
 
     interaction.on('display', function (event) {
       var $interaction = event.data;
