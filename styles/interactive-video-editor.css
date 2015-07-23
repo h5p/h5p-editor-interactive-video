@@ -436,3 +436,10 @@
   outline: 1px solid #0099ff;
   outline-offset: -1px;
 }
+
+.h5p-interactivevideo-editor .h5p-dialog-inner {
+  padding: 0.5em;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
