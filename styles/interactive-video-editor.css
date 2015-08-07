@@ -460,11 +460,7 @@
   padding: 0 0.5em 0.5em;
 }
 
-.h5p-interactivevideo-editor .h5p-interaction-semantics-wrapper .h5p-interaction-timing {
-  position: relative;
-}
-
-.h5p-interactivevideo-editor .h5p-interaction-semantics-wrapper .h5p-interaction-duration {
+.h5p-interactivevideo-editor .h5p-dialog-inner .h5peditor-interaction-duration {
   display: inline-block;
 }
 
@@ -473,16 +469,12 @@
   margin-left: 1em;
   display: inline-block;
   vertical-align: baseline;
-  position: absolute;
-  height: 28px;
-  bottom: 4px;
-  padding-left: 18px;
+  position: relative;
+  bottom: .6em;
 }
 
-.h5p-interactivevideo-editor .h5p-interaction-semantics-wrapper .h5p-interaction-pause input[type="checkbox"] {
-  position: absolute;
-  left: 0;
-  top: 0;
+.h5p-interactivevideo-editor .h5p-dialog-inner .h5p-interaction-pause input[type="checkbox"] {
+  vertical-align: middle;
 }
 
 .h5p-interactivevideo-editor .h5p-dialog-inner .h5peditor-interaction-pause .h5peditor-field-description {
@@ -495,10 +487,6 @@
   display: none;
 }
 
-.h5p-interactivevideo-editor .h5p-dialog-inner input[type="checkbox"] {
-  vertical-align: text-bottom;
-}
-
 .h5p-interactivevideo-editor .h5p-dialog-inner .field.library > select,
 .h5p-interactivevideo-editor .h5p-dialog-inner .field.library > label {
   display: none;
@@ -509,7 +497,7 @@
 }
 
 .h5p-interactivevideo-editor .h5p-dialog-inner .h5p-image-radio-button-group {
-  margin-top: -2em;
+  margin-top: -1em;
 }
 
 .h5p-interactivevideo-editor .h5p-image-radio-button.button .image-container {
