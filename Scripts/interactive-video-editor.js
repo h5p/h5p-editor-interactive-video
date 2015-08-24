@@ -301,10 +301,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    */
   InteractiveVideoEditor.prototype.processInteraction = function (interaction, parameters) {
     var self = this;
-    var allowResize = true;
+
+    var $semanticFields = $('<div>');
 
     // Create form
-    interaction.$form = H5P.jQuery('<div/>');
+    interaction.$form = $semanticFields;
     var interactions = findField('interactions', this.field.fields);
 
     // Clone semantics to avoid changing them for all interactions
@@ -341,16 +342,55 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       allowResize = false;
     }
 
-    // Create form elements
-    H5PEditor.processSemanticsChunk(interactionFields, parameters, interaction.$form, this);
+    // Get indexes of fields that needs unique styling
+    if (interaction.indexes === undefined) {
+      interaction.indexes = {};
+    }
+    interaction.indexes.durationIndex = {name: 'duration', index: interactionFields.indexOf(findField('duration', interactionFields))};
+    interaction.indexes.pauseIndex = {name: 'pause', index: interactionFields.indexOf(findField('pause', interactionFields))};
+    interaction.indexes.labelIndex = {name: 'label', index: interactionFields.indexOf(findField('label', interactionFields))};
+    H5PEditor.processSemanticsChunk(interactionFields, parameters, $semanticFields, self);
+
+    self.setLibraryName(interaction.$form, type);
+  };
+
+  /**
+   * Process interaction.
+   *
+   * @param {H5P.InteractiveVideoInteraction} interaction
+   * @param {Object} parameters
+   */
+  InteractiveVideoEditor.prototype.processInteraction = function (interaction, parameters) {
+    var self = this;
+    var type = interaction.getLibraryName();
+    var allowResize = (type !== 'H5P.Link');
+    this.createInteractionForm(interaction, parameters);
 
     // Keep track of form elements
     interaction.children = this.children;
     this.children = undefined;
 
-    // Customize form
-    interaction.$form.children('.library:first').children('label, select').hide().end().children('.libwrap').css('margin-top', '0');
-    self.setLibraryName(interaction.$form, type);
+    // Add classes to form elements if they exist
+    if (interaction.children[interaction.indexes.durationIndex.index].$item) {
+      interaction.children[interaction.indexes.durationIndex.index].$item.addClass('h5peditor-interaction-' + interaction.indexes.durationIndex.name);
+    }
+
+    if (interaction.children[interaction.indexes.pauseIndex.index].$item) {
+      interaction.children[interaction.indexes.pauseIndex.index].$item.addClass('h5peditor-interaction-' + interaction.indexes.pauseIndex.name);
+    }
+
+    if (interaction.children[interaction.indexes.labelIndex.index].$item) {
+      interaction.children[interaction.indexes.labelIndex.index].$item.addClass('h5peditor-interaction-' + interaction.indexes.labelIndex.name);
+
+      // Remove label when displayType is poster
+      var $displayTypeRadios = $('.h5p-image-radio-button-group input:radio', interaction.$form);
+      var $labelWrapper = interaction.children[interaction.indexes.labelIndex.index].$item;
+      $displayTypeRadios.change(function () {
+        $labelWrapper.toggleClass('hide', !interaction.isButton());
+      });
+
+      $labelWrapper.toggleClass('hide', !interaction.isButton());
+    }
 
     interaction.on('display', function (event) {
       var $interaction = event.data;
