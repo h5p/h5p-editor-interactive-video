@@ -299,7 +299,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @param {H5P.InteractiveVideoInteraction} interaction
    * @param {Object} parameters
    */
-  InteractiveVideoEditor.prototype.processInteraction = function (interaction, parameters) {
+  InteractiveVideoEditor.prototype.createInteractionForm = function (interaction, parameters) {
     var self = this;
 
     var $semanticFields = $('<div>');
