@@ -443,3 +443,7 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+
+.h5p-interactivevideo-editor .h5p-dragnbar-element.h5p-moving .h5p-interaction-button {
+  cursor: move;
+}
