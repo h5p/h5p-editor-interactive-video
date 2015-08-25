@@ -1,4 +1,3 @@
-/*global H5PEditor, H5P*/
 H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) {
 
   /**
@@ -116,7 +115,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }
     this.IV.on('controls', function () {
       // Add DragNBar.
-      that.$bar = $('<div class="h5peditor-dragnbar">' + t('loading') + '</div>').prependTo(that.$editor);
+      that.$bar = $('<div class="h5peditor-dragnbar h5p-interactive-video-dragnbar">' + t('loading') + '</div>').prependTo(that.$editor);
       var interactions = findField('interactions', that.field.fields);
       var action = findField('action', interactions.field.fields);
       $.post(H5PEditor.ajaxPath + 'libraries', {libraries: action.options}, function (libraries) {
@@ -295,12 +294,12 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   };
 
   /**
-   * Create interaction form
+   * Create form for interaction.
    *
-   * @param {H5P.InteractiveVideoInteraction} interaction Interaction the form will be created from
-   * @param {Object} parameters Interaction parameters
+   * @param {H5P.InteractiveVideoInteraction} interaction
+   * @param {Object} parameters
    */
-  InteractiveVideoEditor.prototype.createInteractionForm = function (interaction, parameters) {
+  InteractiveVideoEditor.prototype.processInteraction = function (interaction, parameters) {
     var self = this;
 
     var $semanticFields = $('<div>');
@@ -340,6 +339,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       // Hide label field
       var labelField = findField('label', interactionFields);
       labelField.widget = 'none';
+      allowResize = false;
     }
 
     // Get indexes of fields that needs unique styling
@@ -499,7 +499,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    */
   InteractiveVideoEditor.prototype.setLibraryName = function ($form, libraryType) {
     var libraryName = libraryType.replace('.', '-').toLowerCase() + '-library';
-    var $libraryForm = $form.find('.library');
+    var $libraryForm = $form.children('.library');
     $libraryForm.addClass(libraryName);
   };
 
@@ -551,11 +551,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         }
       }
 
-      var $title = $('<div/>', {
-        'class': 'h5p-dialog-title ' + interaction.getClass() + '-icon',
-        html: title
-      });
-
       // Add dialog buttons
       var $doneButton = $('<a href="#" class="h5p-button h5p-done">' + t('done') + '</a>')
         .click(function () {
@@ -585,11 +580,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         });
 
       var $buttons = $('<div class="h5p-dialog-buttons"></div>')
-        .append($title)
         .append($doneButton)
         .append($removeButton);
 
-      that.IV.dialog.open(interaction.$form, $buttons);
+      that.IV.dialog.open(interaction.$form, title, interaction.getClass() + '-icon', $buttons);
     });
   };
 
