@@ -157,6 +157,37 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       interaction.setTitle(title);
     });
 
+    // Create title element
+    this.$interactionTitle = $('<div>', {
+      'class': 'h5p-interaction-button-title'
+    }).appendTo(this.$editor);
+
+  };
+
+  InteractiveVideoEditor.prototype.showInteractionTitle = function (title, $interaction) {
+    var videoOffsetX = $interaction.position().left;
+    var videoOffsetY = $interaction.position().top;
+    var dnbOffsetY = this.$bar.height();
+
+    this.$interactionTitle.html(title);
+
+    // center title
+    var totalOffsetX = videoOffsetX - (this.$interactionTitle.outerWidth(true) / 2) + ($interaction.width() / 2);
+    if (totalOffsetX < 0) {
+      totalOffsetX = 0;
+    } else if(totalOffsetX + this.$interactionTitle.outerWidth(true) > this.IV.$videoWrapper.width()) {
+      totalOffsetX = this.IV.$videoWrapper.width() - this.$interactionTitle.outerWidth(true);
+    }
+    var totalOffsetY = videoOffsetY + dnbOffsetY - this.$interactionTitle.height() - 1;
+
+    this.$interactionTitle.css({
+      'left': totalOffsetX,
+      'top': totalOffsetY
+    }).addClass('show');
+  };
+
+  InteractiveVideoEditor.prototype.hideInteractionTitle = function () {
+    this.$interactionTitle.removeClass('show');
   };
 
   /**
