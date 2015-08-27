@@ -120,6 +120,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       var action = findField('action', interactions.field.fields);
       $.post(H5PEditor.ajaxPath + 'libraries', {libraries: action.options}, function (libraries) {
         that.createDragNBar(libraries);
+        that.setInteractionTitles();
       });
 
       // Allow resizing
@@ -137,6 +138,25 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     });
     this.IV.on('bookmarkAdded', that.bookmarkAdded, that);
     this.IV.attach(this.$editor);
+  };
+
+  /**
+   * Set custom interaction titles when libraries are registered.
+   */
+  InteractiveVideoEditor.prototype.setInteractionTitles = function () {
+    var self = this;
+
+    this.IV.interactions.forEach(function (interaction) {
+      // Try to figure out a title for the dialog
+      var title = self.findLibraryTitle(interaction.getLibraryName());
+      if (!title) {
+        // Couldn't find anything, use default
+        title = self.IV.l10n.interaction;
+      }
+
+      interaction.setTitle(title);
+    });
+
   };
 
   /**
