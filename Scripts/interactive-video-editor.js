@@ -121,6 +121,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       var action = findField('action', interactions.field.fields);
       $.post(H5PEditor.ajaxPath + 'libraries', {libraries: action.options}, function (libraries) {
         that.createDragNBar(libraries);
+        that.IV.trigger('dnbEditorReady');
       });
 
       // Add "Add bookmark" to bookmarks menu.
@@ -131,6 +132,17 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     });
     this.IV.on('bookmarkAdded', that.bookmarkAdded, that);
     this.IV.attach(this.$editor);
+
+    // Create a focus handler
+    this.$focusHandler = $('<div>', {
+      'class': 'h5peditor-iv-focus-handler'
+    }).click(function () {
+      if (!that.dnb.focusedElement || !that.dnb.focusedElement.$element.is(':focus')) {
+
+        // No focused element, remove overlay
+        that.$focusHandler.removeClass('show');
+      }
+    }).appendTo(this.IV.$videoWrapper);
   };
 
   /**
@@ -408,6 +420,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           self.IV.video.pause();
         });
       }
+      $interaction.focus(function () {
+        // On focus, show overlay
+        self.$focusHandler.addClass('show');
+      });
     });
 
     // Find library field instance
@@ -529,6 +545,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         }
         if (that.validDialog(interaction)) {
           that.IV.dnb.dialog.close();
+          interaction.focus();
         }
         that.IV.addSliderInteractions();
         return false;

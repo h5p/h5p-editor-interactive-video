@@ -433,7 +433,7 @@
 
 /* Outline on top of buttons */
 .h5p-interactivevideo-editor .h5p-interaction.h5p-dragnbar-element:hover > .h5p-interaction-button,
-.h5p-interactivevideo-editor .h5p-interaction.h5p-dragnbar-element:focus > .h5p-interaction-button {
+.h5p-interactivevideo-editor .h5p-interaction.h5p-dragnbar-element.focused > .h5p-interaction-button {
   outline: 1px solid #0099ff;
 }
 
@@ -446,4 +446,17 @@
 
 .h5p-interactivevideo-editor .h5p-dragnbar-element.h5p-moving .h5p-interaction-button {
   cursor: move;
+}
+
+.h5p-interactivevideo-editor .h5peditor-iv-focus-handler {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.h5p-interactivevideo-editor .h5peditor-iv-focus-handler.show {
+  display: block;
 }
