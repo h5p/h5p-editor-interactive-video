@@ -628,7 +628,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   InteractiveVideoEditor.prototype.addInteractionToDnb = function (interaction, $interaction, options) {
     var that = this;
     $interaction.data('interaction', interaction);
-    var newDnbElement = that.dnb.add($interaction, interaction.getSubcontentId(), interaction.$form, options);
+    var newDnbElement = that.dnb.add($interaction, interaction.getSubcontentId(), options);
 
     // Register listener, make sure we don't register duplicates.
     newDnbElement.contextMenu.off('contextMenuEdit');
