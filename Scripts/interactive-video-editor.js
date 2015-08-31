@@ -111,6 +111,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       }
     }, H5PEditor.contentId);
     this.IV.editor = this;
+    $(window).on('resize', function () {
+      if (that.dnb) {
+        that.dnb.resize();
+      }
+    });
     for (var i = 0; i < this.IV.interactions.length; i++) {
       this.processInteraction(this.IV.interactions[i], this.params.interactions[i]);
     }
