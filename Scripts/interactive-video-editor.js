@@ -855,7 +855,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         that.interaction = that.IV.initInteraction(i);
         that.processInteraction(that.interaction, newInteraction);
 
-        return that.interaction.toggle(from);
+        var $interaction = that.interaction.toggle(from);
+
+        return {element: $interaction, subContentId: that.interaction.getSubcontentId()};
       }
     };
   };
