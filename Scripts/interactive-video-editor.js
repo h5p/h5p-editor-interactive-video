@@ -582,11 +582,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       }
     }
 
-    var $title = $('<div/>', {
-      'class': 'h5p-dialog-title ' + interaction.getClass() + '-icon',
-      html: title
-    });
-
     // Add dialog buttons
     var $doneButton = $('<a href="#" class="h5p-button h5p-done">' + t('done') + '</a>')
       .click(function () {
@@ -617,11 +612,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       });
 
     var $buttons = $('<div class="h5p-dialog-buttons"></div>')
-      .append($title)
       .append($doneButton)
       .append($removeButton);
 
-    that.IV.dnb.dialog.open(interaction.$form, $buttons);
+    interaction.setTitle(title);
+    that.IV.dnb.dialog.open(interaction.$form, title, interaction.getClass() + '-icon', $buttons);
   };
 
   /**
@@ -755,10 +750,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }
     H5PEditor.removeChildren(interaction.children);
     interaction.remove();
-
-    if (this.dnb !== undefined) {
-      this.dnb.blurAll();
-    }
   };
 
   /**
@@ -853,8 +844,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         if (lib === 'H5P.Nil') {
           newInteraction.label = 'Lorem ipsum dolor sit amet...';
         }
-
-        that.IV.$overlay.addClass('h5p-visible');
 
         that.params.interactions.push(newInteraction);
         var i = that.params.interactions.length - 1;
