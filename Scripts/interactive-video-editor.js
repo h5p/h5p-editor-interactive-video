@@ -352,14 +352,17 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         that.dnb.dnd.$element.dblclick();
       }
     };
-
-    // Add queued interactions to DnB
-    if (that.dnbQueue) {
-      that.dnbQueue.forEach(function (queuedInteraction) {
-        that.addInteractionToDnb(queuedInteraction.interaction, queuedInteraction.element, queuedInteraction.options);
-      });
-      delete that.dnbQueue;
-    }
+    that.IV.interactions.forEach(function (interaction) {
+      // Add drag functionality if interaction has element
+      if (interaction.getElement()) {
+        var libraryName = interaction.getLibraryName();
+        var options = {
+          lock: (libraryName === 'H5P.Image'),
+          disableResize: (libraryName === 'H5P.Link') || interaction.isButton()
+        };
+        that.addInteractionToDnb(interaction, interaction.getElement(), options);
+      }
+    });
 
     this.dnb.attach(this.$bar);
   };
@@ -632,7 +635,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    */
   InteractiveVideoEditor.prototype.addInteractionToDnb = function (interaction, $interaction, options) {
     var that = this;
-    $interaction.data('interaction', interaction);
     var newDnbElement = that.dnb.add($interaction, interaction.getSubcontentId(), options);
 
     // Register listener, make sure we don't register duplicates.
