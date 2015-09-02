@@ -478,6 +478,10 @@
   overflow-y: visible;
 }
 
+.h5p-interactivevideo-editor .h5p-interactive-video .h5p-interaction.h5p-poster .h5p-interaction-inner {
+  overflow: hidden;
+}
+
 /* interaction semantics wrapper */
 .h5p-interactivevideo-editor .h5p-dialog-inner {
   padding: 0.5em;
