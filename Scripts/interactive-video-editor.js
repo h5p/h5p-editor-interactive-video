@@ -636,22 +636,22 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   InteractiveVideoEditor.prototype.addInteractionToDnb = function (interaction, $interaction, options) {
     var that = this;
     var newDnbElement = that.dnb.add($interaction, options);
-    interaction.setDnbElement(newDnbElement);
+    var createdNewElement = interaction.setDnbElement(newDnbElement);
 
-    // Register listener, make sure we don't register duplicates.
-    newDnbElement.contextMenu.off('contextMenuEdit');
-    newDnbElement.contextMenu.on('contextMenuEdit', function () {
-      that.openInteractionDialog(interaction);
-    });
+    // New DragNBarElement was set, register listeners
+    if (createdNewElement) {
+      newDnbElement.contextMenu.on('contextMenuEdit', function () {
+        that.openInteractionDialog(interaction);
+      });
 
-    newDnbElement.contextMenu.off('contextMenuDelete');
-    newDnbElement.contextMenu.on('contextMenuDelete', function () {
-      if (confirm(t('removeInteraction'))) {
-        that.removeInteraction(interaction);
-        that.IV.dnb.dialog.close();
-      }
-      that.IV.addSliderInteractions();
-    });
+      newDnbElement.contextMenu.on('contextMenuDelete', function () {
+        if (confirm(t('removeInteraction'))) {
+          that.removeInteraction(interaction);
+          that.IV.dnb.dialog.close();
+        }
+        that.IV.addSliderInteractions();
+      });
+    }
   };
 
   /**
