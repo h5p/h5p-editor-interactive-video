@@ -642,6 +642,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     if (createdNewElement) {
       newDnbElement.contextMenu.on('contextMenuEdit', function () {
         that.openInteractionDialog(interaction);
+        newDnbElement.hideContextMenu();
       });
 
       newDnbElement.contextMenu.on('contextMenuDelete', function () {
