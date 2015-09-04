@@ -1,20 +1,13 @@
-var H5PEditor = H5PEditor || {};
-
-/**
- * Interactive Video editor widget module
- *
- * @param {jQuery} $
- */
 H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) {
 
   /**
    * Initialize interactive video editor.
    *
+   * @class H5PEditor.InteractiveVideo
    * @param {Object} parent
    * @param {Object} field
    * @param {Object} params
    * @param {function} setValue
-   * @returns {_L8.C}
    */
   function InteractiveVideoEditor(parent, field, params, setValue) {
     var that = this;
@@ -22,13 +15,31 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     this.parent = parent;
     this.field = field;
 
-    this.findVideoField(function (field) {
+    this.findField(this.field.video, function (field) {
+      if (field.field.type !== 'video') {
+        throw t('notVideoField', {':path': that.field.video});
+      }
+
       if (field.params !== undefined) {
         that.setVideo(field.params);
       }
 
       field.changes.push(function (file) {
         that.setVideo(field.params);
+      });
+    });
+
+    this.findField(this.field.poster, function (field) {
+      if (field.field.type !== 'image') {
+        throw t('notImageField', {':path': that.field.poster});
+      }
+
+      if (field.params !== undefined) {
+        that.setPoster(field.params);
+      }
+
+      field.changes.push(function () {
+        that.setPoster(field.params);
       });
     });
 
@@ -47,34 +58,29 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   }
 
   /**
-   * Find the video field to use for the video, then run the callback.
+   * Find a field, then run the callback.
    *
    * @param {function} callback
-   * @returns {undefined}
    */
-  InteractiveVideoEditor.prototype.findVideoField = function (callback) {
+  InteractiveVideoEditor.prototype.findField = function (path, callback) {
     var that = this;
     // Find field when tree is ready.
     this.parent.ready(function () {
-      var videoField = H5PEditor.findField(that.field.video, that.parent);
+      var field = H5PEditor.findField(path, that.parent);
 
-      if (!videoField) {
-        throw H5PEditor.t('core', 'unknownFieldPath', {':path': that.field.video});
+      if (!field) {
+        throw H5PEditor.t('core', 'unknownFieldPath', {':path': path});
       }
-      if (videoField.field.type !== 'video') {
-        throw t('notVideoField', {':path': that.field.video});
-      }
-      callback(videoField);
+
+      callback(field);
     });
   };
 
   /**
    * Our tab has been set active. Create a new player if necessary.
-   *
-   * @returns {unresolved}
    */
   InteractiveVideoEditor.prototype.setActive = function () {
-    if (this.IV !== undefined) { // TODO: Check if video is loaded somehow?
+    if (this.IV !== undefined) {
       // A video has been loaded, no need to recreate.
       return;
     }
@@ -97,23 +103,32 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     this.IV = new H5P.InteractiveVideo({
       interactiveVideo: {
         video: {
-          files: this.video
+          files: this.video,
+          poster: this.poster
         },
         assets: this.params
       }
     }, H5PEditor.contentId);
-    this.IV.editor = this; // TODO: Remove this and rely on events! (that's how JS is meant to be played)
+    this.IV.editor = this;
     for (var i = 0; i < this.IV.interactions.length; i++) {
       this.processInteraction(this.IV.interactions[i], this.params.interactions[i]);
     }
     this.IV.on('controls', function () {
       // Add DragNBar.
-      that.$bar = $('<div class="h5peditor-dragnbar">' + t('loading') + '</div>').prependTo(that.$editor);
+      that.$bar = $('<div class="h5peditor-dragnbar h5p-interactive-video-dragnbar">' + t('loading') + '</div>').prependTo(that.$editor);
       var interactions = findField('interactions', that.field.fields);
       var action = findField('action', interactions.field.fields);
       $.post(H5PEditor.ajaxPath + 'libraries', {libraries: action.options}, function (libraries) {
         that.createDragNBar(libraries);
+        that.setInteractionTitles();
       });
+
+      // Allow resizing
+      that.dnr = new H5P.DragNResize(that.IV.$videoWrapper);
+      that.dnr.resizeCallback = function (width, height) {
+        that.IV.$overlay.removeClass('h5p-visible');
+        that.interaction.setSize(width, height);
+      };
 
       // Add "Add bookmark" to bookmarks menu.
       $('<a href="#" class="h5p-add-bookmark">' + t('addBookmark') + '</a>').appendTo(that.IV.controls.$bookmarksChooser).click(function () {
@@ -123,6 +138,56 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     });
     this.IV.on('bookmarkAdded', that.bookmarkAdded, that);
     this.IV.attach(this.$editor);
+  };
+
+  /**
+   * Set custom interaction titles when libraries are registered.
+   */
+  InteractiveVideoEditor.prototype.setInteractionTitles = function () {
+    var self = this;
+
+    this.IV.interactions.forEach(function (interaction) {
+      // Try to figure out a title for the dialog
+      var title = self.findLibraryTitle(interaction.getLibraryName());
+      if (!title) {
+        // Couldn't find anything, use default
+        title = self.IV.l10n.interaction;
+      }
+
+      interaction.setTitle(title);
+    });
+
+    // Create title element
+    this.$interactionTitle = $('<div>', {
+      'class': 'h5p-interaction-button-title'
+    }).appendTo(this.$editor);
+
+  };
+
+  InteractiveVideoEditor.prototype.showInteractionTitle = function (title, $interaction) {
+    var videoOffsetX = $interaction.position().left;
+    var videoOffsetY = $interaction.position().top;
+    var dnbOffsetY = this.$bar.height();
+
+    this.$interactionTitle.html(title);
+
+    // center title
+    var totalOffsetX = videoOffsetX - (this.$interactionTitle.outerWidth(true) / 2) + ($interaction.width() / 2);
+    if (totalOffsetX < 0) {
+      totalOffsetX = 0;
+    } else if(totalOffsetX + this.$interactionTitle.outerWidth(true) > this.IV.$videoWrapper.width()) {
+      totalOffsetX = this.IV.$videoWrapper.width() - this.$interactionTitle.outerWidth(true);
+    }
+    var totalOffsetY = videoOffsetY + dnbOffsetY - this.$interactionTitle.height() - 1;
+
+    this.$interactionTitle.css({
+      'left': totalOffsetX,
+      'top': totalOffsetY
+    }).addClass('show');
+  };
+
+  InteractiveVideoEditor.prototype.hideInteractionTitle = function () {
+    this.$interactionTitle.removeClass('show');
   };
 
   /**
@@ -164,6 +229,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
   /**
    * Display a popup containing a message.
+   *
+   * @param {string} message
    */
   InteractiveVideoEditor.prototype.displayMessage = function (message) {
     var timeout;
@@ -183,6 +250,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
   /**
    * Gets called whenever a bookmark is added to the UI.
+   *
+   * @param {H5P.Event} event
    */
   InteractiveVideoEditor.prototype.bookmarkAdded = function (event) {
     var self = this;
@@ -206,7 +275,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       $bookmark.addClass('h5p-force-show');
       var $text = $(this);
 
-      /* This is a IE-fix. Without this, text is not shown when editing */
+      // This is a IE-fix. Without this, text is not shown when editing
       $text.css({overflow: 'visible'});
 
       var $input = $text.html('<input type="text" class="h5p-bookmark-input" style="width:' + ($text.width() - 19) + 'px" maxlength="255" value="' + $text.text() + '"/>')
@@ -239,13 +308,14 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   };
 
   /**
+   * Initialize the toolbar for creating interactivties.
    *
-   * @param {type} libraries
-   * @returns {undefined}
+   * @param {Array} libraries
    */
   InteractiveVideoEditor.prototype.createDragNBar = function (libraries) {
     var that = this;
 
+    this.libraries = libraries;
     this.dnb = new H5P.DragNBar(this.getButtons(libraries), this.IV.$videoWrapper);
 
     // Update params when the element is dropped.
@@ -260,7 +330,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         that.IV.$overlay.removeClass('h5p-visible');
       }, 0);
 
-      if (that.IV.lastState !== PAUSED && that.IV.lastState !== ENDED) {
+      if (that.IV.lastState !== H5P.Video.PAUSED && that.IV.lastState !== H5P.Video.ENDED) {
         // Resume playing
         that.IV.video.play();
       }
@@ -272,26 +342,21 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     };
 
     this.dnb.attach(this.$bar);
-
-    this.dnr = new H5P.DragNResize(this.IV.$videoWrapper);
-
-    this.dnr.resizeCallback = function (width, height) {
-      that.IV.$overlay.removeClass('h5p-visible');
-      that.interaction.setSize(width, height);
-    };
   };
 
   /**
    * Create form for interaction.
    *
-   * @param {type} index
-   * @returns {undefined}
+   * @param {H5P.InteractiveVideoInteraction} interaction
+   * @param {Object} parameters
    */
-  InteractiveVideoEditor.prototype.processInteraction = function (interaction, parameters) {
+  InteractiveVideoEditor.prototype.createInteractionForm = function (interaction, parameters) {
     var self = this;
 
+    var $semanticFields = $('<div>');
+
     // Create form
-    interaction.$form = H5P.jQuery('<div/>');
+    interaction.$form = $semanticFields;
     var interactions = findField('interactions', this.field.fields);
 
     // Clone semantics to avoid changing them for all interactions
@@ -311,17 +376,72 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     if (xAPIQuestionTypes.indexOf(type) === -1) {
       hideFields(interactionFields, ['adaptivity']);
     }
+    if (type === 'H5P.Nil') {
+      hideFields(interactionFields, ['displayType']);
+    }
 
-    // Create form elements
-    H5PEditor.processSemanticsChunk(interactionFields, parameters, interaction.$form, this);
+    // Always show link as poster
+    if (type === 'H5P.Link') {
+      var field = findField('displayType', interactionFields);
+      // Must set default to false and hide
+      field.default = 'poster';
+      field.widget = 'none';
+
+      // Hide label field
+      var labelField = findField('label', interactionFields);
+      labelField.widget = 'none';
+      allowResize = false;
+    }
+
+    // Get indexes of fields that needs unique styling
+    if (interaction.indexes === undefined) {
+      interaction.indexes = {};
+    }
+    interaction.indexes.durationIndex = {name: 'duration', index: interactionFields.indexOf(findField('duration', interactionFields))};
+    interaction.indexes.pauseIndex = {name: 'pause', index: interactionFields.indexOf(findField('pause', interactionFields))};
+    interaction.indexes.labelIndex = {name: 'label', index: interactionFields.indexOf(findField('label', interactionFields))};
+    H5PEditor.processSemanticsChunk(interactionFields, parameters, $semanticFields, self);
+
+    self.setLibraryName(interaction.$form, type);
+  };
+
+  /**
+   * Process interaction.
+   *
+   * @param {H5P.InteractiveVideoInteraction} interaction
+   * @param {Object} parameters
+   */
+  InteractiveVideoEditor.prototype.processInteraction = function (interaction, parameters) {
+    var self = this;
+    var type = interaction.getLibraryName();
+    var allowResize = (type !== 'H5P.Link');
+    this.createInteractionForm(interaction, parameters);
 
     // Keep track of form elements
     interaction.children = this.children;
     this.children = undefined;
 
-    // Customize form
-    interaction.$form.children('.library:first').children('label, select').hide().end().children('.libwrap').css('margin-top', '0');
-    self.setLibraryName(interaction.$form, type);
+    // Add classes to form elements if they exist
+    if (interaction.children[interaction.indexes.durationIndex.index].$item) {
+      interaction.children[interaction.indexes.durationIndex.index].$item.addClass('h5peditor-interaction-' + interaction.indexes.durationIndex.name);
+    }
+
+    if (interaction.children[interaction.indexes.pauseIndex.index].$item) {
+      interaction.children[interaction.indexes.pauseIndex.index].$item.addClass('h5peditor-interaction-' + interaction.indexes.pauseIndex.name);
+    }
+
+    if (interaction.children[interaction.indexes.labelIndex.index].$item) {
+      interaction.children[interaction.indexes.labelIndex.index].$item.addClass('h5peditor-interaction-' + interaction.indexes.labelIndex.name);
+
+      // Remove label when displayType is poster
+      var $displayTypeRadios = $('.h5p-image-radio-button-group input:radio', interaction.$form);
+      var $labelWrapper = interaction.children[interaction.indexes.labelIndex.index].$item;
+      $displayTypeRadios.change(function () {
+        $labelWrapper.toggleClass('hide', !interaction.isButton());
+      });
+
+      $labelWrapper.toggleClass('hide', !interaction.isButton());
+    }
 
     interaction.on('display', function (event) {
       var $interaction = event.data;
@@ -332,14 +452,19 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         $('<div/>', {
           'class': 'h5p-interaction-overlay'
         }).appendTo($interaction);
-        self.dnr.add($interaction);
-        $interaction.children('.h5p-dragnresize-handle').unbind('mousedown').mousedown(function (event) {
+        if (allowResize) {
+          self.dnr.add($interaction);
+        }
+        $interaction.children('.h5p-dragnresize-handle').unbind('mousedown').mousedown(function (event) {
           self.interaction = interaction;
           self.IV.$overlay.addClass('h5p-visible');
           self.IV.video.pause();
 
-          self.dnr.$element = $interaction;
-          self.dnr.press(event.clientX, event.clientY);
+          if (allowResize) {
+            self.dnr.$element = $interaction;
+            self.dnr.lock = (type === 'H5P.Image');
+            self.dnr.press(event.clientX, event.clientY);
+          }
 
           return false;
         });
@@ -416,9 +541,12 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   };
 
   /**
-   * Add library name to library form
-   * @param {jQuery} $form Interaction view form
-   * @param {string} libraryType Library type on format "H5P.{libraryType}"
+   * Add library name to library form.
+   *
+   * @param {H5P.jQuery} $form
+   *   Interaction view form
+   * @param {string} libraryType
+   *   Library type, e.g. H5P.Blanks
    */
   InteractiveVideoEditor.prototype.setLibraryName = function ($form, libraryType) {
     var libraryName = libraryType.replace('.', '-').toLowerCase() + '-library';
@@ -429,8 +557,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   /**
    * Called when rendering a new interaction.
    *
-   * @param {jQuery} $interaction
-   * @returns {undefined}
+   * @param {H5P.InteractiveVideoInteraction} interaction
+   * @param {H5P.jQuery} $interaction
    */
   InteractiveVideoEditor.prototype.newInteraction = function (interaction, $interaction) {
     var that = this;
@@ -452,15 +580,26 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       that.IV.lastState = that.IV.currentState;
 
       // Pause video
-      if (that.dnb !== undefined && that.currentState !== PAUSED && that.currentState !== ENDED) {
+      if (that.dnb !== undefined && that.currentState !== H5P.Video.PAUSED && that.currentState !== H5P.Video.ENDED) {
         that.IV.video.pause();
       }
 
       that.interaction = interaction;
     }).dblclick(function () {
-      if (that.lastState !== PAUSED && that.lastState !== ENDED) {
+      if (that.lastState !== H5P.Video.PAUSED && that.lastState !== H5P.Video.ENDED) {
         // Pause video
         that.IV.video.pause();
+      }
+
+      // Try to figure out a title for the dialog
+      var title = interaction.getTitle();
+      if (title === that.IV.l10n.interaction) {
+        // Try to find something better than the default title
+        title = that.findLibraryTitle(interaction.getLibraryName());
+        if (!title) {
+          // Couldn't find anything, use default
+          title = that.IV.l10n.interaction;
+        }
       }
 
       // Add dialog buttons
@@ -487,7 +626,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
             that.removeInteraction(interaction);
             that.IV.dialog.close();
           }
-          // TODO: Keep track of dots using the Interaction class
           that.IV.addSliderInteractions();
           return false;
         });
@@ -496,15 +634,15 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         .append($doneButton)
         .append($removeButton);
 
-      that.IV.dialog.open(interaction.$form, $buttons);
+      that.IV.dialog.open(interaction.$form, title, interaction.getClass() + '-icon', $buttons);
     });
   };
 
   /**
    * Validate the current dialog to see if it can be closed.
    *
-   * @param {} interaction
-   * @returns {Boolean}
+   * @param {H5P.InteractiveVideoInteraction} interaction
+   * @returns {boolean}
    */
   InteractiveVideoEditor.prototype.validDialog = function (interaction) {
     var valid = true;
@@ -528,7 +666,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       // Check if we should show again
       interaction.toggle(this.IV.video.getCurrentTime());
 
-      this.dnb.blur();
+      if (this.dnb) {
+        this.dnb.blur();
+      }
     }
 
     return valid;
@@ -536,8 +676,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
   /**
    * Revert our customization to the dialog.
-   *
-   * @returns {undefined}
    */
   InteractiveVideoEditor.prototype.hideDialog = function () {
     this.IV.hideDialog();
@@ -552,8 +690,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   /**
    * Remove interaction from video.
    *
-   * @param {Integer} id
-   * @returns {undefined}
+   * @param {number} id
    */
   InteractiveVideoEditor.prototype.removeInteraction = function (interaction) {
     for (var i = 0; i < this.IV.interactions.length; i++) {
@@ -574,6 +711,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   /**
    * Returns buttons for the DragNBar.
    *
+   * @param {Array} libraries
    * @returns {Array}
    */
   InteractiveVideoEditor.prototype.getButtons = function (libraries) {
@@ -588,10 +726,46 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   };
 
   /**
+   * Find the title for the given library.
+   *
+   * @param {string} libraryName
+   * @returns {string}
+   */
+  InteractiveVideoEditor.prototype.findLibraryTitle = function (libraryName) {
+    if (!this.libraries) {
+      return;
+    }
+
+    for (var i = 0; i < this.libraries.length; i++) {
+      if (this.libraries[i].name === libraryName) {
+        return this.getLibraryTitle(this.libraries[i]);
+      }
+    }
+  };
+
+  /**
+   * Determines a human readable name for the library to use in the editor.
+   *
+   * @param {string} library
+   * @returns {string}
+   */
+  InteractiveVideoEditor.prototype.getLibraryTitle = function (library) {
+    // Determine title
+    switch (library.name) {
+      case 'H5P.Summary':
+        return 'Statements';
+      case 'H5P.Nil':
+        return 'Label';
+      default:
+        return library.title;
+    }
+  };
+
+  /**
    * Returns button data for the given library.
    *
-   * @param {String} library
-   * @returns {_L8.InteractiveVideoEditor.prototype.getButton.Anonym$3}
+   * @param {string} library
+   * @returns {Object}
    */
   InteractiveVideoEditor.prototype.getButton = function (library) {
     var that = this;
@@ -599,7 +773,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     return {
       id: id,
-      title: t('insertElement', {':type': id === 'summary' ? 'statements' : library.title.toLowerCase() }),
+      title: t('insertElement', {':type': that.getLibraryTitle(library).toLowerCase() }),
       createElement: function () {
         that.IV.video.pause();
 
@@ -612,8 +786,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
             params: {},
             subContentId: H5P.createUUID()
           },
-          x: 0,
-          y: 0,
+          x: 47.813153766, // Center button
+          y: 46.112273361,
           width: 10,
           height: 10,
           duration: {
@@ -643,7 +817,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * Set new video params and remove old player.
    *
    * @param {Object} files
-   * @returns {undefined}
    */
   InteractiveVideoEditor.prototype.setVideo = function (files) {
     this.video = files;
@@ -654,10 +827,22 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   };
 
   /**
+   * Set new poster and remove old player.
+   *
+   * @param {Object} poster
+   */
+  InteractiveVideoEditor.prototype.setPoster = function (poster) {
+    this.poster = poster;
+
+    if (this.IV !== undefined) {
+      delete this.IV;
+    }
+  };
+
+  /**
    * Append field to wrapper.
    *
-   * @param {type} $wrapper
-   * @returns {undefined}
+   * @param {H5P.jQuery} $wrapper
    */
   InteractiveVideoEditor.prototype.appendTo = function ($wrapper) {
     // Added to support older versions of core. Needed when using IV in CP.
@@ -675,7 +860,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   /**
    * Create HTML for the field.
    *
-   * @returns {@exp;H5PEditor@call;createItem}
+   * @returns {string}
    */
   InteractiveVideoEditor.prototype.createHtml = function () {
     return H5PEditor.createItem(this.field.widget, '<div class="h5peditor-interactions">' + t('selectVideo') + '</div>');
@@ -684,16 +869,14 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   /**
    * Validate the current field.
    *
-   * @returns {Boolean}
+   * @returns {boolean}
    */
   InteractiveVideoEditor.prototype.validate = function () {
-    return true;
+    return true; // An interactive video is always valid :-)
   };
 
   /**
    * Remove this item.
-   *
-   * @returns {undefined}
    */
   InteractiveVideoEditor.prototype.remove = function () {
     this.$item.remove();
@@ -703,7 +886,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * Collect functions to execute once the tree is complete.
    *
    * @param {function} ready
-   * @returns {undefined}
    */
   InteractiveVideoEditor.prototype.ready = function (ready) {
     if (this.passReadies) {
@@ -718,9 +900,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * Translate UI texts for this library.
    *
    * @private
-   * @param {String} key
-   * @param {Object} vars
-   * @returns {@exp;H5PEditor@call;t}
+   * @param {string} key
+   * @param {Object} vars Placeholders
+   * @returns {string}
    */
   var t = function (key, vars) {
     return H5PEditor.t('H5PEditor.InteractiveVideo', key, vars);
@@ -730,7 +912,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * Look for field with the given name in the given collection.
    *
    * @private
-   * @param {String} name of field
+   * @param {string} name of field
    * @param {Array} fields collection to look in
    * @returns {Object} field object
    */
@@ -759,17 +941,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }
   };
 
-  /** @constant {number} */
-  var ENDED = 0;
-  /** @constant {number} */
-  var PLAYING = 1;
-  /** @constant {number} */
-  var PAUSED = 2;
-  /** @constant {number} */
-  var BUFFERING = 3;
-  /** @constant {number} */
-  var SEEKING = 4;
-
   return InteractiveVideoEditor;
 })(H5P.jQuery);
 
@@ -778,6 +949,7 @@ H5PEditor.language['H5PEditor.InteractiveVideo'] = {
   libraryStrings: {
     selectVideo: 'You must select a video before adding interactions.',
     notVideoField: '":path" is not a video.',
+    notImageField: '":path" is not a image.',
     insertElement: 'Click and drag to place :type',
     popupTitle: 'Edit :type',
     done: 'Done',
