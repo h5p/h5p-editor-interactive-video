@@ -55,6 +55,12 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     parent.ready(function () {
       that.passReadies = false;
     });
+
+    H5P.$window.on('resize', function () {
+      if (that.IV) {
+        that.IV.trigger('resize');
+      }
+    });
   }
 
   /**
