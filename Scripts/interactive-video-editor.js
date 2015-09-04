@@ -120,6 +120,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       var action = findField('action', interactions.field.fields);
       $.post(H5PEditor.ajaxPath + 'libraries', {libraries: action.options}, function (libraries) {
         that.createDragNBar(libraries);
+        that.setInteractionTitles();
       });
 
       // Allow resizing
@@ -137,6 +138,56 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     });
     this.IV.on('bookmarkAdded', that.bookmarkAdded, that);
     this.IV.attach(this.$editor);
+  };
+
+  /**
+   * Set custom interaction titles when libraries are registered.
+   */
+  InteractiveVideoEditor.prototype.setInteractionTitles = function () {
+    var self = this;
+
+    this.IV.interactions.forEach(function (interaction) {
+      // Try to figure out a title for the dialog
+      var title = self.findLibraryTitle(interaction.getLibraryName());
+      if (!title) {
+        // Couldn't find anything, use default
+        title = self.IV.l10n.interaction;
+      }
+
+      interaction.setTitle(title);
+    });
+
+    // Create title element
+    this.$interactionTitle = $('<div>', {
+      'class': 'h5p-interaction-button-title'
+    }).appendTo(this.$editor);
+
+  };
+
+  InteractiveVideoEditor.prototype.showInteractionTitle = function (title, $interaction) {
+    var videoOffsetX = $interaction.position().left;
+    var videoOffsetY = $interaction.position().top;
+    var dnbOffsetY = this.$bar.height();
+
+    this.$interactionTitle.html(title);
+
+    // center title
+    var totalOffsetX = videoOffsetX - (this.$interactionTitle.outerWidth(true) / 2) + ($interaction.width() / 2);
+    if (totalOffsetX < 0) {
+      totalOffsetX = 0;
+    } else if(totalOffsetX + this.$interactionTitle.outerWidth(true) > this.IV.$videoWrapper.width()) {
+      totalOffsetX = this.IV.$videoWrapper.width() - this.$interactionTitle.outerWidth(true);
+    }
+    var totalOffsetY = videoOffsetY + dnbOffsetY - this.$interactionTitle.height() - 1;
+
+    this.$interactionTitle.css({
+      'left': totalOffsetX,
+      'top': totalOffsetY
+    }).addClass('show');
+  };
+
+  InteractiveVideoEditor.prototype.hideInteractionTitle = function () {
+    this.$interactionTitle.removeClass('show');
   };
 
   /**

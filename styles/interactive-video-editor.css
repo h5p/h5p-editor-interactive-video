@@ -441,6 +441,26 @@
   outline: none;
 }
 
+/* Label for interaction buttons */
+.h5p-interactivevideo-editor .h5peditor-interactions .h5p-interaction-button-title {
+  display: none;
+  background-color: #000;
+  color: #fff;
+  opacity: 0.75;
+  position: absolute;
+  padding: 0 0.5em;
+  font-size: 0.6em;
+  line-height: 2;
+  border-radius: 0.35em;
+  font-family: 'Open Sans', sans-serif;
+  white-space: nowrap;
+  z-index: 2;
+}
+
+.h5p-interactivevideo-editor .h5peditor-interactions .h5p-interaction-button-title.show {
+  display: block;
+}
+
 /* Remove h5p-nil library border */
 .h5p-interactivevideo-editor .h5peditor-interactions .h5p-dialog-inner .field.library.h5p-nil-library {
   display: none;
