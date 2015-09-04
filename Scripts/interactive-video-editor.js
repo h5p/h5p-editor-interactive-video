@@ -129,6 +129,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         that.IV.$overlay.removeClass('h5p-visible');
         that.interaction.setSize(width, height);
       };
+      that.dnr.snap = 10;
 
       // Add "Add bookmark" to bookmarks menu.
       $('<a href="#" class="h5p-add-bookmark">' + t('addBookmark') + '</a>').appendTo(that.IV.controls.$bookmarksChooser).click(function () {
