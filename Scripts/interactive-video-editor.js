@@ -176,6 +176,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   };
 
   InteractiveVideoEditor.prototype.showInteractionTitle = function (title, $interaction) {
+    if (!this.$interactionTitle) {
+      return;
+    }
+
     var videoOffsetX = $interaction.position().left;
     var videoOffsetY = $interaction.position().top;
     var dnbOffsetY = this.$bar.height();
@@ -198,6 +202,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   };
 
   InteractiveVideoEditor.prototype.hideInteractionTitle = function () {
+    if (!this.$interactionTitle) {
+      return;
+    }
+
     this.$interactionTitle.removeClass('show');
   };
 
