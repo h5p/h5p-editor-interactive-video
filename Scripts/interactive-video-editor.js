@@ -455,7 +455,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         if (allowResize) {
           self.dnr.add($interaction);
         }
-        $interaction.children('.h5p-dragnresize-handle').unbind('mousedown').mousedown(function (event) {
+        $interaction.children('.h5p-dragnresize-handle').unbind('mousedown').mousedown(function (event) {
           self.interaction = interaction;
           self.IV.$overlay.addClass('h5p-visible');
           self.IV.video.pause();
