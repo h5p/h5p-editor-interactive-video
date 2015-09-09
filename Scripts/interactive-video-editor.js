@@ -358,6 +358,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       // Edit element when it is dropped.
       if (that.dnb.newElement) {
         that.dnb.dnd.$element.dblclick();
+        that.dnb.blurAll();
       }
     };
     that.IV.interactions.forEach(function (interaction) {
@@ -606,7 +607,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           H5PEditor.Html.removeWysiwyg();
         }
         if (that.validDialog(interaction)) {
-          that.IV.dnb.dialog.close();
+          that.dnb.dialog.close();
           interaction.focus();
         }
         that.IV.addSliderInteractions();
@@ -621,9 +622,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         }
         if (confirm(t('removeInteraction'))) {
           that.removeInteraction(interaction);
-          that.IV.dnb.dialog.close();
+          that.dnb.dialog.close();
         }
         that.IV.addSliderInteractions();
+        that.dnb.blurAll();
         return false;
       });
 
@@ -632,7 +634,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       .append($removeButton);
 
     interaction.setTitle(title);
-    that.IV.dnb.dialog.open(interaction.$form, title, interaction.getClass() + '-icon', $buttons);
+    that.dnb.dialog.open(interaction.$form, title, interaction.getClass() + '-icon', $buttons);
   };
 
   /**
@@ -656,9 +658,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       newDnbElement.contextMenu.on('contextMenuRemove', function () {
         if (confirm(t('removeInteraction'))) {
           that.removeInteraction(interaction);
-          that.IV.dnb.dialog.close();
+          that.dnb.dialog.close();
         }
         that.IV.addSliderInteractions();
+        that.dnb.blurAll();
       });
     }
   };
@@ -700,6 +703,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       that.interaction = interaction;
     }).dblclick(function () {
       that.openInteractionDialog(interaction);
+      if (that.dnb) {
+        that.dnb.blurAll();
+      }
     });
   };
 

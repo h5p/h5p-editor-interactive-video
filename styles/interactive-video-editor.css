@@ -302,7 +302,7 @@
   border-radius: 0;
   background: #fff;
 }
-.h5p-interactivevideo-editor textarea:focus, .h5p-interactivevideo-editor input[type="text"]:focus {
+.h5p-interactivevideo-editor textarea:focus, .h5p-interactivevideo-editor input[type="text"]:not(.h5p-dragnbar-x):not(.h5p-dragnbar-y):focus {
   background: #fff;
   border-color: #dbdbdb;
   box-shadow: 0 0 0.25em #dbdbdb inset;
