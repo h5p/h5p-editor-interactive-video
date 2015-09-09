@@ -31,17 +31,12 @@
     {
       "machineName": "FontAwesome",
       "majorVersion": 4,
-      "minorVersion": 1
+      "minorVersion": 3
     },
     {
       "machineName": "H5P.DragNBar",
       "majorVersion": 1,
-      "minorVersion": 0
-    },
-    {
-      "machineName": "H5P.DragNResize",
-      "majorVersion": 1,
-      "minorVersion": 0
+      "minorVersion": 1
     },
     {
       "machineName": "H5P.Image",
@@ -76,7 +71,7 @@
     {
       "machineName": "H5P.InteractiveVideo",
       "majorVersion": 1,
-      "minorVersion": 7
+      "minorVersion": 8
     },
     {
       "machineName": "H5P.Summary",
