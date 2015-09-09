@@ -681,7 +681,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     };
 
     if (that.dnb !== undefined) {
-      that.dnb.add($interaction);
+      that.addInteractionToDnb(interaction, $interaction, options);
     }
 
     // Disable the normal dialog
