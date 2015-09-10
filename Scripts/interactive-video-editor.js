@@ -343,6 +343,24 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       that.interaction.setSize(event.data.width, event.data.height);
     });
 
+    this.dnb.dnd.startMovingCallback = function () {
+      that.dnb.dnd.min = {x: 0, y: 0};
+      that.dnb.dnd.max = {
+        x: that.dnb.$container.width() - that.dnb.$element.outerWidth(),
+        y: that.dnb.$container.height() - that.dnb.$element.outerHeight()
+      };
+
+      if (that.dnb.newElement) {
+        that.dnb.dnd.adjust.x = 10;
+        that.dnb.dnd.adjust.y = 10;
+        that.dnb.dnd.min.y -= that.dnb.$list.height();
+      }
+
+      that.IV.$overlay.addClass('h5p-visible');
+
+      return true;
+    };
+
     // Update params when the element is dropped.
     this.dnb.stopMovingCallback = function (x, y) {
       that.interaction.positionLabel(that.IV.$videoWrapper.width());
