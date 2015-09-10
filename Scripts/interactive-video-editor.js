@@ -55,6 +55,12 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     parent.ready(function () {
       that.passReadies = false;
     });
+
+    H5P.$window.on('resize', function () {
+      if (that.IV) {
+        that.IV.trigger('resize');
+      }
+    });
   }
 
   /**
@@ -129,6 +135,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         that.IV.$overlay.removeClass('h5p-visible');
         that.interaction.setSize(width, height);
       };
+      that.dnr.snap = 10;
 
       // Add "Add bookmark" to bookmarks menu.
       $('<a href="#" class="h5p-add-bookmark">' + t('addBookmark') + '</a>').appendTo(that.IV.controls.$bookmarksChooser).click(function () {
