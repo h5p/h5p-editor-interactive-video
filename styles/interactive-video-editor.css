@@ -297,12 +297,12 @@
   content: "3.";
 }
 
-.h5p-interactivevideo-editor textarea, .h5p-interactivevideo-editor input[type="text"], .h5p-interactivevideo-editor .ckeditor {
+.h5p-interactivevideo-editor textarea, .h5p-interactivevideo-editor input[type="text"]:not(.h5p-dragnbar-x):not(.h5p-dragnbar-y), .h5p-interactivevideo-editor .ckeditor {
   border: 1px solid #dbdbdb;
   border-radius: 0;
   background: #fff;
 }
-.h5p-interactivevideo-editor textarea:focus, .h5p-interactivevideo-editor input[type="text"]:focus {
+.h5p-interactivevideo-editor textarea:focus, .h5p-interactivevideo-editor input[type="text"]:not(.h5p-dragnbar-x):not(.h5p-dragnbar-y):focus {
   background: #fff;
   border-color: #dbdbdb;
   box-shadow: 0 0 0.25em #dbdbdb inset;
@@ -437,10 +437,6 @@
   font-size: 1.1em;
 }
 
-.h5p-interactivevideo-editor .h5p-interaction:focus {
-  outline: none;
-}
-
 /* Label for interaction buttons */
 .h5p-interactivevideo-editor .h5peditor-interactions .h5p-interaction-button-title {
   display: none;
@@ -466,6 +462,26 @@
   display: none;
 }
 
+/* Outline on top of buttons */
+.h5p-interactivevideo-editor .h5p-interaction.h5p-dragnbar-element:hover > .h5p-interaction-button,
+.h5p-interactivevideo-editor .h5p-interaction.h5p-dragnbar-element.focused > .h5p-interaction-button {
+  outline: 1px solid #0099ff;
+}
+
+.h5p-interactivevideo-editor .h5p-interactive-video .h5p-interaction:not(.h5p-nil-interaction).focused,
+.h5p-interactivevideo-editor .h5p-interactive-video .h5p-interaction:not(.h5p-nil-interaction):hover {
+  outline: 1px solid #0099ff;
+}
+
+.h5p-interactivevideo-editor .h5p-interactive-video .h5p-interaction.h5p-poster {
+  overflow: visible;
+  overflow-y: visible;
+}
+
+.h5p-interactivevideo-editor .h5p-interactive-video .h5p-interaction.h5p-poster .h5p-interaction-inner {
+  overflow: hidden;
+}
+
 /* interaction semantics wrapper */
 .h5p-interactivevideo-editor .h5p-dialog-inner {
   padding: 0.5em;
@@ -474,6 +490,10 @@
 
 .h5p-interactivevideo-editor .h5p-dialog-inner .h5peditor-interaction-duration {
   display: inline-block;
+}
+
+.h5p-interactivevideo-editor .h5p-dragnbar-element.h5p-moving .h5p-interaction-button {
+  cursor: move;
 }
 
 .h5p-interactivevideo-editor .h5p-dialog-inner .h5peditor-interaction-pause {
@@ -499,6 +519,25 @@
   display: none;
 }
 
+
+.h5p-interactivevideo-editor .h5peditor-iv-focus-handler {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.h5p-interactivevideo-editor .h5peditor-iv-focus-handler.show {
+  display: block;
+}
+
+
+.h5p-interactivevideo-editor .h5p-dialog-inner input[type="checkbox"] {
+  vertical-align: text-bottom;
+}
+
 .h5p-interactivevideo-editor .h5p-dialog-inner .field.library > select,
 .h5p-interactivevideo-editor .h5p-dialog-inner .field.library > label {
   display: none;
@@ -509,7 +548,7 @@
 }
 
 .h5p-interactivevideo-editor .h5p-dialog-inner .h5p-image-radio-button-group {
-  margin-top: -1em;
+  margin-top: -2em;
 }
 
 .h5p-interactivevideo-editor .h5p-image-radio-button.button .image-container {
