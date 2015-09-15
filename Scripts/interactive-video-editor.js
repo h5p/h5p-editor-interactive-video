@@ -687,6 +687,26 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         that.IV.addSliderInteractions();
         that.dnb.blurAll();
       });
+
+      newDnbElement.contextMenu.on('contextMenuBringToFront', function () {
+        // Find interaction index
+        var oldZ;
+        for (var i = 0; i < that.IV.interactions.length; i++) {
+          if (that.IV.interactions[i] === interaction) {
+            oldZ = i;
+            break;
+          }
+        }
+
+        // Add to end of params
+        that.params.interactions.push(that.params.interactions.splice(oldZ, 1)[0]);
+
+        // Update internally for IV player
+        that.IV.interactions.push(that.IV.interactions.splice(oldZ, 1)[0]);
+
+        // Update visuals
+        $interaction.appendTo(that.IV.$overlay);
+      });
     }
   };
 
