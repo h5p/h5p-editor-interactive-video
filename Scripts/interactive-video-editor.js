@@ -65,6 +65,13 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   }
 
   /**
+   * Must be changed if the semantics for the elements changes.
+   * @private
+   * @type {string}
+   */
+  InteractiveVideoEditor.clipboardKey = 'H5PEditor.InteractiveVideo';
+
+  /**
    * Find a field, then run the callback.
    *
    * @param {function} callback
@@ -342,6 +349,41 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     this.libraries = libraries;
     this.dnb = new H5P.DragNBar(this.getButtons(libraries), this.IV.$videoWrapper, this.IV.$container);
+
+    /**
+     * @private
+     * @param {string} lib uber name
+     * @returns {boolean}
+     */
+    var supported = function (lib) {
+      for (var i = 0; i < libraries.length; i++) {
+        if (libraries[i].restricted !== true && libraries[i].uberName === lib) {
+          return true; // Library is supported and allowed
+        }
+      }
+
+      return false;
+    };
+
+    this.dnb.on('paste', function (event) {
+      var pasted = event.data;
+      if (pasted.from === InteractiveVideoEditor.clipboardKey) {
+        // Pasted content comes from the same version of IV
+
+        if (!pasted.generic) {
+          // Non generic part, must be a something not created yet
+          that.addInteraction(pasted.specific);
+        }
+        else if (supported(pasted.generic.library)) {
+          // Has generic part and the generic libray is supported
+          that.addInteraction(pasted.specific);
+        }
+      }
+      else if (pasted.generic && supported(pasted.generic.library)) {
+        // Supported library from another content type
+        that.addInteraction(pasted.generic.library, pasted.generic);
+      }
+    });
 
     that.dnb.dnr.on('stoppedResizing', function (event) {
       that.IV.$overlay.removeClass('h5p-visible');
@@ -669,7 +711,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    */
   InteractiveVideoEditor.prototype.addInteractionToDnb = function (interaction, $interaction, options) {
     var that = this;
-    var newDnbElement = that.dnb.add($interaction, options);
+    var newDnbElement = that.dnb.add($interaction, interaction.getClipboardData(), options);
     var createdNewElement = interaction.setDnbElement(newDnbElement);
 
     // New DragNBarElement was set, register listeners
@@ -881,42 +923,64 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       id: id,
       title: t('insertElement', {':type': that.getLibraryTitle(library).toLowerCase() }),
       createElement: function () {
-        that.IV.video.pause();
-
-        var from = Math.floor(that.IV.video.getCurrentTime());
-        var to = from + 10;
-        var duration = Math.floor(that.IV.video.getDuration());
-        var newInteraction = {
-          action: {
-            library: library.uberName,
-            params: {},
-            subContentId: H5P.createUUID()
-          },
-          x: 47.813153766, // Center button
-          y: 46.112273361,
-          width: 10,
-          height: 10,
-          duration: {
-            from: from,
-            to: to > duration ? duration : to
-          }
-        };
-
-        var lib = library.uberName.split(' ')[0];
-        if (lib === 'H5P.Nil') {
-          newInteraction.label = 'Lorem ipsum dolor sit amet...';
-        }
-
-        that.params.interactions.push(newInteraction);
-        var i = that.params.interactions.length - 1;
-        that.interaction = that.IV.initInteraction(i);
-        that.processInteraction(that.interaction, newInteraction);
-
-        var $interaction = that.interaction.toggle(from);
-
-        return $interaction;
+        return that.addInteraction(library.uberName);
       }
     };
+  };
+
+  /**
+   * @param {object} library
+   * @returns {H5P.jQuery}
+   */
+  InteractiveVideoEditor.prototype.addInteraction = function (library, action) {
+    var self = this;
+    self.IV.video.pause();
+
+    var params;
+    if (!(library instanceof String || typeof library === 'string')) {
+      params = library;
+    }
+
+    var from = Math.floor(self.IV.video.getCurrentTime());
+    if (!params) {
+      params = {
+        x: 47.813153766, // Center button
+        y: 46.112273361,
+        width: 10,
+        height: 10,
+        duration: {
+          from: from,
+          to: from + 10
+        }
+      };
+      params.action = (action ? action : {
+        library: library,
+        params: {}
+      });
+      params.action.subContentId = H5P.createUUID();
+      if (library.split(' ')[0] === 'H5P.Nil') {
+        params.label = 'Lorem ipsum dolor sit amet...';
+      }
+    }
+    else {
+      // Change starting time, but keep the same length
+      params.duration.to = from + (params.duration.to - params.duration.from);
+      params.duration.from = from;
+    }
+
+    var duration = Math.floor(self.IV.video.getDuration());
+    if (params.duration.to > duration) {
+      // Keep interaction inside video play time
+      params.duration.to = duration;
+    }
+
+    self.params.interactions.push(params);
+    var i = self.params.interactions.length - 1;
+    self.interaction = self.IV.initInteraction(i);
+    self.processInteraction(self.interaction, params);
+
+    var $interaction = self.interaction.toggle(from);
+    return $interaction;
   };
 
   /**
