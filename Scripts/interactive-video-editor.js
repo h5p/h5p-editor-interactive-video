@@ -931,7 +931,12 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   };
 
   /**
-   * @param {object} library
+   * Add a new interaction to the interactive video.
+   *
+   * @param {string|object} library Content type or parameters
+   * @param {number} width custom size
+   * @param {number} height custom size
+   * @param {object} [action] parameters
    * @returns {H5P.jQuery}
    */
   InteractiveVideoEditor.prototype.addInteraction = function (library, width, height, action) {
