@@ -162,6 +162,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         that.$focusHandler.removeClass('show');
       }
     }).appendTo(this.IV.$videoWrapper);
+
+    this.pToEm = (this.IV.width / this.IV.fontSize) / 100;
   };
 
   /**
@@ -372,16 +374,16 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
         if (!pasted.generic) {
           // Non generic part, must be a something not created yet
-          that.addInteraction(pasted.specific);
+          that.addInteraction(pasted.specific, pasted.width, pasted.height);
         }
         else if (supported(pasted.generic.library)) {
           // Has generic part and the generic libray is supported
-          that.addInteraction(pasted.specific);
+          that.addInteraction(pasted.specific, pasted.width, pasted.height);
         }
       }
       else if (pasted.generic && supported(pasted.generic.library)) {
         // Supported library from another content type
-        that.addInteraction(pasted.generic.library, pasted.generic);
+        that.addInteraction(pasted.generic.library, pasted.width, pasted.height, pasted.generic);
       }
     });
 
@@ -932,7 +934,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @param {object} library
    * @returns {H5P.jQuery}
    */
-  InteractiveVideoEditor.prototype.addInteraction = function (library, action) {
+  InteractiveVideoEditor.prototype.addInteraction = function (library, width, height, action) {
     var self = this;
     self.IV.video.pause();
 
@@ -946,17 +948,23 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       params = {
         x: 47.813153766, // Center button
         y: 46.112273361,
-        width: 10,
-        height: 10,
+        width: width ? width * this.pToEm : 10,
+        height: height ? height * this.pToEm : 10,
         duration: {
           from: from,
           to: from + 10
         }
       };
-      params.action = (action ? action : {
-        library: library,
-        params: {}
-      });
+      if (action) {
+        params.action = action;
+        params.displayType = 'poster';
+      }
+      else {
+        params.action = {
+          library: library,
+          params: {}
+        };
+      }
       params.action.subContentId = H5P.createUUID();
       if (library.split(' ')[0] === 'H5P.Nil') {
         params.label = 'Lorem ipsum dolor sit amet...';
