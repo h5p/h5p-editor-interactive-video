@@ -717,7 +717,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }).dblclick(function () {
       that.openInteractionDialog(interaction);
       if (that.dnb) {
-        that.dnb.blurAll();
+        // Wait for refocus
+        setTimeout(function () {
+          that.dnb.blurAll();
+        }, 10);
       }
     });
   };
