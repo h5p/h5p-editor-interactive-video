@@ -350,7 +350,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     var that = this;
 
     this.libraries = libraries;
-    this.dnb = new H5P.DragNBar(this.getButtons(libraries), this.IV.$videoWrapper, this.IV.$container);
+    this.dnb = new H5P.DragNBar(this.getButtons(libraries), this.IV.$overlay, this.IV.$container);
 
     /**
      * @private
@@ -369,21 +369,40 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     this.dnb.on('paste', function (event) {
       var pasted = event.data;
+      var options = {
+        width: pasted.width,
+        height: pasted.height
+      };
+
       if (pasted.from === InteractiveVideoEditor.clipboardKey) {
         // Pasted content comes from the same version of IV
 
         if (!pasted.generic) {
           // Non generic part, must be a something not created yet
-          that.addInteraction(pasted.specific, pasted.width, pasted.height);
+          that.dnb.focus(that.addInteraction(pasted.specific, options));
         }
         else if (supported(pasted.generic.library)) {
           // Has generic part and the generic libray is supported
-          that.addInteraction(pasted.specific, pasted.width, pasted.height);
+          that.dnb.focus(that.addInteraction(pasted.specific, options));
+        }
+        else {
+          alert(H5PEditor.t('H5P.DragNBar', 'unableToPaste'));
         }
       }
-      else if (pasted.generic && supported(pasted.generic.library)) {
-        // Supported library from another content type
-        that.addInteraction(pasted.generic.library, pasted.width, pasted.height, pasted.generic);
+      else if (pasted.generic) {
+        if (supported(pasted.generic.library)) {
+          // Supported library from another content type
+
+          if (pasted.specific.displayAsButton) {
+            // Make sure buttons from CP still are buttons.
+            options.displayType = 'button';
+          }
+          options.action = pasted.generic;
+          that.dnb.focus(that.addInteraction(pasted.generic.library, options));
+        }
+        else {
+          alert(H5PEditor.t('H5P.DragNBar', 'unableToPaste'));
+        }
       }
     });
 
@@ -934,12 +953,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * Add a new interaction to the interactive video.
    *
    * @param {string|object} library Content type or parameters
-   * @param {number} width custom size
-   * @param {number} height custom size
-   * @param {object} [action] parameters
+   * @param {object} [options] Override the default options
    * @returns {H5P.jQuery}
    */
-  InteractiveVideoEditor.prototype.addInteraction = function (library, width, height, action) {
+  InteractiveVideoEditor.prototype.addInteraction = function (library, options) {
+    options = options || {};
     var self = this;
     self.IV.video.pause();
 
@@ -953,16 +971,16 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       params = {
         x: 47.813153766, // Center button
         y: 46.112273361,
-        width: width ? width * this.pToEm : 10,
-        height: height ? height * this.pToEm : 10,
+        width: options.width ? options.width * this.pToEm : 10,
+        height: options.height ? options.height * this.pToEm : 10,
         duration: {
           from: from,
           to: from + 10
         }
       };
-      if (action) {
-        params.action = action;
-        params.displayType = 'poster';
+      if (options.action) {
+        params.action = options.action;
+        params.displayType = options.displayType ? options.displayType : 'poster';
       }
       else {
         params.action = {
@@ -986,6 +1004,18 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       // Keep interaction inside video play time
       params.duration.to = duration;
     }
+
+    // Make sure we don't overlap another visible element
+    var size = window.getComputedStyle(this.IV.$videoWrapper[0]);
+    var widthToPx = parseFloat(size.width) / 100;
+    var heightToPx = parseFloat(size.height) / 100;
+    var pos = {
+      x: params.x * widthToPx,
+      y: params.y * heightToPx
+    };
+    this.dnb.avoidOverlapping(pos);
+    params.x = pos.x / widthToPx;
+    params.y = pos.y / heightToPx;
 
     self.params.interactions.push(params);
     var i = self.params.interactions.length - 1;
