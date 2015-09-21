@@ -52,7 +52,7 @@
   font-family: 'H5PFontAwesome4';
   color: #313131;
   margin-right: 0.5em;
-  vertical-align: middle;
+  vertical-align: bottom;
 }
 .h5p-interactive-video-dragnbar .h5p-dragnbar-a, .h5p-interactive-video-dragnbar .h5p-dragnbar-a:visited, .h5p-interactive-video-dragnbar .h5p-dragnbar-a:link {
   color: #333;
