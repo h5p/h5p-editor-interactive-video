@@ -354,7 +354,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     var that = this;
 
     this.libraries = libraries;
-    this.dnb = new H5P.DragNBar(this.getButtons(libraries), this.IV.$overlay, this.IV.$container);
+    this.dnb = new H5P.DragNBar(this.getButtons(libraries), this.IV.$videoWrapper, this.IV.$container);
 
     /**
      * @private
