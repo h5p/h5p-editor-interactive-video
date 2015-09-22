@@ -186,6 +186,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       return;
     }
 
+    // Set static margin
+    var fontSize = parseInt(this.IV.$videoWrapper.css('font-size'), 10);
+    var staticMargin = 0.3 * fontSize;
+
     var videoOffsetX = $interaction.position().left;
     var videoOffsetY = $interaction.position().top;
     var dnbOffsetY = this.$bar.height();
@@ -203,7 +207,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     this.$interactionTitle.css({
       'left': totalOffsetX,
-      'top': totalOffsetY
+      'top': totalOffsetY - staticMargin
     }).addClass('show');
   };
 
@@ -659,6 +663,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     interaction.setTitle(title);
     that.dnb.dialog.open(interaction.$form, title, interaction.getClass() + '-icon', $buttons);
+
+    // Blur context menu when opening dialog
+    setTimeout(function () {
+      that.dnb.blurAll();
+    }, 0);
   };
 
   /**
@@ -722,9 +731,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       that.interaction = interaction;
     }).dblclick(function () {
       that.openInteractionDialog(interaction);
-      if (that.dnb) {
-        that.dnb.blurAll();
-      }
     });
   };
 
