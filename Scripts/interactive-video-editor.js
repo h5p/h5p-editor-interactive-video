@@ -1029,6 +1029,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     self.processInteraction(self.interaction, params);
 
     var $interaction = self.interaction.toggle(from);
+    this.IV.addSliderInteractions();
     return $interaction;
   };
 
