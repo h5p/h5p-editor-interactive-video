@@ -362,7 +362,9 @@
   visibility: visible;
   opacity: 1;
 }
-.h5p-interactivevideo-editor input[type="text"].h5p-bookmark-input {
+
+.h5p-interactivevideo-editor .h5p-bookmark input[type="text"].h5p-bookmark-input:focus,
+.h5p-interactivevideo-editor .h5p-bookmark input[type="text"].h5p-bookmark-input {
   background: transparent;
   border: 0;
   color: #fefefe;
@@ -371,7 +373,7 @@
   box-shadow: none;
   margin: 0;
 }
-.h5p-interactivevideo-editor input[type="text"].h5p-bookmark-input::-ms-clear {
+.h5p-interactivevideo-editor .h5p-bookmark input[type="text"].h5p-bookmark-input::-ms-clear {
   display: none;
 }
 .h5p-interactivevideo-editor .h5p-bookmark-text:before {
