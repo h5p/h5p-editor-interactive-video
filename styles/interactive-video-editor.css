@@ -466,10 +466,15 @@
   cursor: move;
 }
 
+.h5p-interactivevideo-editor .h5p-dialog-inner .field {
+  clear: both;
+}
+
 .h5p-interactivevideo-editor .h5p-dialog-inner .h5peditor-interaction-pause {
   margin-left: 1em;
   margin-top: 2em;
   float: left;
+  clear: none;
 }
 
 .h5p-interactivevideo-editor .h5p-dialog-inner .h5peditor-interaction-label.hide {
@@ -487,10 +492,6 @@
 
 .h5p-interactivevideo-editor .h5peditor-iv-focus-handler.show {
   display: block;
-}
-
-.h5p-interactivevideo-editor .h5p-dialog-inner .h5p-image-radio-button-group {
-  clear: both;
 }
 
 .h5p-interactivevideo-editor .h5p-image-radio-button.button .image-container {
