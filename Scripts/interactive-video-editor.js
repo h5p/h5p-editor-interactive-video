@@ -561,6 +561,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         $labelWrapper.toggleClass('hide', !interaction.isButton());
         if (!interaction.isButton() && interaction.children[interaction.indexes.pauseIndex.index].$item) {
           interaction.children[interaction.indexes.pauseIndex.index].$input[0].checked = true;
+          interaction.children[interaction.indexes.pauseIndex.index].$input.trigger('change');
         }
       });
 
