@@ -5,6 +5,7 @@
  */
 H5PEditor.widgets.imageRadioButtonGroup = (function ($) {
 
+  var idCounter = 0;
   /**
    * Creates an image radio button group.
    *
@@ -34,7 +35,7 @@ H5PEditor.widgets.imageRadioButtonGroup = (function ($) {
     });
 
     // Add header:
-    $('<span>', {
+    $('<div>', {
       'class': 'h5peditor-label',
       html: self.field.label
     }).appendTo(self.$container);
@@ -46,7 +47,7 @@ H5PEditor.widgets.imageRadioButtonGroup = (function ($) {
     for (var i=0, numOptions = self.field.options.length; i < numOptions; i++) {
       var option = self.field.options[i];
       var imgPath = H5P.getLibraryPath(self.field.library) + '/' + option.image;
-      var uuid = H5P.createUUID();
+      var inputId = 'h5p-image-radio-button-' + (idCounter++);
 
       var $button = $('<div>', {
         'class': 'h5p-image-radio-button ' + option.value
@@ -56,7 +57,7 @@ H5PEditor.widgets.imageRadioButtonGroup = (function ($) {
         type: 'radio',
         name: self.field.name,
         value: option.value,
-        id: uuid,
+        id: inputId,
         checked: (self.params === option.value),
         change: function () {
           self.params = $('input[name=' + self.field.name + ']:checked', $buttonGroup).val();
@@ -65,7 +66,7 @@ H5PEditor.widgets.imageRadioButtonGroup = (function ($) {
       }).appendTo($button);
 
       $('<label>', {
-        'for': uuid
+        'for': inputId
       }).append($('<div>', {
         'class': 'image-container',
         alt: option.label
@@ -82,7 +83,7 @@ H5PEditor.widgets.imageRadioButtonGroup = (function ($) {
     }
 
     // Add description:
-    $('<span>', {
+    $('<div>', {
       'class': 'h5peditor-field-description',
       html: self.field.description
     }).appendTo(self.$container);
