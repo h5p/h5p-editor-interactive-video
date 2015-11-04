@@ -87,7 +87,7 @@ H5PEditor.InteractiveVideo.GuidedTours = (function ($) {
     }
   ];
 
-  var currentTourId = undefined;
+  var currentTourId;
 
   /**
    * @class H5PEditor.InteractiveVideo.GuidedTours
@@ -104,7 +104,7 @@ H5PEditor.InteractiveVideo.GuidedTours = (function ($) {
    */
   GuidedTours.start = function (tourId, force) {
     force = force || false;
-    
+
     if ((tourId < 0 || (tourId+1) > tours.length) ||
         (tourId === currentTourId && tours[currentTourId].instance.isOpen())) {
       return;
@@ -120,9 +120,9 @@ H5PEditor.InteractiveVideo.GuidedTours = (function ($) {
       if (tour.instance === undefined) {
         tour.instance = new H5P.GuidedTour(tour.steps, tour.options);
       }
-      if (tour.instance.start(force)) {
+      tour.instance.start(force, function () {
         currentTourId = tourId;
-      }
+      });
     }
   };
 
