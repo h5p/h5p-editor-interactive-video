@@ -331,11 +331,10 @@
 .h5p-interactivevideo-editor .h5p-add-bookmark {
   padding: 0 12px 8px;
   color: #fefefe;
-  display: block;
   font-style: italic;
+  cursor: pointer;
 }
 .h5p-interactivevideo-editor .h5p-add-bookmark:hover {
-  text-decoration: none;
   color: #dbd7d1;
 }
 .h5p-interactivevideo-editor .h5p-add-bookmark:before {

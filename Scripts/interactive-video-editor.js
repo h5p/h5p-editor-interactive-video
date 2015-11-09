@@ -156,14 +156,25 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       });
 
       // Add "Add bookmark" to bookmarks menu.
-      $('<a href="#" class="h5p-add-bookmark">' + t('addBookmark') + '</a>').appendTo(that.IV.controls.$bookmarksChooser).click(function () {
-        that.addBookmark();
-        return false;
+      $('<div/>', {
+        'class': 'h5p-add-bookmark',
+        html: t('addBookmark'),
+        role: 'button',
+        tabindex: 0,
+        on: {
+          click: function () {
+            that.addBookmark();
+          }
+        },
+        appendTo: that.IV.controls.$bookmarksChooser
       });
 
       // Need to create the guide after the controls have been added, since it
       // attach itself to these DOM-elements
       that.startGuidedTour();
+
+      // Add overlay
+      that.IV.$overlay.addClass('h5p-visible');
     });
     this.IV.on('bookmarkAdded', that.bookmarkAdded, that);
     this.IV.attach(this.$editor);
@@ -266,7 +277,12 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }
 
     // Hide dialog
-    this.IV.controls.$bookmarksChooser.removeClass('h5p-show');
+    if (this.IV.controls.$more.hasClass('h5p-active')) {
+      this.IV.controls.$more.click();
+    }
+    else {
+      this.IV.controls.$bookmarks.click();
+    }
 
     // Move other increament other ids.
     this.IV.trigger('bookmarksChanged', {'index': i, 'number': 1});
@@ -427,7 +443,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     });
 
     that.dnb.dnr.on('stoppedResizing', function (event) {
-      that.IV.$overlay.removeClass('h5p-visible');
       // Set size in em
       that.interaction.setSize(event.data.width, event.data.height);
     });
@@ -445,8 +460,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         that.dnb.dnd.min.y -= that.dnb.$list.height();
       }
 
-      that.IV.$overlay.addClass('h5p-visible');
-
       return true;
     };
 
@@ -457,11 +470,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     };
 
     this.dnb.dnd.releaseCallback = function () {
-      // Hide overlay. (The timeout is needed because of a bug in FF.)
-      setTimeout(function () {
-        that.IV.$overlay.removeClass('h5p-visible');
-      }, 0);
-
       // Edit element when it is dropped.
       if (that.dnb.newElement) {
         that.dnb.dnd.$element.dblclick();
@@ -595,7 +603,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         }).appendTo($interaction);
         $interaction.children('.h5p-dragnresize-handle').mousedown(function (event) {
           self.interaction = interaction;
-          self.IV.$overlay.addClass('h5p-visible');
           self.IV.video.pause();
         });
       }
@@ -824,10 +831,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     interaction.dialogDisabled = true;
 
     $interaction.mousedown(function (event) {
-
-      // Add overlay to prevent the mouse from leaving the current body
-      that.IV.$overlay.addClass('h5p-visible');
-
       // Keep track of last state
       that.IV.lastState = that.IV.currentState;
 
