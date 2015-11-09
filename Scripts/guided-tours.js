@@ -66,7 +66,7 @@ H5PEditor.InteractiveVideo.GuidedTours = (function ($) {
           attachTo: {element: '.h5p-video-wrapper', on: 'center'},
           noArrow: true,
           scrollTo: true
-        },
+        }
       ],
       options: {
         id: 'h5p-editor-interactive-video-interactions-v1'
@@ -76,7 +76,7 @@ H5PEditor.InteractiveVideo.GuidedTours = (function ($) {
     {
       steps: [
         {
-          text: 'Say something helpfull about summary here!',
+          text: 'This summary will be disaplyed at the end of the video.',
           attachTo: {element: '.h5peditor-tabs', on: 'bottom'},
           noArrow: true
         }
