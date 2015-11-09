@@ -65,13 +65,13 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     // Tour de editor
     this.currentTabIndex = 0;
-    H5P.externalDispatcher.on('wizard-tab-changed', function (event) {
-      if (event.data.library === '/interactiveVideo') {
-        that.currentTabIndex = event.data.tabIndex;
-        // If "Add interactions" tab, wait for it to initialize
-        if (that.currentTabIndex !== 1) {
-          that.startGuidedTour();
-        }
+
+    // When wizard changes step
+    parent.on('stepChanged', function (event) {
+      that.currentTabIndex = event.data.id;
+      if (event.data.name === 'summary') {
+        // Start summary guide
+        that.startGuidedTour();
       }
     });
   }
@@ -152,6 +152,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       $.post(H5PEditor.ajaxPath + 'libraries', {libraries: action.options}, function (libraries) {
         that.createDragNBar(libraries);
         that.setInteractionTitles();
+        that.startGuidedTour();
         that.IV.trigger('dnbEditorReady');
       });
 
@@ -168,10 +169,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         },
         appendTo: that.IV.controls.$bookmarksChooser
       });
-
-      // Need to create the guide after the controls have been added, since it
-      // attach itself to these DOM-elements
-      that.startGuidedTour();
 
       // Add overlay
       that.IV.$overlay.addClass('h5p-visible');
