@@ -144,9 +144,17 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       });
 
       // Add "Add bookmark" to bookmarks menu.
-      $('<a href="#" class="h5p-add-bookmark">' + t('addBookmark') + '</a>').appendTo(that.IV.controls.$bookmarksChooser).click(function () {
-        that.addBookmark();
-        return false;
+      $('<div/>', {
+        'class': 'h5p-add-bookmark',
+        html: t('addBookmark'),
+        role: 'button',
+        tabindex: 0,
+        on: {
+          click: function () {
+            that.addBookmark();
+          }
+        },
+        appendTo: that.IV.controls.$bookmarksChooser
       });
 
       // Add overlay
@@ -253,7 +261,12 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }
 
     // Hide dialog
-    this.IV.controls.$bookmarksChooser.removeClass('h5p-show');
+    if (this.IV.controls.$more.hasClass('h5p-active')) {
+      this.IV.controls.$more.click();
+    }
+    else {
+      this.IV.controls.$bookmarks.click();
+    }
 
     // Move other increament other ids.
     this.IV.trigger('bookmarksChanged', {'index': i, 'number': 1});
