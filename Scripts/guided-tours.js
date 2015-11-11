@@ -8,20 +8,20 @@ H5PEditor.InteractiveVideo.GuidedTours = (function ($) {
     {
       steps: [
         {
-          text: '<p>This guide tours you through the most important features of the Interactive Video editor</p><p>Press EXIT to skip this tour</p><p>Start this guide by pressing the Tour button in the top right corner</p>',
+          text: H5PEditor.InteractiveVideo.t('tourStepUploadIntroText'),
           attachTo: {element: '.field.wizard .h5peditor-label', on: 'bottom'},
           noArrow: true,
           classes: 'h5p-editor-iv-guide-intro'
         },
         {
-          title: 'Adding video',
-          text: '<p>Start by adding a video file. You can upload a file from your computer or embed a video from YouTube.</p><p>To ensure compatibility across browsers, you can upload multiple file formats of the same video, such as mp4 as webm</p>',
+          title: H5PEditor.InteractiveVideo.t('tourStepUploadFileTitle'),
+          text: H5PEditor.InteractiveVideo.t('tourStepUploadFileText'),
           attachTo: {element: '.field.video .file', on: 'left'},
           highlightElement: true
         },
         {
-          title: 'Adding interactions',
-          text: '<p>Once you have added a video, you can start adding interactions</p><p>Press the <em>Add interactions</em> tab to get started</p>',
+          title: H5PEditor.InteractiveVideo.t('tourStepUploadAddInteractionsTitle'),
+          text: H5PEditor.InteractiveVideo.t('tourStepUploadAddInteractionsText'),
           attachTo: {element: '.h5peditor-tab-assets', on: 'bottom'},
           highlightElement: true
         }
@@ -34,35 +34,35 @@ H5PEditor.InteractiveVideo.GuidedTours = (function ($) {
     {
       steps: [
         {
-          title: 'Adding interactions',
-          text: 'To add an interaction, drag an element from the toolbar and drop it onto the video',
+          title: H5PEditor.InteractiveVideo.t('tourStepCanvasToolbarTitle'),
+          text: H5PEditor.InteractiveVideo.t('tourStepCanvasToolbarText'),
           attachTo: {element: '.h5peditor-dragnbar', on: 'bottom'},
           highlightElement: true
         },
         {
-          title: 'Editing interactions',
-          text: '<p>Once an interaction has been added, you can drag to reposition it.</p><p>To resize an interaction, press the lower right corner an drag</p><p>To edit the content of an interaction, double click on it and an editor will appear. You can delete the interaction from within the editor</p>',
+          title: H5PEditor.InteractiveVideo.t('tourStepCanvasEditingTitle'),
+          text: H5PEditor.InteractiveVideo.t('tourStepCanvasEditingText'),
           attachTo: {element: '.h5p-video-wrapper', on: 'center'},
           noArrow: true,
           scrollTo: true
         },
         {
-          title: 'Bookmarks',
-          text: 'You can add bookmarks from the bookmarks menu. Press the bookmark button to open the menu',
+          title: H5PEditor.InteractiveVideo.t('tourStepCanvasBookmarksTitle'),
+          text: H5PEditor.InteractiveVideo.t('tourStepCanvasBookmarksText'),
           attachTo: {element: '.h5p-control.h5p-bookmarks', on: 'right'},
           highlightElement: true,
           scrollTo: true
         },
         {
-          title: 'Preview your video',
-          text: 'Press the play button to preview your interactive video during editing',
+          title: H5PEditor.InteractiveVideo.t('tourStepCanvasPreviewTitle'),
+          text: H5PEditor.InteractiveVideo.t('tourStepCanvasPreviewText'),
           attachTo: {element: '.h5p-control.h5p-play', on: 'right'},
           highlightElement: true,
           scrollTo: true
         },
         {
-          title: 'Saving and viewing',
-          text: "When you're done adding interactions to your video, press Save to view the result",
+          title: H5PEditor.InteractiveVideo.t('tourStepCanvasSaveTitle'),
+          text: H5PEditor.InteractiveVideo.t('tourStepCanvasSaveText'),
           attachTo: {element: '.h5p-video-wrapper', on: 'center'},
           noArrow: true,
           scrollTo: true
@@ -76,7 +76,7 @@ H5PEditor.InteractiveVideo.GuidedTours = (function ($) {
     {
       steps: [
         {
-          text: 'This summary will be disaplyed at the end of the video.',
+          text: H5PEditor.InteractiveVideo.t('tourStepSummaryText'),
           attachTo: {element: '.h5peditor-tabs', on: 'bottom'},
           noArrow: true
         }
@@ -102,7 +102,7 @@ H5PEditor.InteractiveVideo.GuidedTours = (function ($) {
    * @param  {number} tourId The index of the guide (as defined in the tours array)
    * @param  {boolean} force Force displaying the guide (even if it has been displayed before)
    */
-  GuidedTours.start = function (tourId, force) {
+  GuidedTours.start = function (tourId, force, t) {
     force = force || false;
 
     if ((tourId < 0 || (tourId+1) > tours.length) ||
@@ -116,6 +116,15 @@ H5PEditor.InteractiveVideo.GuidedTours = (function ($) {
     }
 
     var tour = tours[tourId];
+
+    // Add labels:
+    tour.options.labels = {
+      exit: H5PEditor.InteractiveVideo.t('tourButtonExit'),
+      done: H5PEditor.InteractiveVideo.t('tourButtonDone'),
+      back: H5PEditor.InteractiveVideo.t('tourButtonBack'),
+      next: H5PEditor.InteractiveVideo.t('tourButtonNext')
+    }
+
     if (tour !== undefined) {
       if (tour.instance === undefined) {
         tour.instance = new H5P.GuidedTour(tour.steps, tour.options);

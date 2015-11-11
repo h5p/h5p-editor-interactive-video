@@ -12,6 +12,6 @@
     "addBookmark": "Legg til bokmerke",
     "newBookmark": "Nytt bokmerke",
     "bookmarkAlreadyExists": "Det finnes allerde et bokmerke her. Spol og plasser bokmerket på en annen tidskode.",
-    "tour": "Omvisning"
+    "tourButtonStart": "Omvisning"
   }
 }
