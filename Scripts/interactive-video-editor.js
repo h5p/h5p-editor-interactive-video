@@ -1081,7 +1081,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
 
   InteractiveVideoEditor.prototype.startGuidedTour = function (force) {
-    H5PEditor.InteractiveVideo.GuidedTours.start(this.currentTabIndex, force || false);
+    H5PEditor.InteractiveVideo.GuidedTours.start(this.currentTabIndex, force || false, t);
   };
 
   /**
@@ -1104,7 +1104,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     $('<span>', {
       'class': 'h5peditor-guided-tour',
-      html: t('tour'),
+      html: t('tourButtonStart'),
       click: function () {
         self.startGuidedTour(true);
         return false;
@@ -1159,7 +1159,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @param {Object} vars Placeholders
    * @returns {string}
    */
-  var t = function (key, vars) {
+  var t = InteractiveVideoEditor.t = function (key, vars) {
     return H5PEditor.t('H5PEditor.InteractiveVideo', key, vars);
   };
 
@@ -1214,6 +1214,26 @@ H5PEditor.language['H5PEditor.InteractiveVideo'] = {
     addBookmark: 'Add bookmark',
     newBookmark: 'New bookmark',
     bookmarkAlreadyExists: 'Bookmark already exists here. Move playhead and add a bookmark at another time.',
-    tour: 'Tour'
+    tourButtonStart: 'Tour',
+    tourButtonExit: 'Exit',
+    tourButtonDone: 'Done',
+    tourButtonBack: 'Back',
+    tourButtonNext: 'Next',
+    tourStepUploadIntroText: '<p>This guide tours you through the most important features of the Interactive Video editor</p><p>Press EXIT to skip this tour</p><p>Start this guide by pressing the Tour button in the top right corner</p>',
+    tourStepUploadFileTitle: 'Adding video',
+    tourStepUploadFileText: '<p>Start by adding a video file. You can upload a file from your computer or embed a video from YouTube.</p><p>To ensure compatibility across browsers, you can upload multiple file formats of the same video, such as mp4 as webm</p>',
+    tourStepUploadAddInteractionsTitle: 'Adding interactions',
+    tourStepUploadAddInteractionsText: '<p>Once you have added a video, you can start adding interactions</p><p>Press the <em>Add interactions</em> tab to get started</p>',
+    tourStepCanvasToolbarTitle: 'Adding interactions',
+    tourStepCanvasToolbarText: 'To add an interaction, drag an element from the toolbar and drop it onto the video',
+    tourStepCanvasEditingTitle: 'Editing interactions',
+    tourStepCanvasEditingText: '<p>Once an interaction has been added, you can drag to reposition it.</p><p>To resize an interaction, press the lower right corner an drag</p><p>To edit the content of an interaction, double click on it and an editor will appear. You can delete the interaction from within the editor</p>',
+    tourStepCanvasBookmarksTitle: 'Bookmarks',
+    tourStepCanvasBookmarksText: 'You can add bookmarks from the bookmarks menu. Press the bookmark button to open the menu',
+    tourStepCanvasPreviewTitle: 'Preview your video',
+    tourStepCanvasPreviewText: 'Press the play button to preview your interactive video during editing',
+    tourStepCanvasSaveTitle: 'Saving and viewing',
+    tourStepCanvasSaveText: "When you're done adding interactions to your video, press Save to view the result",
+    tourStepSummaryText: 'This summary will be displayed at the end of the video.'
   }
 };
