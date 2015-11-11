@@ -404,7 +404,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       var pasted = event.data;
       var options = {
         width: pasted.width,
-        height: pasted.height
+        height: pasted.height,
+        pasted: true
       };
 
       if (pasted.from === InteractiveVideoEditor.clipboardKey) {
@@ -637,27 +638,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
          * @param {Object} params
          */
         var imageChange = function (newParams) {
-          if (newParams === undefined || newParams.width === undefined || newParams.height === undefined ) {
-            return; // Skip
+          if (newParams !== undefined && newParams.width !== undefined && newParams.height !== undefined) {
+            self.setImageSize(parameters, newParams);
           }
-
-          // Avoid to small images
-          var fontSize = Number(self.IV.$videoWrapper.css('fontSize').replace('px', ''));
-          if (newParams.width < fontSize) {
-            newParams.width = fontSize;
-          }
-          if (newParams.height < fontSize) {
-            newParams.height = fontSize;
-          }
-
-          // Reduce height for tiny images, stretched pixels looks horrible
-          var suggestedHeight = newParams.height / fontSize;
-          if (suggestedHeight < parameters.height) {
-            parameters.height = suggestedHeight;
-          }
-
-          // Calculate new width
-          parameters.width = (parameters.height * (newParams.width / newParams.height));
         };
 
         // Add callback to the correct field
@@ -676,6 +659,44 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         libraryChange();
       }
     }
+
+    if (parameters.pasted) {
+      if (type === 'H5P.Image' && parameters.action.params.file !== undefined) {
+        self.setImageSize(parameters, parameters.action.params.file);
+      }
+      delete parameters.pasted;
+    }
+  };
+
+  /**
+   * Help set size for new images and keep aspect ratio.
+   *
+   * @param {object} parameters
+   * @param {object} newParams
+   */
+  InteractiveVideoEditor.prototype.setImageSize = function (parameters, newParams) {
+    if (newParams === undefined || newParams.width === undefined || newParams.height === undefined) {
+      return;
+    }
+    var self = this;
+
+    // Avoid to small images
+    var fontSize = Number(self.IV.$videoWrapper.css('fontSize').replace('px', ''));
+    if (newParams.width < fontSize) {
+      newParams.width = fontSize;
+    }
+    if (newParams.height < fontSize) {
+      newParams.height = fontSize;
+    }
+
+    // Reduce height for tiny images, stretched pixels looks horrible
+    var suggestedHeight = newParams.height / fontSize;
+    if (suggestedHeight < parameters.height) {
+      parameters.height = suggestedHeight;
+    }
+
+    // Calculate new width
+    parameters.width = (parameters.height * (newParams.width / newParams.height));
   };
 
   /**
@@ -997,8 +1018,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       params = {
         x: 47.813153766, // Center button
         y: 46.112273361,
-        width: options.width ? options.width * this.pToEm : 10,
-        height: options.height ? options.height * this.pToEm : 10,
+        width: 10,
+        height: 10,
         duration: {
           from: from,
           to: from + 10
@@ -1014,9 +1035,16 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           params: {}
         };
       }
+      if (options.width && options.height && !options.displayType) {
+        params.width = options.width * this.pToEm;
+        params.height = options.height * this.pToEm;
+      }
       params.action.subContentId = H5P.createUUID();
       if (library.split(' ')[0] === 'H5P.Nil') {
         params.label = 'Lorem ipsum dolor sit amet...';
+      }
+      if (options.pasted) {
+        params.pasted = true;
       }
     }
     else {
