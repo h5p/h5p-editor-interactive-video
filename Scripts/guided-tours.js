@@ -1,4 +1,7 @@
 H5PEditor.InteractiveVideo.GuidedTours = (function ($) {
+
+  // Shorthand for translate function:
+  var t = H5PEditor.InteractiveVideo.t;
   /**
    * Defines the different tours in IV
    * @type {Array}
@@ -8,20 +11,20 @@ H5PEditor.InteractiveVideo.GuidedTours = (function ($) {
     {
       steps: [
         {
-          text: H5PEditor.InteractiveVideo.t('tourStepUploadIntroText'),
+          text: t('tourStepUploadIntroText'),
           attachTo: {element: '.field.wizard .h5peditor-label', on: 'bottom'},
           noArrow: true,
           classes: 'h5p-editor-iv-guide-intro'
         },
         {
-          title: H5PEditor.InteractiveVideo.t('tourStepUploadFileTitle'),
-          text: H5PEditor.InteractiveVideo.t('tourStepUploadFileText'),
+          title: t('tourStepUploadFileTitle'),
+          text: t('tourStepUploadFileText'),
           attachTo: {element: '.field.video .file', on: 'left'},
           highlightElement: true
         },
         {
-          title: H5PEditor.InteractiveVideo.t('tourStepUploadAddInteractionsTitle'),
-          text: H5PEditor.InteractiveVideo.t('tourStepUploadAddInteractionsText'),
+          title: t('tourStepUploadAddInteractionsTitle'),
+          text: t('tourStepUploadAddInteractionsText'),
           attachTo: {element: '.h5peditor-tab-assets', on: 'bottom'},
           highlightElement: true
         }
@@ -34,35 +37,35 @@ H5PEditor.InteractiveVideo.GuidedTours = (function ($) {
     {
       steps: [
         {
-          title: H5PEditor.InteractiveVideo.t('tourStepCanvasToolbarTitle'),
-          text: H5PEditor.InteractiveVideo.t('tourStepCanvasToolbarText'),
+          title: t('tourStepCanvasToolbarTitle'),
+          text: t('tourStepCanvasToolbarText'),
           attachTo: {element: '.h5peditor-dragnbar', on: 'bottom'},
           highlightElement: true
         },
         {
-          title: H5PEditor.InteractiveVideo.t('tourStepCanvasEditingTitle'),
-          text: H5PEditor.InteractiveVideo.t('tourStepCanvasEditingText'),
+          title: t('tourStepCanvasEditingTitle'),
+          text: t('tourStepCanvasEditingText'),
           attachTo: {element: '.h5p-video-wrapper', on: 'center'},
           noArrow: true,
           scrollTo: true
         },
         {
-          title: H5PEditor.InteractiveVideo.t('tourStepCanvasBookmarksTitle'),
-          text: H5PEditor.InteractiveVideo.t('tourStepCanvasBookmarksText'),
+          title: t('tourStepCanvasBookmarksTitle'),
+          text: t('tourStepCanvasBookmarksText'),
           attachTo: {element: '.h5p-control.h5p-bookmarks', on: 'right'},
           highlightElement: true,
           scrollTo: true
         },
         {
-          title: H5PEditor.InteractiveVideo.t('tourStepCanvasPreviewTitle'),
-          text: H5PEditor.InteractiveVideo.t('tourStepCanvasPreviewText'),
+          title: t('tourStepCanvasPreviewTitle'),
+          text: t('tourStepCanvasPreviewText'),
           attachTo: {element: '.h5p-control.h5p-play', on: 'right'},
           highlightElement: true,
           scrollTo: true
         },
         {
-          title: H5PEditor.InteractiveVideo.t('tourStepCanvasSaveTitle'),
-          text: H5PEditor.InteractiveVideo.t('tourStepCanvasSaveText'),
+          title: t('tourStepCanvasSaveTitle'),
+          text: t('tourStepCanvasSaveText'),
           attachTo: {element: '.h5p-video-wrapper', on: 'center'},
           noArrow: true,
           scrollTo: true
@@ -76,7 +79,7 @@ H5PEditor.InteractiveVideo.GuidedTours = (function ($) {
     {
       steps: [
         {
-          text: H5PEditor.InteractiveVideo.t('tourStepSummaryText'),
+          text: t('tourStepSummaryText'),
           attachTo: {element: '.h5peditor-tabs', on: 'bottom'},
           noArrow: true
         }
@@ -119,10 +122,10 @@ H5PEditor.InteractiveVideo.GuidedTours = (function ($) {
 
     // Add labels:
     tour.options.labels = {
-      exit: H5PEditor.InteractiveVideo.t('tourButtonExit'),
-      done: H5PEditor.InteractiveVideo.t('tourButtonDone'),
-      back: H5PEditor.InteractiveVideo.t('tourButtonBack'),
-      next: H5PEditor.InteractiveVideo.t('tourButtonNext')
+      exit: t('tourButtonExit'),
+      done: t('tourButtonDone'),
+      back: t('tourButtonBack'),
+      next: t('tourButtonNext')
     }
 
     if (tour !== undefined) {

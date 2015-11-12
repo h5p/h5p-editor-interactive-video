@@ -12,6 +12,26 @@
     "addBookmark": "Legg til bokmerke",
     "newBookmark": "Nytt bokmerke",
     "bookmarkAlreadyExists": "Det finnes allerde et bokmerke her. Spol og plasser bokmerket på en annen tidskode.",
-    "tourButtonStart": "Omvisning"
+    "tourButtonStart": "Omvisning",
+    "tourButtonExit": "Avslutt",
+    "tourButtonDone": "Ferdig",
+    "tourButtonBack": "Forrige",
+    "tourButtonNext": "Neste",
+    "tourStepUploadIntroText": "<p>Denne omvisningen forklarer de mest viktige funcksjonene i editoren til Interaktiv Video</p><p>Click Avslutt for å hoppe over omvisningen</p><p>Start denne omvisningen ved å klikke Omvisningsknappen i øvre høyre hjørne</p>",
+    "tourStepUploadFileTitle": "Legge til video",
+    "tourStepUploadFileText": "<p>Start med å legge til en videofil. Du kan laste opp fra din maskin, eller legge til en video fra YouTube</p><p>For å sikre nettleser-kompatibilitet, last opp videofiler i flere forskjellige formater, feks mp4 og webm</p>",
+    "tourStepUploadAddInteractionsTitle": "Legge inn interaksjoner",
+    "tourStepUploadAddInteractionsText": "<p>Når du har lagt til en video, kan du legge inn interaksjoner</p><p>Klikk på <em>Legg til interaksjoner</em> fanen for å starte</p>",
+    "tourStepCanvasToolbarTitle": "Legge inn interaksjoner",
+    "tourStepCanvasToolbarText": "For å legge inn en interaksjon, dra et element fra verktøylinja, og slipp den på videoen",
+    "tourStepCanvasEditingTitle": "Redigere interaksjoner",
+    "tourStepCanvasEditingText": "<p>Når en interaksjon har blitt lagt til, kan du dra i den for å flytte på den</p><p>For å endre størrelsen, klikk på det nedre høyre hjørne og dra</p><p>For å redigere innholdet til en interaksjon, dobbelklikk på den, og editorvinduet vil åpne seg. Du kan slette en interaktivitet fra editorvinduet, eller gjennom kontekstmenyen som åpnes når man velger et element</p>",
+    "tourStepCanvasBookmarksTitle": "Bokmerker",
+    "tourStepCanvasBookmarksText": "Bokmerker kan legges til gjennom bokmerkemenyen. Klikk på bokmerkeknappen for å åpne menyen",
+    "tourStepCanvasPreviewTitle": "Forhåndsvisning",
+    "tourStepCanvasPreviewText": "Klikk avspillerknappen for å se din interaktive video underveis",
+    "tourStepCanvasSaveTitle": "Lagre og vise",
+    "tourStepCanvasSaveText": "Når du er ferdig, klikk Lagre for å se det endelige resultatet",
+    "tourStepSummaryText": "Denne oppsummmeringen vil vises på slutten av videoen"
   }
 }
