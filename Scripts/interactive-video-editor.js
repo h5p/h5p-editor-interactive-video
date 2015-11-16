@@ -1248,7 +1248,7 @@ H5PEditor.language['H5PEditor.InteractiveVideo'] = {
     tourButtonBack: 'Back',
     tourButtonNext: 'Next',
     tourStepUploadIntroText: '<p>This tour guides you through the most important features of the Interactive Video editor</p><p>Press EXIT to skip this tour.</p><p>Start the tour at any time by pressing the Tour button in the top right corner.</p>',
-    tourStepUploadFileTitle: 'Legge til video',
+    tourStepUploadFileTitle: 'Adding video',
     tourStepUploadFileText: '<p>Start by adding a video file. You can upload a file from your computer or paste a URL to a YouTube video or a supported video file.</p><p>To ensure compatibility across browsers, you can upload multiple file formats of the same video, such as mp4 and webm.</p>',
     tourStepUploadAddInteractionsTitle: 'Adding interactions',
     tourStepUploadAddInteractionsText: '<p>Once you have added a video, you can start adding interactions.</p><p>Press the <em>Add interactions</em> tab to get started.</p>',
