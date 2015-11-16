@@ -24,8 +24,7 @@ H5PEditor.InteractiveVideo.GuidedTours = (function ($) {
             {
               text: t('tourStepUploadIntroText'),
               attachTo: {element: '.field.wizard .h5peditor-label', on: 'bottom'},
-              noArrow: true,
-              classes: 'h5p-editor-iv-guide-intro'
+              noArrow: true
             },
             {
               title: t('tourStepUploadFileTitle'),
