@@ -1040,8 +1040,13 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         params.height = options.height * this.pToEm;
       }
       params.action.subContentId = H5P.createUUID();
-      if (library.split(' ')[0] === 'H5P.Nil') {
+      var type = library.split(' ')[0];
+      if (type === 'H5P.Nil') {
         params.label = 'Lorem ipsum dolor sit amet...';
+      }
+      else if (type === 'H5P.Link') {
+        // Links are always posters
+        params.displayType = 'poster';
       }
       if (options.pasted) {
         params.pasted = true;
