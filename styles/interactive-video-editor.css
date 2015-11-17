@@ -533,7 +533,3 @@
 .field.wizard > .h5peditor-label > .h5peditor-guided-tour:active {
   background: #ccc;
 }
-/* First step in guided tour should have blue font color */
-.shepherd-element.shepherd-theme-arrows.h5p-editor-iv-guide-intro .shepherd-content {
-  color: #3288e6;
-}
