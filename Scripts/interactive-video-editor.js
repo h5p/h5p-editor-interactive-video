@@ -486,6 +486,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       }
     });
 
+    if (that.IV.scaledFontSize) {
+      // Set the container em since the resizing is useless without it
+      that.dnb.dnr.setContainerEm(that.IV.scaledFontSize);
+    }
+
     this.dnb.attach(this.$bar);
   };
 
