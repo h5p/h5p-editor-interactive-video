@@ -1160,6 +1160,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @returns {boolean}
    */
   InteractiveVideoEditor.prototype.validate = function () {
+    // We must stops the playpack of any media!
+    if (this.IV && this.IV.video) {
+      this.IV.video.pause();
+    }
+
     return true; // An interactive video is always valid :-)
   };
 
