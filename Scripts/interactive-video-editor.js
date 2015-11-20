@@ -1077,7 +1077,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       x: params.x * widthToPx,
       y: params.y * heightToPx
     };
-    this.dnb.avoidOverlapping(pos);
+    this.dnb.avoidOverlapping(pos, {
+      width: params.width * this.IV.scaledFontSize,
+      height: params.height * this.IV.scaledFontSize,
+    });
     params.x = pos.x / widthToPx;
     params.y = pos.y / heightToPx;
 
