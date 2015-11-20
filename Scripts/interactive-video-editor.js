@@ -603,20 +603,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       var $interaction = event.data;
       // Customize rendering of interaction
       self.newInteraction(interaction, $interaction);
-
-      if (!interaction.isButton()) {
-        $('<div/>', {
-          'class': 'h5p-interaction-overlay'
-        }).appendTo($interaction);
-        $interaction.children('.h5p-dragnresize-handle').mousedown(function (event) {
-          self.interaction = interaction;
-          self.IV.video.pause();
-        });
-      }
-      $interaction.focus(function () {
-        // On focus, show overlay
-        self.$focusHandler.addClass('show');
-      });
     });
 
     // Find library field instance
@@ -850,8 +836,24 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       disableResize: (libraryName === 'H5P.Link') || interaction.isButton()
     };
 
+    if (!interaction.isButton()) {
+      // Add overlay
+      $('<div/>', {
+        'class': 'h5p-interaction-overlay'
+      }).appendTo($interaction);
+    }
+
     if (that.dnb !== undefined) {
+      // Add resizing, context menu etc.
       that.addInteractionToDnb(interaction, $interaction, options);
+    }
+
+    if (!interaction.isButton()) {
+      // Pause video on resizing
+      $interaction.children('.h5p-dragnresize-handle').mousedown(function (event) {
+        that.interaction = interaction;
+        that.IV.video.pause();
+      });
     }
 
     // Disable the normal dialog
@@ -864,6 +866,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       that.interaction = interaction;
     }).dblclick(function () {
       that.openInteractionDialog(interaction);
+    }).focus(function () {
+      // On focus, show overlay
+      that.$focusHandler.addClass('show');
     });
   };
 

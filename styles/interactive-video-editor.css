@@ -508,6 +508,9 @@
   padding: 0;
   margin: 0;
 }
+.h5p-interactivevideo-editor .h5p-interaction.h5p-poster > div {
+  z-index: 1;
+}
 
 /* Tour button placed in Wizard's header */
 .field.wizard > .h5peditor-label > .h5peditor-guided-tour {
