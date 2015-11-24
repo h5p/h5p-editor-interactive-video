@@ -443,7 +443,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     that.dnb.dnr.on('stoppedResizing', function (event) {
       // Set size in em
       that.interaction.setSize(event.data.width, event.data.height);
-      
+
       // Set pos in %
       var containerStyle = window.getComputedStyle(that.dnb.$container[0]);
       that.interaction.setPosition(event.data.left / (parseFloat(containerStyle.width) / 100), event.data.top / (parseFloat(containerStyle.height) / 100));
@@ -897,6 +897,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       // Recreate content instance
       interaction.reCreate();
 
+      // Make sure the element is inside the container the next time it's displayed
+      interaction.fit = true;
+
       // Check if we should show again
       interaction.toggle(this.IV.video.getCurrentTime());
 
@@ -906,6 +909,42 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }
 
     return valid;
+  };
+
+  /**
+   * Makes sure the given interaction doesn't stick out of the video container.
+   *
+   * @param {H5P.jQuery} $interaction
+   * @param {Object} interactionParams
+   */
+  InteractiveVideoEditor.prototype.fit = function ($interaction, interactionParams) {
+    var self = this;
+
+    var videoContainer = H5P.DragNBar.getSizeNPosition(self.IV.$videoWrapper[0]);
+    var updated = H5P.DragNBar.fitElementInside($interaction, videoContainer);
+
+    // Set the updated properties
+    var style = {};
+
+    if (updated.width !== undefined) {
+      interactionParams.width = updated.width / self.IV.scaledFontSize;
+      style.width = interactionParams.width + 'em';
+    }
+    if (updated.left !== undefined) {
+      interactionParams.x = updated.left / (videoContainer.width / 100);
+      style.left = interactionParams.x + '%';
+    }
+    if (updated.height !== undefined) {
+      interactionParams.height = updated.height / self.IV.scaledFontSize;
+      style.height = interactionParams.height + 'em';
+    }
+    if (updated.top !== undefined) {
+      interactionParams.y = updated.top / (videoContainer.height / 100);
+      style.top = interactionParams.y + '%';
+    }
+
+    // Apply style
+    $interaction.css(style);
   };
 
   /**
