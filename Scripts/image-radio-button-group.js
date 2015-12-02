@@ -35,7 +35,7 @@ H5PEditor.widgets.imageRadioButtonGroup = (function ($) {
     });
 
     // Add header:
-    $('<span>', {
+    $('<div>', {
       'class': 'h5peditor-label',
       html: self.field.label
     }).appendTo(self.$container);
@@ -83,7 +83,7 @@ H5PEditor.widgets.imageRadioButtonGroup = (function ($) {
     }
 
     // Add description:
-    $('<span>', {
+    $('<div>', {
       'class': 'h5peditor-field-description',
       html: self.field.description
     }).appendTo(self.$container);

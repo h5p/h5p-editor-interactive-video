@@ -2,7 +2,7 @@
   "title": "Interactive Video Editor",
   "license": "MIT",
   "majorVersion": 1,
-  "minorVersion": 7,
+  "minorVersion": 8,
   "patchVersion": 0,
   "runnable": 0,
   "machineName": "H5PEditor.InteractiveVideo",
@@ -17,6 +17,9 @@
     },
     {
       "path": "Scripts/interactive-video-editor.js"
+    },
+    {
+      "path": "Scripts/guided-tours.js"
     }
   ],
   "preloadedCss": [
@@ -66,12 +69,12 @@
     {
       "machineName": "H5P.MultiChoice",
       "majorVersion": 1,
-      "minorVersion": 4
+      "minorVersion": 5
     },
     {
       "machineName": "H5P.InteractiveVideo",
       "majorVersion": 1,
-      "minorVersion": 7
+      "minorVersion": 8
     },
     {
       "machineName": "H5P.Summary",
@@ -112,6 +115,11 @@
       "machineName": "H5P.DragText",
       "majorVersion": 1,
       "minorVersion": 4
+    },
+    {
+      "machineName": "H5P.GuidedTour",
+      "majorVersion": 1,
+      "minorVersion": 0
     }
   ]
 }
