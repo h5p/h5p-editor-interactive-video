@@ -82,7 +82,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @type {string}
    */
   InteractiveVideoEditor.clipboardKey = 'H5PEditor.InteractiveVideo';
-
   /**
    * Find a field, then run the callback.
    *
@@ -1170,7 +1169,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
 
   InteractiveVideoEditor.prototype.startGuidedTour = function (force) {
-    H5PEditor.InteractiveVideo.GuidedTours.start(this.currentTabIndex, force || false, t);
+    if (H5PEditor.InteractiveVideo.disableGuidedTour !== true) {
+      H5PEditor.InteractiveVideo.GuidedTours.start(this.currentTabIndex, force || false, t);
+    }
   };
 
   /**
