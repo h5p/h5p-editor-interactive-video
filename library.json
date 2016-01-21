@@ -2,8 +2,8 @@
   "title": "Interactive Video Editor",
   "license": "MIT",
   "majorVersion": 1,
-  "minorVersion": 7,
-  "patchVersion": 0,
+  "minorVersion": 8,
+  "patchVersion": 2,
   "runnable": 0,
   "machineName": "H5PEditor.InteractiveVideo",
   "author": "Joubel AS",
@@ -17,6 +17,9 @@
     },
     {
       "path": "Scripts/interactive-video-editor.js"
+    },
+    {
+      "path": "Scripts/guided-tours.js"
     }
   ],
   "preloadedCss": [
@@ -36,7 +39,7 @@
     {
       "machineName": "H5P.DragNBar",
       "majorVersion": 1,
-      "minorVersion": 1
+      "minorVersion": 2
     },
     {
       "machineName": "H5P.Image",
@@ -66,12 +69,12 @@
     {
       "machineName": "H5P.MultiChoice",
       "majorVersion": 1,
-      "minorVersion": 4
+      "minorVersion": 5
     },
     {
       "machineName": "H5P.InteractiveVideo",
       "majorVersion": 1,
-      "minorVersion": 7
+      "minorVersion": 8
     },
     {
       "machineName": "H5P.Summary",
@@ -106,12 +109,17 @@
     {
       "machineName": "H5P.MarkTheWords",
       "majorVersion": 1,
-      "minorVersion": 4
+      "minorVersion": 5
     },
     {
       "machineName": "H5P.DragText",
       "majorVersion": 1,
       "minorVersion": 4
+    },
+    {
+      "machineName": "H5P.GuidedTour",
+      "majorVersion": 1,
+      "minorVersion": 0
     }
   ]
 }

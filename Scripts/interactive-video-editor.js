@@ -13,6 +13,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   function InteractiveVideoEditor(parent, field, params, setValue) {
     var that = this;
 
+    this.showGuidedTour = true;
     this.parent = parent;
     this.field = field;
 
@@ -56,8 +57,32 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     parent.ready(function () {
       that.passReadies = false;
     });
+
+    H5P.$window.on('resize', function () {
+      if (that.IV) {
+        that.IV.trigger('resize');
+      }
+    });
+
+    // Tour de editor
+    this.currentTabIndex = 0;
+
+    // When wizard changes step
+    parent.on('stepChanged', function (event) {
+      that.currentTabIndex = event.data.id;
+      if (event.data.name === 'summary') {
+        // Start summary guide
+        that.startGuidedTour();
+      }
+    });
   }
 
+  /**
+   * Must be changed if the semantics for the elements changes.
+   * @private
+   * @type {string}
+   */
+  InteractiveVideoEditor.clipboardKey = 'H5PEditor.InteractiveVideo';
   /**
    * Find a field, then run the callback.
    *
@@ -127,14 +152,26 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       $.post(H5PEditor.ajaxPath + 'libraries', {libraries: action.options}, function (libraries) {
         that.createDragNBar(libraries);
         that.setInteractionTitles();
+        that.startGuidedTour();
         that.IV.trigger('dnbEditorReady');
       });
 
       // Add "Add bookmark" to bookmarks menu.
-      $('<a href="#" class="h5p-add-bookmark">' + t('addBookmark') + '</a>').appendTo(that.IV.controls.$bookmarksChooser).click(function () {
-        that.addBookmark();
-        return false;
+      $('<div/>', {
+        'class': 'h5p-add-bookmark',
+        html: t('addBookmark'),
+        role: 'button',
+        tabindex: 0,
+        on: {
+          click: function () {
+            that.addBookmark();
+          }
+        },
+        appendTo: that.IV.controls.$bookmarksChooser
       });
+
+      // Add overlay
+      that.IV.$overlay.addClass('h5p-visible');
     });
     this.IV.on('bookmarkAdded', that.bookmarkAdded, that);
     this.IV.attach(this.$editor);
@@ -149,6 +186,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         that.$focusHandler.removeClass('show');
       }
     }).appendTo(this.IV.$videoWrapper);
+
+    this.pToEm = (this.IV.width / this.IV.fontSize) / 100;
   };
 
   /**
@@ -235,7 +274,12 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }
 
     // Hide dialog
-    this.IV.controls.$bookmarksChooser.removeClass('h5p-show');
+    if (this.IV.controls.$more.hasClass('h5p-active')) {
+      this.IV.controls.$more.click();
+    }
+    else {
+      this.IV.controls.$bookmarks.click();
+    }
 
     // Move other increament other ids.
     this.IV.trigger('bookmarksChanged', {'index': i, 'number': 1});
@@ -341,10 +385,68 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     this.libraries = libraries;
     this.dnb = new H5P.DragNBar(this.getButtons(libraries), this.IV.$videoWrapper, this.IV.$container);
 
+    /**
+     * @private
+     * @param {string} lib uber name
+     * @returns {boolean}
+     */
+    var supported = function (lib) {
+      for (var i = 0; i < libraries.length; i++) {
+        if (libraries[i].restricted !== true && libraries[i].uberName === lib) {
+          return true; // Library is supported and allowed
+        }
+      }
+
+      return false;
+    };
+
+    this.dnb.on('paste', function (event) {
+      var pasted = event.data;
+      var options = {
+        width: pasted.width,
+        height: pasted.height,
+        pasted: true
+      };
+
+      if (pasted.from === InteractiveVideoEditor.clipboardKey) {
+        // Pasted content comes from the same version of IV
+
+        if (!pasted.generic) {
+          // Non generic part, must be a something not created yet
+          that.dnb.focus(that.addInteraction(pasted.specific, options));
+        }
+        else if (supported(pasted.generic.library)) {
+          // Has generic part and the generic libray is supported
+          that.dnb.focus(that.addInteraction(pasted.specific, options));
+        }
+        else {
+          alert(H5PEditor.t('H5P.DragNBar', 'unableToPaste'));
+        }
+      }
+      else if (pasted.generic) {
+        if (supported(pasted.generic.library)) {
+          // Supported library from another content type
+
+          if (pasted.specific.displayAsButton) {
+            // Make sure buttons from CP still are buttons.
+            options.displayType = 'button';
+          }
+          options.action = pasted.generic;
+          that.dnb.focus(that.addInteraction(pasted.generic.library, options));
+        }
+        else {
+          alert(H5PEditor.t('H5P.DragNBar', 'unableToPaste'));
+        }
+      }
+    });
+
     that.dnb.dnr.on('stoppedResizing', function (event) {
-      that.IV.$overlay.removeClass('h5p-visible');
       // Set size in em
       that.interaction.setSize(event.data.width, event.data.height);
+
+      // Set pos in %
+      var containerStyle = window.getComputedStyle(that.dnb.$container[0]);
+      that.interaction.setPosition(event.data.left / (parseFloat(containerStyle.width) / 100), event.data.top / (parseFloat(containerStyle.height) / 100));
     });
 
     this.dnb.dnd.startMovingCallback = function () {
@@ -360,8 +462,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         that.dnb.dnd.min.y -= that.dnb.$list.height();
       }
 
-      that.IV.$overlay.addClass('h5p-visible');
-
       return true;
     };
 
@@ -372,11 +472,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     };
 
     this.dnb.dnd.releaseCallback = function () {
-      // Hide overlay. (The timeout is needed because of a bug in FF.)
-      setTimeout(function () {
-        that.IV.$overlay.removeClass('h5p-visible');
-      }, 0);
-
       // Edit element when it is dropped.
       if (that.dnb.newElement) {
         that.dnb.dnd.$element.dblclick();
@@ -394,6 +489,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         that.addInteractionToDnb(interaction, interaction.getElement(), options);
       }
     });
+
+    if (that.IV.scaledFontSize) {
+      // Set the container em since the resizing is useless without it
+      that.dnb.dnr.setContainerEm(that.IV.scaledFontSize);
+    }
 
     this.dnb.attach(this.$bar);
   };
@@ -490,6 +590,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       var $labelWrapper = interaction.children[interaction.indexes.labelIndex.index].$item;
       $displayTypeRadios.change(function () {
         $labelWrapper.toggleClass('hide', !interaction.isButton());
+        if (!interaction.isButton() && interaction.children[interaction.indexes.pauseIndex.index].$item) {
+          interaction.children[interaction.indexes.pauseIndex.index].$input[0].checked = true;
+          interaction.children[interaction.indexes.pauseIndex.index].$input.trigger('change');
+        }
       });
 
       $labelWrapper.toggleClass('hide', !interaction.isButton());
@@ -499,21 +603,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       var $interaction = event.data;
       // Customize rendering of interaction
       self.newInteraction(interaction, $interaction);
-
-      if (!interaction.isButton()) {
-        $('<div/>', {
-          'class': 'h5p-interaction-overlay'
-        }).appendTo($interaction);
-        $interaction.children('.h5p-dragnresize-handle').mousedown(function (event) {
-          self.interaction = interaction;
-          self.IV.$overlay.addClass('h5p-visible');
-          self.IV.video.pause();
-        });
-      }
-      $interaction.focus(function () {
-        // On focus, show overlay
-        self.$focusHandler.addClass('show');
-      });
     });
 
     // Find library field instance
@@ -544,27 +633,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
          * @param {Object} params
          */
         var imageChange = function (newParams) {
-          if (newParams === undefined || newParams.width === undefined || newParams.height === undefined ) {
-            return; // Skip
+          if (newParams !== undefined && newParams.width !== undefined && newParams.height !== undefined) {
+            self.setImageSize(parameters, newParams);
           }
-
-          // Avoid to small images
-          var fontSize = Number(self.IV.$videoWrapper.css('fontSize').replace('px', ''));
-          if (newParams.width < fontSize) {
-            newParams.width = fontSize;
-          }
-          if (newParams.height < fontSize) {
-            newParams.height = fontSize;
-          }
-
-          // Reduce height for tiny images, stretched pixels looks horrible
-          var suggestedHeight = newParams.height / fontSize;
-          if (suggestedHeight < parameters.height) {
-            parameters.height = suggestedHeight;
-          }
-
-          // Calculate new width
-          parameters.width = (parameters.height * (newParams.width / newParams.height));
         };
 
         // Add callback to the correct field
@@ -583,6 +654,44 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         libraryChange();
       }
     }
+
+    if (parameters.pasted) {
+      if (type === 'H5P.Image' && parameters.action.params.file !== undefined) {
+        self.setImageSize(parameters, parameters.action.params.file);
+      }
+      delete parameters.pasted;
+    }
+  };
+
+  /**
+   * Help set size for new images and keep aspect ratio.
+   *
+   * @param {object} parameters
+   * @param {object} newParams
+   */
+  InteractiveVideoEditor.prototype.setImageSize = function (parameters, newParams) {
+    if (newParams === undefined || newParams.width === undefined || newParams.height === undefined) {
+      return;
+    }
+    var self = this;
+
+    // Avoid to small images
+    var fontSize = Number(self.IV.$videoWrapper.css('fontSize').replace('px', ''));
+    if (newParams.width < fontSize) {
+      newParams.width = fontSize;
+    }
+    if (newParams.height < fontSize) {
+      newParams.height = fontSize;
+    }
+
+    // Reduce height for tiny images, stretched pixels looks horrible
+    var suggestedHeight = newParams.height / fontSize;
+    if (suggestedHeight < parameters.height) {
+      parameters.height = suggestedHeight;
+    }
+
+    // Calculate new width
+    parameters.width = (parameters.height * (newParams.width / newParams.height));
   };
 
   /**
@@ -672,7 +781,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    */
   InteractiveVideoEditor.prototype.addInteractionToDnb = function (interaction, $interaction, options) {
     var that = this;
-    var newDnbElement = that.dnb.add($interaction, options);
+    var newDnbElement = that.dnb.add($interaction, interaction.getClipboardData(), options);
     var createdNewElement = interaction.setDnbElement(newDnbElement);
 
     // New DragNBarElement was set, register listeners
@@ -689,6 +798,26 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         }
         that.IV.addSliderInteractions();
         that.dnb.blurAll();
+      });
+
+      newDnbElement.contextMenu.on('contextMenuBringToFront', function () {
+        // Find interaction index
+        var oldZ;
+        for (var i = 0; i < that.IV.interactions.length; i++) {
+          if (that.IV.interactions[i] === interaction) {
+            oldZ = i;
+            break;
+          }
+        }
+
+        // Add to end of params
+        that.params.interactions.push(that.params.interactions.splice(oldZ, 1)[0]);
+
+        // Update internally for IV player
+        that.IV.interactions.push(that.IV.interactions.splice(oldZ, 1)[0]);
+
+        // Update visuals
+        $interaction.appendTo(that.IV.$overlay);
       });
     }
   };
@@ -707,24 +836,39 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       disableResize: (libraryName === 'H5P.Link') || interaction.isButton()
     };
 
+    if (!interaction.isButton()) {
+      // Add overlay
+      $('<div/>', {
+        'class': 'h5p-interaction-overlay'
+      }).appendTo($interaction);
+    }
+
     if (that.dnb !== undefined) {
+      // Add resizing, context menu etc.
       that.addInteractionToDnb(interaction, $interaction, options);
+    }
+
+    if (!interaction.isButton()) {
+      // Pause video on resizing
+      $interaction.children('.h5p-dragnresize-handle').mousedown(function (event) {
+        that.interaction = interaction;
+        that.IV.video.pause();
+      });
     }
 
     // Disable the normal dialog
     interaction.dialogDisabled = true;
 
     $interaction.mousedown(function (event) {
-
-      // Add overlay to prevent the mouse from leaving the current body
-      that.IV.$overlay.addClass('h5p-visible');
-
       // Keep track of last state
       that.IV.lastState = that.IV.currentState;
 
       that.interaction = interaction;
     }).dblclick(function () {
       that.openInteractionDialog(interaction);
+    }).focus(function () {
+      // On focus, show overlay
+      that.$focusHandler.addClass('show');
     });
   };
 
@@ -753,6 +897,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       // Recreate content instance
       interaction.reCreate();
 
+      // Make sure the element is inside the container the next time it's displayed
+      interaction.fit = true;
+
       // Check if we should show again
       interaction.toggle(this.IV.video.getCurrentTime());
 
@@ -762,6 +909,42 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }
 
     return valid;
+  };
+
+  /**
+   * Makes sure the given interaction doesn't stick out of the video container.
+   *
+   * @param {H5P.jQuery} $interaction
+   * @param {Object} interactionParams
+   */
+  InteractiveVideoEditor.prototype.fit = function ($interaction, interactionParams) {
+    var self = this;
+
+    var videoContainer = H5P.DragNBar.getSizeNPosition(self.IV.$videoWrapper[0]);
+    var updated = H5P.DragNBar.fitElementInside($interaction, videoContainer);
+
+    // Set the updated properties
+    var style = {};
+
+    if (updated.width !== undefined) {
+      interactionParams.width = updated.width / self.IV.scaledFontSize;
+      style.width = interactionParams.width + 'em';
+    }
+    if (updated.left !== undefined) {
+      interactionParams.x = updated.left / (videoContainer.width / 100);
+      style.left = interactionParams.x + '%';
+    }
+    if (updated.height !== undefined) {
+      interactionParams.height = updated.height / self.IV.scaledFontSize;
+      style.height = interactionParams.height + 'em';
+    }
+    if (updated.top !== undefined) {
+      interactionParams.y = updated.top / (videoContainer.height / 100);
+      style.top = interactionParams.y + '%';
+    }
+
+    // Apply style
+    $interaction.css(style);
   };
 
   /**
@@ -861,42 +1044,102 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       id: id,
       title: t('insertElement', {':type': that.getLibraryTitle(library).toLowerCase() }),
       createElement: function () {
-        that.IV.video.pause();
-
-        var from = Math.floor(that.IV.video.getCurrentTime());
-        var to = from + 10;
-        var duration = Math.floor(that.IV.video.getDuration());
-        var newInteraction = {
-          action: {
-            library: library.uberName,
-            params: {},
-            subContentId: H5P.createUUID()
-          },
-          x: 47.813153766, // Center button
-          y: 46.112273361,
-          width: 10,
-          height: 10,
-          duration: {
-            from: from,
-            to: to > duration ? duration : to
-          }
-        };
-
-        var lib = library.uberName.split(' ')[0];
-        if (lib === 'H5P.Nil') {
-          newInteraction.label = 'Lorem ipsum dolor sit amet...';
-        }
-
-        that.params.interactions.push(newInteraction);
-        var i = that.params.interactions.length - 1;
-        that.interaction = that.IV.initInteraction(i);
-        that.processInteraction(that.interaction, newInteraction);
-
-        var $interaction = that.interaction.toggle(from);
-
-        return $interaction;
+        return that.addInteraction(library.uberName);
       }
     };
+  };
+
+  /**
+   * Add a new interaction to the interactive video.
+   *
+   * @param {string|object} library Content type or parameters
+   * @param {object} [options] Override the default options
+   * @returns {H5P.jQuery}
+   */
+  InteractiveVideoEditor.prototype.addInteraction = function (library, options) {
+    options = options || {};
+    var self = this;
+    self.IV.video.pause();
+
+    var params;
+    if (!(library instanceof String || typeof library === 'string')) {
+      params = library;
+    }
+
+    var from = Math.floor(self.IV.video.getCurrentTime());
+    if (!params) {
+      params = {
+        x: 47.813153766, // Center button
+        y: 46.112273361,
+        width: 10,
+        height: 10,
+        duration: {
+          from: from,
+          to: from + 10
+        }
+      };
+      if (options.action) {
+        params.action = options.action;
+        params.displayType = options.displayType ? options.displayType : 'poster';
+      }
+      else {
+        params.action = {
+          library: library,
+          params: {}
+        };
+      }
+      if (options.width && options.height && !options.displayType) {
+        params.width = options.width * this.pToEm;
+        params.height = options.height * this.pToEm;
+      }
+      params.action.subContentId = H5P.createUUID();
+      var type = library.split(' ')[0];
+      if (type === 'H5P.Nil') {
+        params.label = 'Lorem ipsum dolor sit amet...';
+      }
+      else if (type === 'H5P.Link') {
+        // Links are always posters
+        params.displayType = 'poster';
+      }
+      if (options.pasted) {
+        params.pasted = true;
+      }
+    }
+    else {
+      // Change starting time, but keep the same length
+      params.duration.to = from + (params.duration.to - params.duration.from);
+      params.duration.from = from;
+    }
+
+    var duration = Math.floor(self.IV.video.getDuration());
+    if (params.duration.to > duration) {
+      // Keep interaction inside video play time
+      params.duration.to = duration;
+    }
+
+    // Make sure we don't overlap another visible element
+    var size = window.getComputedStyle(this.IV.$videoWrapper[0]);
+    var widthToPx = parseFloat(size.width) / 100;
+    var heightToPx = parseFloat(size.height) / 100;
+    var pos = {
+      x: params.x * widthToPx,
+      y: params.y * heightToPx
+    };
+    this.dnb.avoidOverlapping(pos, {
+      width: params.width * this.IV.scaledFontSize,
+      height: params.height * this.IV.scaledFontSize,
+    });
+    params.x = pos.x / widthToPx;
+    params.y = pos.y / heightToPx;
+
+    self.params.interactions.push(params);
+    var i = self.params.interactions.length - 1;
+    self.interaction = self.IV.initInteraction(i);
+    self.processInteraction(self.interaction, params);
+
+    var $interaction = self.interaction.toggle(from);
+    this.IV.addSliderInteractions();
+    return $interaction;
   };
 
   /**
@@ -926,11 +1169,33 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   };
 
   /**
+   * Disable guided tour
+   *
+   * @method disableGuidedTour
+   */
+  InteractiveVideoEditor.prototype.disableGuidedTour = function () {
+    this.showGuidedTour = false;
+  };
+
+  /**
+   * Start the guided tour if not disabled
+   *
+   * @method startGuidedTour
+   * @param  {Boolean}        force If true, don't care if user already has seen it
+   */
+  InteractiveVideoEditor.prototype.startGuidedTour = function (force) {
+    if (this.showGuidedTour) {
+      H5PEditor.InteractiveVideo.GuidedTours.start(this.currentTabIndex, force || false, t);
+    }
+  };
+
+  /**
    * Append field to wrapper.
    *
    * @param {H5P.jQuery} $wrapper
    */
   InteractiveVideoEditor.prototype.appendTo = function ($wrapper) {
+    var self = this;
     // Added to support older versions of core. Needed when using IV in CP.
     var $libwrap = $wrapper.parent().parent();
     if ($libwrap.hasClass('libwrap')) {
@@ -941,8 +1206,17 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     this.$editor = this.$item.children('.h5peditor-interactions');
     this.$errors = this.$item.children('.h5p-errors');
     this.$bar = this.$item.children('.h5peditor-dragnbar');
-  };
 
+    $('<span>', {
+      'class': 'h5peditor-guided-tour',
+      html: t('tourButtonStart'),
+      click: function () {
+        self.startGuidedTour(true);
+        return false;
+      }
+    }).appendTo('.h5p-interactivevideo-editor .field.wizard > .h5peditor-label');
+    self.startGuidedTour();
+  };
   /**
    * Create HTML for the field.
    *
@@ -958,6 +1232,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @returns {boolean}
    */
   InteractiveVideoEditor.prototype.validate = function () {
+    // We must stops the playpack of any media!
+    if (this.IV && this.IV.video) {
+      this.IV.video.pause();
+    }
+
     return true; // An interactive video is always valid :-)
   };
 
@@ -990,7 +1269,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @param {Object} vars Placeholders
    * @returns {string}
    */
-  var t = function (key, vars) {
+  var t = InteractiveVideoEditor.t = function (key, vars) {
     return H5PEditor.t('H5PEditor.InteractiveVideo', key, vars);
   };
 
@@ -1044,6 +1323,27 @@ H5PEditor.language['H5PEditor.InteractiveVideo'] = {
     removeInteraction: 'Are you sure you wish to remove this interaction?',
     addBookmark: 'Add bookmark',
     newBookmark: 'New bookmark',
-    bookmarkAlreadyExists: 'Bookmark already exists here. Move playhead and add a bookmark at another time.'
+    bookmarkAlreadyExists: 'Bookmark already exists here. Move playhead and add a bookmark at another time.',
+    tourButtonStart: 'Tour',
+    tourButtonExit: 'Exit',
+    tourButtonDone: 'Done',
+    tourButtonBack: 'Back',
+    tourButtonNext: 'Next',
+    tourStepUploadIntroText: '<p>This tour guides you through the most important features of the Interactive Video editor.</p><p>Start this tour at any time by pressing the Tour button in the top right corner.</p><p>Press EXIT to skip this tour or press NEXT to continue.</p>',
+    tourStepUploadFileTitle: 'Adding video',
+    tourStepUploadFileText: '<p>Start by adding a video file. You can upload a file from your computer or paste a URL to a YouTube video or a supported video file.</p><p>To ensure compatibility across browsers, you can upload multiple file formats of the same video, such as mp4 and webm.</p>',
+    tourStepUploadAddInteractionsTitle: 'Adding interactions',
+    tourStepUploadAddInteractionsText: '<p>Once you have added a video, you can start adding interactions.</p><p>Press the <em>Add interactions</em> tab to get started.</p>',
+    tourStepCanvasToolbarTitle: 'Adding interactions',
+    tourStepCanvasToolbarText: 'To add an interaction, drag an element from the toolbar and drop it onto the video.',
+    tourStepCanvasEditingTitle: 'Editing interactions',
+    tourStepCanvasEditingText: '<p>Once an interaction has been added, you can drag to reposition it.</p><p>To resize an interaction, press on the handles and drag.</p><p>When you select an interaction, a context menu will appear. To edit the content of the interaction, press the Edit button in the context menu. You can remove an interaction by pressing the Remove button on the context menu.</p>',
+    tourStepCanvasBookmarksTitle: 'Bookmarks',
+    tourStepCanvasBookmarksText: 'You can add Bookmarks from the Bookmarks menu. Press the Bookmark button to open the menu.',
+    tourStepCanvasPreviewTitle: 'Preview your interactive video',
+    tourStepCanvasPreviewText: 'Press the Play button to preview your interactive video while editing.',
+    tourStepCanvasSaveTitle: 'Save and view',
+    tourStepCanvasSaveText: "When you're done adding interactions to your video, press Save/Create to view the result.",
+    tourStepSummaryText: 'This optional Summary quiz will appear at the end of the video.'
   }
 };
