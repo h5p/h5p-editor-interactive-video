@@ -62,7 +62,9 @@
   margin-right: 0.5em;
   vertical-align: bottom;
 }
-.h5p-interactive-video-dragnbar .h5p-dragnbar-a, .h5p-interactive-video-dragnbar .h5p-dragnbar-a:visited, .h5p-interactive-video-dragnbar .h5p-dragnbar-a:link {
+.h5p-interactive-video-dragnbar .h5p-dragnbar-a,
+.h5p-interactive-video-dragnbar .h5p-dragnbar-a:visited,
+.h5p-interactive-video-dragnbar .h5p-dragnbar-a:link {
   color: #333;
 }
 .h5p-interactive-video-dragnbar .h5p-dragnbar-a:hover {
@@ -88,6 +90,10 @@
 .h5p-interactive-video-dragnbar .h5p-dragnbar-image-button:before,
 .h5p-image-interaction-icon:before {
   content: "\f03e";
+}
+.h5p-interactive-video-dragnbar .h5p-dragnbar-gotoquestion-button:before,
+.h5p-gotoquestion-interaction-icon:before {
+  content: "?";
 }
 
 /* H5P specific fonts: */
