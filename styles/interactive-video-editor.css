@@ -93,7 +93,7 @@
 }
 .h5p-interactive-video-dragnbar .h5p-dragnbar-gotoquestion-button:before,
 .h5p-gotoquestion-interaction-icon:before {
-  content: "?";
+  content: "\f277";
 }
 
 /* H5P specific fonts: */
