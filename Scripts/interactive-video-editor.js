@@ -535,7 +535,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }
 
     // Always show link as poster
-    if (type === 'H5P.Link') {
+    if (type === 'H5P.Link' || type === 'H5P.GoToQuestion') {
       var field = findField('displayType', interactionFields);
       // Must set default to false and hide
       field.default = 'poster';
@@ -544,6 +544,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       // Hide label field
       var labelField = findField('label', interactionFields);
       labelField.widget = 'none';
+
+      if (type === 'H5P.GoToQuestion') {
+        parameters.pause = true;
+      }
     }
 
     // Get indexes of fields that needs unique styling
