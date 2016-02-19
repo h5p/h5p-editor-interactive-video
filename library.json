@@ -3,7 +3,7 @@
   "license": "MIT",
   "majorVersion": 1,
   "minorVersion": 8,
-  "patchVersion": 2,
+  "patchVersion": 3,
   "runnable": 0,
   "machineName": "H5PEditor.InteractiveVideo",
   "author": "Joubel AS",
@@ -34,7 +34,7 @@
     {
       "machineName": "FontAwesome",
       "majorVersion": 4,
-      "minorVersion": 3
+      "minorVersion": 5
     },
     {
       "machineName": "H5P.DragNBar",
@@ -118,6 +118,11 @@
     },
     {
       "machineName": "H5P.GuidedTour",
+      "majorVersion": 1,
+      "minorVersion": 0
+    },
+    {
+      "machineName": "H5P.GoToQuestion",
       "majorVersion": 1,
       "minorVersion": 0
     }
