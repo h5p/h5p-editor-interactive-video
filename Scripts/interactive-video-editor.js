@@ -169,9 +169,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         },
         appendTo: that.IV.controls.$bookmarksChooser
       });
-
-      // Add overlay
-      that.IV.$overlay.addClass('h5p-visible');
     });
     this.IV.on('bookmarkAdded', that.bookmarkAdded, that);
     this.IV.attach(this.$editor);
@@ -1061,6 +1058,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @returns {H5P.jQuery}
    */
   InteractiveVideoEditor.prototype.addInteraction = function (library, options) {
+    this.IV.$overlay.addClass('h5p-visible');
     options = options || {};
     var self = this;
     self.IV.video.pause();
