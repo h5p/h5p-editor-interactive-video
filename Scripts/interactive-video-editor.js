@@ -13,7 +13,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   function InteractiveVideoEditor(parent, field, params, setValue) {
     var that = this;
 
-    this.showGuidedTour = true;
     this.parent = parent;
     this.field = field;
 
@@ -1175,10 +1174,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    *
    * @method disableGuidedTour
    */
-  InteractiveVideoEditor.prototype.disableGuidedTour = function () {
-    this.showGuidedTour = false;
+  InteractiveVideoEditor.disableGuidedTour = function () {
+    InteractiveVideoEditor.showGuidedTour = false;
   };
-
+  InteractiveVideoEditor.showGuidedTour = true;
   /**
    * Start the guided tour if not disabled
    *
@@ -1186,7 +1185,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @param  {Boolean}        force If true, don't care if user already has seen it
    */
   InteractiveVideoEditor.prototype.startGuidedTour = function (force) {
-    if (this.showGuidedTour) {
+    if (InteractiveVideoEditor.showGuidedTour) {
       H5PEditor.InteractiveVideo.GuidedTours.start(this.currentTabIndex, force || false, t);
     }
   };
@@ -1307,6 +1306,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       }
     }
   };
+
+
 
   return InteractiveVideoEditor;
 })(H5P.jQuery);
