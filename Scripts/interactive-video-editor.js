@@ -865,7 +865,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
       that.interaction = interaction;
     }).dblclick(function () {
-      that.openInteractionDialog(interaction);
+      if (that.dnb !== undefined) {
+        that.openInteractionDialog(interaction);
+      }
     }).focus(function () {
       // On focus, show overlay
       that.$focusHandler.addClass('show');
