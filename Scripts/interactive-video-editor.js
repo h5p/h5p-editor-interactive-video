@@ -148,7 +148,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       that.$bar = $('<div class="h5p-interactive-video-dragnbar">' + t('loading') + '</div>').prependTo(that.$editor);
       var interactions = findField('interactions', that.field.fields);
       var action = findField('action', interactions.field.fields);
-      $.post(H5PEditor.ajaxPath + 'libraries', {libraries: action.options}, function (libraries) {
+      $.post(H5PEditor.ajaxPath + 'libraries', $.extend({libraries: action.options}, H5PEditor.uploadParams), function (libraries) {
         that.createDragNBar(libraries);
         that.setInteractionTitles();
         that.startGuidedTour();
