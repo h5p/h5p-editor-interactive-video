@@ -149,7 +149,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       var interactions = findField('interactions', that.field.fields);
       var action = findField('action', interactions.field.fields);
       H5PEditor.LibraryListCache.getLibraries(
-        $.extend({libraries: action.options}, H5PEditor.uploadParams).libraries,
+        action.options,
         function (libraries) {
           this.createDragNBar(libraries);
           this.setInteractionTitles();
