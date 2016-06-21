@@ -13,7 +13,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   function InteractiveVideoEditor(parent, field, params, setValue) {
     var that = this;
 
-    this.showGuidedTour = true;
     this.parent = parent;
     this.field = field;
 
@@ -149,12 +148,16 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       that.$bar = $('<div class="h5p-interactive-video-dragnbar">' + t('loading') + '</div>').prependTo(that.$editor);
       var interactions = findField('interactions', that.field.fields);
       var action = findField('action', interactions.field.fields);
-      $.post(H5PEditor.ajaxPath + 'libraries', {libraries: action.options}, function (libraries) {
-        that.createDragNBar(libraries);
-        that.setInteractionTitles();
-        that.startGuidedTour();
-        that.IV.trigger('dnbEditorReady');
-      });
+      H5PEditor.LibraryListCache.getLibraries(
+        action.options,
+        function (libraries) {
+          this.createDragNBar(libraries);
+          this.setInteractionTitles();
+          this.startGuidedTour();
+          this.IV.trigger('dnbEditorReady');
+        },
+        that
+      );
 
       // Add "Add bookmark" to bookmarks menu.
       $('<div/>', {
@@ -866,7 +869,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
       that.interaction = interaction;
     }).dblclick(function () {
-      that.openInteractionDialog(interaction);
+      if (that.dnb !== undefined) {
+        that.openInteractionDialog(interaction);
+      }
     }).focus(function () {
       // On focus, show overlay
       that.$focusHandler.addClass('show');
@@ -1175,10 +1180,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    *
    * @method disableGuidedTour
    */
-  InteractiveVideoEditor.prototype.disableGuidedTour = function () {
-    this.showGuidedTour = false;
+  InteractiveVideoEditor.disableGuidedTour = function () {
+    InteractiveVideoEditor.showGuidedTour = false;
   };
-
+  InteractiveVideoEditor.showGuidedTour = true;
   /**
    * Start the guided tour if not disabled
    *
@@ -1186,7 +1191,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @param  {Boolean}        force If true, don't care if user already has seen it
    */
   InteractiveVideoEditor.prototype.startGuidedTour = function (force) {
-    if (this.showGuidedTour) {
+    if (InteractiveVideoEditor.showGuidedTour) {
       H5PEditor.InteractiveVideo.GuidedTours.start(this.currentTabIndex, force || false, t);
     }
   };
@@ -1307,6 +1312,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       }
     }
   };
+
+
 
   return InteractiveVideoEditor;
 })(H5P.jQuery);
