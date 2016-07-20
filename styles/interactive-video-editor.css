@@ -124,7 +124,7 @@
 }
 .h5p-interactive-video-dragnbar .h5p-dragnbar-multichoice-button:before,
 .h5p-multichoice-interaction-icon:before {
-  content: "\e993";
+  content: "\e603";
 }
 .h5p-interactive-video-dragnbar .h5p-dragnbar-blanks-button:before,
 .h5p-blanks-interaction-icon:before {
@@ -144,7 +144,7 @@
 }
 .h5p-interactive-video-dragnbar .h5p-dragnbar-singlechoiceset-button:before,
 .h5p-singlechoiceset-interaction-icon:before {
-  content: "\e603";
+  content: "\e993";
 }
 
 .h5p-interactivevideo-editor .h5p-dialog-buttons {
