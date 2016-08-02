@@ -545,7 +545,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       var labelField = findField('label', interactionFields);
       labelField.widget = 'none';
 
-      if (type === 'H5P.GoToQuestion') {
+      if (type === 'H5P.GoToQuestion' && parameters.pause === undefined) {
         parameters.pause = true;
       }
     }
