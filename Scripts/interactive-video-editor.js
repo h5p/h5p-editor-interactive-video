@@ -384,6 +384,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     this.libraries = libraries;
     this.dnb = new H5P.DragNBar(this.getButtons(libraries), this.IV.$videoWrapper, this.IV.$container);
+    this.dnb.overflowThreshold = 15;
 
     /**
      * @private
@@ -535,7 +536,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }
 
     // Always show link as poster
-    if (type === 'H5P.Link' || type === 'H5P.GoToQuestion') {
+    if (type === 'H5P.Link' || type === 'H5P.GoToQuestion' || type === 'H5P.IVHotspot') {
       var field = findField('displayType', interactionFields);
       // Must set default to false and hide
       field.default = 'poster';

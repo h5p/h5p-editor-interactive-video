@@ -95,6 +95,10 @@
 .h5p-gotoquestion-interaction-icon:before {
   content: "\f277";
 }
+.h5p-interactive-video-dragnbar .h5p-dragnbar-ivhotspot-button:before,
+.h5p-ivhotspot-interaction-icon:before {
+  content: "\f10c";
+}
 
 /* H5P specific fonts: */
 .h5p-interactive-video-dragnbar .h5p-dragnbar-dragquestion-button:before,
@@ -541,4 +545,10 @@
 }
 .field.wizard > .h5peditor-label > .h5peditor-guided-tour:active {
   background: #ccc;
+}
+.h5p-poster.h5p-ivhotspot-interaction {
+  overflow: visible;
+}
+.h5p-poster.h5p-ivhotspot-interaction .h5p-ivhotspot {
+  border: 3px double rgba(255, 255, 255, 0.8);
 }
