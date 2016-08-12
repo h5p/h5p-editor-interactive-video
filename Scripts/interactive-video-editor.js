@@ -534,6 +534,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     if (type === 'H5P.Nil') {
       hideFields(interactionFields, ['displayType']);
     }
+    if (type !== 'H5P.Text' && type !== 'H5P.Image') {
+      hideFields(interactionFields, ['goto']);
+    }
 
     // Always show link as poster
     if (type === 'H5P.Link' || type === 'H5P.GoToQuestion' || type === 'H5P.IVHotspot') {
