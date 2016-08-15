@@ -99,6 +99,10 @@
 .h5p-ivhotspot-interaction-icon:before {
   content: "\e900";
 }
+.h5p-interactive-video-dragnbar .h5p-dragnbar-questionnaire-button:before,
+.h5p-questionnaire-interaction-icon:before {
+  content: "\e901";
+}
 
 /* H5P specific fonts: */
 .h5p-interactive-video-dragnbar .h5p-dragnbar-dragquestion-button:before,
@@ -108,6 +112,7 @@
 .h5p-interactive-video-dragnbar .h5p-dragnbar-markthewords-button:before,
 .h5p-interactive-video-dragnbar .h5p-dragnbar-dragtext-button:before,
 .h5p-interactive-video-dragnbar .h5p-dragnbar-singlechoiceset-button:before,
+.h5p-interactive-video-dragnbar .h5p-dragnbar-questionnaire-button:before,
 .h5p-interactive-video-dragnbar .h5p-dragnbar-ivhotspot-button:before {
   font-family: 'H5PInteractiveVideoEditor';
   font-size: 1.2em;
@@ -120,7 +125,8 @@
 .h5p-blanks-interaction-icon:before,
 .h5p-multichoice-interaction-icon:before,
 .h5p-summary-interaction-icon:before,
-.h5p-ivhotspot-interaction-icon:before {
+.h5p-ivhotspot-interaction-icon:before,
+.h5p-questionnaire-interaction-icon:before {
   font-family: 'H5PInteractiveVideoEditor';
 }
 
