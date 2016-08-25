@@ -74,6 +74,17 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         that.startGuidedTour();
       }
     });
+
+    // Process interactions in order to produce common fields
+    this.IV = new H5P.InteractiveVideo({
+      interactiveVideo: {
+        assets: this.params
+      }
+    }, H5PEditor.contentId);
+    this.IV.editor = this;
+    for (var i = 0; i < this.IV.interactions.length; i++) {
+      this.processInteraction(this.IV.interactions[i], this.params.interactions[i]);
+    }
   }
 
   /**
