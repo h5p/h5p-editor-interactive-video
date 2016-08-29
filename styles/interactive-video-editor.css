@@ -494,7 +494,7 @@
   clear: none;
 }
 
-.h5p-interactivevideo-editor .h5p-dialog-inner .h5peditor-interaction-label.hide {
+.h5p-interactivevideo-editor .field.hide {
   display: none;
 }
 

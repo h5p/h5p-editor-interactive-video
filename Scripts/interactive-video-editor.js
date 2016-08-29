@@ -552,6 +552,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     if (type !== 'H5P.Text' && type !== 'H5P.Image') {
       hideFields(interactionFields, ['goto']);
     }
+    if (['H5P.Text', 'H5P.Image', 'H5P.Link', 'H5P.Table'].indexOf(type) === -1) {
+      hideFields(interactionFields, ['visuals']);
+    }
 
     // Always show link as poster
     if (type === 'H5P.Link' || type === 'H5P.GoToQuestion' || type === 'H5P.IVHotspot') {
@@ -573,9 +576,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     if (interaction.indexes === undefined) {
       interaction.indexes = {};
     }
+
     interaction.indexes.durationIndex = {name: 'duration', index: interactionFields.indexOf(findField('duration', interactionFields))};
     interaction.indexes.pauseIndex = {name: 'pause', index: interactionFields.indexOf(findField('pause', interactionFields))};
     interaction.indexes.labelIndex = {name: 'label', index: interactionFields.indexOf(findField('label', interactionFields))};
+    interaction.indexes.visualsIndex = {name: 'visuals', index: interactionFields.indexOf(findField('visuals', interactionFields))};
     H5PEditor.processSemanticsChunk(interactionFields, parameters, $semanticFields, self);
 
     self.setLibraryName(interaction.$form, type);
@@ -620,6 +625,15 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       });
 
       $labelWrapper.toggleClass('hide', !interaction.isButton());
+    }
+
+    if (interaction.children[interaction.indexes.visualsIndex.index].$group) {
+      var visualsIndex = interaction.indexes.visualsIndex;
+      var $visualsWrapper = interaction.children[visualsIndex.index].$group.addClass('h5peditor-interaction-' + visualsIndex.name);
+
+      $('.h5p-image-radio-button-group input:radio', interaction.$form).change(function () {
+        $visualsWrapper.toggleClass('hide', interaction.isButton());
+      });
     }
 
     interaction.on('display', function (event) {
@@ -760,6 +774,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           // Need to do this before form is validated
           H5PEditor.Html.removeWysiwyg();
         }
+        // Close color selector dialog if present
+        if (interaction.children[interaction.indexes.visualsIndex.index].$group) {
+          interaction.children[interaction.indexes.visualsIndex.index].children[0].hide();
+        }
         if (that.validDialog(interaction)) {
           that.dnb.dialog.close();
           interaction.focus();
@@ -773,6 +791,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         if (H5PEditor.Html) {
           // Need to do this before form is validated
           H5PEditor.Html.removeWysiwyg();
+        }
+        // Close color selector dialog if present
+        if (interaction.children[interaction.indexes.visualsIndex.index].$group) {
+          interaction.children[interaction.indexes.visualsIndex.index].children[0].hide();
         }
         if (confirm(t('removeInteraction'))) {
           that.removeInteraction(interaction);
