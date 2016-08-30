@@ -534,7 +534,7 @@
 .field.wizard > .h5peditor-label > .h5peditor-guided-tour {
   position: absolute;
   right: .5em;
-  color: #bbb;
+  color: #666;
   background: transparent;
   border-radius: 4px;
   font-size: 0.7em;
@@ -548,10 +548,11 @@
 }
 .field.wizard > .h5peditor-label > .h5peditor-guided-tour:hover,
 .field.wizard > .h5peditor-label > .h5peditor-guided-tour:focus {
-  color: #999;
+  color: #333;
   background: #ddd;
 }
 .field.wizard > .h5peditor-label > .h5peditor-guided-tour:active {
+  color: #555;
   background: #ccc;
 }
 .h5p-poster.h5p-ivhotspot-interaction {
