@@ -629,11 +629,13 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     if (interaction.children[interaction.indexes.visualsIndex.index].$group) {
       var visualsIndex = interaction.indexes.visualsIndex;
-      var $visualsWrapper = interaction.children[visualsIndex.index].$group.addClass('h5peditor-interaction-' + visualsIndex.name);
+      var $visualsWrapper = interaction.children[visualsIndex.index].$group;
 
       $('.h5p-image-radio-button-group input:radio', interaction.$form).change(function () {
-        $visualsWrapper.toggleClass('hide', interaction.isButton());
+        $visualsWrapper.toggleClass('hide', $(this).val() !== 'poster');
       });
+
+      $visualsWrapper.toggleClass('hide', parameters.displayType !== 'poster');
     }
 
     interaction.on('display', function (event) {
