@@ -39,7 +39,7 @@
     {
       "machineName": "H5P.DragNBar",
       "majorVersion": 1,
-      "minorVersion": 2
+      "minorVersion": 3
     },
     {
       "machineName": "H5P.Image",
@@ -114,7 +114,7 @@
     {
       "machineName": "H5P.DragQuestion",
       "majorVersion": 1,
-      "minorVersion": 6
+      "minorVersion": 7
     },
     {
       "machineName": "H5P.MarkTheWords",
