@@ -89,7 +89,7 @@
     {
       "machineName": "H5PEditor.Timecode",
       "majorVersion": 1,
-      "minorVersion": 0
+      "minorVersion": 1
     },
     {
       "machineName": "H5PEditor.SelectToggleFields",
@@ -134,7 +134,7 @@
     {
       "machineName": "H5P.GoToQuestion",
       "majorVersion": 1,
-      "minorVersion": 0
+      "minorVersion": 1
     },
     {
       "machineName": "H5P.IVHotspot",
