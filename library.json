@@ -2,8 +2,8 @@
   "title": "Interactive Video Editor",
   "license": "MIT",
   "majorVersion": 1,
-  "minorVersion": 10,
-  "patchVersion": 3,
+  "minorVersion": 11,
+  "patchVersion": 0,
   "runnable": 0,
   "machineName": "H5PEditor.InteractiveVideo",
   "author": "Joubel AS",
@@ -39,7 +39,7 @@
     {
       "machineName": "H5P.DragNBar",
       "majorVersion": 1,
-      "minorVersion": 2
+      "minorVersion": 3
     },
     {
       "machineName": "H5P.Image",
@@ -59,7 +59,7 @@
     {
       "machineName": "H5P.Link",
       "majorVersion": 1,
-      "minorVersion": 1
+      "minorVersion": 2
     },
     {
       "machineName": "H5P.SingleChoiceSet",
@@ -69,12 +69,12 @@
     {
       "machineName": "H5P.MultiChoice",
       "majorVersion": 1,
-      "minorVersion": 7
+      "minorVersion": 8
     },
     {
       "machineName": "H5P.InteractiveVideo",
       "majorVersion": 1,
-      "minorVersion": 10
+      "minorVersion": 11
     },
     {
       "machineName": "H5P.Summary",
@@ -89,12 +89,22 @@
     {
       "machineName": "H5PEditor.Timecode",
       "majorVersion": 1,
+      "minorVersion": 1
+    },
+    {
+      "machineName": "H5PEditor.SelectToggleFields",
+      "majorVersion": 1,
       "minorVersion": 0
+    },
+    {
+      "machineName": "H5PEditor.ColorSelector",
+      "majorVersion": 1,
+      "minorVersion": 1
     },
     {
       "machineName": "H5P.Blanks",
       "majorVersion": 1,
-      "minorVersion": 6
+      "minorVersion": 7
     },
     {
       "machineName": "H5P.Nil",
@@ -104,7 +114,7 @@
     {
       "machineName": "H5P.DragQuestion",
       "majorVersion": 1,
-      "minorVersion": 6
+      "minorVersion": 7
     },
     {
       "machineName": "H5P.MarkTheWords",
@@ -123,6 +133,16 @@
     },
     {
       "machineName": "H5P.GoToQuestion",
+      "majorVersion": 1,
+      "minorVersion": 1
+    },
+    {
+      "machineName": "H5P.IVHotspot",
+      "majorVersion": 1,
+      "minorVersion": 0
+    },
+    {
+      "machineName": "H5P.Questionnaire",
       "majorVersion": 1,
       "minorVersion": 0
     }

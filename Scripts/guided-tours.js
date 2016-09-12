@@ -135,7 +135,7 @@ H5PEditor.InteractiveVideo.GuidedTours = (function ($) {
       done: t('tourButtonDone'),
       back: t('tourButtonBack'),
       next: t('tourButtonNext')
-    }
+    };
 
     if (tour !== undefined) {
       if (tour.instance === undefined) {

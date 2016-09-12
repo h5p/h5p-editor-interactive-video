@@ -74,6 +74,17 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         that.startGuidedTour();
       }
     });
+
+    // Process interactions in order to produce common fields
+    this.IV = new H5P.InteractiveVideo({
+      interactiveVideo: {
+        assets: this.params
+      }
+    }, H5PEditor.contentId);
+    this.IV.editor = this;
+    for (var i = 0; i < this.IV.interactions.length; i++) {
+      this.processInteraction(this.IV.interactions[i], this.params.interactions[i]);
+    }
   }
 
   /**
@@ -129,7 +140,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       interactiveVideo: {
         video: {
           files: this.video,
-          poster: this.poster
+          advancedSettings: {
+            startScreenOptions: {
+              poster: this.poster
+            }
+          }
         },
         assets: this.params
       }
@@ -384,6 +399,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     this.libraries = libraries;
     this.dnb = new H5P.DragNBar(this.getButtons(libraries), this.IV.$videoWrapper, this.IV.$container);
+    this.dnb.overflowThreshold = 15;
 
     /**
      * @private
@@ -533,9 +549,15 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     if (type === 'H5P.Nil') {
       hideFields(interactionFields, ['displayType']);
     }
+    if (type !== 'H5P.Text' && type !== 'H5P.Image') {
+      hideFields(interactionFields, ['goto']);
+    }
+    if (['H5P.Text', 'H5P.Image', 'H5P.Link', 'H5P.Table'].indexOf(type) === -1) {
+      hideFields(interactionFields, ['visuals']);
+    }
 
     // Always show link as poster
-    if (type === 'H5P.Link' || type === 'H5P.GoToQuestion') {
+    if (type === 'H5P.Link' || type === 'H5P.GoToQuestion' || type === 'H5P.IVHotspot') {
       var field = findField('displayType', interactionFields);
       // Must set default to false and hide
       field.default = 'poster';
@@ -554,9 +576,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     if (interaction.indexes === undefined) {
       interaction.indexes = {};
     }
+
     interaction.indexes.durationIndex = {name: 'duration', index: interactionFields.indexOf(findField('duration', interactionFields))};
     interaction.indexes.pauseIndex = {name: 'pause', index: interactionFields.indexOf(findField('pause', interactionFields))};
     interaction.indexes.labelIndex = {name: 'label', index: interactionFields.indexOf(findField('label', interactionFields))};
+    interaction.indexes.visualsIndex = {name: 'visuals', index: interactionFields.indexOf(findField('visuals', interactionFields))};
     H5PEditor.processSemanticsChunk(interactionFields, parameters, $semanticFields, self);
 
     self.setLibraryName(interaction.$form, type);
@@ -601,6 +625,17 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       });
 
       $labelWrapper.toggleClass('hide', !interaction.isButton());
+    }
+
+    if (interaction.children[interaction.indexes.visualsIndex.index].$group) {
+      var visualsIndex = interaction.indexes.visualsIndex;
+      var $visualsWrapper = interaction.children[visualsIndex.index].$group;
+
+      $('.h5p-image-radio-button-group input:radio', interaction.$form).change(function () {
+        $visualsWrapper.toggleClass('hide', $(this).val() !== 'poster');
+      });
+
+      $visualsWrapper.toggleClass('hide', parameters.displayType !== 'poster');
     }
 
     interaction.on('display', function (event) {
@@ -741,6 +776,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           // Need to do this before form is validated
           H5PEditor.Html.removeWysiwyg();
         }
+        // Close color selector dialog if present
+        if (interaction.children[interaction.indexes.visualsIndex.index].$group) {
+          interaction.children[interaction.indexes.visualsIndex.index].children[0].hide();
+        }
         if (that.validDialog(interaction)) {
           that.dnb.dialog.close();
           interaction.focus();
@@ -754,6 +793,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         if (H5PEditor.Html) {
           // Need to do this before form is validated
           H5PEditor.Html.removeWysiwyg();
+        }
+        // Close color selector dialog if present
+        if (interaction.children[interaction.indexes.visualsIndex.index].$group) {
+          interaction.children[interaction.indexes.visualsIndex.index].children[0].hide();
         }
         if (confirm(t('removeInteraction'))) {
           that.removeInteraction(interaction);
