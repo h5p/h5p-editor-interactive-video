@@ -309,7 +309,6 @@
 .h5p-interactivevideo-editor .field.interactiveVideo {
   margin: 0;
   padding: 0;
-  overflow: hidden;
 }
 .h5p-interactivevideo-editor .field.wizard .h5peditor-tab-video:before {
   content: "1.";
