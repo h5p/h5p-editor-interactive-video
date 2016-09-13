@@ -776,10 +776,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           // Need to do this before form is validated
           H5PEditor.Html.removeWysiwyg();
         }
-        // Close color selector dialog if present
-        if (interaction.children[interaction.indexes.visualsIndex.index].$group) {
-          interaction.children[interaction.indexes.visualsIndex.index].children[0].hide();
-        }
         if (that.validDialog(interaction)) {
           that.dnb.dialog.close();
           interaction.focus();
@@ -793,10 +789,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         if (H5PEditor.Html) {
           // Need to do this before form is validated
           H5PEditor.Html.removeWysiwyg();
-        }
-        // Close color selector dialog if present
-        if (interaction.children[interaction.indexes.visualsIndex.index].$group) {
-          interaction.children[interaction.indexes.visualsIndex.index].children[0].hide();
         }
         if (confirm(t('removeInteraction'))) {
           that.removeInteraction(interaction);
