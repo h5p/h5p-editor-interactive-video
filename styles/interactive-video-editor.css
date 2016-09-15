@@ -471,7 +471,7 @@
 }
 
 /* interaction semantics wrapper */
-.h5p-interactivevideo-editor .h5p-dialog-inner {
+.h5p-interactivevideo-editor .h5p-dialog-inner .h5p-dialog-inner-semantics {
   padding: 0.5em;
   box-sizing: border-box;
 }

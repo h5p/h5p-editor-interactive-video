@@ -523,7 +523,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   InteractiveVideoEditor.prototype.createInteractionForm = function (interaction, parameters) {
     var self = this;
 
-    var $semanticFields = $('<div>');
+    var $semanticFields = $('<div>', {
+      'class': 'h5p-dialog-inner-semantics'
+    });
 
     // Create form
     interaction.$form = $semanticFields;
