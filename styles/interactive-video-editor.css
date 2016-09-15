@@ -309,7 +309,6 @@
 .h5p-interactivevideo-editor .field.interactiveVideo {
   margin: 0;
   padding: 0;
-  overflow: hidden;
 }
 .h5p-interactivevideo-editor .field.wizard .h5peditor-tab-video:before {
   content: "1.";
@@ -558,4 +557,33 @@
 }
 .h5p-poster.h5p-ivhotspot-interaction {
   overflow: visible;
+}
+.h5p-interactive-video > .h5p-editor-interactive-video-too-small {
+  z-index: 101;
+  position: absolute;
+  color: #bbb;
+  background: rgba(0,0,0,0.9);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 1.5em;
+  text-align: center;
+  line-height: 1.1;
+  display: none;
+}
+.h5p-interactive-video > .h5p-editor-interactive-video-too-small > span {
+  position: relative;
+  top: 50%;
+  transform: perspective(1px) translateY(-50%);
+  max-width: 80%;
+  display: inline-block;
+}
+
+.h5peditor-interactions:not(.h5p-interactive-video) {
+  padding: 2em;
+  color: #bbb;
+  background: rgba(0,0,0,0.9);
+  font-size: 1.5em;
+  text-align: center;
 }

@@ -32,6 +32,7 @@
     "tourStepCanvasPreviewText": "Trykk på avspillerknappen for å forhåndsvise din interaktive video mens du redigerer.",
     "tourStepCanvasSaveTitle": "Lagre og vise",
     "tourStepCanvasSaveText": "Når du er ferdig, trykk Lagre/Opprett for å se det endelige resultatet.",
-    "tourStepSummaryText": "Denne valgfrie, interaktive oppsummeringsoppgaven vil vises på slutten av videoen."
+    "tourStepSummaryText": "Denne valgfrie, interaktive oppsummeringsoppgaven vil vises på slutten av videoen.",
+    "needMoreSpace": "Editoren til interaktiv video må være minimum :minimumWidth piksler bred for å fungere."
   }
 }
