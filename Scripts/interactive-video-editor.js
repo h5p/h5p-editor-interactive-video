@@ -564,6 +564,12 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     if (['H5P.Text', 'H5P.Image', 'H5P.Link', 'H5P.Table'].indexOf(type) === -1) {
       hideFields(interactionFields, ['visuals']);
     }
+    if (type === 'H5P.Image' && parameters.visuals === undefined) {
+      parameters.visuals = {
+        backgroundColor: 'rgba(0,0,0,0)',
+        boxShadow: false
+      };
+    }
 
     // Always show link as poster
     if (type === 'H5P.Link' || type === 'H5P.GoToQuestion' || type === 'H5P.IVHotspot') {
