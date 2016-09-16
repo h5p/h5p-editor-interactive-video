@@ -154,20 +154,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       if (that.dnb) {
         that.dnb.resize();
       }
-      if (that.$tooSmallOverlay && that.IV) {
-        that.$tooSmallOverlay.toggle($(this).width() < that.IV.width);
-      }
     });
     for (var i = 0; i < this.IV.interactions.length; i++) {
       this.processInteraction(this.IV.interactions[i], this.params.interactions[i]);
     }
     this.IV.on('controls', function () {
-      // Add overlay making it impossible to edit if less than minimum width:
-      that.$tooSmallOverlay = $('<div>', {
-        'class': 'h5p-editor-interactive-video-too-small',
-        html: '<span>' + t('needMoreSpace', {':minimumWidth': that.IV.width }) + '</span>'
-      }).prependTo(that.$editor);
-
       // Add DragNBar.
       that.$bar = $('<div class="h5p-interactive-video-dragnbar">' + t('loading') + '</div>').prependTo(that.$editor);
       var interactions = findField('interactions', that.field.fields);
@@ -1405,7 +1396,6 @@ H5PEditor.language['H5PEditor.InteractiveVideo'] = {
     tourStepCanvasPreviewText: 'Press the Play button to preview your interactive video while editing.',
     tourStepCanvasSaveTitle: 'Save and view',
     tourStepCanvasSaveText: "When you're done adding interactions to your video, press Save/Create to view the result.",
-    tourStepSummaryText: 'This optional Summary quiz will appear at the end of the video.',
-    needMoreSpace: "The Interactive Video editor has to be at least :minimumWidth pixels wide to function properly. Please give me some more space!"
+    tourStepSummaryText: 'This optional Summary quiz will appear at the end of the video.'
   }
 };
