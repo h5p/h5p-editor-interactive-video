@@ -557,11 +557,22 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     if (['H5P.Text', 'H5P.Image', 'H5P.Link', 'H5P.Table'].indexOf(type) === -1) {
       hideFields(interactionFields, ['visuals']);
     }
-    if (type === 'H5P.Image' && parameters.visuals === undefined) {
-      parameters.visuals = {
-        backgroundColor: 'rgba(0,0,0,0)',
-        boxShadow: false
-      };
+    if (parameters.visuals === undefined) {
+
+      // Make Image background transparent by default
+      if (type === 'H5P.Image') {
+        parameters.visuals = {
+          backgroundColor: 'rgba(0,0,0,0)',
+          boxShadow: false
+        };
+      }
+      // Set default link visuals
+      else if (type === 'H5P.Link') {
+        parameters.visuals = {
+          backgroundColor: 'rgba(0,0,0,0.5)',
+          boxShadow: true
+        };
+      }
     }
 
     // Always show link as poster
