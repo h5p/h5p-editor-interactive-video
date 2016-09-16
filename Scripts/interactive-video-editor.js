@@ -55,6 +55,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     this.passReadies = true;
     parent.ready(function () {
       that.passReadies = false;
+
+      // Set active right away to generate common fields for interactions.
+      that.setActive();
     });
 
     H5P.$window.on('resize', function () {
@@ -74,17 +77,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         that.startGuidedTour();
       }
     });
-
-    // Process interactions in order to produce common fields
-    this.IV = new H5P.InteractiveVideo({
-      interactiveVideo: {
-        assets: this.params
-      }
-    }, H5PEditor.contentId);
-    this.IV.editor = this;
-    for (var i = 0; i < this.IV.interactions.length; i++) {
-      this.processInteraction(this.IV.interactions[i], this.params.interactions[i]);
-    }
   }
 
   /**
