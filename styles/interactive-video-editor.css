@@ -469,6 +469,11 @@
   overflow: hidden;
 }
 
+/* Make sure box-shadow and drop-shadow is not cut off by poster boundaries */
+.h5p-interactivevideo-editor .h5p-interactive-video .h5p-interaction.h5p-poster.h5p-image-interaction.h5p-transparent-interaction .h5p-interaction-inner {
+  overflow: visible;
+}
+
 /* interaction semantics wrapper */
 .h5p-interactivevideo-editor .h5p-dialog-inner .h5p-dialog-inner-semantics {
   padding: 0.5em;

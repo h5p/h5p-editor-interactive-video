@@ -555,7 +555,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       if (type === 'H5P.Image') {
         parameters.visuals = {
           backgroundColor: 'rgba(0,0,0,0)',
-          boxShadow: false
+          boxShadow: true
         };
       }
       // Set default link visuals
