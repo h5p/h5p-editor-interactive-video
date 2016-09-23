@@ -55,6 +55,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     this.passReadies = true;
     parent.ready(function () {
       that.passReadies = false;
+
+      // Set active right away to generate common fields for interactions.
+      that.setActive();
     });
 
     H5P.$window.on('resize', function () {
@@ -74,17 +77,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         that.startGuidedTour();
       }
     });
-
-    // Process interactions in order to produce common fields
-    this.IV = new H5P.InteractiveVideo({
-      interactiveVideo: {
-        assets: this.params
-      }
-    }, H5PEditor.contentId);
-    this.IV.editor = this;
-    for (var i = 0; i < this.IV.interactions.length; i++) {
-      this.processInteraction(this.IV.interactions[i], this.params.interactions[i]);
-    }
   }
 
   /**
@@ -523,7 +515,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   InteractiveVideoEditor.prototype.createInteractionForm = function (interaction, parameters) {
     var self = this;
 
-    var $semanticFields = $('<div>');
+    var $semanticFields = $('<div>', {
+      'class': 'h5p-dialog-inner-semantics'
+    });
 
     // Create form
     interaction.$form = $semanticFields;
@@ -554,6 +548,23 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }
     if (['H5P.Text', 'H5P.Image', 'H5P.Link', 'H5P.Table'].indexOf(type) === -1) {
       hideFields(interactionFields, ['visuals']);
+    }
+    if (parameters.visuals === undefined) {
+
+      // Make Image background transparent by default
+      if (type === 'H5P.Image') {
+        parameters.visuals = {
+          backgroundColor: 'rgba(0,0,0,0)',
+          boxShadow: true
+        };
+      }
+      // Set default link visuals
+      else if (type === 'H5P.Link') {
+        parameters.visuals = {
+          backgroundColor: 'rgba(0,0,0,0.5)',
+          boxShadow: true
+        };
+      }
     }
 
     // Always show link as poster
@@ -776,10 +787,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           // Need to do this before form is validated
           H5PEditor.Html.removeWysiwyg();
         }
-        // Close color selector dialog if present
-        if (interaction.children[interaction.indexes.visualsIndex.index].$group) {
-          interaction.children[interaction.indexes.visualsIndex.index].children[0].hide();
-        }
         if (that.validDialog(interaction)) {
           that.dnb.dialog.close();
           interaction.focus();
@@ -793,10 +800,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         if (H5PEditor.Html) {
           // Need to do this before form is validated
           H5PEditor.Html.removeWysiwyg();
-        }
-        // Close color selector dialog if present
-        if (interaction.children[interaction.indexes.visualsIndex.index].$group) {
-          interaction.children[interaction.indexes.visualsIndex.index].children[0].hide();
         }
         if (confirm(t('removeInteraction'))) {
           that.removeInteraction(interaction);

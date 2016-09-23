@@ -309,7 +309,6 @@
 .h5p-interactivevideo-editor .field.interactiveVideo {
   margin: 0;
   padding: 0;
-  overflow: hidden;
 }
 .h5p-interactivevideo-editor .field.wizard .h5peditor-tab-video:before {
   content: "1.";
@@ -470,8 +469,13 @@
   overflow: hidden;
 }
 
+/* Make sure box-shadow and drop-shadow is not cut off by poster boundaries */
+.h5p-interactivevideo-editor .h5p-interactive-video .h5p-interaction.h5p-poster.h5p-image-interaction.h5p-transparent-interaction .h5p-interaction-inner {
+  overflow: visible;
+}
+
 /* interaction semantics wrapper */
-.h5p-interactivevideo-editor .h5p-dialog-inner {
+.h5p-interactivevideo-editor .h5p-dialog-inner .h5p-dialog-inner-semantics {
   padding: 0.5em;
   box-sizing: border-box;
 }
@@ -529,6 +533,23 @@
 }
 .h5p-interactivevideo-editor .h5p-interaction.h5p-poster > div {
   z-index: 1;
+}
+.h5p-interactivevideo-editor .h5p-ivhotspot > a {
+  box-sizing: border-box;
+  border: 2px solid rgba(255,255,255,0.7);
+}
+.h5p-interactivevideo-editor .h5p-ivhotspot > a:before {
+  content: " ";
+  display: block;
+  position: absolute;
+  border: 2px dashed rgba(0, 0, 0, 0.7);
+  width: 100%;
+  height: 100%;
+  top: -2px;
+  left: -2px;
+}
+.h5p-interactivevideo-editor .h5p-ivhotspot.circular > a:before {
+  border-radius: 50%;
 }
 
 /* Tour button placed in Wizard's header */
