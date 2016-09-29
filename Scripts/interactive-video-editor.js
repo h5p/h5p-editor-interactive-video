@@ -110,6 +110,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   InteractiveVideoEditor.prototype.setActive = function () {
     if (this.IV !== undefined) {
       // A video has been loaded, no need to recreate.
+      // (but we can do some resizing :D)
+      this.IV.trigger('resize');
       return;
     }
 
