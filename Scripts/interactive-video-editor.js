@@ -454,9 +454,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       // Set size in em
       that.interaction.setSize(event.data.width, event.data.height);
 
-      // Set pos in %
-      var containerStyle = window.getComputedStyle(that.dnb.$container[0]);
-      that.interaction.setPosition(event.data.left / (parseFloat(containerStyle.width) / 100), event.data.top / (parseFloat(containerStyle.height) / 100));
+      if (event.data.left !== undefined && event.data.top !== undefined) {
+        // Set pos in %
+        var containerStyle = window.getComputedStyle(that.dnb.$container[0]);
+        that.interaction.setPosition(event.data.left / (parseFloat(containerStyle.width) / 100), event.data.top / (parseFloat(containerStyle.height) / 100));
+      }
     });
 
     this.dnb.dnd.startMovingCallback = function () {
