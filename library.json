@@ -72,6 +72,11 @@
       "minorVersion": 8
     },
     {
+      "machineName": "H5P.TrueFalse",
+      "majorVersion": 1,
+      "minorVersion": 0
+    },
+    {
       "machineName": "H5P.InteractiveVideo",
       "majorVersion": 1,
       "minorVersion": 11
