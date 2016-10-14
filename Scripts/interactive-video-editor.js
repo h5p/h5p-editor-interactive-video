@@ -134,10 +134,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       interactiveVideo: {
         video: {
           files: this.video,
-          advancedSettings: {
-            startScreenOptions: {
-              poster: this.poster
-            }
+          startScreenOptions: {
+            poster: this.poster
           }
         },
         assets: this.params
