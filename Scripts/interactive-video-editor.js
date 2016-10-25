@@ -110,6 +110,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   InteractiveVideoEditor.prototype.setActive = function () {
     if (this.IV !== undefined) {
       // A video has been loaded, no need to recreate.
+      // (but we can do some resizing :D)
+      this.IV.trigger('resize');
       return;
     }
 
@@ -132,10 +134,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       interactiveVideo: {
         video: {
           files: this.video,
-          advancedSettings: {
-            startScreenOptions: {
-              poster: this.poster
-            }
+          startScreenOptions: {
+            poster: this.poster
           }
         },
         assets: this.params
@@ -391,7 +391,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     this.libraries = libraries;
     this.dnb = new H5P.DragNBar(this.getButtons(libraries), this.IV.$videoWrapper, this.IV.$container);
-    this.dnb.overflowThreshold = 15;
+    this.dnb.overflowThreshold = 16;
 
     /**
      * @private
@@ -452,9 +452,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       // Set size in em
       that.interaction.setSize(event.data.width, event.data.height);
 
-      // Set pos in %
-      var containerStyle = window.getComputedStyle(that.dnb.$container[0]);
-      that.interaction.setPosition(event.data.left / (parseFloat(containerStyle.width) / 100), event.data.top / (parseFloat(containerStyle.height) / 100));
+      if (event.data.left !== undefined && event.data.top !== undefined) {
+        // Set pos in %
+        var containerStyle = window.getComputedStyle(that.dnb.$container[0]);
+        that.interaction.setPosition(event.data.left / (parseFloat(containerStyle.width) / 100), event.data.top / (parseFloat(containerStyle.height) / 100));
+      }
     });
 
     this.dnb.dnd.startMovingCallback = function () {
@@ -535,7 +537,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       'H5P.DragQuestion',
       'H5P.Summary',
       'H5P.MarkTheWords',
-      'H5P.DragText'
+      'H5P.DragText',
+      'H5P.TrueFalse'
     ];
     if (xAPIQuestionTypes.indexOf(type) === -1) {
       hideFields(interactionFields, ['adaptivity']);
