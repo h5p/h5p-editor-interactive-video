@@ -537,7 +537,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       'H5P.DragQuestion',
       'H5P.Summary',
       'H5P.MarkTheWords',
-      'H5P.DragText'
+      'H5P.DragText',
+      'H5P.TrueFalse'
     ];
     if (xAPIQuestionTypes.indexOf(type) === -1) {
       hideFields(interactionFields, ['adaptivity']);
