@@ -13,7 +13,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   function InteractiveVideoEditor(parent, field, params, setValue) {
     var that = this;
 
-    this.showGuidedTour = true;
     this.parent = parent;
     this.field = field;
 
@@ -56,6 +55,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     this.passReadies = true;
     parent.ready(function () {
       that.passReadies = false;
+
+      // Set active right away to generate common fields for interactions.
+      that.setActive();
     });
 
     H5P.$window.on('resize', function () {
@@ -108,6 +110,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   InteractiveVideoEditor.prototype.setActive = function () {
     if (this.IV !== undefined) {
       // A video has been loaded, no need to recreate.
+      // (but we can do some resizing :D)
+      this.IV.trigger('resize');
       return;
     }
 
@@ -130,7 +134,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       interactiveVideo: {
         video: {
           files: this.video,
-          poster: this.poster
+          startScreenOptions: {
+            poster: this.poster
+          }
         },
         assets: this.params
       }
@@ -149,12 +155,16 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       that.$bar = $('<div class="h5p-interactive-video-dragnbar">' + t('loading') + '</div>').prependTo(that.$editor);
       var interactions = findField('interactions', that.field.fields);
       var action = findField('action', interactions.field.fields);
-      $.post(H5PEditor.ajaxPath + 'libraries', {libraries: action.options}, function (libraries) {
-        that.createDragNBar(libraries);
-        that.setInteractionTitles();
-        that.startGuidedTour();
-        that.IV.trigger('dnbEditorReady');
-      });
+      H5PEditor.LibraryListCache.getLibraries(
+        action.options,
+        function (libraries) {
+          this.createDragNBar(libraries);
+          this.setInteractionTitles();
+          this.startGuidedTour();
+          this.IV.trigger('dnbEditorReady');
+        },
+        that
+      );
 
       // Add "Add bookmark" to bookmarks menu.
       $('<div/>', {
@@ -381,6 +391,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     this.libraries = libraries;
     this.dnb = new H5P.DragNBar(this.getButtons(libraries), this.IV.$videoWrapper, this.IV.$container);
+    this.dnb.overflowThreshold = 16;
 
     /**
      * @private
@@ -441,9 +452,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       // Set size in em
       that.interaction.setSize(event.data.width, event.data.height);
 
-      // Set pos in %
-      var containerStyle = window.getComputedStyle(that.dnb.$container[0]);
-      that.interaction.setPosition(event.data.left / (parseFloat(containerStyle.width) / 100), event.data.top / (parseFloat(containerStyle.height) / 100));
+      if (event.data.left !== undefined && event.data.top !== undefined) {
+        // Set pos in %
+        var containerStyle = window.getComputedStyle(that.dnb.$container[0]);
+        that.interaction.setPosition(event.data.left / (parseFloat(containerStyle.width) / 100), event.data.top / (parseFloat(containerStyle.height) / 100));
+      }
     });
 
     this.dnb.dnd.startMovingCallback = function () {
@@ -504,7 +517,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   InteractiveVideoEditor.prototype.createInteractionForm = function (interaction, parameters) {
     var self = this;
 
-    var $semanticFields = $('<div>');
+    var $semanticFields = $('<div>', {
+      'class': 'h5p-dialog-inner-semantics'
+    });
 
     // Create form
     interaction.$form = $semanticFields;
@@ -522,7 +537,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       'H5P.DragQuestion',
       'H5P.Summary',
       'H5P.MarkTheWords',
-      'H5P.DragText'
+      'H5P.DragText',
+      'H5P.TrueFalse'
     ];
     if (xAPIQuestionTypes.indexOf(type) === -1) {
       hideFields(interactionFields, ['adaptivity']);
@@ -530,9 +546,32 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     if (type === 'H5P.Nil') {
       hideFields(interactionFields, ['displayType']);
     }
+    if (type !== 'H5P.Text' && type !== 'H5P.Image') {
+      hideFields(interactionFields, ['goto']);
+    }
+    if (['H5P.Text', 'H5P.Image', 'H5P.Link', 'H5P.Table'].indexOf(type) === -1) {
+      hideFields(interactionFields, ['visuals']);
+    }
+    if (parameters.visuals === undefined) {
+
+      // Make Image background transparent by default
+      if (type === 'H5P.Image') {
+        parameters.visuals = {
+          backgroundColor: 'rgba(0,0,0,0)',
+          boxShadow: true
+        };
+      }
+      // Set default link visuals
+      else if (type === 'H5P.Link') {
+        parameters.visuals = {
+          backgroundColor: 'rgba(0,0,0,0.5)',
+          boxShadow: true
+        };
+      }
+    }
 
     // Always show link as poster
-    if (type === 'H5P.Link' || type === 'H5P.GoToQuestion') {
+    if (type === 'H5P.Link' || type === 'H5P.GoToQuestion' || type === 'H5P.IVHotspot') {
       var field = findField('displayType', interactionFields);
       // Must set default to false and hide
       field.default = 'poster';
@@ -542,7 +581,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       var labelField = findField('label', interactionFields);
       labelField.widget = 'none';
 
-      if (type === 'H5P.GoToQuestion') {
+      if (type === 'H5P.GoToQuestion' && parameters.pause === undefined) {
         parameters.pause = true;
       }
     }
@@ -551,9 +590,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     if (interaction.indexes === undefined) {
       interaction.indexes = {};
     }
+
     interaction.indexes.durationIndex = {name: 'duration', index: interactionFields.indexOf(findField('duration', interactionFields))};
     interaction.indexes.pauseIndex = {name: 'pause', index: interactionFields.indexOf(findField('pause', interactionFields))};
     interaction.indexes.labelIndex = {name: 'label', index: interactionFields.indexOf(findField('label', interactionFields))};
+    interaction.indexes.visualsIndex = {name: 'visuals', index: interactionFields.indexOf(findField('visuals', interactionFields))};
     H5PEditor.processSemanticsChunk(interactionFields, parameters, $semanticFields, self);
 
     self.setLibraryName(interaction.$form, type);
@@ -598,6 +639,17 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       });
 
       $labelWrapper.toggleClass('hide', !interaction.isButton());
+    }
+
+    if (interaction.children[interaction.indexes.visualsIndex.index].$group) {
+      var visualsIndex = interaction.indexes.visualsIndex;
+      var $visualsWrapper = interaction.children[visualsIndex.index].$group;
+
+      $('.h5p-image-radio-button-group input:radio', interaction.$form).change(function () {
+        $visualsWrapper.toggleClass('hide', $(this).val() !== 'poster');
+      });
+
+      $visualsWrapper.toggleClass('hide', parameters.displayType !== 'poster');
     }
 
     interaction.on('display', function (event) {
@@ -866,7 +918,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
       that.interaction = interaction;
     }).dblclick(function () {
-      that.openInteractionDialog(interaction);
+      if (that.dnb !== undefined) {
+        that.openInteractionDialog(interaction);
+      }
     }).focus(function () {
       // On focus, show overlay
       that.$focusHandler.addClass('show');
@@ -1175,10 +1229,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    *
    * @method disableGuidedTour
    */
-  InteractiveVideoEditor.prototype.disableGuidedTour = function () {
-    this.showGuidedTour = false;
+  InteractiveVideoEditor.disableGuidedTour = function () {
+    InteractiveVideoEditor.showGuidedTour = false;
   };
-
+  InteractiveVideoEditor.showGuidedTour = true;
   /**
    * Start the guided tour if not disabled
    *
@@ -1186,7 +1240,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @param  {Boolean}        force If true, don't care if user already has seen it
    */
   InteractiveVideoEditor.prototype.startGuidedTour = function (force) {
-    if (this.showGuidedTour) {
+    if (InteractiveVideoEditor.showGuidedTour) {
       H5PEditor.InteractiveVideo.GuidedTours.start(this.currentTabIndex, force || false, t);
     }
   };
@@ -1307,6 +1361,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       }
     }
   };
+
+
 
   return InteractiveVideoEditor;
 })(H5P.jQuery);
