@@ -134,10 +134,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       interactiveVideo: {
         video: {
           files: this.video,
-          advancedSettings: {
-            startScreenOptions: {
-              poster: this.poster
-            }
+          startScreenOptions: {
+            poster: this.poster
           }
         },
         assets: this.params
@@ -393,7 +391,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     this.libraries = libraries;
     this.dnb = new H5P.DragNBar(this.getButtons(libraries), this.IV.$videoWrapper, this.IV.$container);
-    this.dnb.overflowThreshold = 15;
+    this.dnb.overflowThreshold = 16;
 
     /**
      * @private
@@ -539,7 +537,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       'H5P.DragQuestion',
       'H5P.Summary',
       'H5P.MarkTheWords',
-      'H5P.DragText'
+      'H5P.DragText',
+      'H5P.TrueFalse'
     ];
     if (xAPIQuestionTypes.indexOf(type) === -1) {
       hideFields(interactionFields, ['adaptivity']);
