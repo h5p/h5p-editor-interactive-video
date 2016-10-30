@@ -530,17 +530,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     // Hide some fields for some interaction types
     var type = interaction.getLibraryName();
-    var xAPIQuestionTypes = [
-      'H5P.MultiChoice',
-      'H5P.SingleChoiceSet',
-      'H5P.Blanks',
-      'H5P.DragQuestion',
-      'H5P.Summary',
-      'H5P.MarkTheWords',
-      'H5P.DragText',
-      'H5P.TrueFalse'
-    ];
-    if (xAPIQuestionTypes.indexOf(type) === -1) {
+
+    if (InteractiveVideoEditor.XAPI_QUESTION_TYPES.indexOf(type) === -1) {
       hideFields(interactionFields, ['adaptivity']);
     }
     if (type === 'H5P.Nil') {
@@ -671,7 +662,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
        * Callback for when library changes.
        *
        * @private
-       * @param {String} library
        */
       var libraryChange = function () {
         var lib = libraryFieldInstance.currentLibrary.split(' ')[0];
@@ -683,7 +673,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
          * Callback for when image changes.
          *
          * @private
-         * @param {Object} params
+         * @param {Object} newParams
          */
         var imageChange = function (newParams) {
           if (newParams !== undefined && newParams.width !== undefined && newParams.height !== undefined) {
@@ -1322,7 +1312,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    *
    * @private
    * @param {string} key
-   * @param {Object} vars Placeholders
+   * @param {Object} [vars] Placeholders
    * @returns {string}
    */
   var t = InteractiveVideoEditor.t = function (key, vars) {
@@ -1362,7 +1352,20 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }
   };
 
-
+  /**
+   * A maintained list of strings with content types that has a score.
+   * @type {string[]}
+   */
+  InteractiveVideoEditor.XAPI_QUESTION_TYPES = [
+    'H5P.MultiChoice',
+    'H5P.SingleChoiceSet',
+    'H5P.Blanks',
+    'H5P.DragQuestion',
+    'H5P.Summary',
+    'H5P.MarkTheWords',
+    'H5P.DragText',
+    'H5P.TrueFalse'
+  ];
 
   return InteractiveVideoEditor;
 })(H5P.jQuery);
