@@ -20,6 +20,9 @@
     },
     {
       "path": "Scripts/guided-tours.js"
+    },
+    {
+      "path": "Scripts/require-completion.js"
     }
   ],
   "preloadedCss": [
@@ -28,6 +31,9 @@
     },
     {
       "path": "styles/interactive-video-editor.css"
+    },
+    {
+      "path": "styles/require-completion.css"
     }
   ],
   "preloadedDependencies": [

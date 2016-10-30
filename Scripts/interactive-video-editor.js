@@ -633,6 +633,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
       interactionFields.visuals.$group.toggleClass('hide', parameters.displayType !== 'poster');
     }
+
+    // Create require completion instances for content types with scores
+    if (InteractiveVideoEditor.XAPI_QUESTION_TYPES.indexOf(interaction.getLibraryName()) >= 0) {
+      new H5PEditor.InteractiveVideo.RequireCompletion(self, interaction);
     }
 
     interaction.on('display', function (event) {
@@ -814,6 +818,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       .append($removeButton);
 
     interaction.setTitle(title);
+    interaction.trigger('openEditDialog');
     that.dnb.dialog.open(interaction.$form, title, interaction.getClass() + '-icon', $buttons);
 
     // Blur context menu when opening dialog
