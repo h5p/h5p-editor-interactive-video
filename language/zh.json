@@ -32,6 +32,9 @@
     "tourStepCanvasPreviewText": "编辑时，点击播放按钮可以预览交互式视频。",
     "tourStepCanvasSaveTitle": "保存于显示",
     "tourStepCanvasSaveText": "完成后，点击保存/创建按钮后可以查看最终结果。",
-    "tourStepSummaryText": "这个可选的交互式摘要任务将出现在视频的结尾。"
+    "tourStepSummaryText": "这个可选的交互式摘要任务将出现在视频的结尾。",
+    "fullScoreRequiredPause": "\"Full score required\" option requires that \"Pause\" is enabled.",
+    "fullScoreRequiredRetry": "\"Full score required\" option requires that \"Retry\" is enabled.",
+    "fullScoreRequiredTimeFrame": "There already exists an interaction that requires full score at the start time of this interaction.</br> Only one of the interactions will be required to answer."
   }
 }

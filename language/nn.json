@@ -32,6 +32,9 @@
     "tourStepCanvasPreviewText": "Trykk på avspillerknappen for å forhåndsvise din interaktive video mens du redigerer.",
     "tourStepCanvasSaveTitle": "Lagre og vise",
     "tourStepCanvasSaveText": "Når du er ferdig, trykk Lagre/Opprett for å se det endelige resultatet.",
-    "tourStepSummaryText": "Denne valgfrie, interaktive oppsummeringsoppgaven vil vises på slutten av videoen."
+    "tourStepSummaryText": "Denne valgfrie, interaktive oppsummeringsoppgaven vil vises på slutten av videoen.",
+    "fullScoreRequiredPause": "\"Alt rett\" alternativet krever at \"Pause\" er aktivert.",
+    "fullScoreRequiredRetry": "\"Alt rett\" alternativet krever at \"Prøv igjen\" er aktivert.",
+    "fullScoreRequiredTimeFrame": "Det finnes allerede en innholdstype som krever alt rett på samme tidspunkt.</br> Bare en av innholdstypene vil kreve alt rett."
   }
 }
