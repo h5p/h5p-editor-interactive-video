@@ -577,15 +577,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       }
     }
 
-    // Get indexes of fields that needs unique styling
-    if (interaction.indexes === undefined) {
-      interaction.indexes = {};
-    }
-
-    interaction.indexes.durationIndex = {name: 'duration', index: interactionFields.indexOf(findField('duration', interactionFields))};
-    interaction.indexes.pauseIndex = {name: 'pause', index: interactionFields.indexOf(findField('pause', interactionFields))};
-    interaction.indexes.labelIndex = {name: 'label', index: interactionFields.indexOf(findField('label', interactionFields))};
-    interaction.indexes.visualsIndex = {name: 'visuals', index: interactionFields.indexOf(findField('visuals', interactionFields))};
     H5PEditor.processSemanticsChunk(interactionFields, parameters, $semanticFields, self);
 
     self.setLibraryName(interaction.$form, type);
@@ -606,41 +597,42 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     interaction.children = this.children;
     this.children = undefined;
 
+    // Interaction fields object generated from interaction children
+    var interactionFields = self.getInteractionFields(interaction);
+
     // Add classes to form elements if they exist
-    if (interaction.children[interaction.indexes.durationIndex.index].$item) {
-      interaction.children[interaction.indexes.durationIndex.index].$item.addClass('h5peditor-interaction-' + interaction.indexes.durationIndex.name);
+    if (interactionFields.duration.$item) {
+      interactionFields.duration.$item.addClass('h5peditor-interaction-duration');
     }
 
-    if (interaction.children[interaction.indexes.pauseIndex.index].$item) {
-      interaction.children[interaction.indexes.pauseIndex.index].$item.addClass('h5peditor-interaction-' + interaction.indexes.pauseIndex.name);
+    if (interactionFields.pause.$item) {
+      interactionFields.pause.$item.addClass('h5peditor-interaction-pause');
     }
 
-    if (interaction.children[interaction.indexes.labelIndex.index].$item) {
-      interaction.children[interaction.indexes.labelIndex.index].$item.addClass('h5peditor-interaction-' + interaction.indexes.labelIndex.name);
+    if (interactionFields.label.$item) {
+      interactionFields.label.$item.addClass('h5peditor-interaction-label');
 
       // Remove label when displayType is poster
       var $displayTypeRadios = $('.h5p-image-radio-button-group input:radio', interaction.$form);
-      var $labelWrapper = interaction.children[interaction.indexes.labelIndex.index].$item;
+      var $labelWrapper = interactionFields.label.$item;
       $displayTypeRadios.change(function () {
         $labelWrapper.toggleClass('hide', !interaction.isButton());
-        if (!interaction.isButton() && interaction.children[interaction.indexes.pauseIndex.index].$item) {
-          interaction.children[interaction.indexes.pauseIndex.index].$input[0].checked = true;
-          interaction.children[interaction.indexes.pauseIndex.index].$input.trigger('change');
+        if (!interaction.isButton() && interactionFields.pause.$item) {
+          interactionFields.pause.$input[0].checked = true;
+          interactionFields.pause.$input.trigger('change');
         }
       });
 
       $labelWrapper.toggleClass('hide', !interaction.isButton());
     }
 
-    if (interaction.children[interaction.indexes.visualsIndex.index].$group) {
-      var visualsIndex = interaction.indexes.visualsIndex;
-      var $visualsWrapper = interaction.children[visualsIndex.index].$group;
-
+    if (interactionFields.visuals.$group) {
       $('.h5p-image-radio-button-group input:radio', interaction.$form).change(function () {
-        $visualsWrapper.toggleClass('hide', $(this).val() !== 'poster');
+        interactionFields.visuals.$group.toggleClass('hide', $(this).val() !== 'poster');
       });
 
-      $visualsWrapper.toggleClass('hide', parameters.displayType !== 'poster');
+      interactionFields.visuals.$group.toggleClass('hide', parameters.displayType !== 'poster');
+    }
     }
 
     interaction.on('display', function (event) {
@@ -704,6 +696,20 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       }
       delete parameters.pasted;
     }
+  };
+
+  /**
+   * Get interaction fields from interaction children
+   * @param {Object} interaction
+   * @return {Object} All interaction fields as object properties
+   */
+  InteractiveVideoEditor.prototype.getInteractionFields = function (interaction) {
+    return interaction.children.reduce(function (prev, child) {
+      if (child.field && child.field.name) {
+        prev[child.field.name] = child;
+      }
+      return prev;
+    }, {});
   };
 
   /**
