@@ -22,7 +22,7 @@ H5PEditor.InteractiveVideo.RequireCompletion = (function () {
     /**
      * Interaction fields gathers all fields of the interaction
      *
-     * @typedef {Object} interactionFields
+     * @type {Object} interactionFields
      * @param {Object} interactionFields.adaptivity
      */
     var interactionFields = IVEditor.getInteractionFields(interaction);
@@ -57,7 +57,7 @@ H5PEditor.InteractiveVideo.RequireCompletion = (function () {
 
     // Message showing that two interactions have a starting time conflict
     var conflictingStartTimeMsg = document.createElement('div');
-    conflictingStartTimeMsg.textContent = t('fullScoreRequiredTimeFrame');
+    conflictingStartTimeMsg.innerHTML = t('fullScoreRequiredTimeFrame');
     conflictingStartTimeMsg.className = [
       'h5peditor-field-description',
       'h5peditor-conflicting-start-time-msg',

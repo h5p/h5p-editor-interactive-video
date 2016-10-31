@@ -35,6 +35,6 @@
     "tourStepSummaryText": "这个可选的交互式摘要任务将出现在视频的结尾。",
     "fullScoreRequiredPause": "\"Full score required\" option requires that \"Pause\" is enabled.",
     "fullScoreRequiredRetry": "\"Full score required\" option requires that \"Retry\" is enabled.",
-    "fullScoreRequiredTimeFrame": "There already exists an interaction that requires full score at the start time of this interaction.</br> Only one of the interactions will be required to answer."
+    "fullScoreRequiredTimeFrame": "There already exists an interaction that requires full score at the start time of this interaction.<br> Only one of the interactions will be required to answer."
   }
 }
