@@ -1419,6 +1419,6 @@ H5PEditor.language['H5PEditor.InteractiveVideo'] = {
     tourStepSummaryText: 'This optional Summary quiz will appear at the end of the video.',
     fullScoreRequiredPause: '"Full score required" option requires that "Pause" is enabled.',
     fullScoreRequiredRetry: '"Full score required" option requires that "Retry" is enabled',
-    fullScoreRequiredTimeFrame: 'There already exists an interaction that requires full score at the start time of this interaction.<br> Only one of the interactions will be required to answer.'
+    fullScoreRequiredTimeFrame: 'There already exists an interaction that requires full score at the same interval as this interaction.<br> Only one of the interactions will be required to answer.'
   }
 };

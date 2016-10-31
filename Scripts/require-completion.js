@@ -55,17 +55,17 @@ H5PEditor.InteractiveVideo.RequireCompletion = (function () {
     ].join(' ');
     interactionFields.pause.$item.get(0).appendChild(pauseDisabledMsg);
 
-    // Message showing that two interactions have a starting time conflict
-    var conflictingStartTimeMsg = document.createElement('div');
-    conflictingStartTimeMsg.innerHTML = t('fullScoreRequiredTimeFrame');
-    conflictingStartTimeMsg.className = [
+    // Message showing that two interactions have a time conflict
+    var conflictingTimeMsg = document.createElement('div');
+    conflictingTimeMsg.innerHTML = t('fullScoreRequiredTimeFrame');
+    conflictingTimeMsg.className = [
       'h5peditor-field-description',
-      'h5peditor-conflicting-start-time-msg',
+      'h5peditor-conflicting-time-msg',
       'h5p-hide'
     ].join(' ');
 
     interactionFields.pause.$item.get(0).parentNode
-      .insertBefore(conflictingStartTimeMsg, interactionFields.pause.$item.get(0).nextSibling);
+      .insertBefore(conflictingTimeMsg, interactionFields.pause.$item.get(0).nextSibling);
 
     // Handle behavioural changes of $form when require completion input is changed
     adaptivityFields.requireCompletion.$input.change(function () {
@@ -73,7 +73,7 @@ H5PEditor.InteractiveVideo.RequireCompletion = (function () {
     });
 
     // Check if conflict message should be shown when duration is changed
-    interactionFields.duration.$inputs.eq(0).change(function () {
+    interactionFields.duration.$inputs.change(function () {
       toggleDuration(adaptivityFields.requireCompletion.$input[0].checked);
     });
 
@@ -122,12 +122,12 @@ H5PEditor.InteractiveVideo.RequireCompletion = (function () {
     /**
      * If interaction has the require completion option enabled it will
      * search through all other interactions to determine if any of them
-     * start at the same time as this interaction, in which case a conflict
+     * has a conflicting duration with this interaction, in which case a conflict
      * message will be displayed
      *
      * @param {Object} interaction Interaction that we are interested in checking
      * @param {Array} otherInteractions List of interactions that will be checked
-     *  for conflicting start time with given interaction
+     *  for conflicting duration time with given interaction
      */
     function handleConflictingInteractions(interaction, otherInteractions) {
       if (!interaction.getRequiresCompletion()) {
@@ -135,18 +135,24 @@ H5PEditor.InteractiveVideo.RequireCompletion = (function () {
       }
 
       var conflictingInteractions = getConflictingInteractions(interaction, otherInteractions);
-      conflictingStartTimeMsg.classList.toggle('h5p-hide', !conflictingInteractions.length);
+      conflictingTimeMsg.classList.toggle('h5p-hide', !conflictingInteractions.length);
     }
 
     /**
-     * Checks if an interaction starts at given time
+     * Checks if an interaction is at a given time interval
      *
-     * @param {number} time Time we are comparing against
-     * @param {Object} interaction Interaction we are checking the start time of
-     * @return {boolean} Returns true if the interaction starts at the given time
+     * @param {Object} time Time we are comparing against
+     * @param {number} time.from Showing from
+     * @param {number} time.to End of the interval we are checking
+     * @param {Object} interaction Interaction time interval
+     *
+     * @return {boolean} Returns true if the interaction starts or ends within
+     *  the given interval
      */
-    function hasStartTimeAt(time, interaction) {
-      return interaction.getDuration().from === time;
+    function hasDurationWithin(time, interaction) {
+      var duration = interaction.getDuration();
+      return time.from >= duration.from  &&  time.from <= duration.to
+        || time.to >= duration.from && time.to <= duration.to;
     }
 
     /**
@@ -160,7 +166,7 @@ H5PEditor.InteractiveVideo.RequireCompletion = (function () {
     }
 
     /**
-     * Checks if an interaction has conflicting start time with other interactions
+     * Checks if an interaction has conflicting interval time with other interactions
      *
      * @param {Object} interaction Interaction we are checking
      * @param {Array} allInteractions Interactions that we are checking for conflicts
@@ -168,7 +174,7 @@ H5PEditor.InteractiveVideo.RequireCompletion = (function () {
      */
     function getConflictingInteractions(interaction, allInteractions) {
       return allInteractions
-        .filter(hasStartTimeAt.bind(this, interaction.getDuration().from))
+        .filter(hasDurationWithin.bind(this, interaction.getDuration()))
         .filter(hasRequireCompletion)
         .filter(function (ia) {
           return ia !== interaction;
@@ -188,13 +194,13 @@ H5PEditor.InteractiveVideo.RequireCompletion = (function () {
     }
 
     /**
-     * Toggles message for conflicting start times of interactions
+     * Toggles message for conflicting interval times of interactions
      *
      * @param {boolean} isChecked Require completion option checked state
      */
     function toggleDuration(isChecked) {
       if (!isChecked) {
-        conflictingStartTimeMsg.classList.add('h5p-hide');
+        conflictingTimeMsg.classList.add('h5p-hide');
         return;
       }
 
