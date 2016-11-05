@@ -543,6 +543,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     if (['H5P.Text', 'H5P.Image', 'H5P.Link', 'H5P.Table'].indexOf(type) === -1) {
       hideFields(interactionFields, ['visuals']);
     }
+    if (type === 'H5P.Summary') {
+      var adaptivityFields = findField('adaptivity', interactionFields);
+      hideFields(adaptivityFields.fields, ['requireCompletion']);
+    }
+
     if (parameters.visuals === undefined) {
 
       // Make Image background transparent by default
@@ -634,8 +639,14 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       interactionFields.visuals.$group.toggleClass('hide', parameters.displayType !== 'poster');
     }
 
-    // Create require completion instances for content types with scores
-    if (InteractiveVideoEditor.XAPI_QUESTION_TYPES.indexOf(interaction.getLibraryName()) >= 0) {
+    // Create require completion instances for content types with scores.
+    // Summary is filtered out because it can't be retried.
+    var eligibleForRequireCompletion = InteractiveVideoEditor.XAPI_QUESTION_TYPES
+      .filter(function (questionType) {
+        return questionType !== 'H5P.Summary';
+      }).indexOf(interaction.getLibraryName()) >= 0;
+
+    if (eligibleForRequireCompletion) {
       new H5PEditor.InteractiveVideo.RequireCompletion(self, interaction);
     }
 
