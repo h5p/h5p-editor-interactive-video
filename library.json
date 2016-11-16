@@ -3,7 +3,7 @@
   "license": "MIT",
   "majorVersion": 1,
   "minorVersion": 12,
-  "patchVersion": 0,
+  "patchVersion": 1,
   "runnable": 0,
   "machineName": "H5PEditor.InteractiveVideo",
   "author": "Joubel AS",
@@ -20,6 +20,9 @@
     },
     {
       "path": "Scripts/guided-tours.js"
+    },
+    {
+      "path": "Scripts/require-completion.js"
     }
   ],
   "preloadedCss": [
@@ -28,6 +31,9 @@
     },
     {
       "path": "styles/interactive-video-editor.css"
+    },
+    {
+      "path": "styles/require-completion.css"
     }
   ],
   "preloadedDependencies": [

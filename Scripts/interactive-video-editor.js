@@ -530,17 +530,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     // Hide some fields for some interaction types
     var type = interaction.getLibraryName();
-    var xAPIQuestionTypes = [
-      'H5P.MultiChoice',
-      'H5P.SingleChoiceSet',
-      'H5P.Blanks',
-      'H5P.DragQuestion',
-      'H5P.Summary',
-      'H5P.MarkTheWords',
-      'H5P.DragText',
-      'H5P.TrueFalse'
-    ];
-    if (xAPIQuestionTypes.indexOf(type) === -1) {
+
+    if (InteractiveVideoEditor.XAPI_QUESTION_TYPES.indexOf(type) === -1) {
       hideFields(interactionFields, ['adaptivity']);
     }
     if (type === 'H5P.Nil') {
@@ -552,6 +543,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     if (['H5P.Text', 'H5P.Image', 'H5P.Link', 'H5P.Table'].indexOf(type) === -1) {
       hideFields(interactionFields, ['visuals']);
     }
+    if (type === 'H5P.Summary') {
+      var adaptivityFields = findField('adaptivity', interactionFields);
+      hideFields(adaptivityFields.fields, ['requireCompletion']);
+    }
+
     if (parameters.visuals === undefined) {
 
       // Make Image background transparent by default
@@ -586,15 +582,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       }
     }
 
-    // Get indexes of fields that needs unique styling
-    if (interaction.indexes === undefined) {
-      interaction.indexes = {};
-    }
-
-    interaction.indexes.durationIndex = {name: 'duration', index: interactionFields.indexOf(findField('duration', interactionFields))};
-    interaction.indexes.pauseIndex = {name: 'pause', index: interactionFields.indexOf(findField('pause', interactionFields))};
-    interaction.indexes.labelIndex = {name: 'label', index: interactionFields.indexOf(findField('label', interactionFields))};
-    interaction.indexes.visualsIndex = {name: 'visuals', index: interactionFields.indexOf(findField('visuals', interactionFields))};
     H5PEditor.processSemanticsChunk(interactionFields, parameters, $semanticFields, self);
 
     self.setLibraryName(interaction.$form, type);
@@ -615,41 +602,52 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     interaction.children = this.children;
     this.children = undefined;
 
+    // Interaction fields object generated from interaction children
+    var interactionFields = self.getInteractionFields(interaction);
+
     // Add classes to form elements if they exist
-    if (interaction.children[interaction.indexes.durationIndex.index].$item) {
-      interaction.children[interaction.indexes.durationIndex.index].$item.addClass('h5peditor-interaction-' + interaction.indexes.durationIndex.name);
+    if (interactionFields.duration.$item) {
+      interactionFields.duration.$item.addClass('h5peditor-interaction-duration');
     }
 
-    if (interaction.children[interaction.indexes.pauseIndex.index].$item) {
-      interaction.children[interaction.indexes.pauseIndex.index].$item.addClass('h5peditor-interaction-' + interaction.indexes.pauseIndex.name);
+    if (interactionFields.pause.$item) {
+      interactionFields.pause.$item.addClass('h5peditor-interaction-pause');
     }
 
-    if (interaction.children[interaction.indexes.labelIndex.index].$item) {
-      interaction.children[interaction.indexes.labelIndex.index].$item.addClass('h5peditor-interaction-' + interaction.indexes.labelIndex.name);
+    if (interactionFields.label.$item) {
+      interactionFields.label.$item.addClass('h5peditor-interaction-label');
 
       // Remove label when displayType is poster
       var $displayTypeRadios = $('.h5p-image-radio-button-group input:radio', interaction.$form);
-      var $labelWrapper = interaction.children[interaction.indexes.labelIndex.index].$item;
+      var $labelWrapper = interactionFields.label.$item;
       $displayTypeRadios.change(function () {
         $labelWrapper.toggleClass('hide', !interaction.isButton());
-        if (!interaction.isButton() && interaction.children[interaction.indexes.pauseIndex.index].$item) {
-          interaction.children[interaction.indexes.pauseIndex.index].$input[0].checked = true;
-          interaction.children[interaction.indexes.pauseIndex.index].$input.trigger('change');
+        if (!interaction.isButton() && interactionFields.pause.$item) {
+          interactionFields.pause.$input[0].checked = true;
+          interactionFields.pause.$input.trigger('change');
         }
       });
 
       $labelWrapper.toggleClass('hide', !interaction.isButton());
     }
 
-    if (interaction.children[interaction.indexes.visualsIndex.index].$group) {
-      var visualsIndex = interaction.indexes.visualsIndex;
-      var $visualsWrapper = interaction.children[visualsIndex.index].$group;
-
+    if (interactionFields.visuals.$group) {
       $('.h5p-image-radio-button-group input:radio', interaction.$form).change(function () {
-        $visualsWrapper.toggleClass('hide', $(this).val() !== 'poster');
+        interactionFields.visuals.$group.toggleClass('hide', $(this).val() !== 'poster');
       });
 
-      $visualsWrapper.toggleClass('hide', parameters.displayType !== 'poster');
+      interactionFields.visuals.$group.toggleClass('hide', parameters.displayType !== 'poster');
+    }
+
+    // Create require completion instances for content types with scores.
+    // Summary is filtered out because it can't be retried.
+    var eligibleForRequireCompletion = InteractiveVideoEditor.XAPI_QUESTION_TYPES
+      .filter(function (questionType) {
+        return questionType !== 'H5P.Summary';
+      }).indexOf(interaction.getLibraryName()) >= 0;
+
+    if (eligibleForRequireCompletion) {
+      new H5PEditor.InteractiveVideo.RequireCompletion(self, interaction);
     }
 
     interaction.on('display', function (event) {
@@ -671,7 +669,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
        * Callback for when library changes.
        *
        * @private
-       * @param {String} library
        */
       var libraryChange = function () {
         var lib = libraryFieldInstance.currentLibrary.split(' ')[0];
@@ -683,7 +680,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
          * Callback for when image changes.
          *
          * @private
-         * @param {Object} params
+         * @param {Object} newParams
          */
         var imageChange = function (newParams) {
           if (newParams !== undefined && newParams.width !== undefined && newParams.height !== undefined) {
@@ -714,6 +711,20 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       }
       delete parameters.pasted;
     }
+  };
+
+  /**
+   * Get interaction fields from interaction children
+   * @param {Object} interaction
+   * @return {Object} All interaction fields as object properties
+   */
+  InteractiveVideoEditor.prototype.getInteractionFields = function (interaction) {
+    return interaction.children.reduce(function (prev, child) {
+      if (child.field && child.field.name) {
+        prev[child.field.name] = child;
+      }
+      return prev;
+    }, {});
   };
 
   /**
@@ -818,6 +829,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       .append($removeButton);
 
     interaction.setTitle(title);
+    interaction.trigger('openEditDialog');
     that.dnb.dialog.open(interaction.$form, title, interaction.getClass() + '-icon', $buttons);
 
     // Blur context menu when opening dialog
@@ -1322,7 +1334,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    *
    * @private
    * @param {string} key
-   * @param {Object} vars Placeholders
+   * @param {Object} [vars] Placeholders
    * @returns {string}
    */
   var t = InteractiveVideoEditor.t = function (key, vars) {
@@ -1362,7 +1374,20 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }
   };
 
-
+  /**
+   * A maintained list of strings with content types that has a score.
+   * @type {string[]}
+   */
+  InteractiveVideoEditor.XAPI_QUESTION_TYPES = [
+    'H5P.MultiChoice',
+    'H5P.SingleChoiceSet',
+    'H5P.Blanks',
+    'H5P.DragQuestion',
+    'H5P.Summary',
+    'H5P.MarkTheWords',
+    'H5P.DragText',
+    'H5P.TrueFalse'
+  ];
 
   return InteractiveVideoEditor;
 })(H5P.jQuery);
@@ -1402,6 +1427,9 @@ H5PEditor.language['H5PEditor.InteractiveVideo'] = {
     tourStepCanvasPreviewText: 'Press the Play button to preview your interactive video while editing.',
     tourStepCanvasSaveTitle: 'Save and view',
     tourStepCanvasSaveText: "When you're done adding interactions to your video, press Save/Create to view the result.",
-    tourStepSummaryText: 'This optional Summary quiz will appear at the end of the video.'
+    tourStepSummaryText: 'This optional Summary quiz will appear at the end of the video.',
+    fullScoreRequiredPause: '"Full score required" option requires that "Pause" is enabled.',
+    fullScoreRequiredRetry: '"Full score required" option requires that "Retry" is enabled',
+    fullScoreRequiredTimeFrame: 'There already exists an interaction that requires full score at the same interval as this interaction.<br> Only one of the interactions will be required to answer.'
   }
 };
