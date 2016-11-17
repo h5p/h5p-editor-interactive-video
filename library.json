@@ -2,8 +2,8 @@
   "title": "Interactive Video Editor",
   "license": "MIT",
   "majorVersion": 1,
-  "minorVersion": 12,
-  "patchVersion": 1,
+  "minorVersion": 13,
+  "patchVersion": 0,
   "runnable": 0,
   "machineName": "H5PEditor.InteractiveVideo",
   "author": "Joubel AS",
@@ -75,7 +75,7 @@
     {
       "machineName": "H5P.MultiChoice",
       "majorVersion": 1,
-      "minorVersion": 8
+      "minorVersion": 9
     },
     {
       "machineName": "H5P.TrueFalse",
@@ -85,7 +85,7 @@
     {
       "machineName": "H5P.InteractiveVideo",
       "majorVersion": 1,
-      "minorVersion": 12
+      "minorVersion": 13
     },
     {
       "machineName": "H5P.Summary",
