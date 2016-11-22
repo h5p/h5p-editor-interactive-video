@@ -31,7 +31,6 @@ H5PEditor.InteractiveVideo.RequireCompletion = (function () {
      * A group with adaptivity settings of the interaction
      *
      * @type {Object} adaptivityFields
-     * @param {Object} adaptivityFields.wrong
      * @param {Object} adaptivityFields.requireCompletion
      */
     var adaptivityFields = IVEditor.getInteractionFields(interactionFields.adaptivity);
@@ -190,7 +189,6 @@ H5PEditor.InteractiveVideo.RequireCompletion = (function () {
       togglePause(isChecked);
       toggleRetry(isChecked);
       toggleDuration(isChecked);
-      adaptivityFields.wrong.$group.toggleClass('h5p-hide', isChecked);
     }
 
     /**
