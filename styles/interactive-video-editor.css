@@ -34,8 +34,9 @@
   float: left;
   margin: 0;
   padding: 0;
-  background: none;
-  border-right: none;
+  background: none !important;
+  border-right: none !important;
+  border-left: none !important;
   margin-right: 0.25em;
 }
 .h5p-interactive-video-dragnbar .h5p-dragnbar-a {
