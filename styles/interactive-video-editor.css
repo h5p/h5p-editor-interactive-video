@@ -34,10 +34,16 @@
   float: left;
   margin: 0;
   padding: 0;
-  background: none;
-  border-right: none;
   margin-right: 0.25em;
+  background: none;
+  border-left: none;
+  border-right: none;
 }
+
+.h5p-interactive-video-dragnbar .h5p-dragnbar-li:hover {
+  background: none;
+}
+
 .h5p-interactive-video-dragnbar .h5p-dragnbar-a {
   width: 1em;
   height: 1.1em;
