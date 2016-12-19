@@ -249,6 +249,7 @@
   line-height: 1.5em;
   padding: 0.5em 0.75em;
   color: #444;
+  margin: 0;
 }
 .h5p-interactivevideo-editor .tree > .field.wizard > div.h5peditor-label:before {
   font-family: 'H5PFontAwesome4';
@@ -261,15 +262,11 @@
 .h5p-interactivevideo-editor .h5peditor-form {
   border-radius: 0;
   padding: 0;
-  background: transparent;
+  background: #fff;
 }
 
-.h5p-interactivevideo-editor .tree {
-  background: #fff;
-  border-bottom: 1px solid #dedede;
-}
 .h5p-interactivevideo-editor .tree > .field.group {
-  margin: 8px;
+  margin: 20px;
 }
 
 .h5p-interactivevideo-editor div.field.wizard > .h5peditor-tabs {
@@ -310,12 +307,10 @@
   border-bottom-color: #ccc;
 }
 .h5p-interactivevideo-editor .common {
-  background: #fff;
-  margin: 8px;
+  margin: 20px;
 }
 .h5p-interactivevideo-editor .h5peditor-panes > .field {
-  margin: 0;
-  padding: 0.5em;
+  border: 0;
 }
 .h5p-interactivevideo-editor .field.interactiveVideo {
   margin: 0;
@@ -562,6 +557,29 @@
 .h5p-interactivevideo-editor .h5p-ivhotspot.circular > a:before {
   border-radius: 50%;
 }
+.h5p-interactivevideo-editor .field.wizard > .h5peditor-panes > .group > .content {
+  padding-bottom: 0;
+  border: 0;
+}
+.h5peditor-interactions {
+  font-weight: 600;
+  padding: 20px 20px 0 20px;
+  color: darkred;
+}
+.h5peditor-interactions.h5p-interactive-video {
+  font-weight: normal;
+  padding: 0;
+  color: inherit;
+}
+.h5peditor-panes .field:nth-child(2) {
+
+}
+
+.h5p-interactivevideo-editor > .h5peditor-form > .tree > .field.wizard > .h5peditor-panes > .field:nth-child(3),
+.h5p-interactivevideo-editor > .h5peditor-form > .tree > .field.wizard > .h5peditor-panes > .field:nth-child(3) .libwrap.h5p-summary-editor {
+  margin-top: 0;
+}
+
 
 /* Tour button placed in Wizard's header */
 .field.wizard > .h5peditor-label > .h5peditor-guided-tour {
