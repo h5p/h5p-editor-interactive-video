@@ -567,12 +567,9 @@
   color: darkred;
 }
 .h5peditor-interactions.h5p-interactive-video {
-  font-weight: normal;
+  font-weight: inherit;
   padding: 0;
   color: inherit;
-}
-.h5peditor-panes .field:nth-child(2) {
-
 }
 
 .h5p-interactivevideo-editor > .h5peditor-form > .tree > .field.wizard > .h5peditor-panes > .field:nth-child(3),
