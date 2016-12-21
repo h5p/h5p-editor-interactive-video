@@ -264,11 +264,9 @@
   padding: 0;
   background: #fff;
 }
-
 .h5p-interactivevideo-editor .tree > .field.group {
-  margin: 20px;
+  margin: 20px 20px 10px 20px;
 }
-
 .h5p-interactivevideo-editor div.field.wizard > .h5peditor-tabs {
   margin: 0;
   border-top: 1px solid #ccc;
@@ -307,7 +305,7 @@
   border-bottom-color: #ccc;
 }
 .h5p-interactivevideo-editor .common {
-  margin: 20px;
+  margin: 10px 20px 20px 20px;
 }
 .h5p-interactivevideo-editor .h5peditor-panes > .field {
   border: 0;
