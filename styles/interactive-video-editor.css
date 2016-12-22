@@ -313,6 +313,7 @@
   margin: 20px;
 }
 .h5p-interactivevideo-editor .h5peditor-panes > .field {
+  margin-top: 0;
   border: 0;
 }
 .h5p-interactivevideo-editor .field.interactiveVideo {
