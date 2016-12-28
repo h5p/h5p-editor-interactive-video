@@ -577,8 +577,11 @@
   border-radius: 50%;
 }
 .h5p-interactivevideo-editor .field.wizard > .h5peditor-panes > .group > .content {
-  padding-bottom: 0;
   border: 0;
+}
+/* Avoid double padding between start screen options and behavioural settings */
+.h5p-interactivevideo-editor .group.field-video > .content {
+  padding-bottom: 0;
 }
 .h5peditor-interactions {
   font-weight: 600;
