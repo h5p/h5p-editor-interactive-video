@@ -1282,7 +1282,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         self.startGuidedTour(true);
         return false;
       }
-    }).appendTo('.h5p-interactivevideo-editor .tree > .field.wizard > label > .h5peditor-label');
+    }).appendTo('.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5peditor-label');
     self.startGuidedTour();
   };
   /**

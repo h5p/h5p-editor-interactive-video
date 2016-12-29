@@ -242,12 +242,13 @@
 .h5p-interactivevideo-editor .h5p-interactive-video .h5p-interaction-label:hover {
   cursor: pointer;
 }
-/* Wizard does hide the label by default - must override here */
-.h5p-interactivevideo-editor .tree > .field.wizard > label {
-  display: block;
+.h5p-interactivevideo-editor .field-name-interactiveVideo {
+  margin-bottom: 0;
 }
-.h5p-interactivevideo-editor .tree > .field.wizard > label > .h5peditor-label {
+/* Wizard does hide the label by default - must override here */
+.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5peditor-label {
   display: block;
+  position: relative;
   background: #e9e9e9;
   font-size: 1.5em;
   line-height: 1.5em;
@@ -255,12 +256,12 @@
   color: #444;
   margin: 0;
 }
-.h5p-interactivevideo-editor .tree > .field.wizard > label > .h5peditor-label:before {
+.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5peditor-label:before {
   font-family: 'H5PFontAwesome4';
   margin: 0 0.5em 0 0;
   content: "\f01d";
 }
-.h5p-interactivevideo-editor .tree > .field.wizard > label > .h5peditor-label:after {
+.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5peditor-label:after {
   content: "";
 }
 .h5p-interactivevideo-editor .field.wizard .h5peditor-tab-li:before{
@@ -271,8 +272,8 @@
   padding: 0;
   background: #fff;
 }
-.h5p-interactivevideo-editor .tree > .field.group {
-  margin: 20px;
+.h5p-interactivevideo-editor .group.field-name-override {
+  margin: 0 20px;
 }
 .h5p-interactivevideo-editor .tree > .field.group:last-child .content {
   background-color: #FAFBFC;
@@ -304,7 +305,8 @@
 .h5p-interactivevideo-editor .field.wizard .h5peditor-tab-li:last-child {
   border-right: 0;
 }
-.h5p-interactivevideo-editor .field.wizard .h5peditor-tab-a:before, .h5p-interactivevideo-editor .field.wizard .h5peditor-tab-a:after {
+.h5p-interactivevideo-editor .field.wizard .h5peditor-tab-a:before,
+.h5p-interactivevideo-editor .field.wizard .h5peditor-tab-a:after {
   border: 0;
   position: inherit;
   left: auto;
@@ -323,7 +325,7 @@
   margin: 20px;
   background-color: #FAFBFC;
 }
-.h5p-interactivevideo-editor .common .fields{
+.h5p-interactivevideo-editor .common .fields {
   background-color: #FAFBFC;
 }
 .h5p-interactivevideo-editor .common .fields .content {
@@ -598,14 +600,13 @@
   color: inherit;
 }
 
-.h5p-interactivevideo-editor > .h5peditor-form > .tree > .field.wizard > .h5peditor-panes > .field:nth-child(3),
-.h5p-interactivevideo-editor > .h5peditor-form > .tree > .field.wizard > .h5peditor-panes > .field:nth-child(3) .libwrap.h5p-summary-editor {
-  margin-top: 0;
+/* Make sure there are not a double padding before the summary tabs fields */
+.h5p-interactivevideo-editor .field-name-summary > .content {
+  padding-top: 0;
 }
 
-
 /* Tour button placed in Wizard's header */
-.h5p-interactivevideo-editor .tree > .field.wizard > label > .h5peditor-label > .h5peditor-guided-tour {
+.h5p-interactivevideo-editor .h5peditor-guided-tour {
   position: absolute;
   right: .5em;
   color: #666;
@@ -615,17 +616,17 @@
   cursor: pointer;
   padding: 0 1em;
 }
-.h5p-interactivevideo-editor .tree > .field.wizard > label > .h5peditor-label > .h5peditor-guided-tour:before {
+.h5p-interactivevideo-editor .h5peditor-guided-tour:before {
   font-family: 'H5PFontAwesome4';
   content: '\f14e';
   margin-right: .5em;
 }
-.h5p-interactivevideo-editor .tree > .field.wizard > label > .h5peditor-label > .h5peditor-guided-tour:hover,
-.h5p-interactivevideo-editor .tree > .field.wizard > label > .h5peditor-label > .h5peditor-guided-tour:focus {
+.h5p-interactivevideo-editor .h5peditor-guided-tour:hover,
+.h5p-interactivevideo-editor .h5peditor-guided-tour:focus {
   color: #333;
   background: #ddd;
 }
-.h5p-interactivevideo-editor .tree > .field.wizard > label > .h5peditor-label > .h5peditor-guided-tour:active {
+.h5p-interactivevideo-editor .h5peditor-guided-tour:active {
   color: #555;
   background: #ccc;
 }
