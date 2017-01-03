@@ -251,6 +251,7 @@
   position: relative;
   background: #e9e9e9;
   font-size: 1.5em;
+  font-weight: normal;
   line-height: 1.5em;
   padding: 0.5em 0.75em;
   color: #444;
@@ -360,9 +361,6 @@
   background: #fff;
   border-color: #dbdbdb;
   box-shadow: 0 0 0.25em #dbdbdb inset;
-}
-.h5p-interactivevideo-editor .h5peditor-label {
-  font-weight: normal;
 }
 .h5p-interactivevideo-editor table.h5p-table, .h5p-interactivevideo-editor .h5p-table td, .h5p-interactivevideo-editor .h5p-table th {
   border: 1px dashed #999;
