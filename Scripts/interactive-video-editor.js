@@ -1109,7 +1109,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     return {
       id: id,
-      title: t('insertElement', {':type': that.getLibraryTitle(library).toLowerCase() }),
+      title: that.getLibraryTitle(library),
       createElement: function () {
         return that.addInteraction(library.uberName);
       }
