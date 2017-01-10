@@ -46,6 +46,10 @@
   background: none;
 }
 
+.h5p-interactive-video-dragnbar .h5p-dragnbar-li:hover:before {
+  top: 49px;
+}
+
 .h5p-interactive-video-dragnbar .h5p-dragnbar-a {
   width: 1em;
   height: 1.1em;
