@@ -246,7 +246,10 @@
   margin-bottom: 0;
 }
 /* Wizard does hide the label by default - must override here */
-.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5peditor-label {
+.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5peditor-label-wrapper {
+  display: block;
+}
+.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5peditor-label-wrapper > .h5peditor-label  {
   display: block;
   position: relative;
   background: #e9e9e9;
@@ -257,12 +260,12 @@
   color: #444;
   margin: 0;
 }
-.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5peditor-label:before {
+.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5peditor-label-wrapper > .h5peditor-label:before {
   font-family: 'H5PFontAwesome4';
   margin: 0 0.5em 0 0;
   content: "\f01d";
 }
-.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5peditor-label:after {
+.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5peditor-label-wrapper > .h5peditor-label:after {
   content: "";
 }
 .h5p-interactivevideo-editor .field.wizard .h5peditor-tab-li:before{
