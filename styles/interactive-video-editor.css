@@ -22,7 +22,7 @@
   font-size: 1em;
   padding: 0;
   background: #f5f5f5;
-  display: inline-block;
+  float: left;
   width: 100%;
 }
 .h5p-interactive-video-dragnbar .h5p-dragnbar-ul {
@@ -32,8 +32,8 @@
   float: none;
 }
 .h5p-interactive-video-dragnbar .h5p-dragnbar-li {
-  display: inline-block;
   position: relative;
+  float: left;
   margin: 0;
   padding: 0;
   margin-right: 0.25em;
