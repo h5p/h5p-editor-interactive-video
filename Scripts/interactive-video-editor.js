@@ -1282,7 +1282,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         self.startGuidedTour(true);
         return false;
       }
-    }).appendTo('.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5peditor-label');
+    }).appendTo('.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5peditor-label-wrapper > .h5peditor-label');
     self.startGuidedTour();
   };
   /**
@@ -1312,6 +1312,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * Remove this item.
    */
   InteractiveVideoEditor.prototype.remove = function () {
+    if (this.dnb !== undefined) {
+      this.dnb.remove();
+    }
     this.$item.remove();
   };
 
