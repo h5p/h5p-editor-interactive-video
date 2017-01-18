@@ -46,8 +46,9 @@
   background: none;
 }
 
-.h5p-interactive-video-dragnbar .h5p-dragnbar-li:hover:before {
+.h5p-interactive-video-dragnbar .h5p-dragnbar-li:before {
   top: 49px;
+  font-size: 0.585em;
 }
 
 .h5p-interactive-video-dragnbar .h5p-dragnbar-a {
