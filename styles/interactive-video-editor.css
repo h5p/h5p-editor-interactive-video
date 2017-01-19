@@ -47,7 +47,7 @@
 }
 
 .h5p-interactive-video-dragnbar .h5p-dragnbar-li:before {
-  top: 49px;
+  top: 100%;
   font-size: 0.585em;
 }
 
