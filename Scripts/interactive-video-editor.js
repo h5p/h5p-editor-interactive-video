@@ -584,6 +584,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     H5PEditor.processSemanticsChunk(interactionFields, parameters, $semanticFields, self);
 
+    // Successfully logs the editor object
+    console.log($semanticFields.find('.h5p-ivhotspot-editor'));
+    // Unsuccessfully logs the texts object
+    console.log($semanticFields.find('.field-name-texts'));
+
     self.setLibraryName(interaction.$form, type);
   };
 
