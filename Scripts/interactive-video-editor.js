@@ -82,7 +82,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
       if (that.currentTabIndex > 0) {
         $prevButton.attr('data-id', that.currentTabIndex - 1);
-        $prevButton.find('span:last').text($('.h5peditor-tab-li a[data-id=' + (that.currentTabIndex - 1) + '] .field-name').text())
+        $prevButton.find('span.nav-button-label').text($('.h5peditor-tab-li a[data-id=' + (that.currentTabIndex - 1) + '] .field-name').text())
         $prevButton.show();
       }
       else {
@@ -91,7 +91,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
       if (that.currentTabIndex < $('.h5peditor-tabs').children().length - 1) {
         $nextButton.attr('data-id', that.currentTabIndex + 1);
-        $nextButton.find('span:last').text($('.h5peditor-tab-li a[data-id=' + (that.currentTabIndex + 1) + '] .field-name').text())
+        $nextButton.find('span.nav-button-label').text($('.h5peditor-tab-li a[data-id=' + (that.currentTabIndex + 1) + '] .field-name').text())
         $nextButton.show();
       }
       else {
