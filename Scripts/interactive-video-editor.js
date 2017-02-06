@@ -76,6 +76,27 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         // Start summary guide
         that.startGuidedTour();
       }
+
+      var $prevButton = $('.nav-button-prev');
+      var $nextButton = $('.nav-button-next');
+
+      if (that.currentTabIndex > 0) {
+        $prevButton.attr('data-id', that.currentTabIndex - 1);
+        $prevButton.find('span:last').text($('.h5peditor-tab-li a[data-id=' + (that.currentTabIndex - 1) + '] .field-name').text())
+        $prevButton.show();
+      }
+      else {
+        $prevButton.hide();
+      }
+
+      if (that.currentTabIndex < $('.h5peditor-tabs').children().length - 1) {
+        $nextButton.attr('data-id', that.currentTabIndex + 1);
+        $nextButton.find('span:last').text($('.h5peditor-tab-li a[data-id=' + (that.currentTabIndex + 1) + '] .field-name').text())
+        $nextButton.show();
+      }
+      else {
+        $nextButton.hide();
+      }
     });
   }
 
