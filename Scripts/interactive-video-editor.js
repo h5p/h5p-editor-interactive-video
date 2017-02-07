@@ -987,8 +987,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   InteractiveVideoEditor.prototype.fit = function ($interaction, interactionParams) {
     var self = this;
 
-    var videoContainer = H5P.DragNBar.getSizeNPosition(self.IV.$videoWrapper[0]);
-    var updated = H5P.DragNBar.fitElementInside($interaction, videoContainer);
+    var sizeNPosition = self.dnb.getElementSizeNPosition($interaction);
+    var updated = H5P.DragNBar.fitElementInside(sizeNPosition);
 
     // Set the updated properties
     var style = {};
@@ -1109,7 +1109,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     return {
       id: id,
-      title: t('insertElement', {':type': that.getLibraryTitle(library).toLowerCase() }),
+      title: that.getLibraryTitle(library),
       createElement: function () {
         return that.addInteraction(library.uberName);
       }
