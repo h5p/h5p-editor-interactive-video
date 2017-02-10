@@ -987,8 +987,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   InteractiveVideoEditor.prototype.fit = function ($interaction, interactionParams) {
     var self = this;
 
-    var videoContainer = H5P.DragNBar.getSizeNPosition(self.IV.$videoWrapper[0]);
-    var updated = H5P.DragNBar.fitElementInside($interaction, videoContainer);
+    var sizeNPosition = self.dnb.getElementSizeNPosition($interaction);
+    var updated = H5P.DragNBar.fitElementInside(sizeNPosition);
 
     // Set the updated properties
     var style = {};
@@ -998,7 +998,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       style.width = interactionParams.width + 'em';
     }
     if (updated.left !== undefined) {
-      interactionParams.x = updated.left / (videoContainer.width / 100);
+      interactionParams.x = updated.left / (sizeNPosition.containerWidth / 100);
       style.left = interactionParams.x + '%';
     }
     if (updated.height !== undefined) {
@@ -1006,7 +1006,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       style.height = interactionParams.height + 'em';
     }
     if (updated.top !== undefined) {
-      interactionParams.y = updated.top / (videoContainer.height / 100);
+      interactionParams.y = updated.top / (sizeNPosition.containerHeight / 100);
       style.top = interactionParams.y + '%';
     }
 
@@ -1109,7 +1109,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     return {
       id: id,
-      title: t('insertElement', {':type': that.getLibraryTitle(library).toLowerCase() }),
+      title: that.getLibraryTitle(library),
       createElement: function () {
         return that.addInteraction(library.uberName);
       }
@@ -1303,6 +1303,14 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     // We must stops the playpack of any media!
     if (this.IV && this.IV.video) {
       this.IV.video.pause();
+    }
+
+    // Run validate on interactions to trigger the storing of values
+    for (var i = 0; i < this.IV.interactions.length; i++) {
+      var interaction = this.IV.interactions[i];
+      for (var j = 0; j < interaction.children.length; j++) {
+        interaction.children[j].validate();
+      }
     }
 
     return true; // An interactive video is always valid :-)
