@@ -597,14 +597,13 @@
   overflow: visible;
 }
 .h5p-interactivevideo-editor .field.wizard .h5peditor-tab-video:before {
-  content: '\f03d';
+  content: '\e911';
 }
 .h5p-interactivevideo-editor .field.wizard .h5peditor-tab-assets:before {
-  font-family: 'H5PInteractiveVideoEditor';
-  content: '\e900';
+  content: '\e917';
 }
 .h5p-interactivevideo-editor .field.wizard .h5peditor-tab-summary:before {
-  content: '\f05d';
+  content: '\e912';
 }
 .h5p-interactivevideo-editor .field.wizard .field.interactiveVideo {
   margin-top: 5px;
