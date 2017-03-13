@@ -76,8 +76,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         // Start summary guide
         that.startGuidedTour();
       }
-
-      this.updateWizardIconsText(that.currentTabIndex);
     });
   }
 
