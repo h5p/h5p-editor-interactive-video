@@ -899,7 +899,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         that.params.interactions.unshift(that.params.interactions.splice(oldZ, 1)[0]);
 
         // Update internally for IV player
-        that.IV.interactions.push(that.IV.interactions.splice(oldZ, 1)[0]);
+        that.IV.interactions.unshift(that.IV.interactions.splice(oldZ, 1)[0]);
 
         // Update visuals
         $interaction.prependTo(that.IV.$overlay);
