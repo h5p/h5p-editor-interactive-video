@@ -1326,10 +1326,12 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }
 
     // Run validate on interactions to trigger the storing of values
-    for (var i = 0; i < this.IV.interactions.length; i++) {
-      var interaction = this.IV.interactions[i];
-      for (var j = 0; j < interaction.children.length; j++) {
-        interaction.children[j].validate();
+    if (this.IV) {
+      for (var i = 0; i < this.IV.interactions.length; i++) {
+        var interaction = this.IV.interactions[i];
+        for (var j = 0; j < interaction.children.length; j++) {
+          interaction.children[j].validate();
+        }
       }
     }
 
