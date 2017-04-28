@@ -452,7 +452,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       // Set size in em
       that.interaction.setSize(event.data.width, event.data.height);
 
-      if (event.data.left !== undefined && event.data.top !== undefined) {
+      if (event.data.left !== undefined && event.data.top !== undefined && !that.interaction.threeSixtyElement) {
         // Set pos in %
         var containerStyle = window.getComputedStyle(that.dnb.$container[0]);
         that.interaction.setPosition(event.data.left / (parseFloat(containerStyle.width) / 100), event.data.top / (parseFloat(containerStyle.height) / 100));
@@ -506,6 +506,58 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }
 
     this.dnb.attach(this.$bar);
+
+    if (that.IV.threeSixty) {
+
+      that.IV.threeSixty.on('startMoving', function (event) {
+        if (that.dnb.dnr.active) {
+          // Resize is going on. Prevent movement
+          event.data.preventAction = true;
+          return;
+        }
+
+        if (event.data.element) {
+          // Set focus to element moving
+          that.dnb.pressed = true;
+          that.dnb.focus($(event.data.element));
+        }
+
+        if (that.dnb.focusedElement) {
+          // Hide context menu for focused element while moving
+          that.dnb.focusedElement.hideContextMenu();
+        }
+      });
+
+      that.IV.threeSixty.on('stopMoving', function (event) {
+        if (that.dnb.focusedElement) {
+          // Show context menu when element stops moving
+          that.dnb.focusedElement.showContextMenu();
+        }
+        if (event.data) {
+          that.dnb.updateCoordinates();
+
+          // TODO: If coordinates are outside of container, blur?
+          /*
+          that.dnb.focusedElement.contextMenu.trigger('contextMenuTransform', {showTransformPanel: true});
+          // Update context menu coordinates for focused element
+          var position = that.dnb.$element.position();
+          var containerPosition = that.dnb.$container.position();
+          that.dnb.focusedElement.contextMenu.updateCoordinates(position.left + containerPosition.left, position.top + containerPosition.top, event.data.yaw, event.data.pitch);
+          that.dnb.focusedElement.resizeContextMenu(position.left);
+          */
+
+          // Find interaction and update position
+          for (var i = 0; i < that.IV.interactions.length; i++) {
+            var $interaction = that.IV.interactions[i].getElement();
+            if ($interaction && $interaction[0] === that.dnb.$element[0]) {
+              that.IV.interactions[i].setPosition(event.data.yaw, event.data.pitch);
+              break;
+            }
+          }
+        }
+      });
+
+    }
   };
 
   /**
@@ -920,6 +972,12 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       lock: (libraryName === 'H5P.Image'),
       disableResize: (libraryName === 'H5P.Link') || interaction.isButton()
     };
+    if (interaction.threeSixtyElement) {
+      options.buttonWhitelist = ['Edit', 'Remove'];
+      options.hasDimensions = false;
+      options.hasCoordinates = false;
+      options.hasDND = false;
+    }
 
     if (!interaction.isButton()) {
       // Add overlay
@@ -953,10 +1011,14 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       if (that.dnb !== undefined) {
         that.openInteractionDialog(interaction);
       }
-    }).focus(function () {
-      // On focus, show overlay
-      that.$focusHandler.addClass('show');
-    });
+    })
+
+    if (!that.IV.threeSixty) {
+      $interaction.focus(function () {
+        // On focus, show overlay
+        that.$focusHandler.addClass('show');
+      });
+    }
   };
 
   /**
@@ -1166,6 +1228,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           to: from + 10
         }
       };
+      /*if (self.IV.threeSixty) {
+        var threePosition = self.IV.threeSixty.getCurrentPosition();
+        params.x = threePosition.yaw;
+        params.y = threePosition.pitch;
+      }*/
       if (options.action) {
         params.action = options.action;
         params.displayType = options.displayType ? options.displayType : 'poster';
@@ -1205,20 +1272,22 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       params.duration.to = duration;
     }
 
-    // Make sure we don't overlap another visible element
-    var size = window.getComputedStyle(this.IV.$videoWrapper[0]);
-    var widthToPx = parseFloat(size.width) / 100;
-    var heightToPx = parseFloat(size.height) / 100;
-    var pos = {
-      x: params.x * widthToPx,
-      y: params.y * heightToPx
-    };
-    this.dnb.avoidOverlapping(pos, {
-      width: params.width * this.IV.scaledFontSize,
-      height: params.height * this.IV.scaledFontSize,
-    });
-    params.x = pos.x / widthToPx;
-    params.y = pos.y / heightToPx;
+    //if (!self.IV.threeSixty) {
+      // Make sure we don't overlap another visible element
+      var size = window.getComputedStyle(this.IV.$videoWrapper[0]);
+      var widthToPx = parseFloat(size.width) / 100;
+      var heightToPx = parseFloat(size.height) / 100;
+      var pos = {
+        x: params.x * widthToPx,
+        y: params.y * heightToPx
+      };
+      this.dnb.avoidOverlapping(pos, {
+        width: params.width * this.IV.scaledFontSize,
+        height: params.height * this.IV.scaledFontSize,
+      });
+      params.x = pos.x / widthToPx;
+      params.y = pos.y / heightToPx;
+    //}
 
     self.params.interactions.push(params);
     var i = self.params.interactions.length - 1;
