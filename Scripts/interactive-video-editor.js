@@ -44,6 +44,14 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       });
     });
 
+    this.findField('video/threeSixty', function (field) {
+      that.setThreeSixty(field.value);
+
+      field.changes.push(function () {
+        that.setThreeSixty(field.value);
+      });
+    });
+
     this.params = $.extend({
       interactions: [],
       bookmarks: []
@@ -136,7 +144,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           files: this.video,
           startScreenOptions: {
             poster: this.poster
-          }
+          },
+          threeSixty: this.threeSixty
         },
         assets: this.params
       }
@@ -691,6 +700,21 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       interactionFields.visuals.$group.toggleClass('hide', parameters.displayType !== 'poster');
     }
 
+    if (this.IV.threeSixty) {
+      interactionFields.threeSixty.changes.push(function () {
+        if (interactionFields.threeSixty.value) {
+          // Move to center of camera
+          var threePosition = self.IV.threeSixty.getCurrentPosition();
+          parameters.x = threePosition.yaw;
+          parameters.y = threePosition.pitch;
+        }
+        else {
+          parameters.x = 47.813153766;
+          parameters.y = 46.112273361;
+        }
+      });
+    }
+
     // Create require completion instances for content types with scores.
     // Summary is filtered out because it can't be retried.
     var eligibleForRequireCompletion = InteractiveVideoEditor.XAPI_QUESTION_TYPES
@@ -1206,7 +1230,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @returns {H5P.jQuery}
    */
   InteractiveVideoEditor.prototype.addInteraction = function (library, options) {
-    this.IV.$overlay.addClass('h5p-visible');
+    if (!this.IV.threeSixty) {
+      this.IV.$overlay.addClass('h5p-visible');
+    }
     options = options || {};
     var self = this;
     self.IV.video.pause();
@@ -1228,11 +1254,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           to: from + 10
         }
       };
-      /*if (self.IV.threeSixty) {
-        var threePosition = self.IV.threeSixty.getCurrentPosition();
-        params.x = threePosition.yaw;
-        params.y = threePosition.pitch;
-      }*/
       if (options.action) {
         params.action = options.action;
         params.displayType = options.displayType ? options.displayType : 'poster';
@@ -1272,7 +1293,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       params.duration.to = duration;
     }
 
-    //if (!self.IV.threeSixty) {
+    if (!params.threeSixty) {
       // Make sure we don't overlap another visible element
       var size = window.getComputedStyle(this.IV.$videoWrapper[0]);
       var widthToPx = parseFloat(size.width) / 100;
@@ -1287,7 +1308,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       });
       params.x = pos.x / widthToPx;
       params.y = pos.y / heightToPx;
-    //}
+    }
 
     self.params.interactions.push(params);
     var i = self.params.interactions.length - 1;
@@ -1319,6 +1340,17 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    */
   InteractiveVideoEditor.prototype.setPoster = function (poster) {
     this.poster = poster;
+
+    if (this.IV !== undefined) {
+      delete this.IV;
+    }
+  };
+
+  /**
+   * Enable or disabled 360 mode
+   */
+  InteractiveVideoEditor.prototype.setThreeSixty = function (threeSixty) {
+    this.threeSixty = threeSixty;
 
     if (this.IV !== undefined) {
       delete this.IV;
