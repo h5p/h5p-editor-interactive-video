@@ -123,7 +123,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     });
 
     if (this.video === undefined) {
-      this.$editor.html(t('selectVideo')).removeClass('h5p-interactive-video');
+      this.$editor.html(this.noVideoSourceMessage).removeClass('h5p-interactive-video');
       return;
     }
 
@@ -1311,7 +1311,14 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @returns {string}
    */
   InteractiveVideoEditor.prototype.createHtml = function () {
-    return H5PEditor.createItem(this.field.widget, '<div class="h5peditor-interactions">' + t('selectVideo') + '</div>');
+    return H5PEditor.createItem(this.field.widget, '<div class="h5peditor-interactions"></div>');
+  };
+
+  InteractiveVideoEditor.prototype.noVideoSourceMessage = function () {
+    var html = '<img src="../images/no-video-source.svg" alt="No video source">' +
+               '<div>' + t('noVideoSource') + '</div>' +
+               '<div>' + t('selectVideo') + '</div>';
+    return html;
   };
 
   /**
@@ -1429,6 +1436,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 H5PEditor.language['H5PEditor.InteractiveVideo'] = {
   libraryStrings: {
     selectVideo: 'You must select a video before adding interactions.',
+    noVideoSource: 'No Video Source',
     notVideoField: '":path" is not a video.',
     notImageField: '":path" is not a image.',
     insertElement: 'Click and drag to place :type',

@@ -551,10 +551,13 @@
 .h5p-interactivevideo-editor .group.field-video > .content {
   padding-bottom: 0;
 }
-.h5peditor-interactions {
-  font-weight: 600;
-  padding: 20px 20px 0 20px;
-  color: darkred;
+.h5peditor-interactions:not(.h5p-interactive-video) {
+  margin: 1.6em;
+  padding: 2.8em;
+  color: white;
+  background-color: black;
+  text-align: center;
+  background-image: url('images/no-video-source.svg');
 }
 .h5peditor-interactions.h5p-interactive-video {
   font-weight: inherit;
