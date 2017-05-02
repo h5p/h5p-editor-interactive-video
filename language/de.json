@@ -1,6 +1,7 @@
 {
   "libraryStrings": {
     "selectVideo": "Es muss ein Video ausgewählt werden, bevor eine Interaktion hinzugefügt werden kann.",
+    "noVideoSource": "No Video Source",
     "notVideoField": "\":path\" ist kein Video.",
     "notImageField": "\":path\" ist kein Bild.",
     "insertElement": "Klicken und in Position bringen :type",

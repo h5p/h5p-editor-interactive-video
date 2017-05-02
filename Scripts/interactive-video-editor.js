@@ -123,7 +123,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     });
 
     if (this.video === undefined) {
-      this.$editor.html(this.noVideoSourceMessage).removeClass('h5p-interactive-video');
+      this.$editor.html(this.noVideoSourceMessage(this.parent)).removeClass('h5p-interactive-video');
       return;
     }
 
@@ -1305,6 +1305,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }).appendTo('.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5peditor-label-wrapper > .h5peditor-label');
     self.startGuidedTour();
   };
+
   /**
    * Create HTML for the field.
    *
@@ -1314,11 +1315,38 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     return H5PEditor.createItem(this.field.widget, '<div class="h5peditor-interactions"></div>');
   };
 
-  InteractiveVideoEditor.prototype.noVideoSourceMessage = function () {
-    var html = '<img src="../images/no-video-source.svg" alt="No video source">' +
-               '<div>' + t('noVideoSource') + '</div>' +
-               '<div>' + t('selectVideo') + '</div>';
-    return html;
+  /**
+   * Create HTML for the no video source message.
+   *
+   * @param {Object} parent
+   * @returns {jQuery}
+   */
+  InteractiveVideoEditor.prototype.noVideoSourceMessage = function (parent) {
+      var $html = $('<div/>');
+
+      var $icon = $('<div/>', {
+        'class': 'h5p-no-video-icon'
+      }).appendTo($html);
+
+      var $title = $('<div/>', {
+        'class': 'h5p-no-video-title',
+        'text': t('noVideoSource')
+      }).appendTo($html);
+
+      var $text = $('<div/>', {
+        'class': 'h5p-no-video-text',
+        'text': t('selectVideo')
+      }).appendTo($html);
+
+      var $button = $('<button/>', {
+        'class': 'h5p-no-video-button h5p-joubelui-button',
+        'type': 'button',
+        'text': t('tourButtonBack')
+      }).on('click', function () {
+        parent.$tabs[0].click()
+      }).appendTo($html);
+
+    return $html;
   };
 
   /**
