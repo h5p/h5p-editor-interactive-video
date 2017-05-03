@@ -884,6 +884,26 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         // Update visuals
         $interaction.appendTo(that.IV.$overlay);
       });
+
+      newDnbElement.contextMenu.on('contextMenuSendToBack', function () {
+        // Find interaction index
+        var oldZ;
+        for (var i = 0; i < that.IV.interactions.length; i++) {
+          if (that.IV.interactions[i] === interaction) {
+            oldZ = i;
+            break;
+          }
+        }
+
+        // Add to end of params
+        that.params.interactions.unshift(that.params.interactions.splice(oldZ, 1)[0]);
+
+        // Update internally for IV player
+        that.IV.interactions.unshift(that.IV.interactions.splice(oldZ, 1)[0]);
+
+        // Update visuals
+        $interaction.prependTo(that.IV.$overlay);
+      });
     }
   };
 
@@ -1306,10 +1326,12 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }
 
     // Run validate on interactions to trigger the storing of values
-    for (var i = 0; i < this.IV.interactions.length; i++) {
-      var interaction = this.IV.interactions[i];
-      for (var j = 0; j < interaction.children.length; j++) {
-        interaction.children[j].validate();
+    if (this.IV) {
+      for (var i = 0; i < this.IV.interactions.length; i++) {
+        var interaction = this.IV.interactions[i];
+        for (var j = 0; j < interaction.children.length; j++) {
+          interaction.children[j].validate();
+        }
       }
     }
 
