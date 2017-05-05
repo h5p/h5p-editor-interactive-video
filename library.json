@@ -2,8 +2,8 @@
   "title": "Interactive Video Editor",
   "license": "MIT",
   "majorVersion": 1,
-  "minorVersion": 15,
-  "patchVersion": 1,
+  "minorVersion": 16,
+  "patchVersion": 0,
   "runnable": 0,
   "machineName": "H5PEditor.InteractiveVideo",
   "author": "Joubel",
@@ -85,7 +85,7 @@
     {
       "machineName": "H5P.InteractiveVideo",
       "majorVersion": 1,
-      "minorVersion": 15
+      "minorVersion": 16
     },
     {
       "machineName": "H5P.Summary",
@@ -125,7 +125,7 @@
     {
       "machineName": "H5P.DragQuestion",
       "majorVersion": 1,
-      "minorVersion": 9
+      "minorVersion": 10
     },
     {
       "machineName": "H5P.MarkTheWords",
@@ -156,6 +156,11 @@
       "machineName": "H5P.Questionnaire",
       "majorVersion": 1,
       "minorVersion": 1
+    },
+    {
+      "machineName": "H5P.FontIcons",
+      "majorVersion": 1,
+      "minorVersion": 0
     }
   ]
 }
