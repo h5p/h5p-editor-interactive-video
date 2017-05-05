@@ -1325,26 +1325,31 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       var $html = $('<div/>');
 
       var $icon = $('<div/>', {
-        'class': 'h5p-no-video-icon'
-      }).appendTo($html);
+        'class': 'h5p-no-video-icon',
+        appendTo: $html
+      });
 
       var $title = $('<div/>', {
         'class': 'h5p-no-video-title',
-        'text': t('noVideoSource')
-      }).appendTo($html);
+        text: t('noVideoSource'),
+        appendTo: $html
+      });
 
       var $text = $('<div/>', {
         'class': 'h5p-no-video-text',
-        'text': t('selectVideo')
-      }).appendTo($html);
+        text: t('selectVideo'),
+        appendTo: $html
+      });
 
       var $button = $('<button/>', {
         'class': 'h5p-no-video-button h5p-joubelui-button',
-        'type': 'button',
-        'text': t('tourButtonBack')
-      }).on('click', function () {
-        parent.$tabs[0].click()
-      }).appendTo($html);
+        type: 'button',
+        text: t('tourButtonBack'),
+        click: function () {
+          parent.$tabs[0].click()
+        },
+        appendTo: $html
+      });
 
     return $html;
   };

@@ -571,10 +571,6 @@
   font-size: 1.7em;
 }
 
-.h5peditor-interactions .h5p-no-video-text {
-  font-size: 1em;
-}
-
 .h5peditor-interactions .h5p-no-video-button {
   margin: 1em 0 1.5em 0;
   padding: 0.8em 1.8em;
@@ -584,16 +580,8 @@
 }
 
 .h5peditor-interactions .h5p-no-video-button:before {
-  font-family: 'h5pFontIcons';
-  content: "\e910";
-  -webkit-backface-visibility: hidden;
-  -ms-transform: rotate(180deg);
-  -webkit-transform: rotate(180deg);
-  transform: rotate(180deg);
-  display: block;
-  float: left;
-  padding: 0;
-  font-size: 1.2em;
+  font-family: 'H5PFontAwesome4';
+  content: "\f060";
 }
 
 .h5peditor-interactions.h5p-interactive-video {
