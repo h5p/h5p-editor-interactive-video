@@ -582,6 +582,12 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       }
     }
 
+    // Set default displayType of images to poster
+    if (type === 'H5P.Image') {
+      var field = findField('displayType', interactionFields);
+      field.default = 'poster';
+    }
+
     H5PEditor.processSemanticsChunk(interactionFields, parameters, $semanticFields, self);
 
     self.setLibraryName(interaction.$form, type);
@@ -620,18 +626,26 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       // Remove label when displayType is poster
       var $displayTypeRadios = $('.h5p-image-radio-button-group input:radio', interaction.$form);
       var $labelWrapper = interactionFields.label.$item;
-      var $buttonOnMobile = interactionFields.buttonOnMobile.$item
+      var $buttonOnMobile = interactionFields.buttonOnMobile.$item;
+
       $displayTypeRadios.change(function () {
         $labelWrapper.toggleClass('hide', !interaction.isButton());
-        $buttonOnMobile.toggleClass('hide', interaction.isButton());
         if (!interaction.isButton() && interactionFields.pause.$item) {
           interactionFields.pause.$input[0].checked = true;
           interactionFields.pause.$input.trigger('change');
         }
+
+        if (type == 'H5P.Image') {
+          $buttonOnMobile.toggleClass('hide', interaction.isButton());
+        }
       });
 
       $labelWrapper.toggleClass('hide', !interaction.isButton());
-      $buttonOnMobile.addClass((interaction.isButton() ? 'hide' : ''));
+      if (type == 'H5P.Image') {
+        $buttonOnMobile.addClass((interaction.isButton() ? 'hide' : ''));
+      } else {
+        $buttonOnMobile.remove();
+      }
     }
 
     if (interactionFields.visuals.$group) {
