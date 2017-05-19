@@ -626,7 +626,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       // Remove label when displayType is poster
       var $displayTypeRadios = $('.h5p-image-radio-button-group input:radio', interaction.$form);
       var $labelWrapper = interactionFields.label.$item;
-      var $buttonOnMobile = interactionFields.buttonOnMobile.$item;
 
       $displayTypeRadios.change(function () {
         $labelWrapper.toggleClass('hide', !interaction.isButton());
@@ -634,14 +633,19 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           interactionFields.pause.$input[0].checked = true;
           interactionFields.pause.$input.trigger('change');
         }
-
-        if (type == 'H5P.Image') {
-          $buttonOnMobile.toggleClass('hide', interaction.isButton());
-        }
       });
 
       $labelWrapper.toggleClass('hide', !interaction.isButton());
+    }
+
+    if (interactionFields.buttonOnMobile.$item) {
+      var $buttonOnMobile = interactionFields.buttonOnMobile.$item;
+
       if (type == 'H5P.Image') {
+        $displayTypeRadios.change(function () {
+          $buttonOnMobile.toggleClass('hide', interaction.isButton());
+        });
+
         $buttonOnMobile.addClass((interaction.isButton() ? 'hide' : ''));
       } else {
         $buttonOnMobile.remove();
