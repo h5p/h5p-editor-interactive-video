@@ -131,7 +131,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     });
 
     if (this.video === undefined) {
-      this.$editor.html(t('selectVideo')).removeClass('h5p-interactive-video');
+      this.$editor.html(this.noVideoSourceMessage(this.parent)).removeClass('h5p-interactive-video');
       return;
     }
 
@@ -643,6 +643,12 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       }
     }
 
+    // Set default displayType of images to poster
+    if (type === 'H5P.Image') {
+      var field = findField('displayType', interactionFields);
+      field.default = 'poster';
+    }
+
     H5PEditor.processSemanticsChunk(interactionFields, parameters, $semanticFields, self);
 
     self.setLibraryName(interaction.$form, type);
@@ -681,6 +687,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       // Remove label when displayType is poster
       var $displayTypeRadios = $('.h5p-image-radio-button-group input:radio', interaction.$form);
       var $labelWrapper = interactionFields.label.$item;
+
       $displayTypeRadios.change(function () {
         $labelWrapper.toggleClass('hide', !interaction.isButton());
         if (!interaction.isButton() && interactionFields.pause.$item) {
@@ -690,6 +697,20 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       });
 
       $labelWrapper.toggleClass('hide', !interaction.isButton());
+    }
+
+    if (interactionFields.buttonOnMobile.$item) {
+      var $buttonOnMobile = interactionFields.buttonOnMobile.$item;
+
+      if (type == 'H5P.Image') {
+        $displayTypeRadios.change(function () {
+          $buttonOnMobile.toggleClass('hide', interaction.isButton());
+        });
+
+        $buttonOnMobile.addClass((interaction.isButton() ? 'hide' : ''));
+      } else {
+        $buttonOnMobile.remove();
+      }
     }
 
     if (interactionFields.visuals.$group) {
@@ -1406,13 +1427,53 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }).appendTo('.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5peditor-label-wrapper > .h5peditor-label');
     self.startGuidedTour();
   };
+
   /**
    * Create HTML for the field.
    *
    * @returns {string}
    */
   InteractiveVideoEditor.prototype.createHtml = function () {
-    return H5PEditor.createItem(this.field.widget, '<div class="h5peditor-interactions">' + t('selectVideo') + '</div>');
+    return H5PEditor.createItem(this.field.widget, '<div class="h5peditor-interactions"></div>');
+  };
+
+  /**
+   * Create HTML for the no video source message.
+   *
+   * @param {Object} parent
+   * @returns {jQuery}
+   */
+  InteractiveVideoEditor.prototype.noVideoSourceMessage = function (parent) {
+    var $html = $('<div/>');
+
+    var $icon = $('<div/>', {
+      'class': 'h5p-no-video-icon',
+      appendTo: $html
+    });
+
+    var $title = $('<div/>', {
+      'class': 'h5p-no-video-title',
+      text: t('noVideoSource'),
+      appendTo: $html
+    });
+
+    var $text = $('<div/>', {
+      'class': 'h5p-no-video-text',
+      text: t('selectVideo'),
+      appendTo: $html
+    });
+
+    var $button = $('<button/>', {
+      'class': 'h5p-no-video-button h5p-joubelui-button',
+      type: 'button',
+      text: t('tourButtonBack'),
+      click: function () {
+        parent.$tabs[0].click()
+      },
+      appendTo: $html
+    });
+
+    return $html;
   };
 
   /**
@@ -1530,6 +1591,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 H5PEditor.language['H5PEditor.InteractiveVideo'] = {
   libraryStrings: {
     selectVideo: 'You must select a video before adding interactions.',
+    noVideoSource: 'No Video Source',
     notVideoField: '":path" is not a video.',
     notImageField: '":path" is not a image.',
     insertElement: 'Click and drag to place :type',

@@ -1,6 +1,7 @@
 {
   "libraryStrings": {
     "selectVideo": "Es muss ein Video ausgewählt werden, bevor eine Interaktion hinzugefügt werden kann.",
+    "noVideoSource": "No Video Source",
     "notVideoField": "\":path\" ist kein Video.",
     "notImageField": "\":path\" ist kein Bild.",
     "insertElement": "Klicken und in Position bringen :type",
@@ -32,6 +33,9 @@
     "tourStepCanvasPreviewText": "Drucken des Abspielen Buttons, um eine Vorschau des interaktiven Videos während dem Bearbeiten zu sehen.",
     "tourStepCanvasSaveTitle": "Speichern und ansehen",
     "tourStepCanvasSaveText": "Wenn das Hinzufügen von Interaktionen zu einem Video beendet ist, dann kann das Ergebnis mit einem Klick auf Speichern/Erstellen angesehen werden.",
-    "tourStepSummaryText": "Dieses optionale Zusammenfassungsquiz wird nach dem Video erscheinen."
+    "tourStepSummaryText": "Dieses optionale Zusammenfassungsquiz wird nach dem Video erscheinen.",
+    "fullScoreRequiredPause": "\"Full score required\" option requires that \"Pause\" is enabled.",
+    "fullScoreRequiredRetry": "\"Full score required\" option requires that \"Retry\" is enabled.",
+    "fullScoreRequiredTimeFrame": "There already exists an interaction that requires full score at the same interval as this interaction.<br> Only one of the interactions will be required to answer."
   }
 }

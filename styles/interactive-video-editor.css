@@ -551,11 +551,39 @@
 .h5p-interactivevideo-editor .group.field-video > .content {
   padding-bottom: 0;
 }
-.h5peditor-interactions {
-  font-weight: 600;
-  padding: 20px 20px 0 20px;
-  color: darkred;
+.h5peditor-interactions:not(.h5p-interactive-video) {
+  margin: 1.6em;
+  padding: 1em;
+  color: white;
+  background-color: black;
+  text-align: center;
 }
+
+.h5peditor-interactions .h5p-no-video-icon {
+  width: 8em;
+  height: 8em;
+  margin: 0 auto;
+  background-image: url('../images/no-video-source.svg');
+  background-repeat: no-repeat;
+}
+
+.h5peditor-interactions .h5p-no-video-title {
+  font-size: 1.7em;
+}
+
+.h5peditor-interactions .h5p-no-video-button {
+  margin: 1em 0 1.5em 0;
+  padding: 0.8em 1.8em;
+  font-weight: 100;
+  font-size: 1em;
+  line-height: 1em;
+}
+
+.h5peditor-interactions .h5p-no-video-button:before {
+  font-family: 'H5PFontAwesome4';
+  content: "\f060";
+}
+
 .h5peditor-interactions.h5p-interactive-video {
   font-weight: inherit;
   padding: 0;
