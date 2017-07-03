@@ -281,7 +281,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }
 
     // Hide dialog
-    if (this.IV.controls.$more.hasClass('h5p-active')) {
+    if (this.IV.controls.$more.attr('aria-expanded') === 'true') {
       this.IV.controls.$more.click();
     }
     else {
