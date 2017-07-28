@@ -151,6 +151,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       this.processInteraction(this.IV.interactions[i], this.params.interactions[i]);
     }
     this.IV.on('controls', function () {
+      if (!that.IV) {
+        return; // Video source or poster may have changed – abort!
+      }
+
       // Add DragNBar.
       that.$bar = $('<div class="h5p-interactive-video-dragnbar">' + t('loading') + '</div>').prependTo(that.$editor);
       var interactions = findField('interactions', that.field.fields);
