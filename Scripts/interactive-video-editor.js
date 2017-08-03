@@ -151,6 +151,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       this.processInteraction(this.IV.interactions[i], this.params.interactions[i]);
     }
     this.IV.on('controls', function () {
+      if (!that.IV) {
+        return; // Video source or poster may have changed – abort!
+      }
+
       // Add DragNBar.
       that.$bar = $('<div class="h5p-interactive-video-dragnbar">' + t('loading') + '</div>').prependTo(that.$editor);
       var interactions = findField('interactions', that.field.fields);
@@ -281,7 +285,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }
 
     // Hide dialog
-    if (this.IV.controls.$more.hasClass('h5p-active')) {
+    if (this.IV.controls.$more.attr('aria-expanded') === 'true') {
       this.IV.controls.$more.click();
     }
     else {
@@ -582,6 +586,12 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       }
     }
 
+    // Set default displayType of images to poster
+    if (type === 'H5P.Image') {
+      var field = findField('displayType', interactionFields);
+      field.default = 'poster';
+    }
+
     H5PEditor.processSemanticsChunk(interactionFields, parameters, $semanticFields, self);
 
     self.setLibraryName(interaction.$form, type);
@@ -620,6 +630,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       // Remove label when displayType is poster
       var $displayTypeRadios = $('.h5p-image-radio-button-group input:radio', interaction.$form);
       var $labelWrapper = interactionFields.label.$item;
+
       $displayTypeRadios.change(function () {
         $labelWrapper.toggleClass('hide', !interaction.isButton());
         if (!interaction.isButton() && interactionFields.pause.$item) {
@@ -629,6 +640,20 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       });
 
       $labelWrapper.toggleClass('hide', !interaction.isButton());
+    }
+
+    if (interactionFields.buttonOnMobile.$item) {
+      var $buttonOnMobile = interactionFields.buttonOnMobile.$item;
+
+      if (type == 'H5P.Image') {
+        $displayTypeRadios.change(function () {
+          $buttonOnMobile.toggleClass('hide', interaction.isButton());
+        });
+
+        $buttonOnMobile.addClass((interaction.isButton() ? 'hide' : ''));
+      } else {
+        $buttonOnMobile.remove();
+      }
     }
 
     if (interactionFields.visuals.$group) {
@@ -1156,6 +1181,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     var from = Math.floor(self.IV.video.getCurrentTime());
     if (!params) {
+      var type = library.split(' ')[0];
+
       params = {
         x: 47.813153766, // Center button
         y: 46.112273361,
@@ -1164,7 +1191,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         duration: {
           from: from,
           to: from + 10
-        }
+        },
+        libraryTitle: self.findLibraryTitle(type)
       };
       if (options.action) {
         params.action = options.action;
@@ -1181,7 +1209,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         params.height = options.height * this.pToEm;
       }
       params.action.subContentId = H5P.createUUID();
-      var type = library.split(' ')[0];
+
       if (type === 'H5P.Nil') {
         params.label = 'Lorem ipsum dolor sit amet...';
       }
