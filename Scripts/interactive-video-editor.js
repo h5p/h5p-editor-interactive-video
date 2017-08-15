@@ -874,6 +874,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     var newDnbElement = that.dnb.add($interaction, interaction.getClipboardData(), options);
     var createdNewElement = interaction.setDnbElement(newDnbElement);
 
+    if (!interaction.isButton()) {
+      // For posters, we don't want the elements inside the interaction to be tabbable in the editor.
+      $interaction.find('.h5p-interaction-inner').find('*').attr('tabindex', '-1');
+    }
+
     // New DragNBarElement was set, register listeners
     if (createdNewElement) {
       newDnbElement.contextMenu.on('contextMenuEdit', function () {
