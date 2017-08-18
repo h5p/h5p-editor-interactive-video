@@ -636,3 +636,7 @@
 .h5p-interactivevideo-editor .field.wizard .field.interactiveVideo {
   margin-top: 5px;
 }
+
+.h5p-interactivevideo-editor .h5p-interactive-video .h5p-video-wrapper.h5p-youtube {
+  overflow: hidden !important;
+}
