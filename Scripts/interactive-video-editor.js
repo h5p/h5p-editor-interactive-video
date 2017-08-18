@@ -195,6 +195,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
         // No focused element, remove overlay
         that.$focusHandler.removeClass('show');
+        that.IV.$overlay.removeClass('h5p-visible');
       }
     }).appendTo(this.IV.$videoWrapper);
 
