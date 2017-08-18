@@ -497,7 +497,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       if (interaction.getElement()) {
         var libraryName = interaction.getLibraryName();
         var options = {
-          lock: (libraryName === 'H5P.Image'),
+          cornerLock: (libraryName === 'H5P.Image'),
           disableResize: (libraryName === 'H5P.Link') || interaction.isButton()
         };
         that.addInteractionToDnb(interaction, interaction.getElement(), options);
@@ -947,7 +947,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     var that = this;
     var libraryName = interaction.getLibraryName();
     var options = {
-      lock: (libraryName === 'H5P.Image'),
+      cornerLock: (libraryName === 'H5P.Image'),
       disableResize: (libraryName === 'H5P.Link') || interaction.isButton()
     };
 
