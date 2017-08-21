@@ -463,6 +463,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       }
     });
 
+    // Make sure that dialog can't be closed without validation
+    that.dnb.dialog.on('open', function () {
+      that.dnb.dialog.disableOverlay = true;
+    });
+
     this.dnb.dnd.startMovingCallback = function () {
       that.dnb.dnd.min = {x: 0, y: 0};
       that.dnb.dnd.max = {
