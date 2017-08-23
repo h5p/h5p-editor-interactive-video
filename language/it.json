@@ -1,8 +1,8 @@
 {
   "libraryStrings":{
-    "selectVideo":"selectVideo",
-    "noVideoSource":"noVideoSource",
-    "notVideoField":"notVideoField",
+    "selectVideo":"Devi selezionare un video prima di aggiungere un'interazione",
+    "noVideoSource":"Nessun sorgente video",
+    "notVideoField":"Campo non video",
     "notImageField":"notImageField",
     "insertElement":"insertElement",
     "popupTitle":"popupTitle",
