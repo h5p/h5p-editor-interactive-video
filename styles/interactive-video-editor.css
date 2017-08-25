@@ -640,3 +640,8 @@
 .h5p-interactivevideo-editor .h5p-interactive-video .h5p-video-wrapper.h5p-youtube {
   overflow: hidden !important;
 }
+
+/* Remove option for full enable full screen in Drag Question */
+.h5p-interactivevideo-editor .h5p-dragquestion-editor .field-name-enableFullScreen {
+  display: none;
+}
