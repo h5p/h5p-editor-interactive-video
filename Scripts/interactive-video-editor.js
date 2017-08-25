@@ -195,6 +195,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
         // No focused element, remove overlay
         that.$focusHandler.removeClass('show');
+        that.IV.$overlay.removeClass('h5p-visible');
       }
     }).appendTo(this.IV.$videoWrapper);
 
@@ -461,6 +462,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         var containerStyle = window.getComputedStyle(that.dnb.$container[0]);
         that.interaction.setPosition(event.data.left / (parseFloat(containerStyle.width) / 100), event.data.top / (parseFloat(containerStyle.height) / 100));
       }
+    });
+
+    // Make sure that dialog can't be closed without validation
+    that.dnb.dialog.on('open', function () {
+      that.dnb.dialog.disableOverlay = true;
     });
 
     this.dnb.dnd.startMovingCallback = function () {
