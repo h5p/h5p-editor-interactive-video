@@ -1024,7 +1024,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       interaction.fit = true;
 
       // Check if we should show again
-      interaction.toggle(this.IV.video.getCurrentTime());
+      interaction.toggle(this.IV.video.getCurrentTime(), true);
 
       if (this.dnb) {
         this.dnb.blurAll();
