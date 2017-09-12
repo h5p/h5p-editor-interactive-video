@@ -72,8 +72,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     // When wizard changes step
     parent.on('stepChanged', function (event) {
       that.currentTabIndex = event.data.id;
-      if (event.data.name === 'summary') {
-        // Start summary guide
+
+      if (H5P.$body.hasClass('shepherd-active')) {
+        H5P.$body.find('.h5peditor-guided-tour').click();
+      } else {
         that.startGuidedTour();
       }
     });
@@ -1424,6 +1426,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     if (this.dnb !== undefined) {
       this.dnb.remove();
     }
+    H5P.$body.find(".shepherd-step").remove();
     this.$item.remove();
   };
 
