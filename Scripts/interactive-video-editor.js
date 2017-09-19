@@ -1315,6 +1315,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   InteractiveVideoEditor.prototype.startGuidedTour = function (force) {
     if (InteractiveVideoEditor.showGuidedTour) {
       H5PEditor.InteractiveVideo.GuidedTours.start(this.currentTabIndex, force || false, t);
+      H5P.$body.find(".shepherd-step").css('z-index', 1);
     }
   };
 
