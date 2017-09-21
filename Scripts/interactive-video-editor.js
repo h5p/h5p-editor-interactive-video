@@ -72,12 +72,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     // When wizard changes step
     parent.on('stepChanged', function (event) {
       that.currentTabIndex = event.data.id;
-
-      if (H5P.$body.hasClass('shepherd-active')) {
-        H5P.$body.find('.h5peditor-guided-tour').click();
-      } else {
-        that.startGuidedTour();
-      }
+      that.startGuidedTour(H5PEditor.InteractiveVideo.GuidedTours.isOpen());
     });
   }
 
@@ -1316,7 +1311,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     if (InteractiveVideoEditor.showGuidedTour) {
       H5PEditor.InteractiveVideo.GuidedTours.start(this.currentTabIndex, force || false, t);
       // Make sure the guided tour stays behind other important popups
-      H5P.$body.find(".shepherd-step").css('z-index', 1);
     }
   };
 
@@ -1428,7 +1422,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     if (this.dnb !== undefined) {
       this.dnb.remove();
     }
-    H5P.$body.find(".shepherd-step").remove();
+    H5PEditor.InteractiveVideo.GuidedTours.remove();
     this.$item.remove();
   };
 

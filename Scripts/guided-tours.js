@@ -147,5 +147,30 @@ H5PEditor.InteractiveVideo.GuidedTours = (function ($) {
     }
   };
 
+  /**
+   * Checks if any guided tour is open
+   *
+   * @method GuidedTours.isOpen
+   * @static
+   */
+  GuidedTours.isOpen = function () {
+    for (var i = 0; i < GuidedTours.tours.length; i++) {
+      if (GuidedTours.tours[i].instance && GuidedTours.tours[i].instance.isOpen()) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  /**
+   * Removes all guided tours
+   *
+   * @method GuidedTours.remove
+   * @static
+   */
+  GuidedTours.remove = function () {
+    $('body').find('.shepherd-step').remove();
+  };
+
   return GuidedTours;
 })(H5P.jQuery);
