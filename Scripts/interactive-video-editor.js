@@ -160,6 +160,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       this.processInteraction(this.IV.interactions[i], this.params.interactions[i]);
     }
     this.IV.on('controls', function () {
+      if (!that.IV) {
+        return; // Video source or poster may have changed – abort!
+      }
+
       // Add DragNBar.
       that.$bar = $('<div class="h5p-interactive-video-dragnbar">' + t('loading') + '</div>').prependTo(that.$editor);
       var interactions = findField('interactions', that.field.fields);
@@ -200,6 +204,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
         // No focused element, remove overlay
         that.$focusHandler.removeClass('show');
+        that.IV.$overlay.removeClass('h5p-visible');
       }
     }).appendTo(this.IV.$videoWrapper);
 
@@ -290,7 +295,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }
 
     // Hide dialog
-    if (this.IV.controls.$more.hasClass('h5p-active')) {
+    if (this.IV.controls.$more.attr('aria-expanded') === 'true') {
       this.IV.controls.$more.click();
     }
     else {
@@ -468,6 +473,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       }
     });
 
+    // Make sure that dialog can't be closed without validation
+    that.dnb.dialog.on('open', function () {
+      that.dnb.dialog.disableOverlay = true;
+    });
+
     this.dnb.dnd.startMovingCallback = function () {
       that.dnb.dnd.min = {x: 0, y: 0};
       that.dnb.dnd.max = {
@@ -502,7 +512,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       if (interaction.getElement()) {
         var libraryName = interaction.getLibraryName();
         var options = {
-          lock: (libraryName === 'H5P.Image'),
+          cornerLock: (libraryName === 'H5P.Image'),
           disableResize: (libraryName === 'H5P.Link') || interaction.isButton()
         };
         that.addInteractionToDnb(interaction, interaction.getElement(), options);
@@ -946,6 +956,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     var newDnbElement = that.dnb.add($interaction, interaction.getClipboardData(), options);
     var createdNewElement = interaction.setDnbElement(newDnbElement);
 
+    if (!interaction.isButton()) {
+      // For posters, we don't want the elements inside the interaction to be tabbable in the editor.
+      $interaction.find('.h5p-interaction-inner').find('*').attr('tabindex', '-1');
+    }
+
     // New DragNBarElement was set, register listeners
     if (createdNewElement) {
       newDnbElement.contextMenu.on('contextMenuEdit', function () {
@@ -1014,7 +1029,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     var that = this;
     var libraryName = interaction.getLibraryName();
     var options = {
-      lock: (libraryName === 'H5P.Image'),
+      cornerLock: (libraryName === 'H5P.Image'),
       disableResize: (libraryName === 'H5P.Link') || interaction.isButton()
     };
     if (interaction.threeSixtyElement) {
@@ -1095,7 +1110,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       interaction.fit = true;
 
       // Check if we should show again
-      interaction.toggle(this.IV.video.getCurrentTime());
+      interaction.toggle(this.IV.video.getCurrentTime(), true);
 
       if (this.dnb) {
         this.dnb.blurAll();
@@ -1265,6 +1280,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     var from = Math.floor(self.IV.video.getCurrentTime());
     if (!params) {
+      var type = library.split(' ')[0];
+
       params = {
         x: 47.813153766, // Center button
         y: 46.112273361,
@@ -1273,7 +1290,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         duration: {
           from: from,
           to: from + 10
-        }
+        },
+        libraryTitle: self.findLibraryTitle(type)
       };
       if (options.action) {
         params.action = options.action;
@@ -1290,7 +1308,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         params.height = options.height * this.pToEm;
       }
       params.action.subContentId = H5P.createUUID();
-      var type = library.split(' ')[0];
+
       if (type === 'H5P.Nil') {
         params.label = 'Lorem ipsum dolor sit amet...';
       }
