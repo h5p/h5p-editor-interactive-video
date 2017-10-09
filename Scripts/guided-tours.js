@@ -169,7 +169,10 @@ H5PEditor.InteractiveVideo.GuidedTours = (function ($) {
    * @static
    */
   GuidedTours.remove = function () {
-    $('body').find('.shepherd-step').remove();
+    for (var i = 0; i < GuidedTours.tours.length; i++) {
+      var tour = GuidedTours.tours[i].instance;
+      tour && tour.destroy();
+    }
   };
 
   return GuidedTours;
