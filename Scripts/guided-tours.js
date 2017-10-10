@@ -154,9 +154,11 @@ H5PEditor.InteractiveVideo.GuidedTours = (function ($) {
    * @static
    */
   GuidedTours.isOpen = function () {
-    for (var i = 0; i < GuidedTours.tours.length; i++) {
-      if (GuidedTours.tours[i].instance && GuidedTours.tours[i].instance.isOpen()) {
-        return true;
+    if (GuidedTours.tours) {
+      for (var i = 0; i < GuidedTours.tours.length; i++) {
+        if (GuidedTours.tours[i].instance && GuidedTours.tours[i].instance.isOpen()) {
+          return true;
+        }
       }
     }
     return false;
