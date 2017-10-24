@@ -439,19 +439,8 @@
   display: none;
 }
 
-/* Outline on top of buttons */
-.h5p-interactivevideo-editor .h5p-interaction.h5p-dragnbar-element:hover > .h5p-interaction-button,
-.h5p-interactivevideo-editor .h5p-interaction.h5p-dragnbar-element.focused > .h5p-interaction-button {
-  outline: 1px solid #0099ff;
-}
-
 .h5p-interactivevideo-editor .h5p-interactive-video .h5p-interaction {
   outline: 0;
-}
-
-.h5p-interactivevideo-editor .h5p-interactive-video .h5p-interaction.h5p-poster:not(.h5p-nil-interaction).focused .h5p-interaction-outer,
-.h5p-interactivevideo-editor .h5p-interactive-video .h5p-interaction.h5p-poster:not(.h5p-nil-interaction):hover .h5p-interaction-outer {
-  outline: 1px solid #0099ff;
 }
 
 .h5p-interactivevideo-editor .h5p-interactive-video .h5p-interaction.h5p-poster {
