@@ -72,10 +72,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     // When wizard changes step
     parent.on('stepChanged', function (event) {
       that.currentTabIndex = event.data.id;
-      if (event.data.name === 'summary') {
-        // Start summary guide
-        that.startGuidedTour();
-      }
+      that.startGuidedTour(H5PEditor.InteractiveVideo.GuidedTours.isOpen());
     });
   }
 
@@ -1313,6 +1310,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   InteractiveVideoEditor.prototype.startGuidedTour = function (force) {
     if (InteractiveVideoEditor.showGuidedTour) {
       H5PEditor.InteractiveVideo.GuidedTours.start(this.currentTabIndex, force || false, t);
+      // Make sure the guided tour stays behind other important popups
     }
   };
 
@@ -1424,6 +1422,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     if (this.dnb !== undefined) {
       this.dnb.remove();
     }
+    H5PEditor.InteractiveVideo.GuidedTours.remove();
     this.$item.remove();
   };
 
