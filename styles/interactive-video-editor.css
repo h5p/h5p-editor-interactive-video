@@ -439,7 +439,7 @@
   display: none;
 }
 
-.h5p-interactivevideo-editor .h5p-interactive-video .h5p-interaction {
+.h5p-interactivevideo-editor .h5p-interactive-video .h5p-interaction[role="button"] {
   outline: 0;
 }
 
