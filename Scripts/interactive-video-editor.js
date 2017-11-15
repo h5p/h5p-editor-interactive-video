@@ -1332,15 +1332,17 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     this.$errors = this.$item.children('.h5p-errors');
     this.$bar = this.$item.children('.h5peditor-dragnbar');
 
-    $('<span>', {
-      'class': 'h5peditor-guided-tour',
-      html: t('tourButtonStart'),
-      click: function () {
-        self.startGuidedTour(true);
-        return false;
-      }
-    }).appendTo('.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5peditor-label-wrapper > .h5peditor-label');
-    self.startGuidedTour();
+    if (InteractiveVideoEditor.showGuidedTour) {
+      $('<span>', {
+        'class': 'h5peditor-guided-tour',
+        html: t('tourButtonStart'),
+        click: function () {
+          self.startGuidedTour(true);
+          return false;
+        }
+      }).appendTo($('.field-name-interactiveVideo > .h5peditor-label-wrapper > .h5peditor-label', $libwrap));
+      self.startGuidedTour();
+    }
   };
 
   /**
