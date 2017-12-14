@@ -1,0 +1,468 @@
+{
+  "semantics":[
+    {
+      "label":"Bideo-editore interaktiboa",
+      "fields":[
+        {
+          "label":"Igo/Jaitsi bideoa",
+          "fields":[
+            {
+              "label":"Gehitu bideo bat",
+              "description":"Klikatu hemen zure bideo interaktiboan erabili nahi duzun bideoa gehitzeko. Bideoaren esteka gehitu edo bideoaren fitxategiak kargatu ditzakezu. Bideoaren kalitate ezberdinetako hainbat bertsio gehi daitezke. Nabigatzaileekin ahalik eta bateragarritasun handiena ziurtatzeko, gehitu gutxienez bertsio bat webm edo mp4 formatuetan."
+            },
+            {
+              "label":"Hasierako pantailaren aukerak (ezinezkoa YouTube-ko bideoekin)",
+              "fields":[
+                {
+                  "label":"Bideo interaktibo honen izenburua",
+                  "default":"Bideo interaktiboa",
+                  "description":"Laburpen, estatistika eta abarretan erabilia."
+                },
+                {
+                  "label":"Ezkutatu izenburua bideoaren hasieran"
+                },
+                {
+                  "label":"Deskribapen laburra (Aukerakoa)",
+                  "description":"Aukerakoa. Erakutsi testua deskribapen laburrarekiin bideoaren hasierako pantailan. Ezinezkoa YouTube-ko bideoekin."
+                },
+                {
+                  "label":"Horma-irudia",
+                  "description":"Erabiltzaileak bideoari hasiera eman aurretik erakusten den irudia. Ezinezkoa YouTube-ko bideoekin."
+                },
+                {
+                  "label":"Bideoaren egile-eskubideak",
+                  "description":"Bideoaren egilearekin eta bertan erabilitako elementuekin lotutako egile-eskubideak."
+                }
+              ]
+            },
+            {
+              "label":"Testu-pistak (Ezinezkoa YouTube-ko bideoekin)",
+              "fields":[
+                {
+                  "label":"Testu-pista eskuragarriak",
+                  "entity":"Track",
+                  "field":{
+                    "label":"Pista",
+                    "fields":[
+                      {
+                        "label":"Pistaren etiketa",
+                        "description":"Erabiltzaileari pista anitz eskaini eta horien arteko bat aukeratu behar duenean erabiltzen da. Adibidez, \"Euskarazko azpitituluak\" azpitituluak euskaraz dituen pista baterako etiketa egokia izan liteke.",
+                        "default":"Azpitituluak"
+                      },
+                      {
+                        "label":"Testuko pista-mota",
+                        "default":"azpitituluak",
+                        "options":[
+                          {
+                            "label":"Azpitituluak"
+                          },
+                          {
+                            "label":"Azpitituluak"
+                          },
+                          {
+                            "label":"Deskribapenak"
+                          }
+                        ]
+                      },
+                      {
+                        "label":"Jatorrizko hizkuntza, azpitituluez ari garela",
+                        "default":"en",
+                        "description":"BCP 47-ko etiketa baliagarria izan behar du. 'Azpitituluak' aukeratutako testuko pista-mota baldin bada, pistari dagokion jatorrizko hizkuntza definitu behar da."
+                      },
+                      {
+                        "label":"Pistaren jatorria (WebVTT fitxategia)"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label":"Gehitu elkarrekintza",
+          "fields":[
+            {
+              "field":{
+                "fields":[
+                  {
+                    "label":"Erakutsi iraupena",
+                    "fields":[
+                      {
+                        
+                      },
+                      {
+                        
+                      }
+                    ]
+                  },
+                  {
+                    "label":"Gelditu bideoa"
+                  },
+                  {
+                    "label":"Erakutsi honela",
+                    "description":"<b>Botoia</b> zabaltzeko erabiltzaileak sakatu behar duen tolestutako elkarrekintza da. <b>Horma-irudia</b> bideoaren aurretik zuzenean erakusten den elkarrekintza zabaldua da.",
+                    "options":[
+                      {
+                        "label":"Botoia"
+                      },
+                      {
+                        "label":"Horma-irudia"
+                      }
+                    ],
+                    "default":"botoia"
+                  },
+                  {
+                    "label":"Erakutsi botoi-moduan pantaila txikietan"
+                  },
+                  {
+                    "label":"Etiketa",
+                    "description":"Elkarrekintzaren ikurraren ondoan agertzen den etiketa."
+                  },
+                  {
+                    
+                  },
+                  {
+                    
+                  },
+                  {
+                    
+                  },
+                  {
+                    
+                  },
+                  {
+                    
+                  },
+                  {
+                    
+                  },
+                  {
+                    "label":"Moldagarritasuna",
+                    "fields":[
+                      {
+                        "label":"Zuzenak diren guztietarako ekintza",
+                        "fields":[
+                          {
+                            "label":"Bilatu",
+                            "description":"Sartu denbora-kodea M:SS formatuan"
+                          },
+                          {
+                            "label":"Baimendu erabiltzaileak ez erantzun eta jarrai dezan"
+                          },
+                          {
+                            "label":"Mezua"
+                          },
+                          {
+                            "label":"Bilaketa-botoiaren etiketa"
+                          }
+                        ]
+                      },
+                      {
+                        "label":"Zuzenak ez direnetarako ekintza",
+                        "fields":[
+                          {
+                            "label":"Joan",
+                            "description":"Sartu denbora-kodea M:SS formatuan"
+                          },
+                          {
+                            "label":"Baimendu erabiltzaileak ez erantzun eta jarrai dezan"
+                          },
+                          {
+                            "label":"Mezua"
+                          },
+                          {
+                            "label":"Bilaketa-botoiaren etiketa"
+                          }
+                        ]
+                      },
+                      {
+                        "label":"Eskatu atazaren gehienezko puntuazioa jarraitu ahal izateko",
+                        "description":"Funtzionaltasuna hobea izan dadin, aukera hau bideo interaktiboaren \"Saihestu aurrerako jauziak bideo batean\" aukerarekin batera erabil behar da."
+                      }
+                    ]
+                  },
+                  {
+                    "label":"Ikus-efektuak",
+                    "fields":[
+                      {
+                        "label":"Hondoko kolorea",
+                        "default":"rgb (255, 255, 255)",
+                        "spectrum":{
+                          
+                        }
+                      },
+                      {
+                        "label":"Kutxaren itzala",
+                        "description":"Elkarrekintzaren inguruan itzal sotila gehitzen du. Elkarrekintza guztiz gardenak nahi izanez kero, desgai dezakezu"
+                      }
+                    ]
+                  },
+                  {
+                    "label":"Joan",
+                    "fields":[
+                      {
+                        "label":"Mota",
+                        "options":[
+                          {
+                            "label":"Denbora-kodea"
+                          },
+                          {
+                            "label":"Beste orri bat (URL)"
+                          }
+                        ]
+                      },
+                      {
+                        "label":"Joan",
+                        "description":"Puntu beroa sakatzean joango deneko bideoaren puntua. Sartu denbora-kodea M:SS formatua."
+                      },
+                      {
+                        "label":"URL",
+                        "fields":[
+                          {
+                            "label":"Protokoloa",
+                            "options":[
+                              {
+                                "label":"http://"
+                              },
+                              {
+                                "label":"https://"
+                              },
+                              {
+                                "label":"(erro erlatiboa)"
+                              },
+                              {
+                                "label":"Beste bat"
+                              }
+                            ],
+                            "default":"http://"
+                          },
+                          {
+                            "label":"URL"
+                          }
+                        ]
+                      },
+                      {
+                        "label":"Ikusi",
+                        "description":"Erakutsi elkarrekintzan klik egin daitekeela ertza eta ikurra gehituz"
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "field":{
+                "fields":[
+                  {
+                    
+                  },
+                  {
+                    
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label":"Ariketaren laburpena",
+          "fields":[
+            {
+              "default":{
+                "params":{
+                  
+                }
+              }
+            },
+            {
+              "label":"Erakutsi",
+              "description":"Bideoa amaitzeko segundu-kopurua."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label":"Portaeraren ezarpenak",
+      "fields":[
+        {
+          "label":"Hasi bideoa",
+          "description":"Sartu denbora-kodea M:SS formatuan"
+        },
+        {
+          "label":"Ikusi bideoa begiztan",
+          "description":"Baieztatu bideo begiztan ikusi behar ote den"
+        },
+        {
+          "label":"Baliogabetu \"Erakutsi soluzioa\" botoia",
+          "description":"Aukera honek ezartzen du \"Erakutsi soluzioa\" botoia galdera guztietan erakutsi, guztietan desgaitu ala galderaz-galdera erabaki beharko den."
+        },
+        {
+          "label":"Baliogabetu \"Saiatu berriro\" botoia",
+          "description":"Aukera honek ezartzen du \"Saiatu berriro\" botoia galdera guztietan erakutsi, guztietan desgaitu ala galderaz-galdera erabaki beharko den.",
+          "options":[
+            {
+              "label":"Gaituta"
+            },
+            {
+              "label":"Desgaituta"
+            }
+          ]
+        },
+        {
+          "label":"Erakutsi lastermarken menua kargatzean",
+          "description":"Ezarpen hau ezin da erabili iPad gailuetan YouTube bideo-iturriarekin",
+          "options":[
+            {
+              "label":"Gaituta"
+            },
+            {
+              "label":"Desgaituta"
+            }
+          ]
+        },
+        {
+          "label":"Erakutsi 10 segundu atzera jotzeko botoia",
+          "description":"Ezarpen hau ezin da erabili iPad gailuetan YouTube bideo-iturriarekin"
+        },
+        {
+          "label":"Saihestu aurrerako jauziak bideo batean"
+        },
+        {
+          "label":"Desgaitu soinua",
+          "description":"Aukera hau gaitzeak bideoaren soinua desgaitu eta berriro gaitzea saihestuko du."
+        },
+        {
+          "label":"Desgaitu soinua",
+          "description":"Aukera hau gaitzeak bideoaren soinua desgaitu eta berriro gaitzea saihestuko du."
+        }
+      ]
+    },
+    {
+      "label":"Lokalizatu",
+      "fields":[
+        {
+          "label":"Jardueraren izenburua",
+          "default":"Elkarrekintza"
+        },
+        {
+          "label":"Erreproduzitu",
+          "default":"Erreproduzitu"
+        },
+        {
+          "label":"Gelditu",
+          "default":"Geldiera"
+        },
+        {
+          "label":"Isilduarazi",
+          "default":"Isilduarazi"
+        },
+        {
+          "label":"Gaitu soinua",
+          "default":"Gaitu soinua"
+        },
+        {
+          "label":"Bideoaren kalitatearen izenburua",
+          "default":"Bideoaren kalitatea"
+        },
+        {
+          "label":"Bideoaren azpitituluen izena",
+          "default":"Azpitituluak"
+        },
+        {
+          "label":"Ixteko botoiaren izena",
+          "default":"Itxi"
+        },
+        {
+          "label":"Pantaila osoa",
+          "default":"Pantaila osoa"
+        },
+        {
+          "label":"Pantaila osotik irtetearen izena",
+          "default":"Irten pantaila osotik"
+        },
+        {
+          "label":"Laburpenaren izena",
+          "default":"Laburpena"
+        },
+        {
+          "label":"Lastermarken izena",
+          "default":"Lastermarkak"
+        },
+        {
+          "label":"Moldagarritasunaren bilaketa-botoirako etiketa lehenetsia",
+          "default":"Jarraitu"
+        },
+        {
+          "label":"Bideoak jarraitzeko botoirako etiketa lehenetsia",
+          "default":"Jarraitu bideoarekin"
+        },
+        {
+          "label":"Ezarri erreprodukzio-abiadura",
+          "default":"Erreprodukzio-abiadura"
+        },
+        {
+          "label":"Atzera jo 10 segunduz",
+          "default":"Atzera jo 10 segunduz"
+        },
+        {
+          "label":"Desgaitutako nabigaziorako testua",
+          "default":"Nabigazioa desgaituta dago"
+        },
+        {
+          "label":"Desgaitutako soinurako testua",
+          "default":"Soinua desgaituta dago"
+        },
+        {
+          "label":"Erabiltzaileak jarraitu aurretik galderak ondo erantzun behar dituelako abisua",
+          "default":"Jarraitu aurretik galdera guztiak ondo erantzun behar dituzu."
+        },
+        {
+          "label":"Atzerako botoia",
+          "default":"Atzera"
+        },
+        {
+          "label":"Pasa den denbora (ordutan)",
+          "default":"Orduak"
+        },
+        {
+          "label":"Pasa den denbora (minututan)",
+          "default":"Minutuak"
+        },
+        {
+          "label":"Pasa den denbora (segundutan)",
+          "default":"Segunduak"
+        },
+        {
+          "label":"Oraingo denboraren etiketa",
+          "default":"Oraingo denbora:"
+        },
+        {
+          "label":"Denbora osoaren etiketa",
+          "default":"Denbora osoa:"
+        },
+        {
+          "label":"Nabigatzeko teklatu-lasterbideak azaltzeko testua",
+          "default":"Erabili K tekla bideoa edonoiz hasi edo gelditzeko"
+        },
+        {
+          "label":"Elkarrekintza xume izenaduna agertu dela adierazteko testua",
+          "default":"Elkarrekintza agertu da:"
+        },
+        {
+          "label":"Elkarrekintza anitzak agertu direla adierazteko testua",
+          "default":"Elkarrekintza anitzak agertu dira."
+        },
+        {
+          "label":"Bideoa gelditu delako abisua",
+          "default":"Bideoa geldituta"
+        },
+        {
+          "label": "Eduki-etiketa",
+          "default": "Edukia"
+        }
+      ]
+    }
+  ]
+}
