@@ -44,6 +44,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       });
     });
 
+    // Will be true only on first load of IV
+    this.freshVideo = (params === undefined);
+
     this.params = $.extend({
       interactions: [],
       bookmarks: [],
@@ -139,6 +142,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         assets: this.params
       }
     }, H5PEditor.contentId);
+
     this.IV.editor = this;
     $(window).on('resize', function () {
       if (that.dnb) {
@@ -292,10 +296,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }
 
     var tenth = Math.floor(time * 10) / 10;
-    if (this.IV.bookmarksMap[tenth] !== undefined) {
-      // Create warning:
-      this.displayMessage(t('bookmarkAlreadyExists'));
-      return; // Not space for another bookmark.
+    if (this.checkMarkerSpace(tenth) === false) {
+      return; // Not space for another bookmark
     }
 
     // Hide dialog
@@ -321,9 +323,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
   /**
    * Add endscreen
+   * @param {number} time - Time in s to put endscreen at.
+   * @param {boolean} silent - If true, the endscreen label will not pop up.
    */
-  InteractiveVideoEditor.prototype.addEndscreen = function () {
-    var time = this.IV.video.getCurrentTime();
+  InteractiveVideoEditor.prototype.addEndscreen = function (time, silent) {
+    time = time || this.IV.video.getCurrentTime();
 
     // Find out where to place the endscreen
     for (var i = 0; i < this.params.endscreens.length; i++) {
@@ -334,17 +338,15 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }
 
     var tenth = Math.floor(time * 10) / 10;
-    if (this.IV.endscreensMap[tenth] !== undefined) {
-      // Create warning:
-      this.displayMessage(t('endscreenAlreadyExists'));
-      return; // Not space for another endscreen.
+    if (this.checkMarkerSpace(tenth) === false) {
+      return; // Not space for another endscreen
     }
 
     // Hide dialog
     if (this.IV.controls.$more.attr('aria-expanded') === 'true') {
       this.IV.controls.$more.click();
     }
-    else {
+    else if (this.IV.controls.$endscreens) {
       this.IV.controls.$endscreens.click();
     }
 
@@ -357,7 +359,27 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     });
 
     var $endscreen = this.IV.addEndscreen(i, tenth);
-    $endscreen.addClass('h5p-show');
+    if (!silent) {
+      $endscreen.addClass('h5p-show');
+    }
+  };
+
+  /**
+   * Check for blocked marker position.
+   *
+   * @param {number} tenth - Position to check in tenth.
+   * @return {boolean} True if position was free.
+   */
+  InteractiveVideoEditor.prototype.checkMarkerSpace = function (tenth) {
+    if (this.IV.bookmarksMap[tenth] !== undefined) {
+      this.displayMessage(t('bookmarkAlreadyExists'));
+      return false;
+    }
+    if (this.IV.endscreensMap[tenth] !== undefined) {
+      this.displayMessage(t('endscreenAlreadyExists'));
+      return false;
+    }
+    return true;
   };
 
   /**
@@ -1625,9 +1647,8 @@ H5PEditor.language['H5PEditor.InteractiveVideo'] = {
     fullScoreRequiredPause: '"Full score required" option requires that "Pause" is enabled.',
     fullScoreRequiredRetry: '"Full score required" option requires that "Retry" is enabled',
     fullScoreRequiredTimeFrame: 'There already exists an interaction that requires full score at the same interval as this interaction.<br> Only one of the interactions will be required to answer.',
-    addEndscreen: 'Add endscreen',
-    newEndscreen: 'New endscreen',
+    addEndscreen: 'Add end screen',
     endscreen: 'End screen',
-    endscreenAlreadyExists: 'End screen already exists here. Move playhead and add an endscreen at another time.'
+    endscreenAlreadyExists: 'End screen already exists here. Move playhead and add an end screen at another time.'
   }
 };

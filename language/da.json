@@ -39,9 +39,8 @@
     "fullScoreRequiredPause":"\"Alle rigtige\" alternativet kræver at \"Pause\" er aktiveret.",
     "fullScoreRequiredRetry":"\"Alle rigtige\" alternativet kræver at \"Prøv igen\" er aktiveret.",
     "fullScoreRequiredTimeFrame":"Det findes allerede en indholdstype som kræver alle rigtige i dette tidsinterval.<br> Bare en af indholdstyperne vil kræve alt rigtigt.",
-    "addEndscreen":"Add endscreen",
-    "newEndscreen":"New endscreen",
+    "addEndscreen":"Add end screen",
     "endscreen":"End screen",
-    "endscreenAlreadyExists":"End screen already exists here. Move playhead and add an endscreen at another time."
+    "endscreenAlreadyExists":"End screen already exists here. Move playhead and add an end screen at another time."
   }
 }

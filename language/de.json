@@ -40,7 +40,6 @@
     "fullScoreRequiredRetry":"\"Full score required\" option requires that \"Retry\" is enabled.",
     "fullScoreRequiredTimeFrame":"There already exists an interaction that requires full score at the same interval as this interaction.<br> Only one of the interactions will be required to answer.",
     "addEndscreen":"Endbildschirm hinzufügen",
-    "newEndscreen":"Neuer Endbildschirm",
     "endscreen":"Endbildschirm",
     "endscreenAlreadyExists":"Endbildschirm existiert hier bereits. Den Abspielknopf bewegen und ein Lesezeichen zu einer anderen Zeit hinzufügen."
   }
