@@ -29,6 +29,8 @@
     "tourStepCanvasEditingText": "<p>添加交互点后，点击可以拖动位置</p><p>按住移动图标可以拖动</p><p>当你选择一个项目，将弹出一个窗口。点击窗口中的编辑按钮。可以通过上面的删除按钮删除该互动</p>",
     "tourStepCanvasBookmarksTitle": "书签",
     "tourStepCanvasBookmarksText": "可以通过书签按钮添加书签。点击书签后可以打开编辑。",
+    "tourStepCanvasEndscreensTitle":"Endscreens",
+    "tourStepCanvasEndscreensText":"You can add Endscreens from the Endscreens menu. Press the Endscreen button to open the menu.",
     "tourStepCanvasPreviewTitle": "预览",
     "tourStepCanvasPreviewText": "编辑时，点击播放按钮可以预览交互式视频。",
     "tourStepCanvasSaveTitle": "保存于显示",
@@ -36,6 +38,10 @@
     "tourStepSummaryText": "这个可选的交互式摘要任务将出现在视频的结尾。",
     "fullScoreRequiredPause": "\"Full score required\" option requires that \"Pause\" is enabled.",
     "fullScoreRequiredRetry": "\"Full score required\" option requires that \"Retry\" is enabled.",
-    "fullScoreRequiredTimeFrame": "There already exists an interaction that requires full score at the same interval as this interaction.<br> Only one of the interactions will be required to answer."
+    "fullScoreRequiredTimeFrame": "There already exists an interaction that requires full score at the same interval as this interaction.<br> Only one of the interactions will be required to answer.",
+    "addEndscreen":"Add endscreen",
+    "newEndscreen":"New endscreen",
+    "endscreen":"End screen",
+    "endscreenAlreadyExists":"End screen already exists here. Move playhead and add an endscreen at another time."
   }
 }

@@ -46,7 +46,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     this.params = $.extend({
       interactions: [],
-      bookmarks: []
+      bookmarks: [],
+      endscreens: []
     }, params);
     setValue(field, this.params);
 
@@ -180,8 +181,23 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         },
         appendTo: that.IV.controls.$bookmarksChooser
       });
+
+      // Add "Add endscreen" to endscreens menu.
+      $('<div/>', {
+        'class': 'h5p-add-endscreen',
+        html: t('addEndscreen'),
+        role: 'button',
+        tabindex: 0,
+        on: {
+          click: function () {
+            that.addEndscreen();
+          }
+        },
+        appendTo: that.IV.controls.$endscreensChooser
+      });
     });
     this.IV.on('bookmarkAdded', that.bookmarkAdded, that);
+    this.IV.on('endscreenAdded', that.endscreenAdded, that);
     this.IV.attach(this.$editor);
 
     // Create a focus handler
@@ -304,6 +320,47 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   };
 
   /**
+   * Add endscreen
+   */
+  InteractiveVideoEditor.prototype.addEndscreen = function () {
+    var time = this.IV.video.getCurrentTime();
+
+    // Find out where to place the endscreen
+    for (var i = 0; i < this.params.endscreens.length; i++) {
+      if (this.params.endscreens[i].time > time) {
+        // Insert before this.
+        break;
+      }
+    }
+
+    var tenth = Math.floor(time * 10) / 10;
+    if (this.IV.endscreensMap[tenth] !== undefined) {
+      // Create warning:
+      this.displayMessage(t('endscreenAlreadyExists'));
+      return; // Not space for another endscreen.
+    }
+
+    // Hide dialog
+    if (this.IV.controls.$more.attr('aria-expanded') === 'true') {
+      this.IV.controls.$more.click();
+    }
+    else {
+      this.IV.controls.$endscreens.click();
+    }
+
+    // Move other increament other ids.
+    this.IV.trigger('endscreensChanged', {'index': i, 'number': 1});
+
+    this.params.endscreens.splice(i, 0, {
+      time: time,
+      label: this.IV.humanizeTime(time) + ' ' + t('endscreen')
+    });
+
+    var $endscreen = this.IV.addEndscreen(i, tenth);
+    $endscreen.addClass('h5p-show');
+  };
+
+  /**
    * Display a popup containing a message.
    *
    * @param {string} message
@@ -381,6 +438,27 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         $input.val('');
       }
     });
+  };
+
+
+  /**
+   * Gets called whenever a endscreen is added to the UI.
+   *
+   * @param {H5P.Event} event
+   */
+  InteractiveVideoEditor.prototype.endscreenAdded = function (event) {
+    var self = this;
+    var $endscreen = event.data.endscreen;
+
+    $('<a class="h5p-remove-endscreen" href="#"></a>')
+      .appendTo($endscreen.find('.h5p-endscreen-label'))
+      .click(function () {
+        var id = $endscreen.data('id');
+        self.params.endscreens.splice(id, 1);
+        self.IV.trigger('endscreensChanged', {'index': id, 'number': -1});
+        $endscreen.remove();
+        return false;
+      });
   };
 
   /**
@@ -1537,6 +1615,8 @@ H5PEditor.language['H5PEditor.InteractiveVideo'] = {
     tourStepCanvasEditingText: '<p>Once an interaction has been added, you can drag to reposition it.</p><p>To resize an interaction, press on the handles and drag.</p><p>When you select an interaction, a context menu will appear. To edit the content of the interaction, press the Edit button in the context menu. You can remove an interaction by pressing the Remove button on the context menu.</p>',
     tourStepCanvasBookmarksTitle: 'Bookmarks',
     tourStepCanvasBookmarksText: 'You can add Bookmarks from the Bookmarks menu. Press the Bookmark button to open the menu.',
+    tourStepCanvasEndscreensTitle: 'Endscreens',
+    tourStepCanvasEndscreensText: 'You can add Endscreens from the Endscreens menu. Press the Endscreen button to open the menu.',
     tourStepCanvasPreviewTitle: 'Preview your interactive video',
     tourStepCanvasPreviewText: 'Press the Play button to preview your interactive video while editing.',
     tourStepCanvasSaveTitle: 'Save and view',
@@ -1544,6 +1624,10 @@ H5PEditor.language['H5PEditor.InteractiveVideo'] = {
     tourStepSummaryText: 'This optional Summary quiz will appear at the end of the video.',
     fullScoreRequiredPause: '"Full score required" option requires that "Pause" is enabled.',
     fullScoreRequiredRetry: '"Full score required" option requires that "Retry" is enabled',
-    fullScoreRequiredTimeFrame: 'There already exists an interaction that requires full score at the same interval as this interaction.<br> Only one of the interactions will be required to answer.'
+    fullScoreRequiredTimeFrame: 'There already exists an interaction that requires full score at the same interval as this interaction.<br> Only one of the interactions will be required to answer.',
+    addEndscreen: 'Add endscreen',
+    newEndscreen: 'New endscreen',
+    endscreen: 'End screen',
+    endscreenAlreadyExists: 'End screen already exists here. Move playhead and add an endscreen at another time.'
   }
 };

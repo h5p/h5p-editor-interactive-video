@@ -29,6 +29,8 @@
     "tourStepCanvasEditingText":"<p>Når en interaktion er tilføjet, kan du trække i den for at flytte på den.<\/p><p>For at ændre størrelsen, skal du trykke på håndtagene og trække.<\/p><p>Når du vælger et element dukker der en kontekstmenu op. For at redigere indholdet til en interaktion, tryk da på Rediger-knappen i kontekstmenuen. Du kan slette en interaktion ved at trykke på Slet-knappen i kontekstmenuen.<\/p>",
     "tourStepCanvasBookmarksTitle":"Bogmærker",
     "tourStepCanvasBookmarksText":"Bogmærker kan tilføjes gennem bogmærkemenuen. Klik på bogmærkeknappen for at åbne menuen",
+    "tourStepCanvasEndscreensTitle":"Endscreens",
+    "tourStepCanvasEndscreensText":"You can add Endscreens from the Endscreens menu. Press the Endscreen button to open the menu.",
     "tourStepCanvasPreviewTitle":"Forhåndsvisning",
     "tourStepCanvasPreviewText":"Tryk på playknappen for at forhåndsvise din interaktive video mens du redigerer.",
     "tourStepCanvasSaveTitle":"Gem og vis",
@@ -36,6 +38,10 @@
     "tourStepSummaryText":"Denne valgfrie, interaktive opsummeringsopgave vil blive vist i slutningen af videoen.",
     "fullScoreRequiredPause":"\"Alle rigtige\" alternativet kræver at \"Pause\" er aktiveret.",
     "fullScoreRequiredRetry":"\"Alle rigtige\" alternativet kræver at \"Prøv igen\" er aktiveret.",
-    "fullScoreRequiredTimeFrame":"Det findes allerede en indholdstype som kræver alle rigtige i dette tidsinterval.<br> Bare en af indholdstyperne vil kræve alt rigtigt."
+    "fullScoreRequiredTimeFrame":"Det findes allerede en indholdstype som kræver alle rigtige i dette tidsinterval.<br> Bare en af indholdstyperne vil kræve alt rigtigt.",
+    "addEndscreen":"Add endscreen",
+    "newEndscreen":"New endscreen",
+    "endscreen":"End screen",
+    "endscreenAlreadyExists":"End screen already exists here. Move playhead and add an endscreen at another time."
   }
 }
