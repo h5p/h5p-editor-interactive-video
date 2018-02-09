@@ -41,6 +41,6 @@
     "fullScoreRequiredTimeFrame":"Det finnes allerede en innholdstype som krever alt rett i dette tidsintervallet.<br> Bare en av innholdstypene vil kreve alt rett.",
     "addEndscreen":"Add end screen",
     "endscreen":"End screen",
-    "endscreenAlreadyExists":"End screen already exists here. Move playhead and add an end screen at another time."
+    "endscreenAlreadyExists":"End screen already exists here. Move playhead and add an end screen or a bookmark at another time."
   }
 }

@@ -12,7 +12,7 @@
     "removeInteraction":"Diese Interaktion ganz sicher löschen?",
     "addBookmark":"Lesezeichen hinzufügen",
     "newBookmark":"Neues Lesezeichen",
-    "bookmarkAlreadyExists":"Lesezeichen existiert hier bereits. Den Abspielknopf bewegen und ein Lesezeichen zu einer anderen Zeit hinzufügen.",
+    "bookmarkAlreadyExists":"Lesezeichen existiert hier bereits. Den Abspielknopf bewegen und ein Lesezeichen oder einen Endbildschirm zu einer anderen Zeit hinzufügen.",
     "tourButtonStart":"Tour",
     "tourButtonExit":"Ausgang",
     "tourButtonDone":"Erledigt",
@@ -41,6 +41,6 @@
     "fullScoreRequiredTimeFrame":"There already exists an interaction that requires full score at the same interval as this interaction.<br> Only one of the interactions will be required to answer.",
     "addEndscreen":"Endbildschirm hinzufügen",
     "endscreen":"Endbildschirm",
-    "endscreenAlreadyExists":"Endbildschirm existiert hier bereits. Den Abspielknopf bewegen und ein Lesezeichen zu einer anderen Zeit hinzufügen."
+    "endscreenAlreadyExists":"Endbildschirm existiert hier bereits. Den Abspielknopf bewegen und einen Endbildschirm oder ein Lesezeichen zu einer anderen Zeit hinzufügen."
   }
 }

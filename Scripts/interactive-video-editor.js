@@ -1620,7 +1620,7 @@ H5PEditor.language['H5PEditor.InteractiveVideo'] = {
     removeInteraction: 'Are you sure you wish to remove this interaction?',
     addBookmark: 'Add bookmark',
     newBookmark: 'New bookmark',
-    bookmarkAlreadyExists: 'Bookmark already exists here. Move playhead and add a bookmark at another time.',
+    bookmarkAlreadyExists: 'Bookmark already exists here. Move playhead and add a bookmark or an end screen at another time.',
     tourButtonStart: 'Tour',
     tourButtonExit: 'Exit',
     tourButtonDone: 'Done',
@@ -1649,6 +1649,6 @@ H5PEditor.language['H5PEditor.InteractiveVideo'] = {
     fullScoreRequiredTimeFrame: 'There already exists an interaction that requires full score at the same interval as this interaction.<br> Only one of the interactions will be required to answer.',
     addEndscreen: 'Add end screen',
     endscreen: 'End screen',
-    endscreenAlreadyExists: 'End screen already exists here. Move playhead and add an end screen at another time.'
+    endscreenAlreadyExists: 'End screen already exists here. Move playhead and add an end screen or a bookmark at another time.'
   }
 };
