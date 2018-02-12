@@ -324,9 +324,13 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   /**
    * Add endscreen
    * @param {number} time - Time in s to put endscreen at.
-   * @param {boolean} silent - If true, the endscreen label will not pop up.
+   * @param {boolean} freshOnly - If true, the endscreen label will not pop up and only be included for fresh videos.
    */
-  InteractiveVideoEditor.prototype.addEndscreen = function (time, silent) {
+  InteractiveVideoEditor.prototype.addEndscreen = function (time, freshOnly) {
+    if (!this.freshVideo && freshOnly === true) {
+      return;
+    }
+
     time = time || this.IV.video.getCurrentTime();
 
     // Find out where to place the endscreen
@@ -359,7 +363,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     });
 
     var $endscreen = this.IV.addEndscreen(i, tenth);
-    if (!silent) {
+    if (!freshOnly) {
       $endscreen.addClass('h5p-show');
     }
   };

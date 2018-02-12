@@ -399,16 +399,6 @@
 .h5p-interactivevideo-editor .h5p-endscreen input[type="text"].h5p-endscreen-input::-ms-clear {
   display: none;
 }
-.h5p-interactivevideo-editor .h5p-bookmark-text:before {
-  font-family: H5PFontAwesome4;
-  content: "\f02e";
-  margin-right: 8px;
-}
-.h5p-interactivevideo-editor .h5p-endscreen-text:before {
-  font-family: H5Picons;
-  content: "\e91c";
-  margin-right: 8px;
-}
 .h5p-interactivevideo-editor .h5p-iv-message-popup {
   position: absolute;
   bottom: 36px;
