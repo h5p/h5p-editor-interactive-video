@@ -393,7 +393,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     this.libraries = libraries;
     this.dnb = new H5P.DragNBar(this.getButtons(libraries), this.IV.$videoWrapper, this.IV.$container);
-    this.dnb.overflowThreshold = 16;
+    this.dnb.overflowThreshold = 20;
 
     /**
      * @private

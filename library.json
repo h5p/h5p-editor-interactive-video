@@ -161,6 +161,11 @@
       "machineName": "H5P.FontIcons",
       "majorVersion": 1,
       "minorVersion": 0
+    },
+    {
+      "machineName": "H5P.IVOpenEndedQuestion",
+      "majorVersion": 1,
+      "minorVersion": 0
     }
   ]
 }
