@@ -121,11 +121,11 @@
 }
 .h5p-interactive-video-dragnbar .h5p-dragnbar-ivhotspot-button:before,
 .h5p-ivhotspot-interaction-icon:before {
-  content: "\e900";
+  content: "\e901";
 }
 .h5p-interactive-video-dragnbar .h5p-dragnbar-questionnaire-button:before,
 .h5p-questionnaire-interaction-icon:before {
-  content: "\e901";
+  content: "\e902";
 }
 
 /* H5P specific fonts: */
