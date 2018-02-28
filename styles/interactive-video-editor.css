@@ -138,7 +138,7 @@
 .h5p-interactive-video-dragnbar .h5p-dragnbar-singlechoiceset-button:before,
 .h5p-interactive-video-dragnbar .h5p-dragnbar-questionnaire-button:before,
 .h5p-interactive-video-dragnbar .h5p-dragnbar-ivhotspot-button:before,
-.h5p-interactive-video-dragnbar .h5p-dragnbar-ivopenendedquestion-button:before  {
+.h5p-interactive-video-dragnbar .h5p-dragnbar-freetextquestion-button:before  {
   font-family: 'H5PInteractiveVideoEditor';
   font-size: 1.2em;
   vertical-align: top;
@@ -152,7 +152,7 @@
 .h5p-summary-interaction-icon:before,
 .h5p-ivhotspot-interaction-icon:before,
 .h5p-questionnaire-interaction-icon:before,
-.h5p-ivopenendedquestion-interaction-icon:before {
+.h5p-freetextquestion-interaction-icon:before {
   font-family: 'H5PInteractiveVideoEditor';
 }
 
@@ -184,8 +184,8 @@
 .h5p-singlechoiceset-interaction-icon:before {
   content: "\e993";
 }
-.h5p-interactive-video-dragnbar .h5p-dragnbar-ivopenendedquestion-button:before,
-.h5p-ivopenendedquestion-interaction-icon:before {
+.h5p-interactive-video-dragnbar .h5p-dragnbar-freetextquestion-button:before,
+.h5p-freetextquestion-interaction-icon:before {
   content: "\e995";
 }
 

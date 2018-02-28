@@ -163,7 +163,7 @@
       "minorVersion": 0
     },
     {
-      "machineName": "H5P.IVOpenEndedQuestion",
+      "machineName": "H5P.FreeTextQuestion",
       "majorVersion": 1,
       "minorVersion": 0
     }
