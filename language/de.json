@@ -39,8 +39,8 @@
     "fullScoreRequiredPause":"\"Full score required\" option requires that \"Pause\" is enabled.",
     "fullScoreRequiredRetry":"\"Full score required\" option requires that \"Retry\" is enabled.",
     "fullScoreRequiredTimeFrame":"There already exists an interaction that requires full score at the same interval as this interaction.<br> Only one of the interactions will be required to answer.",
-    "addEndscreen":"Endbildschirm hinzufügen",
-    "endscreen":"Endbildschirm",
-    "endscreenAlreadyExists":"Endbildschirm existiert hier bereits. Den Abspielknopf bewegen und einen Endbildschirm oder ein Lesezeichen zu einer anderen Zeit hinzufügen."
+    "addEndscreen":"Einsendebildschirm hinzufügen",
+    "endscreen":"Einsendebildschirm",
+    "endscreenAlreadyExists":"Einsendebildschirm existiert hier bereits. Den Abspielknopf bewegen und einen Einsendebildschirm oder ein Lesezeichen zu einer anderen Zeit hinzufügen."
   }
 }

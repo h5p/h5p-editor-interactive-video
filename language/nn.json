@@ -39,8 +39,8 @@
     "fullScoreRequiredPause":"\"Alt rett\" alternativet krever at \"Pause\" er aktivert.",
     "fullScoreRequiredRetry":"\"Alt rett\" alternativet krever at \"Prøv igjen\" er aktivert.",
     "fullScoreRequiredTimeFrame":"Det finnes allerede en innholdstype som krever alt rett i dette tidsintervallet.<br> Bare en av innholdstypene vil kreve alt rett.",
-    "addEndscreen":"Add end screen",
-    "endscreen":"End screen",
-    "endscreenAlreadyExists":"End screen already exists here. Move playhead and add an end screen or a bookmark at another time."
+    "addEndscreen":"Add submit screen",
+    "endscreen":"Submit screen",
+    "endscreenAlreadyExists":"Submit screen already exists here. Move playhead and add a submit screen or a bookmark at another time."
   }
 }
