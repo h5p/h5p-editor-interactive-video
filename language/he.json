@@ -41,6 +41,8 @@
     "fullScoreRequiredTimeFrame": "כבר קיימת אינטראקציה שדורשת ציון מלא באינטראקציה זו. <br> תידרשו לענות רק על אחת מהאינטראקציות .",
     "addEndscreen": "הוספת עמוד סיום",
     "endscreen": "עמוד סיום",
-    "endscreenAlreadyExists": "עמוד סיום כבר קיים פה. יש להעביר את סמן ציר־הזמן למקום חדש כדי להוסיף עמוד־סיום חדש או סימניה במיקום אחר."
+    "endscreenAlreadyExists": "עמוד סיום כבר קיים פה. יש להעביר את סמן ציר־הזמן למקום חדש כדי להוסיף עמוד־סיום חדש או סימניה במיקום אחר.",
+    "tooltipBookmarks":"Click to add bookmark at the current point in the video",
+    "tooltipEndscreens":"Click to add submit screen at the current point in the video"
   }
 }

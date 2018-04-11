@@ -41,6 +41,8 @@
     "fullScoreRequiredTimeFrame":"There already exists an interaction that requires full score at the same interval as this interaction.<br> Only one of the interactions will be required to answer.",
     "addEndscreen":"Einsendebildschirm hinzufügen",
     "endscreen":"Einsendebildschirm",
-    "endscreenAlreadyExists":"Einsendebildschirm existiert hier bereits. Den Abspielknopf bewegen und einen Einsendebildschirm oder ein Lesezeichen zu einer anderen Zeit hinzufügen."
+    "endscreenAlreadyExists":"Einsendebildschirm existiert hier bereits. Den Abspielknopf bewegen und einen Einsendebildschirm oder ein Lesezeichen zu einer anderen Zeit hinzufügen.",
+    "tooltipBookmarks":"Klicke hier, um ein Lesezeichen an der aktuellen Position einzufügen",
+    "tooltipEndscreens":"Klicke hier, um einen Einsendebildschirm an der aktuellen Position einzufügen"
   }
 }

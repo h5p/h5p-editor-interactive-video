@@ -106,6 +106,42 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   };
 
   /**
+   * Reposition/resize the tooltips.
+   */
+  InteractiveVideoEditor.prototype.resizeTooltips = function () {
+    var that = this;
+    /*
+     * The tooltips should look like the dnb tooltips, but they lie within
+     * the controls bar which overrides the dynamic size of $container. We
+     * therefore get the first dnb tooltip and copy the current properties
+     * to be set for each tooltip.
+     */
+    var $base = this.$bar.find('.h5p-dragnbar-tooltip').first();
+
+    var tooltips = this.IV.$container.find('.h5p-interactive-video-tooltip');
+    tooltips.each(function() {
+      $(this).css('font-size', $base.css('font-size'));
+      $(this).css('line-height', $base.css('line-height'));
+      $(this).css('padding', $base.css('padding'));
+
+      // Compute horizontal position (left aligned, centered, or right aligned to element)
+      var left = $(this).parent().offset().left - $(this).outerWidth() / 2 < 0;
+      var right = $(this).parent().offset().left + $(this).outerWidth() / 2 > that.IV.$container.width();
+      var pos;
+      if (left === right) {
+        pos = -($(this).outerWidth() / 2) + $(this).parent().outerWidth() / 2;
+      }
+      else if (left) {
+        pos = 0;
+      }
+      else {
+        pos = -$(this).outerWidth() + $(this).parent().outerWidth();
+      }
+      $(this).css('left', pos + 'px');
+    });
+  };
+
+  /**
    * Our tab has been set active. Create a new player if necessary.
    */
   InteractiveVideoEditor.prototype.setActive = function () {
@@ -147,6 +183,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     $(window).on('resize', function () {
       if (that.dnb) {
         that.dnb.resize();
+        that.resizeTooltips();
       }
     });
     for (var i = 0; i < this.IV.interactions.length; i++) {
@@ -199,9 +236,24 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         },
         appendTo: that.IV.controls.$endscreensChooser
       });
+
+      // Add tooltips to submitscreen button
+      that.$bookmarksTooltip = $('<span>', {
+        class: 'h5p-interactive-video-tooltip',
+        html: t('tooltipBookmarks'),
+        appendTo: that.IV.controls.$bookmarksButton
+      });
+
+      // Add tooltips to submitscreen button
+      that.$endscreensTooltip = $('<span>', {
+        class: 'h5p-interactive-video-tooltip',
+        html: t('tooltipEndscreens'),
+        appendTo: that.IV.controls.$endscreensButton.parent()
+      });
     });
     this.IV.on('bookmarkAdded', that.bookmarkAdded, that);
     this.IV.on('endscreenAdded', that.endscreenAdded, that);
+    this.IV.on('dnbEditorReady', that.resizeTooltips, that);
     this.IV.attach(this.$editor);
 
     // Create a focus handler
@@ -1653,6 +1705,8 @@ H5PEditor.language['H5PEditor.InteractiveVideo'] = {
     fullScoreRequiredTimeFrame: 'There already exists an interaction that requires full score at the same interval as this interaction.<br> Only one of the interactions will be required to answer.',
     addEndscreen: 'Add submit screen',
     endscreen: 'Submit screen',
-    endscreenAlreadyExists: 'Submit screen already exists here. Move playhead and add a submit screen or a bookmark at another time.'
+    endscreenAlreadyExists: 'Submit screen already exists here. Move playhead and add a submit screen or a bookmark at another time.',
+    tooltipBookmarks: 'Click to add bookmark at the current point in the video',
+    tooltipEndscreens: 'Click to add submit screen at the current point in the video'
   }
 };
