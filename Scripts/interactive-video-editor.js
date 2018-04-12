@@ -106,6 +106,38 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   };
 
   /**
+   * Attach a custom tooltip to a jQuery element
+   *
+   * @param {jQuery} $element - Element to attach the tooltip to.
+   * @param {string} textIndex - Index of text to be translated or text if not found.
+   * @return {jQuery} Tooltip element.
+   */
+  InteractiveVideoEditor.prototype.setTooltip = function ($element, textIndex) {
+    // Best effort for the tooltip text
+    var tooltipText = t(textIndex);
+    if (tooltipText === '[Missing translation ' + textIndex + ']') {
+      tooltipText = textIndex;
+    }
+
+    var $tooltip = $('<span>', {
+      class: 'h5p-interactive-video-tooltip',
+      html: tooltipText
+    });
+
+    $element
+      .append($tooltip)
+      // Hide hover on click
+      .hover(undefined, function () {
+        $(this).removeClass('h5p-no-tooltip');
+      })
+      .click(function () {
+        $(this).addClass('h5p-no-tooltip');
+      });
+
+    return $tooltip;
+  };
+
+  /**
    * Reposition/resize the tooltips.
    */
   InteractiveVideoEditor.prototype.resizeTooltips = function () {
@@ -237,19 +269,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         appendTo: that.IV.controls.$endscreensChooser
       });
 
-      // Add tooltips to submitscreen button
-      that.$bookmarksTooltip = $('<span>', {
-        class: 'h5p-interactive-video-tooltip',
-        html: t('tooltipBookmarks'),
-        appendTo: that.IV.controls.$bookmarksButton
-      });
-
-      // Add tooltips to submitscreen button
-      that.$endscreensTooltip = $('<span>', {
-        class: 'h5p-interactive-video-tooltip',
-        html: t('tooltipEndscreens'),
-        appendTo: that.IV.controls.$endscreensButton.parent()
-      });
+      // Add tooltips
+      that.$bookmarksTooltip = that.setTooltip(that.IV.controls.$bookmarksButton, 'tooltipBookmarks');
+      that.$endscreensTooltip = that.setTooltip(that.IV.controls.$endscreensButton.parent(), 'tooltipEndscreens');
     });
     this.IV.on('bookmarkAdded', that.bookmarkAdded, that);
     this.IV.on('endscreenAdded', that.endscreenAdded, that);
