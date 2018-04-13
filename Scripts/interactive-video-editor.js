@@ -390,7 +390,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     if (this.IV.controls.$bookmarksChooser.hasClass('h5p-show')) {
       this.IV.toggleBookmarksChooser(false, {keepStopped: true});
     }
-    else {
+    else if (this.IV.controls.$bookmarks) {
       this.IV.controls.$bookmarks.click();
     }
 
@@ -436,7 +436,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     if (this.IV.controls.$endscreensChooser.hasClass('h5p-show')) {
       this.IV.toggleEndscreensChooser(false, {keepStopped: true});
     }
-    else {
+    else if (this.IV.controls.$bookmarks) {
       this.IV.controls.$bookmarks.click();
     }
 
