@@ -352,6 +352,7 @@
   color: #fefefe;
   font-style: italic;
   cursor: pointer;
+  white-space: nowrap;
 }
 .h5p-interactivevideo-editor .h5p-add-bookmark:hover,
 .h5p-interactivevideo-editor .h5p-add-endscreen:hover {

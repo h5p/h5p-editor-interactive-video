@@ -10,7 +10,7 @@
     "loading": "加载。",
     "remove": "移除",
     "removeInteraction": "确定移除此交互点？",
-    "addBookmark": "添加书签",
+    "addBookmark": "添加书签 @timecode",
     "newBookmark": "新书签",
     "bookmarkAlreadyExists": "此处已有书签，请试试其他时间点。",
     "tourButtonStart": "开始引导",
@@ -39,8 +39,10 @@
     "fullScoreRequiredPause": "\"Full score required\" option requires that \"Pause\" is enabled.",
     "fullScoreRequiredRetry": "\"Full score required\" option requires that \"Retry\" is enabled.",
     "fullScoreRequiredTimeFrame": "There already exists an interaction that requires full score at the same interval as this interaction.<br> Only one of the interactions will be required to answer.",
-    "addEndscreen":"Add submit screen",
+    "addEndscreen":"Add submit screen at @timecode",
     "endscreen":"Submit screen",
-    "endscreenAlreadyExists":"Submit screen already exists here. Move playhead and add a submit screen or a bookmark at another time."
+    "endscreenAlreadyExists":"Submit screen already exists here. Move playhead and add a submit screen or a bookmark at another time.",
+    "tooltipBookmarks":"Click to add bookmark at the current point in the video",
+    "tooltipEndscreens":"Click to add submit screen at the current point in the video"
   }
 }

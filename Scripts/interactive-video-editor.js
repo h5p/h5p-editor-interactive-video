@@ -106,6 +106,110 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   };
 
   /**
+   * Add "add item" items to chooser menu.
+   *
+   * @param {jQuery} $chooser - Chooser menu to attach the item to.
+   * @param {string} textIndex - Index of text to be translated or text if not found.
+   * @param {string} selector - Class name.
+   * @param {function} action - Action for click.
+   * @return {jQuery} Item for adding items.
+   */
+  InteractiveVideoEditor.prototype.setChooserItem = function ($chooser, textIndex, selector, action) {
+    // Best effort for the item text
+    var itemText = t(textIndex);
+    if (itemText === '[Missing translation ' + textIndex + ']') {
+      itemText = textIndex;
+    }
+
+    var $item = $('<div/>', {
+      'class': selector,
+      html: itemText,
+      role: 'button',
+      tabindex: 0,
+      on: {
+        click: () => {
+          action.call(this);
+        }
+      }
+    });
+    $item.data('default', itemText);
+    $chooser.append($item);
+
+    return $item;
+  };
+
+  /**
+   * Attach a custom tooltip to a jQuery element.
+   *
+   * @param {jQuery} $element - Element to attach the tooltip to.
+   * @param {string} textIndex - Index of text to be translated or text if not found.
+   * @return {jQuery} Tooltip element.
+   */
+  InteractiveVideoEditor.prototype.setTooltip = function ($element, textIndex) {
+    var that = this;
+    // Best effort for the tooltip text
+    var tooltipText = t(textIndex);
+    if (tooltipText === '[Missing translation ' + textIndex + ']') {
+      tooltipText = textIndex;
+    }
+
+    var $tooltip = $('<span>', {
+      class: 'h5p-interactive-video-tooltip',
+      html: tooltipText
+    });
+
+    $element
+      .append($tooltip)
+      // Hide hover on click
+      .hover(undefined, function () {
+        if(that.IV.$controls.find('.h5p-show').length === 0) {
+          $(this).removeClass('h5p-no-tooltip');
+        }
+      })
+      .click(function () {
+        $(this).addClass('h5p-no-tooltip');
+      });
+
+    return $tooltip;
+  };
+
+  /**
+   * Reposition/resize the tooltips.
+   */
+  InteractiveVideoEditor.prototype.resizeTooltips = function () {
+    var that = this;
+    /*
+     * The tooltips should look like the dnb tooltips, but they lie within
+     * the controls bar which overrides the dynamic size of $container. We
+     * therefore get the first dnb tooltip and copy the current properties
+     * to be set for each tooltip.
+     */
+    var $base = this.$bar.find('.h5p-dragnbar-tooltip').first();
+
+    var tooltips = this.IV.$container.find('.h5p-interactive-video-tooltip');
+    tooltips.each(function() {
+      $(this).css('font-size', $base.css('font-size'));
+      $(this).css('line-height', $base.css('line-height'));
+      $(this).css('padding', $base.css('padding'));
+
+      // Compute horizontal position (left aligned, centered, or right aligned to element)
+      var left = $(this).parent().offset().left - $(this).outerWidth() / 2 < 0;
+      var right = $(this).parent().offset().left + $(this).outerWidth() / 2 > that.IV.$container.width();
+      var pos;
+      if (left === right) {
+        pos = -($(this).outerWidth() / 2) + $(this).parent().outerWidth() / 2;
+      }
+      else if (left) {
+        pos = 0;
+      }
+      else {
+        pos = -$(this).outerWidth() + $(this).parent().outerWidth();
+      }
+      $(this).css('left', pos + 'px');
+    });
+  };
+
+  /**
    * Our tab has been set active. Create a new player if necessary.
    */
   InteractiveVideoEditor.prototype.setActive = function () {
@@ -147,6 +251,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     $(window).on('resize', function () {
       if (that.dnb) {
         that.dnb.resize();
+        that.resizeTooltips();
       }
     });
     for (var i = 0; i < this.IV.interactions.length; i++) {
@@ -172,36 +277,17 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         that
       );
 
-      // Add "Add bookmark" to bookmarks menu.
-      $('<div/>', {
-        'class': 'h5p-add-bookmark',
-        html: t('addBookmark'),
-        role: 'button',
-        tabindex: 0,
-        on: {
-          click: function () {
-            that.addBookmark();
-          }
-        },
-        appendTo: that.IV.controls.$bookmarksChooser
-      });
+      // Add "add item" items
+      that.setChooserItem(that.IV.controls.$bookmarksChooser, 'addBookmark', 'h5p-add-bookmark', that.addBookmark);
+      that.setChooserItem(that.IV.controls.$endscreensChooser, 'addEndscreen', 'h5p-add-endscreen', that.addEndscreen);
 
-      // Add "Add endscreen" to endscreens menu.
-      $('<div/>', {
-        'class': 'h5p-add-endscreen',
-        html: t('addEndscreen'),
-        role: 'button',
-        tabindex: 0,
-        on: {
-          click: function () {
-            that.addEndscreen();
-          }
-        },
-        appendTo: that.IV.controls.$endscreensChooser
-      });
+      // Add tooltips
+      that.$bookmarksTooltip = that.setTooltip(that.IV.controls.$bookmarksButton, 'tooltipBookmarks');
+      that.$endscreensTooltip = that.setTooltip(that.IV.controls.$endscreensButton.parent(), 'tooltipEndscreens');
     });
     this.IV.on('bookmarkAdded', that.bookmarkAdded, that);
     this.IV.on('endscreenAdded', that.endscreenAdded, that);
+    this.IV.on('dnbEditorReady', that.resizeTooltips, that);
     this.IV.attach(this.$editor);
 
     // Create a focus handler
@@ -301,10 +387,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }
 
     // Hide dialog
-    if (this.IV.controls.$more.attr('aria-expanded') === 'true') {
-      this.IV.controls.$more.click();
+    if (this.IV.controls.$bookmarksChooser.hasClass('h5p-show')) {
+      this.IV.toggleBookmarksChooser(false, {keepStopped: true});
     }
-    else {
+    else if (this.IV.controls.$bookmarks) {
       this.IV.controls.$bookmarks.click();
     }
 
@@ -347,11 +433,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }
 
     // Hide dialog
-    if (this.IV.controls.$more.attr('aria-expanded') === 'true') {
-      this.IV.controls.$more.click();
+    if (this.IV.controls.$endscreensChooser.hasClass('h5p-show')) {
+      this.IV.toggleEndscreensChooser(false, {keepStopped: true});
     }
-    else if (this.IV.controls.$endscreens) {
-      this.IV.controls.$endscreens.click();
+    else if (this.IV.controls.$bookmarks) {
+      this.IV.controls.$bookmarks.click();
     }
 
     // Move other increament other ids.
@@ -423,6 +509,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         self.params.bookmarks.splice(id, 1);
         self.IV.trigger('bookmarksChanged', {'index': id, 'number': -1});
         $bookmark.remove();
+        self.IV.resumeVideo();
         return false;
       });
 
@@ -451,6 +538,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           var id = $bookmark.data('id');
           self.params.bookmarks[id].label = newText;
           self.IV.controls.$bookmarksChooser.find('li:eq(' + id + ')').text(newText);
+          self.IV.resumeVideo();
         })
         .keydown(function (event) {
           if (event.which === 13) {
@@ -485,6 +573,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         $endscreen.remove();
         return false;
       });
+    self.IV.resumeVideo();
   };
 
   /**
@@ -1622,7 +1711,7 @@ H5PEditor.language['H5PEditor.InteractiveVideo'] = {
     loading: 'Loading...',
     remove: 'Remove',
     removeInteraction: 'Are you sure you wish to remove this interaction?',
-    addBookmark: 'Add bookmark',
+    addBookmark: 'Add bookmark at @timecode',
     newBookmark: 'New bookmark',
     bookmarkAlreadyExists: 'Bookmark already exists here. Move playhead and add a bookmark or a submit screen at another time.',
     tourButtonStart: 'Tour',
@@ -1651,8 +1740,10 @@ H5PEditor.language['H5PEditor.InteractiveVideo'] = {
     fullScoreRequiredPause: '"Full score required" option requires that "Pause" is enabled.',
     fullScoreRequiredRetry: '"Full score required" option requires that "Retry" is enabled',
     fullScoreRequiredTimeFrame: 'There already exists an interaction that requires full score at the same interval as this interaction.<br> Only one of the interactions will be required to answer.',
-    addEndscreen: 'Add submit screen',
+    addEndscreen: 'Add submit screen at @timecode',
     endscreen: 'Submit screen',
-    endscreenAlreadyExists: 'Submit screen already exists here. Move playhead and add a submit screen or a bookmark at another time.'
+    endscreenAlreadyExists: 'Submit screen already exists here. Move playhead and add a submit screen or a bookmark at another time.',
+    tooltipBookmarks: 'Click to add bookmark at the current point in the video',
+    tooltipEndscreens: 'Click to add submit screen at the current point in the video'
   }
 };
