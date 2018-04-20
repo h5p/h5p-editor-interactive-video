@@ -445,7 +445,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     this.params.endscreens.splice(i, 0, {
       time: time,
-      label: this.IV.humanizeTime(time) + ' ' + t('endscreen')
+      label: H5P.InteractiveVideo.humanizeTime(time) + ' ' + t('endscreen')
     });
 
     var $endscreen = this.IV.addEndscreen(i, tenth);
