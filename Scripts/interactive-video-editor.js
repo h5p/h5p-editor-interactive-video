@@ -44,8 +44,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       });
     });
 
-    // Will be true only on first load of IV
-    this.freshVideo = (params === undefined);
+    // Will be true only on first load of IV or if there's no video file
+    this.freshVideo = (params === undefined || !parent.params.video.files);
 
     this.params = $.extend({
       interactions: [],
