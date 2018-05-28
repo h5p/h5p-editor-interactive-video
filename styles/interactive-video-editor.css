@@ -649,3 +649,7 @@
 .h5p-interactivevideo-editor .h5p-dragquestion-editor .field-name-enableFullScreen {
   display: none;
 }
+
+.field.field-name-title.text {
+  padding: 20px 20px 10px 20px;
+}
