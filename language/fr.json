@@ -29,6 +29,8 @@
     "tourStepCanvasEditingText": "tourStepCanvasEditingText",
     "tourStepCanvasBookmarksTitle": "tourStepCanvasBookmarksTitle",
     "tourStepCanvasBookmarksText": "tourStepCanvasBookmarksText",
+    "tourStepCanvasEndscreensTitle":"Submit Screens",
+    "tourStepCanvasEndscreensText":"You can add submit screens from the submit screens menu. Press the submit screen button to open the menu.",
     "tourStepCanvasPreviewTitle": "tourStepCanvasPreviewTitle",
     "tourStepCanvasPreviewText": "tourStepCanvasPreviewText",
     "tourStepCanvasSaveTitle": "tourStepCanvasSaveTitle",
@@ -36,6 +38,11 @@
     "tourStepSummaryText": "tourStepSummaryText",
     "fullScoreRequiredPause": "fullScoreRequiredPause",
     "fullScoreRequiredRetry": "fullScoreRequiredRetry",
-    "fullScoreRequiredTimeFrame": "fullScoreRequiredTimeFrame"
+    "fullScoreRequiredTimeFrame": "fullScoreRequiredTimeFrame",
+    "addEndscreen":"Add submit screen at @timecode",
+    "endscreen":"Submit screen",
+    "endscreenAlreadyExists":"Submit screen already exists here. Move playhead and add a submit screen or a bookmark at another time.",
+    "tooltipBookmarks":"Click to add bookmark at the current point in the video",
+    "tooltipEndscreens":"Click to add submit screen at the current point in the video"
   }
 }

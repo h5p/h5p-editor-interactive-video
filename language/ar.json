@@ -41,6 +41,8 @@
     "fullScoreRequiredTimeFrame":"هناك بالفعل تفاعل يتطلب درجة كاملة في نفس الفترة مثل هذا التفاعل..<br> سوف تكون هناك حاجة واحدة فقط من التفاعلات للرد.",
     "addEndscreen":"إضافة شاشة النهاية",
     "endscreen":"إنهاء الشاشة",
-    "endscreenAlreadyExists":"شاشة النهاية موجودة بالفعل هنا. نقل بلايهيد وإضافة شاشة نهاية أو إشارة مرجعية في وقت آخر."
+    "endscreenAlreadyExists":"شاشة النهاية موجودة بالفعل هنا. نقل بلايهيد وإضافة شاشة نهاية أو إشارة مرجعية في وقت آخر.",
+    "tooltipBookmarks":"Click to add bookmark at the current point in the video",
+    "tooltipEndscreens":"Click to add submit screen at the current point in the video"
   }
 }
