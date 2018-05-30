@@ -650,6 +650,6 @@
   display: none;
 }
 
-.field.field-name-title.text {
+.h5p-interactivevideo-editor .tree > .field.field-name-title.text {
   padding: 20px 20px 10px 20px;
 }
