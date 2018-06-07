@@ -189,6 +189,10 @@
   content: "\e900";
 }
 
+.h5p-interactivevideo-editor .h5p-dialog {
+  overflow: visible;
+}
+
 .h5p-interactivevideo-editor .h5p-dialog-buttons {
   position: absolute;
   top: 0;
@@ -268,7 +272,10 @@
 .h5p-interactivevideo-editor .field-name-interactiveVideo > .h5peditor-label-wrapper {
   display: block;
 }
-.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5peditor-label-wrapper > .h5peditor-label  {
+.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5p-editor-flex-wrapper > .h5peditor-label-wrapper {
+  width: 100%;
+}
+.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5p-editor-flex-wrapper > .h5peditor-label-wrapper > .h5peditor-label  {
   display: block;
   position: relative;
   background: #e9e9e9;
@@ -278,13 +285,14 @@
   padding: 0.5em 0.75em;
   color: #444;
   margin: 0 0 1px 0;
+  width: 100%;
 }
-.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5peditor-label-wrapper > .h5peditor-label:before {
+.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5p-editor-flex-wrapper > .h5peditor-label-wrapper > .h5peditor-label:before {
   font-family: 'H5PFontAwesome4';
   margin: 0 0.5em 0 0;
   content: "\f01d";
 }
-.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5peditor-label-wrapper > .h5peditor-label:after {
+.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5p-editor-flex-wrapper > .h5peditor-label-wrapper > .h5peditor-label:after {
   content: "";
 }
 .h5p-interactivevideo-editor .h5peditor-form {
@@ -652,4 +660,12 @@
 
 .h5p-interactivevideo-editor .tree > .field.field-name-title.text {
   padding: 20px 20px 10px 20px;
+}
+
+.h5p-interactivevideo-editor .tree > .h5p-editor-dialog.h5p-open.h5p-metadata-wrapper {
+  margin-left: 3%;
+}
+
+.h5p-interactivevideo-editor .push-top .h5p-editor-dialog.h5p-open.h5p-metadata-wrapper {
+  margin-top: -48em;
 }
