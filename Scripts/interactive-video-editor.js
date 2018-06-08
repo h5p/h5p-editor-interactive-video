@@ -799,7 +799,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
   /**
    * Add metadata button and form to subcontent
-   * See h5p-editor-course-presentation for a similar implementation 
+   * See h5p-editor-course-presentation for a similar implementation
    *
    * @param {H5P.InteractiveVideoInteraction} interaction
    * @param {Object} parameters
@@ -842,6 +842,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
       // Ensure it has validation functions
       ns.processSemanticsChunk(metaDataTitleSemantics, {}, form.children('.h5p-metadata-title-wrapper'), this);
+
+      // Populate the title field
+      var defaultTitle = H5PEditor.t('core', 'untitled') + ' ' + type.split(' ')[0].split('.')[1];
+      var titleInputField = form.find('.h5p-metadata-title-wrapper').find('.h5peditor-text')
+      titleInputField.val(defaultTitle)
 
       // Add metadata label after the library has loaded
       var label = form.find('.h5p-metadata-title-wrapper').find('.h5p-editor-flex-wrapper').first();
