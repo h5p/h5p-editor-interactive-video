@@ -1,4 +1,4 @@
-/*global H5PEditor, H5P*/
+/*global H5PEditor, H5P, H5PIntegration, ns */
 H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) {
 
   /**
@@ -788,8 +788,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       field.default = 'poster';
     }
 
-
-    self.addMetadataForm(type, $semanticFields);
+    self.addMetadataForm(type, $semanticFields, interaction.getMetadata());
 
     H5PEditor.processSemanticsChunk(interactionFields, parameters, $semanticFields, self);
 
@@ -802,16 +801,19 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * See h5p-editor-course-presentation for a similar implementation
    *
    * @param {H5P.InteractiveVideoInteraction} interaction
-   * @param {Object} parameters
+   * @param {object} parameters
+   * @param {object} metadata - Metadata of interaction.
    */
-  InteractiveVideoEditor.prototype.addMetadataForm = function (type, form) {
+  InteractiveVideoEditor.prototype.addMetadataForm = function (type, $form, metadata) {
+    var that = this;
+    var label;
+
     // Blocklist of menu items that don't need metadata
-    if (type == 'H5P.Link' ||
-        type == 'H5P.Nil' ||
-        type == 'H5P.Text' ||
-        type == 'H5P.GoToQuestion' ||
-        type == 'H5P.IVHotspot' ||
-        type == 'H5P.TwitterUserFeed') {
+    if (type === 'H5P.Link' ||
+        type === 'H5P.Nil' ||
+        type === 'H5P.GoToQuestion' ||
+        type === 'H5P.IVHotspot' ||
+        type === 'H5P.TwitterUserFeed') {
           return;
     }
 
@@ -832,38 +834,42 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     // Don't add a title field for text and image libraries, just add the metadata button
     if (type == 'H5P.AdvancedText' || type == 'H5P.Image') {
-      var label = form.find('.libwrap').find('.h5p-editor-flex-wrapper').first();
+      label = $form.find('.libwrap').find('.h5p-editor-flex-wrapper').first();
       label.append($metadataButton);
     }
 
     // Add the title field for all other libraries
     else {
-      form.prepend(H5PEditor.$('<div class="h5p-metadata-title-wrapper"></div>'));
+      $form.prepend(H5PEditor.$('<div class="h5p-metadata-title-wrapper"></div>'));
 
       // Ensure it has validation functions
-      ns.processSemanticsChunk(metaDataTitleSemantics, {}, form.children('.h5p-metadata-title-wrapper'), this);
+      ns.processSemanticsChunk(metaDataTitleSemantics, {}, $form.children('.h5p-metadata-title-wrapper'), this);
 
       // Populate the title field
-      var defaultTitle = H5PEditor.t('core', 'untitled') + ' ' + type.split(' ')[0].split('.')[1];
-      var titleInputField = form.find('.h5p-metadata-title-wrapper').find('.h5peditor-text')
-      titleInputField.val(defaultTitle)
+      var defaultTitle = (metadata && metadata.title) ? metadata.title : H5PEditor.t('core', 'untitled') + ' ' + type.split(' ')[0].split('.')[1];
+      var $titleInputField = $form.find('.h5p-metadata-title-wrapper').find('.h5peditor-text');
+      $titleInputField.attr('id', 'metadata-title-sub');
+      $titleInputField.val(defaultTitle);
 
       // Add metadata label after the library has loaded
-      var label = form.find('.h5p-metadata-title-wrapper').find('.h5p-editor-flex-wrapper').first();
-      label.append($metadataButton);
+      label = $form
+        .find('.h5p-metadata-title-wrapper')
+        .find('.h5p-editor-flex-wrapper')
+        .first()
+        .append($metadataButton);
     }
 
     // Add click listener to toggle the metadata form
     $metadataButton.click(function () {
-      var metadataWrapper = form.find('.h5p-metadata-wrapper');
-      metadataWrapper.toggleClass('h5p-open')
+      var metadataWrapper = $form.find('.h5p-metadata-wrapper');
+      metadataWrapper.toggleClass('h5p-open');
       metadataWrapper.closest('.tree').find('.overlay').toggle();
       metadataWrapper.find('.h5p-metadata-wrapper').find('.field-name-title').find('input.h5peditor-text').focus();
       if (H5PIntegration && H5PIntegration.user && H5PIntegration.user.name) {
         metadataWrapper.find('.field-name-authorName').find('input.h5peditor-text').val(H5PIntegration.user.name);
       }
     });
-  }
+  };
 
   /**
    * Process interaction.
@@ -1121,6 +1127,12 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       .append($doneButton)
       .append($removeButton);
 
+    // Sync metadata form title with subcontent form title
+    that.sync(
+      interaction.$form.find('.h5p-metadata-wrapper').find('.field-name-title').find('input.h5peditor-text'), // metadata form title
+      interaction.$form.find('input.h5peditor-text').first() // subcontent form title
+    );
+
     interaction.setTitle(title);
     interaction.trigger('openEditDialog');
     that.dnb.dialog.open(interaction.$form, title, interaction.getClass() + '-icon', $buttons);
@@ -1129,6 +1141,44 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     setTimeout(function () {
       that.dnb.blurAll();
     }, 0);
+  };
+
+  /**
+   * Sync two input fields. Empty fields will take value of the other or be set to ''.
+   * master fields takes precedence if both are set already.
+   *
+   * @param {jQuery} $masterField - Master field that holds the value for initialization.
+   * @param {jQuery} $slaveField - Slave field to be synced with.
+   * @param {string} [defaultText] - Default text if fields are empty.
+   */
+  InteractiveVideoEditor.prototype.sync = function ($masterField, $slaveField, defaultText) {
+    if (!$masterField || !$slaveField) {
+      return;
+    }
+
+    // Remove old sync
+    $masterField.off('input.IVSync');
+    $slaveField.off('input.IVSync');
+
+    // Initialize fields
+    if ($masterField.val()) {
+      $slaveField.val($masterField.val());
+    }
+    else if ($slaveField.val()) {
+      $masterField.val($slaveField.val());
+    }
+    else {
+      $masterField.val(defaultText || '');
+      $slaveField.val(defaultText || '');
+    }
+
+    // Keep fields in sync
+    $masterField.on('input.IVSync', function() {
+      $slaveField.val($masterField.val());
+    });
+    $slaveField.on('input.IVSync', function() {
+      $masterField.val($slaveField.val());
+    });
   };
 
   /**
