@@ -121,11 +121,11 @@
 }
 .h5p-interactive-video-dragnbar .h5p-dragnbar-ivhotspot-button:before,
 .h5p-ivhotspot-interaction-icon:before {
-  content: "\e900";
+  content: "\e901";
 }
 .h5p-interactive-video-dragnbar .h5p-dragnbar-questionnaire-button:before,
 .h5p-questionnaire-interaction-icon:before {
-  content: "\e901";
+  content: "\e902";
 }
 
 /* H5P specific fonts: */
@@ -137,7 +137,8 @@
 .h5p-interactive-video-dragnbar .h5p-dragnbar-dragtext-button:before,
 .h5p-interactive-video-dragnbar .h5p-dragnbar-singlechoiceset-button:before,
 .h5p-interactive-video-dragnbar .h5p-dragnbar-questionnaire-button:before,
-.h5p-interactive-video-dragnbar .h5p-dragnbar-ivhotspot-button:before {
+.h5p-interactive-video-dragnbar .h5p-dragnbar-ivhotspot-button:before,
+.h5p-interactive-video-dragnbar .h5p-dragnbar-freetextquestion-button:before  {
   font-family: 'H5PInteractiveVideoEditor';
   font-size: 1.2em;
   vertical-align: top;
@@ -150,7 +151,8 @@
 .h5p-multichoice-interaction-icon:before,
 .h5p-summary-interaction-icon:before,
 .h5p-ivhotspot-interaction-icon:before,
-.h5p-questionnaire-interaction-icon:before {
+.h5p-questionnaire-interaction-icon:before,
+.h5p-freetextquestion-interaction-icon:before {
   font-family: 'H5PInteractiveVideoEditor';
 }
 
@@ -181,6 +183,10 @@
 .h5p-interactive-video-dragnbar .h5p-dragnbar-singlechoiceset-button:before,
 .h5p-singlechoiceset-interaction-icon:before {
   content: "\e993";
+}
+.h5p-interactive-video-dragnbar .h5p-dragnbar-freetextquestion-button:before,
+.h5p-freetextquestion-interaction-icon:before {
+  content: "\e900";
 }
 
 .h5p-interactivevideo-editor .h5p-dialog-buttons {
@@ -340,25 +346,31 @@
   border-top: 0;
   line-height: 100%;
 }
-.h5p-interactivevideo-editor .h5p-add-bookmark {
+.h5p-interactivevideo-editor .h5p-add-bookmark,
+.h5p-interactivevideo-editor .h5p-add-endscreen {
   padding: 0 12px 8px;
   color: #fefefe;
   font-style: italic;
   cursor: pointer;
+  white-space: nowrap;
 }
-.h5p-interactivevideo-editor .h5p-add-bookmark:hover {
+.h5p-interactivevideo-editor .h5p-add-bookmark:hover,
+.h5p-interactivevideo-editor .h5p-add-endscreen:hover {
   color: #dbd7d1;
 }
-.h5p-interactivevideo-editor .h5p-add-bookmark:before {
+.h5p-interactivevideo-editor .h5p-add-bookmark:before,
+.h5p-interactivevideo-editor .h5p-add-endscreen:before {
   font-family: H5PFontAwesome4;
   content: "\f055";
   margin-right: 8px;
   font-style: normal;
 }
-.h5p-interactivevideo-editor .h5p-bookmark .h5p-bookmark-label {
+.h5p-interactivevideo-editor .h5p-bookmark .h5p-bookmark-label,
+.h5p-interactivevideo-editor .h5p-endscreen .h5p-endscreen-label {
   padding-right: 30px;
 }
-.h5p-interactivevideo-editor .h5p-remove-bookmark:before {
+.h5p-interactivevideo-editor .h5p-remove-bookmark:before,
+.h5p-interactivevideo-editor .h5p-remove-endscreen:before {
   font-family: H5PFontAwesome4;
   content: "\f057";
   color: #fefefe;
@@ -366,16 +378,20 @@
   top: 0;
   right: 8px;
 }
-.h5p-interactivevideo-editor .h5p-remove-bookmark:hover:before {
+.h5p-interactivevideo-editor .h5p-remove-bookmark:hover:before,
+.h5p-interactivevideo-editor .h5p-remove-endscreen:hover:before {
   color: #dbd7d1;
 }
-.h5p-interactivevideo-editor .h5p-bookmark.h5p-force-show .h5p-bookmark-label {
+.h5p-interactivevideo-editor .h5p-bookmark.h5p-force-show .h5p-bookmark-label,
+.h5p-interactivevideo-editor .h5p-endscreen.h5p-force-show .h5p-endscreen-label {
   visibility: visible;
   opacity: 1;
 }
 
 .h5p-interactivevideo-editor .h5p-bookmark input[type="text"].h5p-bookmark-input:focus,
-.h5p-interactivevideo-editor .h5p-bookmark input[type="text"].h5p-bookmark-input {
+.h5p-interactivevideo-editor .h5p-bookmark input[type="text"].h5p-bookmark-input,
+.h5p-interactivevideo-editor .h5p-endscreen input[type="text"].h5p-endscreen-input:focus,
+.h5p-interactivevideo-editor .h5p-endscreen input[type="text"].h5p-endscreen-input {
   background: transparent;
   border: 0;
   color: #fefefe;
@@ -387,10 +403,8 @@
 .h5p-interactivevideo-editor .h5p-bookmark input[type="text"].h5p-bookmark-input::-ms-clear {
   display: none;
 }
-.h5p-interactivevideo-editor .h5p-bookmark-text:before {
-  font-family: H5PFontAwesome4;
-  content: "\f02e";
-  margin-right: 8px;
+.h5p-interactivevideo-editor .h5p-endscreen input[type="text"].h5p-endscreen-input::-ms-clear {
+  display: none;
 }
 .h5p-interactivevideo-editor .h5p-iv-message-popup {
   position: absolute;
