@@ -93,7 +93,7 @@ H5PEditor.InteractiveVideo.RequireCompletion = (function () {
       }
       else {
         setTimeout(function () {
-          pollForLoadedSemantics(fields)
+          pollForLoadedSemantics(fields);
         }, 20);
       }
     }
@@ -161,7 +161,7 @@ H5PEditor.InteractiveVideo.RequireCompletion = (function () {
      * @return {boolean} Returns true if the interaction requires completion
      */
     function hasRequireCompletion(interaction) {
-      return interaction.getRequiresCompletion()
+      return interaction.getRequiresCompletion();
     }
 
     /**
