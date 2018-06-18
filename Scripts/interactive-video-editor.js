@@ -25,7 +25,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         that.setVideo(field.params);
       }
 
-      field.changes.push(function (file) {
+      field.changes.push(function () {
         that.setVideo(field.params);
       });
     });
@@ -127,7 +127,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       role: 'button',
       tabindex: 0,
       on: {
-        click: () => {
+        click: function () {
           action.call(this);
         }
       }
@@ -1161,7 +1161,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     if (!interaction.isButton()) {
       // Pause video on resizing
-      $interaction.children('.h5p-dragnresize-handle').mousedown(function (event) {
+      $interaction.children('.h5p-dragnresize-handle').mousedown(function () {
         that.interaction = interaction;
         that.IV.video.pause();
       });
@@ -1170,7 +1170,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     // Disable the normal dialog
     interaction.dialogDisabled = true;
 
-    $interaction.mousedown(function (event) {
+    $interaction.mousedown(function () {
       // Keep track of last state
       that.IV.lastState = that.IV.currentState;
 
@@ -1556,29 +1556,29 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   InteractiveVideoEditor.prototype.noVideoSourceMessage = function (parent) {
     var $html = $('<div/>');
 
-    var $icon = $('<div/>', {
+    $('<div/>', {
       'class': 'h5p-no-video-icon',
       appendTo: $html
     });
 
-    var $title = $('<div/>', {
+    $('<div/>', {
       'class': 'h5p-no-video-title',
       text: t('noVideoSource'),
       appendTo: $html
     });
 
-    var $text = $('<div/>', {
+    $('<div/>', {
       'class': 'h5p-no-video-text',
       text: t('selectVideo'),
       appendTo: $html
     });
 
-    var $button = $('<button/>', {
+    $('<button/>', {
       'class': 'h5p-no-video-button h5p-joubelui-button',
       type: 'button',
       text: t('tourButtonBack'),
       click: function () {
-        parent.$tabs[0].click()
+        parent.$tabs[0].click();
       },
       appendTo: $html
     });
