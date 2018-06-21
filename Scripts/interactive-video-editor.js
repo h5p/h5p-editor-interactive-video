@@ -121,6 +121,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       itemText = textIndex;
     }
 
+    var self = this;
+
     var $item = $('<div/>', {
       'class': selector,
       html: itemText,
@@ -128,7 +130,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       tabindex: 0,
       on: {
         click: function () {
-          action.call(this);
+          action.call(self);
         }
       }
     });
