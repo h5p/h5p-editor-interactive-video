@@ -419,8 +419,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       return;
     }
 
-    console.log(this);
-
     time = time || this.IV.video.getCurrentTime();
 
     // Find out where to place the endscreen
