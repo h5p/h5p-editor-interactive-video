@@ -817,6 +817,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           return;
     }
 
+    // Blocklist of menu items that don't need their own title field
+    const blockList = [];
+    // TODO: Where should the metadata button go in that case?
+    //const blockList = ['H5P.AdvancedText', 'H5P.Image', 'H5P.Table', 'H5P.Text'];
+
     // Inject a custom text field for the metadata title
     var metaDataTitleSemantics = [{
       'name' : 'title',
@@ -833,7 +838,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       '</div>');
 
     // Don't add a title field for text and image libraries, just add the metadata button
-    if (type == 'H5P.AdvancedText' || type == 'H5P.Image') {
+    if (blockList.indexOf(type) !== -1) {
       label = $form.find('.libwrap').find('.h5p-editor-flex-wrapper').first();
       label.append($metadataButton);
     }
@@ -848,8 +853,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       // Populate the title field
       var defaultTitle = (metadata && metadata.title) ? metadata.title : H5PEditor.t('core', 'untitled') + ' ' + type.split(' ')[0].split('.')[1];
       var $titleInputField = $form.find('.h5p-metadata-title-wrapper').find('.h5peditor-text');
-      $titleInputField.attr('id', 'metadata-title-sub');
-      $titleInputField.val(defaultTitle);
+      $titleInputField
+        .attr('id', 'metadata-title-sub')
+        .val(defaultTitle);
 
       // Add metadata label after the library has loaded
       label = $form
@@ -1130,7 +1136,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     // Sync metadata form title with subcontent form title
     that.sync(
       interaction.$form.find('.h5p-metadata-wrapper').find('.field-name-title').find('input.h5peditor-text'), // metadata form title
-      interaction.$form.find('input.h5peditor-text').first() // subcontent form title
+      interaction.$form.find('.field-name-title').find('input.h5peditor-text').first() // subcontent form title
     );
 
     interaction.setTitle(title);
@@ -1162,22 +1168,34 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     // Initialize fields
     if ($masterField.val()) {
-      $slaveField.val($masterField.val());
+      $slaveField
+        .val($masterField.val())
+        .trigger('change');
     }
     else if ($slaveField.val()) {
-      $masterField.val($slaveField.val());
+      $masterField
+        .val($slaveField.val())
+        .trigger('change');
     }
     else {
-      $masterField.val(defaultText || '');
-      $slaveField.val(defaultText || '');
+      $masterField
+        .val(defaultText || '')
+        .trigger('change');
+      $slaveField
+        .val(defaultText || '')
+        .trigger('change');
     }
 
     // Keep fields in sync
     $masterField.on('input.IVSync', function() {
-      $slaveField.val($masterField.val());
+      $slaveField
+        .val($masterField.val())
+        .trigger('change');
     });
     $slaveField.on('input.IVSync', function() {
-      $masterField.val($slaveField.val());
+      $masterField
+        .val($slaveField.val())
+        .trigger('change');
     });
   };
 
