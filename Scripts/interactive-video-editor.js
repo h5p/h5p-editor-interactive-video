@@ -809,6 +809,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     var label;
 
     // Blocklist of menu items that don't need metadata
+    // TODO: This can probably be solved without hard-coding using the hasmetadata
+    //       property for library semantics
     if (type === 'H5P.Link' ||
         type === 'H5P.Nil' ||
         type === 'H5P.GoToQuestion' ||
