@@ -784,7 +784,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     // Set default displayType of images to poster
     if (type === 'H5P.Image') {
-      var field = findField('displayType', interactionFields);
+      const field = findField('displayType', interactionFields);
       field.default = 'poster';
     }
 
@@ -805,7 +805,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @param {object} metadata - Metadata of interaction.
    */
   InteractiveVideoEditor.prototype.addMetadataForm = function (type, $form, metadata) {
-    var that = this;
     var label;
 
     // Blocklist of menu items that don't need metadata
@@ -833,6 +832,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       'optional': false
     }];
 
+    // TODO: This can probably be removed here. h5plibrary can provide a button,
+    //       ideally along with copy/paste
     var $metadataButton = H5PEditor.$('' +
       '<div class="h5p-metadata-button-wrapper">' +
         '<div class="h5p-metadata-button-tip"></div>' +
@@ -876,6 +877,12 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       if (H5PIntegration && H5PIntegration.user && H5PIntegration.user.name) {
         metadataWrapper.find('.field-name-authorName').find('input.h5peditor-text').val(H5PIntegration.user.name);
       }
+
+      // Sync metadata form title with subcontent form title
+      H5PEditor.sync(
+        $form.find('.field-name-title').find('input.h5peditor-text').first(), // subcontent form title
+        metadataWrapper.find('.field-name-title').find('input.h5peditor-text') // metadata form title
+      );
     });
   };
 
@@ -1135,11 +1142,11 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       .append($doneButton)
       .append($removeButton);
 
-    // Sync metadata form title with subcontent form title
-    that.sync(
-      interaction.$form.find('.h5p-metadata-wrapper').find('.field-name-title').find('input.h5peditor-text'), // metadata form title
-      interaction.$form.find('.field-name-title').find('input.h5peditor-text').first() // subcontent form title
-    );
+    // // Sync metadata form title with subcontent form title
+    // H5PEditor.sync(
+    //   interaction.$form.find('.field-name-title').find('input.h5peditor-text').first(), // subcontent form title
+    //   interaction.$form.find('.h5p-metadata-wrapper').find('.field-name-title').find('input.h5peditor-text') // metadata form title
+    // );
 
     interaction.setTitle(title);
     interaction.trigger('openEditDialog');
@@ -1149,56 +1156,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     setTimeout(function () {
       that.dnb.blurAll();
     }, 0);
-  };
-
-  /**
-   * Sync two input fields. Empty fields will take value of the other or be set to ''.
-   * master fields takes precedence if both are set already.
-   *
-   * @param {jQuery} $masterField - Master field that holds the value for initialization.
-   * @param {jQuery} $slaveField - Slave field to be synced with.
-   * @param {string} [defaultText] - Default text if fields are empty.
-   */
-  InteractiveVideoEditor.prototype.sync = function ($masterField, $slaveField, defaultText) {
-    if (!$masterField || !$slaveField) {
-      return;
-    }
-
-    // Remove old sync
-    $masterField.off('input.IVSync');
-    $slaveField.off('input.IVSync');
-
-    // Initialize fields
-    if ($masterField.val()) {
-      $slaveField
-        .val($masterField.val())
-        .trigger('change');
-    }
-    else if ($slaveField.val()) {
-      $masterField
-        .val($slaveField.val())
-        .trigger('change');
-    }
-    else {
-      $masterField
-        .val(defaultText || '')
-        .trigger('change');
-      $slaveField
-        .val(defaultText || '')
-        .trigger('change');
-    }
-
-    // Keep fields in sync
-    $masterField.on('input.IVSync', function() {
-      $slaveField
-        .val($masterField.val())
-        .trigger('change');
-    });
-    $slaveField.on('input.IVSync', function() {
-      $masterField
-        .val($slaveField.val())
-        .trigger('change');
-    });
   };
 
   /**
