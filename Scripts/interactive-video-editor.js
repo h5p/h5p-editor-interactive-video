@@ -805,8 +805,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @param {object} metadata - Metadata of interaction.
    */
   InteractiveVideoEditor.prototype.addMetadataForm = function (type, $form, metadata) {
-    var label;
-
     // Blocklist of menu items that don't need metadata
     // TODO: This can probably be solved without hard-coding using the hasmetadata
     //       property for library semantics
@@ -832,22 +830,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       'optional': false
     }];
 
-    // TODO: This can probably be removed here. h5plibrary can provide a button,
-    //       ideally along with copy/paste
-    var $metadataButton = H5PEditor.$('' +
-      '<div class="h5p-metadata-button-wrapper">' +
-        '<div class="h5p-metadata-button-tip"></div>' +
-        '<div class="toggle-metadata">' + ns.t('core', 'metadata') + '</div>' +
-      '</div>');
-
-    // Don't add a title field for text and image libraries, just add the metadata button
-    if (blockList.indexOf(type) !== -1) {
-      label = $form.find('.libwrap').find('.h5p-editor-flex-wrapper').first();
-      label.append($metadataButton);
-    }
-
     // Add the title field for all other libraries
-    else {
+    if (blockList.indexOf(type) === -1) {
       $form.prepend(H5PEditor.$('<div class="h5p-metadata-title-wrapper"></div>'));
 
       // Ensure it has validation functions
@@ -859,31 +843,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       $titleInputField
         .attr('id', 'metadata-title-sub')
         .val(defaultTitle);
-
-      // Add metadata label after the library has loaded
-      label = $form
-        .find('.h5p-metadata-title-wrapper')
-        .find('.h5p-editor-flex-wrapper')
-        .first()
-        .append($metadataButton);
     }
-
-    // Add click listener to toggle the metadata form
-    $metadataButton.click(function () {
-      var metadataWrapper = $form.find('.h5p-metadata-wrapper');
-      metadataWrapper.toggleClass('h5p-open');
-      metadataWrapper.closest('.tree').find('.overlay').toggle();
-      metadataWrapper.find('.h5p-metadata-wrapper').find('.field-name-title').find('input.h5peditor-text').focus();
-      if (H5PIntegration && H5PIntegration.user && H5PIntegration.user.name) {
-        metadataWrapper.find('.field-name-authorName').find('input.h5peditor-text').val(H5PIntegration.user.name);
-      }
-
-      // Sync metadata form title with subcontent form title
-      H5PEditor.sync(
-        $form.find('.field-name-title').find('input.h5peditor-text').first(), // subcontent form title
-        metadataWrapper.find('.field-name-title').find('input.h5peditor-text') // metadata form title
-      );
-    });
   };
 
   /**
