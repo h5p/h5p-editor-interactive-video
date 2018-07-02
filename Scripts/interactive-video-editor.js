@@ -817,9 +817,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }
 
     // Blocklist of menu items that don't need their own title field
-    const blockList = [];
-    // TODO: Where should the metadata button go in that case?
-    //const blockList = ['H5P.AdvancedText', 'H5P.Image', 'H5P.Table', 'H5P.Text'];
+    // TODO: Could a property hasmetadatatitle in library semantics help?
+    const blockList = ['H5P.AdvancedText', 'H5P.Image', 'H5P.Table', 'H5P.Text'];
 
     // Inject a custom text field for the metadata title
     var metaDataTitleSemantics = [{
