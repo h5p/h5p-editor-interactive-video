@@ -805,20 +805,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @param {object} metadata - Metadata of interaction.
    */
   InteractiveVideoEditor.prototype.addMetadataForm = function (type, $form, metadata) {
-    // Blocklist of menu items that don't need metadata
-    // TODO: This can probably be solved without hard-coding using the hasmetadata
-    //       property for library semantics
-    if (type === 'H5P.Link' ||
-        type === 'H5P.Nil' ||
-        type === 'H5P.GoToQuestion' ||
-        type === 'H5P.IVHotspot' ||
-        type === 'H5P.TwitterUserFeed') {
-          return;
-    }
-
     // Blocklist of menu items that don't need their own title field
     // TODO: Could a property hasmetadatatitle in library semantics help?
-    const blockList = ['H5P.AdvancedText', 'H5P.Image', 'H5P.Table', 'H5P.Text'];
+    const blockList = ['H5P.AdvancedText', 'H5P.Image', 'H5P.Table', 'H5P.Text', 'H5P.Link', 'H5P.Nil', 'H5P.GoToQuestion', 'H5P.IVHotspot', 'H5P.TwitterUserFeed'];
 
     // Inject a custom text field for the metadata title
     var metaDataTitleSemantics = [{
