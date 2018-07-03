@@ -667,5 +667,10 @@
 }
 
 .h5p-interactivevideo-editor .push-top .h5p-editor-dialog.h5p-open.h5p-metadata-wrapper {
-  margin-top: -48em;
+  position:fixed;
+  top: 8em;
+  left: 1.5em;
+  right:1.5em;
+  width: auto;
+  margin-top: 0;
 }
