@@ -266,7 +266,7 @@
   cursor: pointer;
 }
 .h5p-interactivevideo-editor .field-name-interactiveVideo {
-  margin-bottom: 0;
+  margin: 0 auto;
 }
 /* Wizard does hide the label by default - must override here */
 .h5p-interactivevideo-editor .field-name-interactiveVideo > .h5peditor-label-wrapper {
@@ -659,7 +659,7 @@
 }
 
 .h5p-interactivevideo-editor .tree > .field.field-name-title.text {
-  padding: 20px 20px 10px 20px;
+  padding: 20px 20px 0 20px;
 }
 
 .h5p-interactivevideo-editor .tree > .h5p-editor-dialog.h5p-open.h5p-metadata-wrapper {
