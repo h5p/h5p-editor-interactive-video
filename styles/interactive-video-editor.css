@@ -26,11 +26,12 @@
   width: 100%;
 }
 .h5p-interactive-video-dragnbar .h5p-dragnbar-ul {
-  margin: 0 0 0 0.25em;
+  margin: 0;
   list-style: none;
   padding: 0;
   float: left;
   height: 100%;
+  width: 100%;
 }
 .h5p-interactive-video-dragnbar .h5p-dragnbar-li {
   position: relative;
@@ -70,6 +71,98 @@
   background: -o-linear-gradient(top,#fff 0,#f2f2f2 100%);
   font-family: 'H5PFontAwesome4';
 }
+
+.h5p-interactive-video-dragnbar .h5p-dragnbar-li:first-child {
+  margin-left: 0.25em;
+}
+
+.h5p-interactive-video-dragnbar .h5p-dragnbar-a.h5p-dragnbar-paste-button {
+  background: #e6f1fa; /* Old browsers */
+  background: -moz-linear-gradient(top, #e6f1fa 1%, #add1ef 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, #e6f1fa), color-stop(100%, #add1ef)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #e6f1fa 1%, #add1ef 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #e6f1fa 1%, #add1ef 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #e6f1fa 1%, #add1ef 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #e6f1fa 1%, #add1ef 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6f1fa', endColorstr='#add1ef',GradientType=0 ); /* IE6-9 */
+  border-color: #bccee8;
+}
+
+.h5p-interactive-video-dragnbar .h5p-dragnbar-li-ul .h5p-dragnbar-li:first-child {
+  margin-left: 0;
+}
+
+.h5p-interactive-video-dragnbar .h5p-dragnbar-li.paste-button {
+  float: right;
+}
+
+.h5p-interactive-video-dragnbar .h5p-dragnbar-a.h5p-dragnbar-paste-button:hover {
+  cursor: pointer;
+  border-color: #5e97c5;
+}
+
+.h5p-interactive-video-dragnbar .h5p-dragnbar-li.disabled .h5p-dragnbar-paste-button:hover {
+  cursor: auto;
+}
+
+.h5p-interactive-video-dragnbar .h5p-dragnbar-li.disabled {
+  opacity: 0.3;
+  cursor: auto;
+}
+
+.h5p-interactive-video-dragnbar .h5p-dragnbar-paste-button:before {
+  color: #0061A2;
+}
+
+.h5p-interactive-video-dragnbar .h5p-dragnbar-li-ul {
+  padding: 0;
+  list-style: none;
+  position: absolute;
+  right: -0.2em;
+  z-index: 2;
+  display: none;
+  /* Remove the whitespace between more button and dropdown menu */
+  margin-top: -0.06em;
+  background: rgb(245, 245, 245);
+}
+
+.h5p-interactive-video-dragnbar .h5p-dragnbar-li-ul .h5p-dragnbar-li {
+  float: none;
+  box-sizing: border-box;
+  border-left: 0;
+  /* Borders around the drop down buttons */
+  border-left: 1px solid #f7f0f9;
+  border-bottom: 1px solid #f7f0f9;
+  border-right: 1px solid #f7f0f9;
+  /* Remove the whitespace between buttons in the dropdown menu */
+  padding: 0.2em 0.2em 0 0.2em;
+  margin: 0;
+}
+
+.h5p-interactive-video-dragnbar .h5p-dragnbar-li-ul .h5p-dragnbar-li:last-child {
+  padding-bottom: 0.2em;
+}
+
+.h5p-interactive-video-dragnbar .h5p-dragnbar-li-ul .h5p-dragnbar-a {
+  margin: 0;
+}
+
+/* Rules for vertical menu buttons when they are in the horizontal menu */
+.h5p-interactive-video-dragnbar ul:not(.h5p-dragnbar-li-ul) > .h5p-dragnbar-li > a.h5p-dragnbar-interactivevideo-button:before {
+  vertical-align: bottom;
+}
+
+.h5p-interactive-video-dragnbar ul:not(.h5p-dragnbar-li-ul) > .h5p-dragnbar-li > a.h5p-dragnbar-table-button:before,
+.h5p-interactive-video-dragnbar ul:not(.h5p-dragnbar-li-ul) > .h5p-dragnbar-li > a.h5p-dragnbar-exportabletextarea-button:before,
+.h5p-interactive-video-dragnbar ul:not(.h5p-dragnbar-li-ul) > .h5p-dragnbar-li > a.h5p-dragnbar-markthewords-button:before {
+  vertical-align: super;
+}
+
+.h5p-interactive-video-dragnbar ul:not(.h5p-dragnbar-li-ul) > .h5p-dragnbar-li > a.h5p-dragnbar-dialogcards-button:before {
+  font-size: 1.0em;
+  vertical-align: baseline;
+}
+
 .h5p-dialog-title:before {
   content: " ";
   font-family: 'H5PFontAwesome4';
@@ -126,6 +219,12 @@
 .h5p-interactive-video-dragnbar .h5p-dragnbar-questionnaire-button:before,
 .h5p-questionnaire-interaction-icon:before {
   content: "\e902";
+}
+.h5p-interactive-video-dragnbar .h5p-dragnbar-more-button {
+  width: 0.3em;
+}
+.h5p-interactive-video-dragnbar .h5p-dragnbar-more-button:before {
+  content: "\f142";
 }
 
 /* H5P specific fonts: */
