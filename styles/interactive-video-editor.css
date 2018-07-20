@@ -87,6 +87,8 @@
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6f1fa', endColorstr='#add1ef',GradientType=0 ); /* IE6-9 */
   border-color: #bccee8;
   color: #0061a2;
+  font-size: 1.2em;
+  padding: 0.1em 0.5em;
 }
 
 .h5p-interactive-video-dragnbar .h5p-dragnbar-li-ul .h5p-dragnbar-li:first-child {
@@ -95,6 +97,10 @@
 
 .h5p-interactive-video-dragnbar .h5p-dragnbar-li.paste-button {
   float: right;
+}
+.h5p-interactive-video-dragnbar .h5p-dragnbar-li.paste-button.disabled,
+.h5p-interactive-video-dragnbar .h5p-dragnbar-li.paste-button.disabled:hover {
+  background: transparent;
 }
 
 .h5p-interactive-video-dragnbar .h5p-dragnbar-a.h5p-dragnbar-paste-button:hover {
