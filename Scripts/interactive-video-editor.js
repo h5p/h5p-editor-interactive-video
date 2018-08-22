@@ -78,7 +78,35 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       that.currentTabIndex = event.data.id;
       that.startGuidedTour(H5PEditor.InteractiveVideo.GuidedTours.isOpen());
     });
+
+    // Update paste button
+    H5P.externalDispatcher.on('datainclipboard', function (event) {
+      if (!that.libraries) {
+        return;
+      }
+      var canPaste = !event.data.reset;
+      if (canPaste) {
+        // Check if content type is supported here
+        canPaste = that.canPaste(H5P.getClipboard());
+      }
+      that.dnb.setCanPaste(canPaste);
+    });
   }
+
+  /**
+   * Check if the clipboard can be pasted into IV.
+   *
+   * @param {Object} [clipboard] Clipboard data.
+   * @return {boolean} True, if clipboard can be pasted.
+   */
+  InteractiveVideoEditor.prototype.canPaste = function (clipboard) {
+    if (!clipboard || !clipboard.generic) {
+      return false;
+    }
+    return this.libraries.some(function (element) {
+      return element.uberName === clipboard.generic.library;
+    });
+  };
 
   /**
    * Must be changed if the semantics for the elements changes.
@@ -588,7 +616,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     this.libraries = libraries;
     this.dnb = new H5P.DragNBar(this.getButtons(libraries), this.IV.$videoWrapper, this.IV.$container);
-    this.dnb.overflowThreshold = 20;
+    this.dnb.overflowThreshold = 15;
 
     /**
      * @private
@@ -708,6 +736,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }
 
     this.dnb.attach(this.$bar);
+
+    // Set paste button
+    this.dnb.setCanPaste(this.canPaste(H5P.getClipboard()));
   };
 
   /**
