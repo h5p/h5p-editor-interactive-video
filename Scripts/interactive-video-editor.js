@@ -1092,12 +1092,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       .append($doneButton)
       .append($removeButton);
 
-    // // Sync metadata form title with subcontent form title
-    // H5PEditor.sync(
-    //   interaction.$form.find('.field-name-title').find('input.h5peditor-text').first(), // subcontent form title
-    //   interaction.$form.find('.h5p-metadata-wrapper').find('.field-name-title').find('input.h5peditor-text') // metadata form title
-    // );
-
     interaction.setTitle(title);
     interaction.trigger('openEditDialog');
     that.dnb.dialog.open(interaction.$form, title, interaction.getClass() + '-icon', $buttons);

@@ -2,14 +2,14 @@
   "title": "Interactive Video Editor",
   "license": "MIT",
   "majorVersion": 1,
-  "minorVersion": 19,
-  "patchVersion": 3,
+  "minorVersion": 20,
+  "patchVersion": 0,
   "runnable": 0,
   "machineName": "H5PEditor.InteractiveVideo",
   "author": "Joubel",
   "coreApi": {
     "majorVersion": 1,
-    "minorVersion": 12
+    "minorVersion": 19
   },
   "preloadedJs": [
     {
