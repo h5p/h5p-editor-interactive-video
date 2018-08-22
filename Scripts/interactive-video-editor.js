@@ -1,4 +1,4 @@
-/*global H5PEditor, H5P*/
+/*global H5PEditor, H5P, H5PIntegration, ns */
 H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) {
 
   /**
@@ -786,13 +786,54 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     // Set default displayType of images to poster
     if (type === 'H5P.Image') {
-      var field = findField('displayType', interactionFields);
+      const field = findField('displayType', interactionFields);
       field.default = 'poster';
     }
+
+    self.addMetadataForm(type, $semanticFields, interaction.getMetadata());
 
     H5PEditor.processSemanticsChunk(interactionFields, parameters, $semanticFields, self);
 
     self.setLibraryName(interaction.$form, type);
+  };
+
+
+  /**
+   * Add metadata button and form to subcontent
+   * See h5p-editor-course-presentation for a similar implementation
+   *
+   * @param {H5P.InteractiveVideoInteraction} interaction
+   * @param {object} parameters
+   * @param {object} metadata - Metadata of interaction.
+   */
+  InteractiveVideoEditor.prototype.addMetadataForm = function (type, $form, metadata) {
+    // Blocklist of menu items that don't need their own title field
+    // TODO: Could a property hasmetadatatitle in library semantics help?
+    const blockList = ['H5P.AdvancedText', 'H5P.Image', 'H5P.Table', 'H5P.Text', 'H5P.Link', 'H5P.Nil', 'H5P.GoToQuestion', 'H5P.IVHotspot', 'H5P.TwitterUserFeed'];
+
+    // Inject a custom text field for the metadata title
+    var metaDataTitleSemantics = [{
+      'name' : 'title',
+      'type' : 'text',
+      'label' : ns.t('core', 'title'),
+      'description': ns.t('core', 'usedForSearchingReportsAndCopyrightInformation'),
+      'optional': false
+    }];
+
+    // Add the title field for all other libraries
+    if (blockList.indexOf(type) === -1) {
+      $form.prepend(H5PEditor.$('<div class="h5p-metadata-title-wrapper"></div>'));
+
+      // Ensure it has validation functions
+      ns.processSemanticsChunk(metaDataTitleSemantics, {}, $form.children('.h5p-metadata-title-wrapper'), this);
+
+      // Populate the title field
+      var defaultTitle = (metadata && metadata.title) ? metadata.title : H5PEditor.t('core', 'untitled') + ' ' + type.split(' ')[0].split('.')[1];
+      var $titleInputField = $form.find('.h5p-metadata-title-wrapper').find('.h5peditor-text');
+      $titleInputField
+        .attr('id', 'metadata-title-sub')
+        .val(defaultTitle);
+    }
   };
 
   /**
@@ -1050,6 +1091,12 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     var $buttons = $('<div class="h5p-dialog-buttons"></div>')
       .append($doneButton)
       .append($removeButton);
+
+    // // Sync metadata form title with subcontent form title
+    // H5PEditor.sync(
+    //   interaction.$form.find('.field-name-title').find('input.h5peditor-text').first(), // subcontent form title
+    //   interaction.$form.find('.h5p-metadata-wrapper').find('.field-name-title').find('input.h5peditor-text') // metadata form title
+    // );
 
     interaction.setTitle(title);
     interaction.trigger('openEditDialog');
@@ -1535,7 +1582,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           self.startGuidedTour(true);
           return false;
         }
-      }).appendTo($('.field-name-interactiveVideo > .h5peditor-label-wrapper > .h5peditor-label', $libwrap));
+      }).appendTo($('.field-name-interactiveVideo > .h5p-editor-flex-wrapper > .h5peditor-label-wrapper > .h5peditor-label', $libwrap));
       self.startGuidedTour();
     }
   };
