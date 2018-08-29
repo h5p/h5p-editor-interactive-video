@@ -825,6 +825,13 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     H5PEditor.processSemanticsChunk(interactionFields, parameters, $semanticFields, self);
 
+    // Remove library selector and copy button and paste button
+    var pos = interactionFields.map(function(field) {return field.type;}).indexOf('library');
+    if (pos > -1) {
+      self.children[pos].removeLibrarySelector();
+      self.children[pos].removeCopyPaste();
+    }
+
     self.setLibraryName(interaction.$form, type);
   };
 
