@@ -1,4 +1,4 @@
-/*global H5PEditor, H5P*/
+/*global H5PEditor, H5P, H5PIntegration, ns */
 H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) {
 
   /**
@@ -78,7 +78,35 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       that.currentTabIndex = event.data.id;
       that.startGuidedTour(H5PEditor.InteractiveVideo.GuidedTours.isOpen());
     });
+
+    // Update paste button
+    H5P.externalDispatcher.on('datainclipboard', function (event) {
+      if (!that.libraries) {
+        return;
+      }
+      var canPaste = !event.data.reset;
+      if (canPaste) {
+        // Check if content type is supported here
+        canPaste = that.canPaste(H5P.getClipboard());
+      }
+      that.dnb.setCanPaste(canPaste);
+    });
   }
+
+  /**
+   * Check if the clipboard can be pasted into IV.
+   *
+   * @param {Object} [clipboard] Clipboard data.
+   * @return {boolean} True, if clipboard can be pasted.
+   */
+  InteractiveVideoEditor.prototype.canPaste = function (clipboard) {
+    if (!clipboard || !clipboard.generic) {
+      return false;
+    }
+    return this.libraries.some(function (element) {
+      return element.uberName === clipboard.generic.library;
+    });
+  };
 
   /**
    * Must be changed if the semantics for the elements changes.
@@ -587,8 +615,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     var that = this;
 
     this.libraries = libraries;
-    this.dnb = new H5P.DragNBar(this.getButtons(libraries), this.IV.$videoWrapper, this.IV.$container);
-    this.dnb.overflowThreshold = 20;
+    this.dnb = new H5P.DragNBar(this.getButtons(libraries), this.IV.$videoWrapper, this.IV.$container, {libraries: libraries});
+    this.dnb.overflowThreshold = 15;
 
     /**
      * @private
@@ -708,6 +736,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }
 
     this.dnb.attach(this.$bar);
+
+    // Set paste button
+    this.dnb.setCanPaste(this.canPaste(H5P.getClipboard()));
   };
 
   /**
@@ -786,13 +817,61 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     // Set default displayType of images to poster
     if (type === 'H5P.Image') {
-      var field = findField('displayType', interactionFields);
+      const field = findField('displayType', interactionFields);
       field.default = 'poster';
     }
 
+    self.addMetadataForm(type, $semanticFields, interaction.getMetadata());
+
     H5PEditor.processSemanticsChunk(interactionFields, parameters, $semanticFields, self);
 
+    // Remove library selector and copy button and paste button
+    var pos = interactionFields.map(function (field) {
+      return field.type;
+    }).indexOf('library');
+    if (pos > -1) {
+      self.children[pos].hide();
+    }
+
     self.setLibraryName(interaction.$form, type);
+  };
+
+
+  /**
+   * Add metadata button and form to subcontent
+   * See h5p-editor-course-presentation for a similar implementation
+   *
+   * @param {H5P.InteractiveVideoInteraction} interaction
+   * @param {object} parameters
+   * @param {object} metadata - Metadata of interaction.
+   */
+  InteractiveVideoEditor.prototype.addMetadataForm = function (type, $form, metadata) {
+    // Blocklist of menu items that don't need their own title field
+    const blockList = ['H5P.AdvancedText', 'H5P.Image', 'H5P.Table', 'H5P.Text', 'H5P.Link', 'H5P.Nil', 'H5P.GoToQuestion', 'H5P.IVHotspot', 'H5P.TwitterUserFeed'];
+
+    // Inject a custom text field for the metadata title
+    var metaDataTitleSemantics = [{
+      'name' : 'title',
+      'type' : 'text',
+      'label' : ns.t('core', 'title'),
+      'description': ns.t('core', 'usedForSearchingReportsAndCopyrightInformation'),
+      'optional': false
+    }];
+
+    // Add the title field for all other libraries
+    if (blockList.indexOf(type) === -1) {
+      $form.prepend(H5PEditor.$('<div class="h5p-metadata-title-wrapper"></div>'));
+
+      // Ensure it has validation functions
+      ns.processSemanticsChunk(metaDataTitleSemantics, {}, $form.children('.h5p-metadata-title-wrapper'), this);
+
+      // Populate the title field
+      var defaultTitle = (metadata && metadata.title) ? metadata.title : H5PEditor.t('core', 'untitled') + ' ' + type.split(' ')[0].split('.')[1];
+      var $titleInputField = $form.find('.h5p-metadata-title-wrapper').find('.h5peditor-text');
+      $titleInputField
+        .attr('id', 'metadata-title-sub')
+        .val(defaultTitle);
+    }
   };
 
   /**
@@ -1535,7 +1614,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           self.startGuidedTour(true);
           return false;
         }
-      }).appendTo($('.field-name-interactiveVideo > .h5peditor-label-wrapper > .h5peditor-label', $libwrap));
+      }).appendTo($('.field-name-interactiveVideo > .h5p-editor-flex-wrapper > .h5peditor-label-wrapper > .h5peditor-label', $libwrap));
       self.startGuidedTour();
     }
   };
