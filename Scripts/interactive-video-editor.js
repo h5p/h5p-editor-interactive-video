@@ -192,7 +192,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       .append($tooltip)
       // Hide hover on click
       .hover(undefined, function () {
-        if(that.IV.$controls.find('.h5p-show').length === 0) {
+        if (that.IV.$controls.find('.h5p-show').length === 0) {
           $(this).removeClass('h5p-no-tooltip');
         }
       })
@@ -217,7 +217,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     var $base = this.$bar.find('.h5p-dragnbar-tooltip').first();
 
     var tooltips = this.IV.$container.find('.h5p-interactive-video-tooltip');
-    tooltips.each(function() {
+    tooltips.each(function () {
       $(this).css('font-size', $base.css('font-size'));
       $(this).css('line-height', $base.css('line-height'));
       $(this).css('padding', $base.css('padding'));
@@ -378,7 +378,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     var totalOffsetX = videoOffsetX - (this.$interactionTitle.outerWidth(true) / 2) + ($interaction.width() / 2);
     if (totalOffsetX < 0) {
       totalOffsetX = 0;
-    } else if(totalOffsetX + this.$interactionTitle.outerWidth(true) > this.IV.$videoWrapper.width()) {
+    }
+    else if (totalOffsetX + this.$interactionTitle.outerWidth(true) > this.IV.$videoWrapper.width()) {
       totalOffsetX = this.IV.$videoWrapper.width() - this.$interactionTitle.outerWidth(true);
     }
     var totalOffsetY = videoOffsetY + dnbOffsetY - this.$interactionTitle.height() - 1;
@@ -518,7 +519,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       }
     }).appendTo(this.$editor);
 
-    timeout = setTimeout(function(){
+    timeout = setTimeout(function () {
       $warning.remove();
     }, 3000);
   };
@@ -843,9 +844,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    *
    * @param {H5P.InteractiveVideoInteraction} interaction
    * @param {object} parameters
-   * @param {object} metadata - Metadata of interaction.
    */
-  InteractiveVideoEditor.prototype.addMetadataForm = function (type, $form, metadata) {
+  InteractiveVideoEditor.prototype.addMetadataForm = function (type, $form) {
     // Blocklist of menu items that don't need their own title field
     const blockList = ['H5P.AdvancedText', 'H5P.Image', 'H5P.Table', 'H5P.Text', 'H5P.Link', 'H5P.Nil', 'H5P.GoToQuestion', 'H5P.IVHotspot', 'H5P.TwitterUserFeed'];
 
@@ -925,7 +925,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         });
 
         $buttonOnMobile.addClass((interaction.isButton() ? 'hide' : ''));
-      } else {
+      }
+      else {
         $buttonOnMobile.remove();
       }
     }

@@ -11,7 +11,7 @@ H5PEditor.InteractiveVideo.RequireCompletion = (function () {
    * @param {Object} interaction
    * @constructor
    */
-  function RequireCompletion (IVEditor, interaction) {
+  function RequireCompletion(IVEditor, interaction) {
 
     // Shorthand for translating texts
     var t = H5PEditor.InteractiveVideo.t;
