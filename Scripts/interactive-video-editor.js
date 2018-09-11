@@ -866,11 +866,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       ns.processSemanticsChunk(metaDataTitleSemantics, {}, $form.children('.h5p-metadata-title-wrapper'), this);
 
       // Populate the title field
-      var defaultTitle = (metadata && metadata.title) ? metadata.title : H5PEditor.t('core', 'untitled') + ' ' + type.split(' ')[0].split('.')[1];
-      var $titleInputField = $form.find('.h5p-metadata-title-wrapper').find('.h5peditor-text');
-      $titleInputField
-        .attr('id', 'metadata-title-sub')
-        .val(defaultTitle);
+      $form.find('.h5p-metadata-title-wrapper .h5peditor-text')
+        .attr('id', 'metadata-title-sub');
     }
   };
 
