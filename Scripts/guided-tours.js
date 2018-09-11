@@ -1,4 +1,4 @@
-H5PEditor.InteractiveVideo.GuidedTours = (function ($) {
+H5PEditor.InteractiveVideo.GuidedTours = (function () {
 
   // Shorthand for translate function:
   var t = H5PEditor.InteractiveVideo.t;
@@ -8,7 +8,7 @@ H5PEditor.InteractiveVideo.GuidedTours = (function ($) {
   /**
    * @class H5PEditor.InteractiveVideo.GuidedTours
    */
-  function GuidedTours () {}
+  function GuidedTours() {}
 
   /**
    * Defines the different tours in IV
@@ -182,4 +182,4 @@ H5PEditor.InteractiveVideo.GuidedTours = (function ($) {
   };
 
   return GuidedTours;
-})(H5P.jQuery);
+})();
