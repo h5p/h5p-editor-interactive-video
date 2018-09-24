@@ -822,8 +822,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       field.default = 'poster';
     }
 
-    self.addMetadataForm(type, $semanticFields, interaction.getMetadata());
-
     H5PEditor.processSemanticsChunk(interactionFields, parameters, $semanticFields, self);
 
     // Remove library selector and copy button and paste button
@@ -835,40 +833,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }
 
     self.setLibraryName(interaction.$form, type);
-  };
-
-
-  /**
-   * Add metadata button and form to subcontent
-   * See h5p-editor-course-presentation for a similar implementation
-   *
-   * @param {H5P.InteractiveVideoInteraction} interaction
-   * @param {object} parameters
-   */
-  InteractiveVideoEditor.prototype.addMetadataForm = function (type, $form) {
-    // Blocklist of menu items that don't need their own title field
-    const blockList = ['H5P.AdvancedText', 'H5P.Image', 'H5P.Table', 'H5P.Text', 'H5P.Link', 'H5P.Nil', 'H5P.GoToQuestion', 'H5P.IVHotspot', 'H5P.TwitterUserFeed'];
-
-    // Inject a custom text field for the metadata title
-    var metaDataTitleSemantics = [{
-      'name' : 'title',
-      'type' : 'text',
-      'label' : ns.t('core', 'title'),
-      'description': ns.t('core', 'usedForSearchingReportsAndCopyrightInformation'),
-      'optional': false
-    }];
-
-    // Add the title field for all other libraries
-    if (blockList.indexOf(type) === -1) {
-      $form.prepend(H5PEditor.$('<div class="h5p-metadata-title-wrapper"></div>'));
-
-      // Ensure it has validation functions
-      ns.processSemanticsChunk(metaDataTitleSemantics, {}, $form.children('.h5p-metadata-title-wrapper'), this);
-
-      // Populate the title field
-      $form.find('.h5p-metadata-title-wrapper .h5peditor-text')
-        .attr('id', 'metadata-title-sub');
-    }
   };
 
   /**
