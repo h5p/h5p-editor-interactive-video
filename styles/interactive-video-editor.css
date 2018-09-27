@@ -82,7 +82,8 @@
 }
 .h5p-interactive-video-dragnbar .h5p-dragnbar-paste-button {
   font-size: 1.25em;
-  padding: 0.05em 0.3em;
+  padding: 0.01em 0.3em;
+  margin: 0.25em 0;
 }
 
 .h5p-interactive-video-dragnbar .h5p-dragnbar-li-ul .h5p-dragnbar-li:first-child {
