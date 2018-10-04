@@ -1,4 +1,4 @@
-/*global H5PEditor, H5P, H5PIntegration, ns */
+/*global H5PEditor, H5P, H5PIntegration*/
 H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) {
 
   /**
