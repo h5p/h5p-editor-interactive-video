@@ -100,12 +100,20 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @return {boolean} True, if clipboard can be pasted.
    */
   InteractiveVideoEditor.prototype.canPaste = function (clipboard) {
-    if (!clipboard || !clipboard.generic) {
-      return false;
+    if (clipboard) {
+      if (clipboard.from === InteractiveVideoEditor.clipboardKey &&
+          (!clipboard.generic || this.supported(clipboard.generic.library))) {
+        // Content comes from the same version of IV
+        // Non generic part = must be custom content from ourselves
+        return true;
+      }
+      else if (clipboard.generic && this.supported(clipboard.generic.library)) {
+        // Supported library from another content type
+        return true;
+      }
     }
-    return this.libraries.some(function (element) {
-      return element.uberName === clipboard.generic.library;
-    });
+
+    return false;
   };
 
   /**
@@ -624,7 +632,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
      * @param {string} lib uber name
      * @returns {boolean}
      */
-    var supported = function (lib) {
+    this.supported = function (lib) {
       for (var i = 0; i < libraries.length; i++) {
         if (libraries[i].restricted !== true && libraries[i].uberName === lib) {
           return true; // Library is supported and allowed
@@ -649,7 +657,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           // Non generic part, must be a something not created yet
           that.dnb.focus(that.addInteraction(pasted.specific, options));
         }
-        else if (supported(pasted.generic.library)) {
+        else if (that.supported(pasted.generic.library)) {
           // Has generic part and the generic libray is supported
           that.dnb.focus(that.addInteraction(pasted.specific, options));
         }
@@ -658,7 +666,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         }
       }
       else if (pasted.generic) {
-        if (supported(pasted.generic.library)) {
+        if (that.supported(pasted.generic.library)) {
           // Supported library from another content type
 
           if (pasted.specific.displayAsButton) {
