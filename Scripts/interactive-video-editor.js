@@ -1,6 +1,8 @@
 /*global H5PEditor, H5P*/
 H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) {
 
+  var counter = 0;
+
   /**
    * Initialize interactive video editor.
    *
@@ -15,6 +17,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     this.parent = parent;
     this.field = field;
+
+    this.resizeId = 'resize.iveditor-' + (counter++);
 
     this.findField(this.field.video, function (field) {
       if (field.field.type !== 'video') {
@@ -250,7 +254,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }, H5PEditor.contentId);
 
     this.IV.editor = this;
-    $(window).on('resize.iveditor', function () {
+    $(window).on(this.resizeId, function () {
       if (that.dnb) {
         that.dnb.resize();
         that.resizeTooltips();
@@ -1486,7 +1490,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    */
   InteractiveVideoEditor.prototype.deleteIVInstance = function () {
     if (this.IV !== undefined) {
-      $(window).off('resize.iveditor');
+      $(window).off(this.resizeId);
       delete this.IV;
     }
   };
