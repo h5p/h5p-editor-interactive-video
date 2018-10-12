@@ -1,6 +1,8 @@
 /*global H5PEditor, H5P, H5PIntegration*/
 H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) {
 
+  var counter = 0;
+
   /**
    * Initialize interactive video editor.
    *
@@ -15,6 +17,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     this.parent = parent;
     this.field = field;
+
+    this.resizeId = 'resize.iveditor-' + (counter++);
 
     this.findField(this.field.video, function (field) {
       if (field.field.type !== 'video') {
@@ -286,7 +290,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }, H5PEditor.contentId);
 
     this.IV.editor = this;
-    $(window).on('resize', function () {
+    $(window).on(this.resizeId, function () {
       if (that.dnb) {
         that.dnb.resize();
         that.resizeTooltips();
@@ -1517,10 +1521,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    */
   InteractiveVideoEditor.prototype.setVideo = function (files) {
     this.video = files;
-
-    if (this.IV !== undefined) {
-      delete this.IV;
-    }
+    this.deleteIVInstance();
   };
 
   /**
@@ -1530,8 +1531,15 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    */
   InteractiveVideoEditor.prototype.setPoster = function (poster) {
     this.poster = poster;
+    this.deleteIVInstance();
+  };
 
+  /**
+   * Deletes the IV instance, and cleans up relevant listeners
+   */
+  InteractiveVideoEditor.prototype.deleteIVInstance = function () {
     if (this.IV !== undefined) {
+      $(window).off(this.resizeId);
       delete this.IV;
     }
   };
