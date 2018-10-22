@@ -76,50 +76,18 @@
   margin-left: 0.25em;
 }
 
-.h5p-interactive-video-dragnbar .h5p-dragnbar-a.h5p-dragnbar-paste-button {
-  background: #e6f1fa; /* Old browsers */
-  background: -moz-linear-gradient(top, #e6f1fa 1%, #add1ef 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, #e6f1fa), color-stop(100%, #add1ef)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #e6f1fa 1%, #add1ef 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #e6f1fa 1%, #add1ef 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #e6f1fa 1%, #add1ef 100%); /* IE10+ */
-  background: linear-gradient(to bottom, #e6f1fa 1%, #add1ef 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6f1fa', endColorstr='#add1ef',GradientType=0 ); /* IE6-9 */
-  border-color: #bccee8;
-  color: #0061a2;
+/* Paste button overrides */
+.h5p-interactive-video-dragnbar .h5p-dragnbar-li.paste-button {
+  float: right;
+}
+.h5p-interactive-video-dragnbar .h5p-dragnbar-paste-button {
   font-size: 1.25em;
-  padding: 0.05em 0.3em;
+  padding: 0.01em 0.3em;
+  margin: 0.25em 0;
 }
 
 .h5p-interactive-video-dragnbar .h5p-dragnbar-li-ul .h5p-dragnbar-li:first-child {
   margin-left: 0;
-}
-
-.h5p-interactive-video-dragnbar .h5p-dragnbar-li.paste-button {
-  float: right;
-}
-.h5p-interactive-video-dragnbar .h5p-dragnbar-li.paste-button.disabled,
-.h5p-interactive-video-dragnbar .h5p-dragnbar-li.paste-button.disabled:hover {
-  background: transparent;
-}
-
-.h5p-interactive-video-dragnbar .h5p-dragnbar-a.h5p-dragnbar-paste-button:hover {
-  cursor: pointer;
-  border-color: #5e97c5;
-}
-
-.h5p-interactive-video-dragnbar .h5p-dragnbar-li.disabled .h5p-dragnbar-paste-button:hover {
-  cursor: auto;
-  border-color: #bccee8;
-}
-
-.h5p-interactive-video-dragnbar .h5p-dragnbar-li.disabled {
-  opacity: 0.3;
-  cursor: auto;
-}
-
-.h5p-interactive-video-dragnbar .h5p-dragnbar-paste-button:before {
-  color: #0061A2;
 }
 
 .h5p-interactive-video-dragnbar .h5p-dragnbar-li-ul {
@@ -372,6 +340,9 @@
 .h5p-interactivevideo-editor .h5p-interactive-video .h5p-interaction-label:hover {
   cursor: pointer;
 }
+.h5p-interactivevideo-editor > .h5peditor-form > .tree > .field-name-extraTitle {
+  margin: 20px;
+}
 .h5p-interactivevideo-editor .field-name-interactiveVideo {
   margin: 0 auto;
 }
@@ -379,10 +350,10 @@
 .h5p-interactivevideo-editor .field-name-interactiveVideo > .h5peditor-label-wrapper {
   display: block;
 }
-.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5p-editor-flex-wrapper > .h5peditor-label-wrapper {
+.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5peditor-label-wrapper {
   width: 100%;
 }
-.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5p-editor-flex-wrapper > .h5peditor-label-wrapper > .h5peditor-label  {
+.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5peditor-label-wrapper > .h5peditor-label  {
   display: block;
   position: relative;
   background: #e9e9e9;
@@ -392,14 +363,13 @@
   padding: 0.5em 0.75em;
   color: #444;
   margin: 0 0 1px 0;
-  width: 100%;
 }
-.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5p-editor-flex-wrapper > .h5peditor-label-wrapper > .h5peditor-label:before {
+.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5peditor-label-wrapper > .h5peditor-label:before {
   font-family: 'H5PFontAwesome4';
   margin: 0 0.5em 0 0;
   content: "\f01d";
 }
-.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5p-editor-flex-wrapper > .h5peditor-label-wrapper > .h5peditor-label:after {
+.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5peditor-label-wrapper > .h5peditor-label:after {
   content: "";
 }
 .h5p-interactivevideo-editor .h5peditor-form {
@@ -763,10 +733,6 @@
 /* Remove option for full enable full screen in Drag Question */
 .h5p-interactivevideo-editor .h5p-dragquestion-editor .field-name-enableFullScreen {
   display: none;
-}
-
-.h5p-interactivevideo-editor .tree > .field.field-name-title.text {
-  padding: 20px 20px 0 20px;
 }
 
 .h5p-interactivevideo-editor .tree > .h5p-editor-dialog.h5p-open.h5p-metadata-wrapper {
