@@ -1,4 +1,4 @@
-/*global H5PEditor, H5P*/
+/*global H5PEditor, H5P, H5PIntegration*/
 H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) {
 
   var counter = 0;
@@ -82,7 +82,43 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       that.currentTabIndex = event.data.id;
       that.startGuidedTour(H5PEditor.InteractiveVideo.GuidedTours.isOpen());
     });
+
+    // Update paste button
+    H5P.externalDispatcher.on('datainclipboard', function (event) {
+      if (!that.libraries) {
+        return;
+      }
+      var canPaste = !event.data.reset;
+      if (canPaste) {
+        // Check if content type is supported here
+        canPaste = that.canPaste(H5P.getClipboard());
+      }
+      that.dnb.setCanPaste(canPaste);
+    });
   }
+
+  /**
+   * Check if the clipboard can be pasted into IV.
+   *
+   * @param {Object} [clipboard] Clipboard data.
+   * @return {boolean} True, if clipboard can be pasted.
+   */
+  InteractiveVideoEditor.prototype.canPaste = function (clipboard) {
+    if (clipboard) {
+      if (clipboard.from === InteractiveVideoEditor.clipboardKey &&
+          (!clipboard.generic || this.supported(clipboard.generic.library))) {
+        // Content comes from the same version of IV
+        // Non generic part = must be custom content from ourselves
+        return true;
+      }
+      else if (clipboard.generic && this.supported(clipboard.generic.library)) {
+        // Supported library from another content type
+        return true;
+      }
+    }
+
+    return false;
+  };
 
   /**
    * Must be changed if the semantics for the elements changes.
@@ -168,7 +204,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       .append($tooltip)
       // Hide hover on click
       .hover(undefined, function () {
-        if(that.IV.$controls.find('.h5p-show').length === 0) {
+        if (that.IV.$controls.find('.h5p-show').length === 0) {
           $(this).removeClass('h5p-no-tooltip');
         }
       })
@@ -193,7 +229,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     var $base = this.$bar.find('.h5p-dragnbar-tooltip').first();
 
     var tooltips = this.IV.$container.find('.h5p-interactive-video-tooltip');
-    tooltips.each(function() {
+    tooltips.each(function () {
       $(this).css('font-size', $base.css('font-size'));
       $(this).css('line-height', $base.css('line-height'));
       $(this).css('padding', $base.css('padding'));
@@ -354,7 +390,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     var totalOffsetX = videoOffsetX - (this.$interactionTitle.outerWidth(true) / 2) + ($interaction.width() / 2);
     if (totalOffsetX < 0) {
       totalOffsetX = 0;
-    } else if(totalOffsetX + this.$interactionTitle.outerWidth(true) > this.IV.$videoWrapper.width()) {
+    }
+    else if (totalOffsetX + this.$interactionTitle.outerWidth(true) > this.IV.$videoWrapper.width()) {
       totalOffsetX = this.IV.$videoWrapper.width() - this.$interactionTitle.outerWidth(true);
     }
     var totalOffsetY = videoOffsetY + dnbOffsetY - this.$interactionTitle.height() - 1;
@@ -494,7 +531,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       }
     }).appendTo(this.$editor);
 
-    timeout = setTimeout(function(){
+    timeout = setTimeout(function () {
       $warning.remove();
     }, 3000);
   };
@@ -591,15 +628,15 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     var that = this;
 
     this.libraries = libraries;
-    this.dnb = new H5P.DragNBar(this.getButtons(libraries), this.IV.$videoWrapper, this.IV.$container);
-    this.dnb.overflowThreshold = 20;
+    this.dnb = new H5P.DragNBar(this.getButtons(libraries), this.IV.$videoWrapper, this.IV.$container, {libraries: libraries});
+    this.dnb.overflowThreshold = 15;
 
     /**
      * @private
      * @param {string} lib uber name
      * @returns {boolean}
      */
-    var supported = function (lib) {
+    this.supported = function (lib) {
       for (var i = 0; i < libraries.length; i++) {
         if (libraries[i].restricted !== true && libraries[i].uberName === lib) {
           return true; // Library is supported and allowed
@@ -624,7 +661,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           // Non generic part, must be a something not created yet
           that.dnb.focus(that.addInteraction(pasted.specific, options));
         }
-        else if (supported(pasted.generic.library)) {
+        else if (that.supported(pasted.generic.library)) {
           // Has generic part and the generic libray is supported
           that.dnb.focus(that.addInteraction(pasted.specific, options));
         }
@@ -633,7 +670,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         }
       }
       else if (pasted.generic) {
-        if (supported(pasted.generic.library)) {
+        if (that.supported(pasted.generic.library)) {
           // Supported library from another content type
 
           if (pasted.specific.displayAsButton) {
@@ -712,6 +749,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     }
 
     this.dnb.attach(this.$bar);
+
+    // Set paste button
+    this.dnb.setCanPaste(this.canPaste(H5P.getClipboard()));
   };
 
   /**
@@ -790,11 +830,19 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
     // Set default displayType of images to poster
     if (type === 'H5P.Image') {
-      var field = findField('displayType', interactionFields);
+      const field = findField('displayType', interactionFields);
       field.default = 'poster';
     }
 
     H5PEditor.processSemanticsChunk(interactionFields, parameters, $semanticFields, self);
+
+    // Remove library selector and copy button and paste button
+    var pos = interactionFields.map(function (field) {
+      return field.type;
+    }).indexOf('library');
+    if (pos > -1) {
+      self.children[pos].hide();
+    }
 
     self.setLibraryName(interaction.$form, type);
   };
@@ -853,7 +901,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         });
 
         $buttonOnMobile.addClass((interaction.isButton() ? 'hide' : ''));
-      } else {
+      }
+      else {
         $buttonOnMobile.remove();
       }
     }
@@ -1543,7 +1592,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           self.startGuidedTour(true);
           return false;
         }
-      }).appendTo($('.field-name-interactiveVideo > .h5peditor-label-wrapper > .h5peditor-label', $libwrap));
+      }).appendTo($('.field-name-interactiveVideo > .h5p-editor-flex-wrapper > .h5peditor-label-wrapper > .h5peditor-label', $libwrap));
       self.startGuidedTour();
     }
   };
@@ -1707,53 +1756,3 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
   return InteractiveVideoEditor;
 })(H5P.jQuery);
-
-// Default english translations
-H5PEditor.language['H5PEditor.InteractiveVideo'] = {
-  libraryStrings: {
-    selectVideo: 'You must select a video before adding interactions.',
-    noVideoSource: 'No Video Source',
-    notVideoField: '":path" is not a video.',
-    notImageField: '":path" is not a image.',
-    insertElement: 'Click and drag to place :type',
-    popupTitle: 'Edit :type',
-    done: 'Done',
-    loading: 'Loading...',
-    remove: 'Remove',
-    removeInteraction: 'Are you sure you wish to remove this interaction?',
-    addBookmark: 'Add bookmark at @timecode',
-    newBookmark: 'New bookmark',
-    bookmarkAlreadyExists: 'Bookmark already exists here. Move playhead and add a bookmark or a submit screen at another time.',
-    tourButtonStart: 'Tour',
-    tourButtonExit: 'Exit',
-    tourButtonDone: 'Done',
-    tourButtonBack: 'Back',
-    tourButtonNext: 'Next',
-    tourStepUploadIntroText: '<p>This tour guides you through the most important features of the Interactive Video editor.</p><p>Start this tour at any time by pressing the Tour button in the top right corner.</p><p>Press EXIT to skip this tour or press NEXT to continue.</p>',
-    tourStepUploadFileTitle: 'Adding video',
-    tourStepUploadFileText: '<p>Start by adding a video file. You can upload a file from your computer or paste a URL to a YouTube video or a supported video file.</p><p>To ensure compatibility across browsers, you can upload multiple file formats of the same video, such as mp4 and webm.</p>',
-    tourStepUploadAddInteractionsTitle: 'Adding interactions',
-    tourStepUploadAddInteractionsText: '<p>Once you have added a video, you can start adding interactions.</p><p>Press the <em>Add interactions</em> tab to get started.</p>',
-    tourStepCanvasToolbarTitle: 'Adding interactions',
-    tourStepCanvasToolbarText: 'To add an interaction, drag an element from the toolbar and drop it onto the video.',
-    tourStepCanvasEditingTitle: 'Editing interactions',
-    tourStepCanvasEditingText: '<p>Once an interaction has been added, you can drag to reposition it.</p><p>To resize an interaction, press on the handles and drag.</p><p>When you select an interaction, a context menu will appear. To edit the content of the interaction, press the Edit button in the context menu. You can remove an interaction by pressing the Remove button on the context menu.</p>',
-    tourStepCanvasBookmarksTitle: 'Bookmarks',
-    tourStepCanvasBookmarksText: 'You can add Bookmarks from the Bookmarks menu. Press the Bookmark button to open the menu.',
-    tourStepCanvasEndscreensTitle: 'Submit Screens',
-    tourStepCanvasEndscreensText: 'You can add submit screens from the submit screens menu. Press the submit screen button to open the menu.',
-    tourStepCanvasPreviewTitle: 'Preview your interactive video',
-    tourStepCanvasPreviewText: 'Press the Play button to preview your interactive video while editing.',
-    tourStepCanvasSaveTitle: 'Save and view',
-    tourStepCanvasSaveText: "When you're done adding interactions to your video, press Save/Create to view the result.",
-    tourStepSummaryText: 'This optional Summary quiz will appear at the end of the video.',
-    fullScoreRequiredPause: '"Full score required" option requires that "Pause" is enabled.',
-    fullScoreRequiredRetry: '"Full score required" option requires that "Retry" is enabled',
-    fullScoreRequiredTimeFrame: 'There already exists an interaction that requires full score at the same interval as this interaction.<br> Only one of the interactions will be required to answer.',
-    addEndscreen: 'Add submit screen at @timecode',
-    endscreen: 'Submit screen',
-    endscreenAlreadyExists: 'Submit screen already exists here. Move playhead and add a submit screen or a bookmark at another time.',
-    tooltipBookmarks: 'Click to add bookmark at the current point in the video',
-    tooltipEndscreens: 'Click to add submit screen at the current point in the video'
-  }
-};

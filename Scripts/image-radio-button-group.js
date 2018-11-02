@@ -46,7 +46,6 @@ H5PEditor.widgets.imageRadioButtonGroup = (function ($) {
 
     for (var i=0, numOptions = self.field.options.length; i < numOptions; i++) {
       var option = self.field.options[i];
-      var imgPath = H5P.getLibraryPath(self.field.library) + '/' + option.image;
       var inputId = 'h5p-image-radio-button-' + (idCounter++);
 
       var $button = $('<div>', {

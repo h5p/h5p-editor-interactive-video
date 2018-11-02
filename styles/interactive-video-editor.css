@@ -26,11 +26,12 @@
   width: 100%;
 }
 .h5p-interactive-video-dragnbar .h5p-dragnbar-ul {
-  margin: 0 0 0 0.25em;
+  margin: 0;
   list-style: none;
   padding: 0;
   float: left;
   height: 100%;
+  width: 100%;
 }
 .h5p-interactive-video-dragnbar .h5p-dragnbar-li {
   position: relative;
@@ -70,6 +71,74 @@
   background: -o-linear-gradient(top,#fff 0,#f2f2f2 100%);
   font-family: 'H5PFontAwesome4';
 }
+
+.h5p-interactive-video-dragnbar .h5p-dragnbar-li:first-child {
+  margin-left: 0.25em;
+}
+
+/* Paste button overrides */
+.h5p-interactive-video-dragnbar .h5p-dragnbar-li.paste-button {
+  float: right;
+}
+.h5p-interactive-video-dragnbar .h5p-dragnbar-paste-button {
+  font-size: 1.25em;
+  padding: 0.01em 0.3em;
+  margin: 0.25em 0;
+}
+
+.h5p-interactive-video-dragnbar .h5p-dragnbar-li-ul .h5p-dragnbar-li:first-child {
+  margin-left: 0;
+}
+
+.h5p-interactive-video-dragnbar .h5p-dragnbar-li-ul {
+  padding: 0;
+  list-style: none;
+  position: absolute;
+  right: -0.2em;
+  z-index: 2;
+  display: none;
+  /* Remove the whitespace between more button and dropdown menu */
+  margin-top: -0.06em;
+  background: rgb(245, 245, 245);
+}
+
+.h5p-interactive-video-dragnbar .h5p-dragnbar-li-ul .h5p-dragnbar-li {
+  float: none;
+  box-sizing: border-box;
+  border-left: 0;
+  /* Borders around the drop down buttons */
+  border-left: 1px solid #f7f0f9;
+  border-bottom: 1px solid #f7f0f9;
+  border-right: 1px solid #f7f0f9;
+  /* Remove the whitespace between buttons in the dropdown menu */
+  padding: 0.2em 0.2em 0 0.2em;
+  margin: 0;
+}
+
+.h5p-interactive-video-dragnbar .h5p-dragnbar-li-ul .h5p-dragnbar-li:last-child {
+  padding-bottom: 0.2em;
+}
+
+.h5p-interactive-video-dragnbar .h5p-dragnbar-li-ul .h5p-dragnbar-a {
+  margin: 0;
+}
+
+/* Rules for vertical menu buttons when they are in the horizontal menu */
+.h5p-interactive-video-dragnbar ul:not(.h5p-dragnbar-li-ul) > .h5p-dragnbar-li > a.h5p-dragnbar-interactivevideo-button:before {
+  vertical-align: bottom;
+}
+
+.h5p-interactive-video-dragnbar ul:not(.h5p-dragnbar-li-ul) > .h5p-dragnbar-li > a.h5p-dragnbar-table-button:before,
+.h5p-interactive-video-dragnbar ul:not(.h5p-dragnbar-li-ul) > .h5p-dragnbar-li > a.h5p-dragnbar-exportabletextarea-button:before,
+.h5p-interactive-video-dragnbar ul:not(.h5p-dragnbar-li-ul) > .h5p-dragnbar-li > a.h5p-dragnbar-markthewords-button:before {
+  vertical-align: super;
+}
+
+.h5p-interactive-video-dragnbar ul:not(.h5p-dragnbar-li-ul) > .h5p-dragnbar-li > a.h5p-dragnbar-dialogcards-button:before {
+  font-size: 1.0em;
+  vertical-align: baseline;
+}
+
 .h5p-dialog-title:before {
   content: " ";
   font-family: 'H5PFontAwesome4';
@@ -126,6 +195,12 @@
 .h5p-interactive-video-dragnbar .h5p-dragnbar-questionnaire-button:before,
 .h5p-questionnaire-interaction-icon:before {
   content: "\e902";
+}
+.h5p-interactive-video-dragnbar .h5p-dragnbar-more-button {
+  width: 0.3em;
+}
+.h5p-interactive-video-dragnbar .h5p-dragnbar-more-button:before {
+  content: "\f142";
 }
 
 /* H5P specific fonts: */
@@ -187,6 +262,10 @@
 .h5p-interactive-video-dragnbar .h5p-dragnbar-freetextquestion-button:before,
 .h5p-freetextquestion-interaction-icon:before {
   content: "\e900";
+}
+
+.h5p-interactivevideo-editor .h5p-dialog {
+  overflow: visible;
 }
 
 .h5p-interactivevideo-editor .h5p-dialog-buttons {
@@ -261,12 +340,18 @@
 .h5p-interactivevideo-editor .h5p-interactive-video .h5p-interaction-label:hover {
   cursor: pointer;
 }
+.h5p-interactivevideo-editor > .h5peditor-form > .tree > .field-name-extraTitle {
+  margin: 20px;
+}
 .h5p-interactivevideo-editor .field-name-interactiveVideo {
-  margin-bottom: 0;
+  margin: 0 auto;
 }
 /* Wizard does hide the label by default - must override here */
 .h5p-interactivevideo-editor .field-name-interactiveVideo > .h5peditor-label-wrapper {
   display: block;
+}
+.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5peditor-label-wrapper {
+  width: 100%;
 }
 .h5p-interactivevideo-editor .field-name-interactiveVideo > .h5peditor-label-wrapper > .h5peditor-label  {
   display: block;
@@ -648,4 +733,17 @@
 /* Remove option for full enable full screen in Drag Question */
 .h5p-interactivevideo-editor .h5p-dragquestion-editor .field-name-enableFullScreen {
   display: none;
+}
+
+.h5p-interactivevideo-editor .tree > .h5p-editor-dialog.h5p-open.h5p-metadata-wrapper {
+  margin-left: 3%;
+}
+
+.h5p-interactivevideo-editor .h5p-metadata-form-wrapper .h5p-editor-dialog.h5p-open.h5p-metadata-wrapper {
+  position:fixed;
+  top: 8em;
+  left: 1.5em;
+  right:1.5em;
+  width: auto;
+  margin-top: 0;
 }
