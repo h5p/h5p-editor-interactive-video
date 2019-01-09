@@ -680,11 +680,6 @@
   color: inherit;
 }
 
-/* Make sure there are not a double padding before the summary tabs fields */
-.h5p-interactivevideo-editor .field-name-summary > .content {
-  padding-top: 0;
-}
-
 /* Tour button placed in Wizard's header */
 .h5p-interactivevideo-editor .h5peditor-guided-tour {
   position: absolute;
