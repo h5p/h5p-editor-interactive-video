@@ -16,6 +16,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     var that = this;
     H5P.DragNBar.FormManager.call(this, parent.parent, {
       defaultTitle: 'Interactive Video',
+      proceedButtonLabel: 'Proceed to save',
       doneButtonLabel: t('done'),
       deleteButtonLabel: t('remove'),
       enterFullscreenButtonLabel: 'Enter fullscreen',
