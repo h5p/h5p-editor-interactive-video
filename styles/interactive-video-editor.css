@@ -341,7 +341,6 @@
   cursor: pointer;
 }
 .h5p-interactivevideo-editor > .h5peditor-form > .tree > .field-name-extraTitle {
-  margin: 20px;
   position: relative;
 }
 .h5p-interactivevideo-editor .field-name-interactiveVideo {
@@ -349,11 +348,7 @@
 }
 .h5p-interactivevideo-editor .h5peditor-form {
   border-radius: 0;
-  padding: 0;
   background: #fff;
-}
-.h5p-interactivevideo-editor .group.field-name-override {
-  margin: 0 20px;
 }
 .h5p-interactivevideo-editor .tree > .field.group:last-child .content {
   background-color: #FAFBFC;
@@ -365,7 +360,6 @@
   background-color: #FAFBFC;
 }
 .h5p-interactivevideo-editor .common {
-  margin: 20px;
   background-color: #FAFBFC;
 }
 .h5p-interactivevideo-editor .common .fields {
