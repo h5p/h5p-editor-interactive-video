@@ -1568,6 +1568,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     this.$bar = this.$item.children('.h5peditor-dragnbar');
 
     if (InteractiveVideoEditor.showGuidedTour) {
+
+      const $tourParent = $('.field-name-extraTitle', $libwrap);
+
       $('<span>', {
         'class': 'h5peditor-guided-tour',
         html: t('tourButtonStart'),
@@ -1575,7 +1578,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           self.startGuidedTour(true);
           return false;
         }
-      }).appendTo($('.field-name-interactiveVideo > .h5peditor-label-wrapper > .h5peditor-label', $libwrap));
+      }).appendTo($tourParent);
       self.startGuidedTour();
     }
   };
