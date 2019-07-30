@@ -604,7 +604,7 @@
 }
 .h5p-interactivevideo-editor .field.wizard > .h5peditor-panes > .group > .content {
   border: 0;
-  padding: 0;
+  padding: 20px 0 0 0;
 }
 /* Avoid double padding between start screen options and behavioural settings */
 .h5p-interactivevideo-editor .group.field-video > .content {
@@ -712,4 +712,7 @@
   right:1.5em;
   width: auto;
   margin-top: 0;
+}
+body .h5p.shepherd-element.shepherd-theme-arrows {
+  z-index: 101;
 }

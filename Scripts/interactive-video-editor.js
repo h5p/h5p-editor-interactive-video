@@ -1580,6 +1580,12 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         }
       }).appendTo($tourParent);
       self.startGuidedTour();
+
+      // Make sure guided tour displays in fullscreen
+      // (since it's outside the IV Editor wysiwyg...)
+      self.on('formentersemifullscreen', function () {
+        $('.shepherd-step.h5p').css('display', '');
+      });
     }
   };
 
