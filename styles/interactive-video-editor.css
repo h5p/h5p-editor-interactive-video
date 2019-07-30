@@ -716,3 +716,6 @@
 body .h5p.shepherd-element.shepherd-theme-arrows {
   z-index: 101;
 }
+.libwrap.h5p-interactivevideo-editor > .field-name-extraTitle {
+  position: relative;
+}
