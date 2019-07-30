@@ -1659,6 +1659,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * Remove this item.
    */
   InteractiveVideoEditor.prototype.remove = function () {
+    this.trigger('remove');
     if (this.dnb !== undefined) {
       this.dnb.remove();
     }
