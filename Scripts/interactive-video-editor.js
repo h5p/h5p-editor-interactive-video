@@ -20,7 +20,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       doneButtonLabel: t('done'),
       deleteButtonLabel: t('remove'),
       enterFullscreenButtonLabel: 'Enter fullscreen',
-      exitFullscreenButtonLabel: 'Exit fullscreen'
+      exitFullscreenButtonLabel: 'Exit fullscreen',
+      expandBreadcrumbButtonLabel: 'Expand breadcrumb',
+      collapseBreadcrumbButtonLabel: 'Collapse breadcrumb'
     }, 'interactivevideo');
 
     this.parent = parent;
