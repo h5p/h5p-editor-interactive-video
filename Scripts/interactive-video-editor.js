@@ -1658,7 +1658,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         }
       }
     }
-
+    this.trigger('validate');
     return true; // An interactive video is always valid :-)
   };
 
