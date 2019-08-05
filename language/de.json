@@ -43,6 +43,12 @@
     "endscreen": "Antwortübermittlung",
     "endscreenAlreadyExists": "Antwortübermittlung existiert hier bereits. Bewege den Abspielknopf und füge ein Lesezeichen oder eine Antwortübermittlung an einer anderen Stelle hinzu.",
     "tooltipBookmarks": "Klicke hier, um ein Lesezeichen an der aktuellen Position einzufügen",
-    "tooltipEndscreens": "Klicke hier, um eine Antwortübermittlung an der aktuellen Position einzufügen"
+    "tooltipEndscreens": "Klicke hier, um eine Antwortübermittlung an der aktuellen Position einzufügen",
+    "defaultTitle": "Interactive Video",
+    "proceedButtonLabel": "Proceed to save",
+    "enterFullscreenButtonLabel": "Enter fullscreen",
+    "exitFullscreenButtonLabel": "Exit fullscreen",
+    "expandBreadcrumbButtonLabel": "Go back",
+    "collapseBreadcrumbButtonLabel": "Close navigation"
   }
 }
