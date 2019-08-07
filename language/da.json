@@ -43,6 +43,12 @@
     "endscreen":"Submit screen",
     "endscreenAlreadyExists":"Submit screen already exists here. Move playhead and add a submit screen or a bookmark at another time.",
     "tooltipBookmarks":"Click to add bookmark at the current point in the video",
-    "tooltipEndscreens":"Click to add submit screen at the current point in the video"
+    "tooltipEndscreens":"Click to add submit screen at the current point in the video",
+    "defaultTitle": "Interactive Video",
+    "proceedButtonLabel": "Proceed to save",
+    "enterFullscreenButtonLabel": "Enter fullscreen",
+    "exitFullscreenButtonLabel": "Exit fullscreen",
+    "expandBreadcrumbButtonLabel": "Go back",
+    "collapseBreadcrumbButtonLabel": "Close navigation"
   }
 }

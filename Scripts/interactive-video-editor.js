@@ -14,6 +14,16 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    */
   function InteractiveVideoEditor(parent, field, params, setValue) {
     var that = this;
+    H5P.DragNBar.FormManager.call(this, parent.parent, {
+      defaultTitle: t('defaultTitle'),
+      proceedButtonLabel: t('proceedButtonLabel'),
+      doneButtonLabel: t('done'),
+      deleteButtonLabel: t('remove'),
+      enterFullscreenButtonLabel: t('enterFullscreenButtonLabel'),
+      exitFullscreenButtonLabel: t('exitFullscreenButtonLabel'),
+      expandBreadcrumbButtonLabel: t('expandBreadcrumbButtonLabel'),
+      collapseBreadcrumbButtonLabel: t('collapseBreadcrumbButtonLabel')
+    }, 'interactivevideo');
 
     this.parent = parent;
     this.field = field;
@@ -96,6 +106,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       that.dnb.setCanPaste(canPaste);
     });
   }
+
+  InteractiveVideoEditor.prototype = Object.create(H5P.DragNBar.FormManager.prototype);
+  InteractiveVideoEditor.prototype.constructor = InteractiveVideoEditor;
 
   /**
    * Check if the clipboard can be pasted into IV.
@@ -1059,54 +1072,65 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       that.IV.video.pause();
     }
 
-    // Try to figure out a title for the dialog
-    var title = interaction.getTitle();
-    if (title === that.IV.l10n.interaction) {
-      // Try to find something better than the default title
-      title = that.findLibraryTitle(interaction.getLibraryName());
-      if (!title) {
-        // Couldn't find anything, use default
-        title = that.IV.l10n.interaction;
+    /**
+     * The user has clicked delete, remove the element.
+     * @private
+     */
+    const handleFormremove = function (e) {
+      e.preventRemove = !confirm(t('removeInteraction'));
+      if (e.preventRemove) {
+        return;
       }
-    }
+      that.removeInteraction(interaction);
+      //that.dnb.blurAll();
+    };
+    that.on('formremove', handleFormremove);
 
-    // Add dialog buttons
-    var $doneButton = $('<a href="#" class="h5p-button h5p-done">' + t('done') + '</a>')
-      .click(function () {
-        if (H5PEditor.Html) {
-          // Need to do this before form is validated
-          H5PEditor.Html.removeWysiwyg();
-        }
-        if (that.validDialog(interaction)) {
-          that.dnb.dialog.close();
-          interaction.focus();
-        }
-        that.IV.addSliderInteractions();
-        return false;
-      });
+    /**
+     * The user is done editing, save and update the display.
+     * @private
+     */
+    const handleFormdone = function () {
+      for (var i = 0; i < interaction.children.length; i++) {
+        interaction.children[i].validate();
+      }
 
-    var $removeButton = $('<a href="#" class="h5p-button h5p-remove">' + t('remove') + '</a>')
-      .click(function () {
-        if (H5PEditor.Html) {
-          // Need to do this before form is validated
-          H5PEditor.Html.removeWysiwyg();
-        }
-        if (confirm(t('removeInteraction'))) {
-          that.removeInteraction(interaction);
-          that.dnb.dialog.close();
-        }
-        that.IV.addSliderInteractions();
+      // Remove interaction from display
+      interaction.remove(true);
+
+      // Recreate content instance
+      interaction.reCreate();
+
+      // Make sure the element is inside the container the next time it's displayed
+      interaction.fit = true;
+
+      // Check if we should show again
+      interaction.toggle(that.IV.video.getCurrentTime(), true);
+
+      if (that.dnb) {
         that.dnb.blurAll();
-        return false;
-      });
+      }
+    };
+    that.on('formdone', handleFormdone);
 
-    var $buttons = $('<div class="h5p-dialog-buttons"></div>')
-      .append($doneButton)
-      .append($removeButton);
+    /**
+     * Remove event listeners on form close
+     * @private
+     */
+    const handleFormclose = function () {
+      that.IV.addSliderInteractions();
+      //interaction.focus(); ?????
+      that.off('formremove', handleFormremove);
+      that.off('formdone', handleFormdone);
+      that.off('formclose', handleFormclose);
+    };
+    that.on('formclose', handleFormclose);
 
-    interaction.setTitle(title);
+    // Open a new form pane with the element form
+    const libraryField = H5PEditor.findField('action', interaction);
+    that.openForm(libraryField, interaction.$form[0], 'h5p-interactivevideo-editor');
+
     interaction.trigger('openEditDialog');
-    that.dnb.dialog.open(interaction.$form, title, interaction.getClass() + '-icon', $buttons);
 
     // Blur context menu when opening dialog
     setTimeout(function () {
@@ -1238,45 +1262,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       // On focus, show overlay
       that.$focusHandler.addClass('show');
     });
-  };
-
-  /**
-   * Validate the current dialog to see if it can be closed.
-   *
-   * @param {H5P.InteractiveVideoInteraction} interaction
-   * @returns {boolean}
-   */
-  InteractiveVideoEditor.prototype.validDialog = function (interaction) {
-    var valid = true;
-    var elementKids = interaction.children;
-    for (var i = 0; i < elementKids.length; i++) {
-      if (elementKids[i].validate() === false) {
-        valid = false;
-      }
-    }
-
-    if (valid) {
-      // Keep form
-      interaction.$form.detach();
-
-      // Remove interaction from display
-      interaction.remove(true);
-
-      // Recreate content instance
-      interaction.reCreate();
-
-      // Make sure the element is inside the container the next time it's displayed
-      interaction.fit = true;
-
-      // Check if we should show again
-      interaction.toggle(this.IV.video.getCurrentTime(), true);
-
-      if (this.dnb) {
-        this.dnb.blurAll();
-      }
-    }
-
-    return valid;
   };
 
   /**
@@ -1585,6 +1570,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     this.$bar = this.$item.children('.h5peditor-dragnbar');
 
     if (InteractiveVideoEditor.showGuidedTour) {
+      const $tourParent = $('.field-name-extraTitle', $libwrap);
+
       $('<span>', {
         'class': 'h5peditor-guided-tour',
         html: t('tourButtonStart'),
@@ -1592,8 +1579,14 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           self.startGuidedTour(true);
           return false;
         }
-      }).appendTo($('.field-name-interactiveVideo > .h5peditor-label-wrapper > .h5peditor-label', $libwrap));
+      }).appendTo($tourParent);
       self.startGuidedTour();
+
+      // Make sure guided tour displays in fullscreen
+      // (since it's outside the IV Editor wysiwyg...)
+      self.on('formentersemifullscreen', function () {
+        $('.shepherd-step.h5p').css('display', '');
+      });
     }
   };
 
@@ -1665,7 +1658,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         }
       }
     }
-
+    this.trigger('validate');
     return true; // An interactive video is always valid :-)
   };
 
@@ -1673,6 +1666,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * Remove this item.
    */
   InteractiveVideoEditor.prototype.remove = function () {
+    this.trigger('remove');
     if (this.dnb !== undefined) {
       this.dnb.remove();
     }

@@ -43,6 +43,12 @@
     "endscreen": "Ekran wyników",
     "endscreenAlreadyExists": "Na tym czasie istnieje już ekran wyników. Wybierz inne miejsce w filmie.",
     "tooltipBookmarks": "Kliknij, aby dodać zakładkę w tym miejscu w wideo.",
-    "tooltipEndscreens": "Kliknij, aby dodać ekran wyników w tym miejscu w wideo"
+    "tooltipEndscreens": "Kliknij, aby dodać ekran wyników w tym miejscu w wideo",
+    "defaultTitle": "Interactive Video",
+    "proceedButtonLabel": "Proceed to save",
+    "enterFullscreenButtonLabel": "Enter fullscreen",
+    "exitFullscreenButtonLabel": "Exit fullscreen",
+    "expandBreadcrumbButtonLabel": "Go back",
+    "collapseBreadcrumbButtonLabel": "Close navigation"
   }
 }
