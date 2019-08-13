@@ -45,9 +45,6 @@
     "tooltipBookmarks": "Egin klik gehitzeko laster-marka bat bideoaren une honetan",
     "tooltipEndscreens": "Egin klik gehitzeko bidalketa-pantaila bat bideoaren une honetan",
     "defaultTitle": "Interactive Video",
-    "proceedButtonLabel": "Proceed to save",
-    "enterFullscreenButtonLabel": "Enter fullscreen",
-    "exitFullscreenButtonLabel": "Exit fullscreen",
     "expandBreadcrumbButtonLabel": "Go back",
     "collapseBreadcrumbButtonLabel": "Close navigation"
   }

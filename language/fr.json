@@ -45,9 +45,6 @@
     "tooltipBookmarks": "Cliquez pour ajouter un signet pour le moment actuel de la vidéo",
     "tooltipEndscreens": "Cliquez pour ajouter un écran de soumission pour le moment actuel de la vidéo",
     "defaultTitle": "Interactive Video",
-    "proceedButtonLabel": "Proceed to save",
-    "enterFullscreenButtonLabel": "Enter fullscreen",
-    "exitFullscreenButtonLabel": "Exit fullscreen",
     "expandBreadcrumbButtonLabel": "Go back",
     "collapseBreadcrumbButtonLabel": "Close navigation"
   }

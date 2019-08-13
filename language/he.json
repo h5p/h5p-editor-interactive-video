@@ -45,9 +45,6 @@
     "tooltipBookmarks": "הקליקו להוספת סימניה בנקודת הזמן הנוכחית של הסרטון",
     "tooltipEndscreens": "הקליקו להוספת מסך הגשה בנקודת הזמן הנוכחית של הסרטון",
     "defaultTitle": "Interactive Video",
-    "proceedButtonLabel": "Proceed to save",
-    "enterFullscreenButtonLabel": "Enter fullscreen",
-    "exitFullscreenButtonLabel": "Exit fullscreen",
     "expandBreadcrumbButtonLabel": "Go back",
     "collapseBreadcrumbButtonLabel": "Close navigation"
   }

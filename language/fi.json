@@ -45,9 +45,6 @@
     "tooltipBookmarks": "Klikkaa lisätäksesi kirjanmerkin tähän kyseiseen videon ajankohtaan.",
     "tooltipEndscreens": "Klikkaa lisätäksesi palautusikkunan tähän videon ajankohtaan.",
     "defaultTitle": "Interactive Video",
-    "proceedButtonLabel": "Proceed to save",
-    "enterFullscreenButtonLabel": "Enter fullscreen",
-    "exitFullscreenButtonLabel": "Exit fullscreen",
     "expandBreadcrumbButtonLabel": "Go back",
     "collapseBreadcrumbButtonLabel": "Close navigation"
   }
