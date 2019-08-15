@@ -15,7 +15,6 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   function InteractiveVideoEditor(parent, field, params, setValue) {
     var that = this;
     H5P.DragNBar.FormManager.call(this, parent.parent, {
-      defaultTitle: t('defaultTitle'),
       doneButtonLabel: t('done'),
       deleteButtonLabel: t('remove'),
       expandBreadcrumbButtonLabel: t('expandBreadcrumbButtonLabel'),
