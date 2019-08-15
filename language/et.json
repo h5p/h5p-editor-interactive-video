@@ -43,6 +43,8 @@
     "endscreen": "Esitamiskuva",
     "endscreenAlreadyExists": "Siin on esitamiskuva juba olemas. Liiguta videokursorit ja lisa esitamiskuva või järjehoidja hiljem.",
     "tooltipBookmarks": "Kliki järjehoidja lisamiseks video jooksvale kaadrile",
-    "tooltipEndscreens": "Kliki esitamiskuva lisamiseks video jooksvale kaadrile"
+    "tooltipEndscreens": "Kliki esitamiskuva lisamiseks video jooksvale kaadrile",
+    "expandBreadcrumbButtonLabel": "Go back",
+    "collapseBreadcrumbButtonLabel": "Close navigation"
   }
 }

@@ -43,6 +43,8 @@
     "endscreen": "עמוד סיום והגשה",
     "endscreenAlreadyExists": "עמוד סיום והגשה כבר קיים פה. יש להעביר את סמן ציר־הזמן למקום חדש כדי להוסיף עמוד־סיום חדש או סימניה במיקום אחר.",
     "tooltipBookmarks": "הקליקו להוספת סימניה בנקודת הזמן הנוכחית של הסרטון",
-    "tooltipEndscreens": "הקליקו להוספת מסך הגשה בנקודת הזמן הנוכחית של הסרטון"
+    "tooltipEndscreens": "הקליקו להוספת מסך הגשה בנקודת הזמן הנוכחית של הסרטון",
+    "expandBreadcrumbButtonLabel": "Go back",
+    "collapseBreadcrumbButtonLabel": "Close navigation"
   }
 }

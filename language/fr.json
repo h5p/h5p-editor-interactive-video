@@ -43,6 +43,8 @@
     "endscreen": "Ecran de soumission",
     "endscreenAlreadyExists": "Un écran de soumission existe déjà ici. Déplacez le curseur et ajoutez un écran de soumission ou un signet ailleurs.",
     "tooltipBookmarks": "Cliquez pour ajouter un signet pour le moment actuel de la vidéo",
-    "tooltipEndscreens": "Cliquez pour ajouter un écran de soumission pour le moment actuel de la vidéo"
+    "tooltipEndscreens": "Cliquez pour ajouter un écran de soumission pour le moment actuel de la vidéo",
+    "expandBreadcrumbButtonLabel": "Go back",
+    "collapseBreadcrumbButtonLabel": "Close navigation"
   }
 }
