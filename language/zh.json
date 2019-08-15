@@ -43,6 +43,8 @@
     "endscreen":"提交畫面",
     "endscreenAlreadyExists":"此處已有提交畫面，移動播放時間軸，在其它的時間點添加提交畫面或書籤。",
     "tooltipBookmarks":"點擊以在當前時間點添加書籤。",
-    "tooltipEndscreens":"點擊以在當前時間點添加提交畫面。"
+    "tooltipEndscreens":"點擊以在當前時間點添加提交畫面。",
+    "expandBreadcrumbButtonLabel": "Go back",
+    "collapseBreadcrumbButtonLabel": "Close navigation"
   }
 }

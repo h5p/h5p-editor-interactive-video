@@ -341,44 +341,14 @@
   cursor: pointer;
 }
 .h5p-interactivevideo-editor > .h5peditor-form > .tree > .field-name-extraTitle {
-  margin: 20px;
+  position: relative;
 }
 .h5p-interactivevideo-editor .field-name-interactiveVideo {
   margin: 0 auto;
 }
-/* Wizard does hide the label by default - must override here */
-.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5peditor-label-wrapper {
-  display: block;
-}
-.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5peditor-label-wrapper {
-  width: 100%;
-}
-.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5peditor-label-wrapper > .h5peditor-label  {
-  display: block;
-  position: relative;
-  background: #e9e9e9;
-  font-size: 1.5em;
-  font-weight: normal;
-  line-height: 1.5em;
-  padding: 0.5em 0.75em;
-  color: #444;
-  margin: 0 0 1px 0;
-}
-.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5peditor-label-wrapper > .h5peditor-label:before {
-  font-family: 'H5PFontAwesome4';
-  margin: 0 0.5em 0 0;
-  content: "\f01d";
-}
-.h5p-interactivevideo-editor .field-name-interactiveVideo > .h5peditor-label-wrapper > .h5peditor-label:after {
-  content: "";
-}
 .h5p-interactivevideo-editor .h5peditor-form {
   border-radius: 0;
-  padding: 0;
   background: #fff;
-}
-.h5p-interactivevideo-editor .group.field-name-override {
-  margin: 0 20px;
 }
 .h5p-interactivevideo-editor .tree > .field.group:last-child .content {
   background-color: #FAFBFC;
@@ -387,10 +357,6 @@
   background-color: #FFF;
 }
 .h5p-interactivevideo-editor .tree > .field.group:last-child .content .content .content{
-  background-color: #FAFBFC;
-}
-.h5p-interactivevideo-editor .common {
-  margin: 20px;
   background-color: #FAFBFC;
 }
 .h5p-interactivevideo-editor .common .fields {
@@ -680,21 +646,17 @@
   color: inherit;
 }
 
-/* Make sure there are not a double padding before the summary tabs fields */
-.h5p-interactivevideo-editor .field-name-summary > .content {
-  padding-top: 0;
-}
-
 /* Tour button placed in Wizard's header */
 .h5p-interactivevideo-editor .h5peditor-guided-tour {
   position: absolute;
-  right: .5em;
+  top: 0;
+  right: 1em;
   color: #666;
   background: transparent;
   border-radius: 4px;
   font-size: 0.7em;
   cursor: pointer;
-  padding: 0 1em;
+  padding: 0.5em;
 }
 .h5p-interactivevideo-editor .h5peditor-guided-tour:before {
   font-family: 'H5PFontAwesome4';
@@ -746,4 +708,24 @@
   right:1.5em;
   width: auto;
   margin-top: 0;
+}
+body .h5p.shepherd-element.shepherd-theme-arrows {
+  z-index: 101;
+}
+.libwrap.h5p-interactivevideo-editor > .field-name-extraTitle {
+  position: relative;
+}
+
+.h5p-interactivevideo-editor > .h5peditor-semi-fullscreen .form-manager-head.form-manager-footer {
+  position: relative;
+  top: auto;
+  left: auto;
+  right: auto;
+  width: 918px;
+  margin: auto;
+  background: transparent;
+  box-shadow: none;
+  border: none;
+  padding: 0 20px 20px;
+  box-sizing: content-box;
 }

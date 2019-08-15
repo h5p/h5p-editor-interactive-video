@@ -23,13 +23,13 @@ H5PEditor.InteractiveVideo.GuidedTours = (function () {
           steps: [
             {
               text: t('tourStepUploadIntroText'),
-              attachTo: {element: '.field.wizard .h5peditor-label', on: 'bottom'},
+              attachTo: {element: '.h5peditor-tabs', on: 'bottom'},
               noArrow: true
             },
             {
               title: t('tourStepUploadFileTitle'),
               text: t('tourStepUploadFileText'),
-              attachTo: {element: '.field.video .h5p-add-file', on: 'left'},
+              attachTo: {element: '.field.video .h5p-add-file', on: 'right'},
               highlightElement: true
             },
             {

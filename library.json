@@ -2,14 +2,14 @@
   "title": "Interactive Video Editor",
   "license": "MIT",
   "majorVersion": 1,
-  "minorVersion": 20,
-  "patchVersion": 3,
+  "minorVersion": 21,
+  "patchVersion": 6,
   "runnable": 0,
   "machineName": "H5PEditor.InteractiveVideo",
   "author": "Joubel",
   "coreApi": {
     "majorVersion": 1,
-    "minorVersion": 19
+    "minorVersion": 23
   },
   "preloadedJs": [
     {
@@ -75,17 +75,17 @@
     {
       "machineName": "H5P.MultiChoice",
       "majorVersion": 1,
-      "minorVersion": 13
+      "minorVersion": 14
     },
     {
       "machineName": "H5P.TrueFalse",
       "majorVersion": 1,
-      "minorVersion": 5
+      "minorVersion": 6
     },
     {
       "machineName": "H5P.InteractiveVideo",
       "majorVersion": 1,
-      "minorVersion": 20
+      "minorVersion": 21
     },
     {
       "machineName": "H5P.Summary",
@@ -115,7 +115,7 @@
     {
       "machineName": "H5P.Blanks",
       "majorVersion": 1,
-      "minorVersion": 11
+      "minorVersion": 12
     },
     {
       "machineName": "H5P.Nil",
