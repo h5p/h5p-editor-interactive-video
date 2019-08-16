@@ -1,4 +1,4 @@
-﻿{
+{
   "libraryStrings": {
     "selectVideo": "Трябва да изберете видеоклип, преди да добавите интерактивност.",
     "noVideoSource": "Няма видео източник",
@@ -43,6 +43,8 @@
     "endscreen": "Submit Екран",
     "endscreenAlreadyExists": "Submit екрана вече съществува тук. Премести playhead и добави submit екран или сложи отметката в друго време.",
     "tooltipBookmarks": "Кликнете, за да добавите отметка в текущата точка на видеоклипа",
-    "tooltipEndscreens": "Кликнете, за да добавите submit екран в текущата точка във видеоклипа"
+    "tooltipEndscreens": "Кликнете, за да добавите submit екран в текущата точка във видеоклипа",
+    "expandBreadcrumbButtonLabel": "Go back",
+    "collapseBreadcrumbButtonLabel": "Close navigation"
   }
 }
