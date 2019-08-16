@@ -44,10 +44,6 @@
     "endscreenAlreadyExists": "Enviar pantalla ya existe aquí. Mueva el puntero y añada un enviar pantalla o un marcador en otro momento.",
     "tooltipBookmarks": "Clic para añadir marcador en el punto actual en el video",
     "tooltipEndscreens":"Clic para añadir pantalla para enviar en el punto actual en el video",
-    "defaultTitle": "Video Interactivo",
-    "proceedButtonLabel": "Proceder a guardar",
-    "enterFullscreenButtonLabel": "Pasar a pantalla completa",
-    "exitFullscreenButtonLabel": "Salir de pantalla completa",
     "expandBreadcrumbButtonLabel": "Regresar",
     "collapseBreadcrumbButtonLabel": "Cerrar navigación"
   }
