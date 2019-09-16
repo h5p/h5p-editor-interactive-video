@@ -22,7 +22,7 @@
     "tourStepUploadFileTitle": "Ein Video hinzufügen",
     "tourStepUploadFileText": "<p>Beginne, indem du eine Videodatei hinzufügst. Es kann eine Datei vom Computer hochgeladen oder eine URL zu einem YouTube-Video bzw. einer Online-Videodatei eingefügt werden.</p><p>Um die Kompatibilität über mehrere Browser hinweg sicher zu stellen, können mehrere Dateiformate des gleichen Videos hochgeladen werden, wie beispielsweise mp4 und webm.</p>",
     "tourStepUploadAddInteractionsTitle": "Hinzufügen von Interaktionen",
-    "tourStepUploadAddInteractionsText": "<p>Sobald du ein Video hinzugefügt hast, können Interaktionen eingefügt werden. Dies können Aufgaben oder andere Elemente, wie Textfelder sein.</p><p>Mit einem Klick auf den <em>Interaktion hinzufügen</em>-Reiter geht es los.</p>",
+    "tourStepUploadAddInteractionsText": "<p>Sobald du ein Video hinzugefügt hast, kannst du Interaktionen hinzufügen.</p><p>Mit einem Klick auf <em>Interaktion hinzufügen</em> geht es los.</p>",
     "tourStepCanvasToolbarTitle": "Interaktionen hinzufügen",
     "tourStepCanvasToolbarText": "Um eine Interaktion hinzuzufügen, muss ein Element von der Werkzeugleiste gezogen und auf dem Video platziert werden.",
     "tourStepCanvasEditingTitle": "Interaktionen bearbeiten",
@@ -44,7 +44,7 @@
     "endscreenAlreadyExists": "Antwortübermittlung existiert hier bereits. Bewege den Abspielknopf und füge ein Lesezeichen oder eine Antwortübermittlung an einer anderen Stelle hinzu.",
     "tooltipBookmarks": "Klicke hier, um ein Lesezeichen an der aktuellen Position einzufügen",
     "tooltipEndscreens": "Klicke hier, um eine Antwortübermittlung an der aktuellen Position einzufügen",
-    "expandBreadcrumbButtonLabel": "Go back",
-    "collapseBreadcrumbButtonLabel": "Close navigation"
+    "expandBreadcrumbButtonLabel": "Zurück",
+    "collapseBreadcrumbButtonLabel": "Navigation schließen"
   }
 }
