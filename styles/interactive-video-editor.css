@@ -90,10 +90,12 @@
 }
 .h5p-interactive-video-dragnbar .h5p-dragnbar-ul .h5p-dragnbar-li.paste-button .h5p-dragnbar-paste-button {
   border-width: 1px;
+  border-radius: 0.25em;
 }
 .h5p-interactive-video-dragnbar .h5p-dragnbar-ul .h5p-dragnbar-li.paste-button.disabled .h5p-dragnbar-paste-button {
   border-width: 1px;
   padding: 0.01em 0.3em;
+  border-radius: 0.25em;
 }
 
 .h5p-interactive-video-dragnbar .h5p-dragnbar-li-ul .h5p-dragnbar-li:first-child {
