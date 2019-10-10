@@ -18,7 +18,7 @@
     "tourButtonDone": "Hotovo",
     "tourButtonBack": "Zpět",
     "tourButtonNext": "Další",
-    "tourStepUploadIntroText": "<p>Tento průvodce vás provede nedůležitějšími parametry interaktivního video editoru.</p><p>Stisknutím tlačítka Průvodce v pravém horním rohu spusťte kdykoliv tuto akci.</p><p>Stikněte KONEC pro přeskočení průvodce nebo stiskněte DALŠÍ pro pokračování.</p>",
+    "tourStepUploadIntroText": "<p>Tento průvodce vás provede nedůležitějšími parametry Interaktivního video editoru.</p><p>Stisknutím tlačítka Průvodce v pravém horním rohu spusťte kdykoliv tuto akci.</p><p>Stikněte KONEC pro přeskočení průvodce nebo stiskněte DALŠÍ pro pokračování.</p>",
     "tourStepUploadFileTitle": "Přidání videa",
     "tourStepUploadFileText": "<p>Začněte přidáním videa. Můžete nahrát soubor z vašeho počítače nebo zadejte URL odkaz na YouTube či podporovaného videa.</p><p>Aby byla zachována kompatibilita skrz prohlížeče, nahrajte více verzí jednoho videa jako např. mp4 nebo webm.</p>",
     "tourStepUploadAddInteractionsTitle": "Přidání interakcí",
