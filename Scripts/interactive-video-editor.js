@@ -1416,7 +1416,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       params = library;
     }
 
-    var from = Math.floor(self.IV.video.getCurrentTime());
+    var from = Math.floor(self.IV.video.getCurrentTime() * 1000) / 1000;
     if (!params) {
       var type = library.split(' ')[0];
 
