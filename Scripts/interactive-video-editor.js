@@ -1102,6 +1102,13 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
       // Check if we should show again
       interaction.toggle(that.IV.video.getCurrentTime(), true);
+      if (interaction.isVisible()) {
+        for (let i = 0; i < this.IV.interactions.length; i++) {
+          if (this.IV.interactions[i] === interaction) {
+            this.IV.visibleInteractions.push(i);
+          }
+        }
+      }
 
       if (that.dnb) {
         that.dnb.blurAll();
