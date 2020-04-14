@@ -44,7 +44,7 @@
     "endscreenAlreadyExists": "Hemen dagoeneko badago bidalketa-pantaila bat. Mugitu erreprodukzio-burua eta gehitu  bidalketa-pantaila edo laster-marka beste une batean.",
     "tooltipBookmarks": "Egin klik gehitzeko laster-marka bat bideoaren une honetan",
     "tooltipEndscreens": "Egin klik gehitzeko bidalketa-pantaila bat bideoaren une honetan",
-    "expandBreadcrumbButtonLabel": "Go back",
-    "collapseBreadcrumbButtonLabel": "Close navigation"
+    "expandBreadcrumbButtonLabel": "Joan atzera",
+    "collapseBreadcrumbButtonLabel": "Itxi nabigazioa"
   }
 }
