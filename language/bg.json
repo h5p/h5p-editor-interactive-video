@@ -44,7 +44,7 @@
     "endscreenAlreadyExists": "Submit екрана вече съществува тук. Премести playhead и добави submit екран или сложи отметката в друго време.",
     "tooltipBookmarks": "Кликнете, за да добавите отметка в текущата точка на видеоклипа",
     "tooltipEndscreens": "Кликнете, за да добавите submit екран в текущата точка във видеоклипа",
-    "expandBreadcrumbButtonLabel": "Go back",
-    "collapseBreadcrumbButtonLabel": "Close navigation"
+    "expandBreadcrumbButtonLabel": "Върни се",
+    "collapseBreadcrumbButtonLabel": "Затвaряне на навигацията"
   }
 }
