@@ -26,7 +26,7 @@
     "tourStepCanvasToolbarTitle": "Lisää toiminto tai tehtävä",
     "tourStepCanvasToolbarText": "Lisätäksesi interaktiivisen elmentin, raahaa elementti työkaluriviltä ja tiputa se haluaamsi kohtaan videota.",
     "tourStepCanvasEditingTitle": "Interaktiivisen elementin muokkaaminen",
-    "tourStepCanvasEditingText": "<p>Kun interaktiivinen elementti on lisätty voit siirtää sitä raahamalla</p><p>Muuttaaksesi elementin kokoa valitse elementti ja tämän jälkeen voit muuttaa elementin kokoa raahamalla sitä nurkista (ei toimi painikemuotoisen elementin kanssa).<p>Muokataksesi elementin asetuksia valitse se ja paina kynä-ikonia. Poistaakesi elementin valitse se ja valitse roskoakori-ikoni.</p>",
+    "tourStepCanvasEditingText": "<p>Kun interaktiivinen elementti on lisätty voit siirtää sitä raahamalla</p><p>Muuttaaksesi elementin kokoa valitse elementti ja tämän jälkeen voit muuttaa elementin kokoa raahamalla sitä nurkista (ei toimi painikemuotoisen elementin kanssa).Muokataksesi elementin asetuksia valitse se ja paina kynä-ikonia. Poistaakesi elementin valitse se ja valitse roskoakori-ikoni.</p>",
     "tourStepCanvasBookmarksTitle": "Kirjanmerkit",
     "tourStepCanvasBookmarksText": "Voit lisätä kirjanmerkkejä kirjanmerkkivalikosta. Paina kirjanmerkki-painiketta avataksesi kirjanmerkkivalikon.",
     "tourStepCanvasEndscreensTitle": "Palautusikkunat",

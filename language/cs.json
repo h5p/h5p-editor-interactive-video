@@ -38,7 +38,7 @@
     "tourStepSummaryText": "Tento volitelný shrnující kvíz se objeví na konci videa.",
     "fullScoreRequiredPause": "Volba \"Úplné hodnocení požadováno\" je nutná pro povolení \"Pozastavení\".",
     "fullScoreRequiredRetry": "Volba \"Úplné hodnocení požadováno\" je nutná pro povolení \"Znovu\"",
-    "fullScoreRequiredTimeFrame": "Již zde existuje interakce, která vyžaduje úplné hodnocení stejného intervalu jako tato interakce.<br>K zodpovězení bude stačit pouze jedna interakce.",
+    "fullScoreRequiredTimeFrame": "Již zde existuje interakce, která vyžaduje úplné hodnocení stejného intervalu jako tato interakce.<br />K zodpovězení bude stačit pouze jedna interakce.",
     "addEndscreen": "Přidat oesílací obrazovku na @timecode",
     "endscreen": "Odesílací obrazovka",
     "endscreenAlreadyExists": "Odesílací obrazovka již zde existuje. Posuňte posuvník a přidejte Odesílací obrazovku  nebo záložku na jiný čas.",

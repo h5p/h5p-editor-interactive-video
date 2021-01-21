@@ -38,7 +38,7 @@
     "tourStepSummaryText": "任務摘要可以選擇是否要顯示在影片的結尾。",
     "fullScoreRequiredPause": "「需作答正確」選項必須啟用「暫停」功能。",
     "fullScoreRequiredRetry": "「需作答正確」選項必須啟用「重試」功能。",
-    "fullScoreRequiredTimeFrame": "當前時間已存在一個需作答正確的互動元件，<br>同一時間只能有一個需作答正確的互動元件。",
+    "fullScoreRequiredTimeFrame": "當前時間已存在一個需作答正確的互動元件，<br />同一時間只能有一個需作答正確的互動元件。",
     "addEndscreen":"添加提交畫面於 @timecode",
     "endscreen":"提交畫面",
     "endscreenAlreadyExists":"此處已有提交畫面，移動播放時間軸，在其它的時間點添加提交畫面或書籤。",

@@ -38,7 +38,7 @@
     "tourStepSummaryText": "Opcjonalny quiz, który pojawi się na końcu wideo.",
     "fullScoreRequiredPause": "Opcja \"Wymagany pełny wynik\" wymaga włączenia opcji \"Pauzuj\".",
     "fullScoreRequiredRetry": "Opcja \"Wymagany pełny wynik\" wymaga włączenia opcji \"Spróbuj ponownie\".",
-    "fullScoreRequiredTimeFrame": "Istnieje już interakcja wymagająca pełnego wyniku w tym samym fragmencie co niniejsza.<br>Warunek będzie zastosowany tylko do jednej, dowolnej interakcji.",
+    "fullScoreRequiredTimeFrame": "Istnieje już interakcja wymagająca pełnego wyniku w tym samym fragmencie co niniejsza.<br />Warunek będzie zastosowany tylko do jednej, dowolnej interakcji.",
     "addEndscreen": "Dodaj ekran wyników na czasie @timecode",
     "endscreen": "Ekran wyników",
     "endscreenAlreadyExists": "Na tym czasie istnieje już ekran wyników. Wybierz inne miejsce w filmie.",

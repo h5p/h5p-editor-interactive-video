@@ -38,7 +38,7 @@
     "tourStepSummaryText": "Aquest qüestionari de resum opcional es mostrarà al final del vídeo.",
     "fullScoreRequiredPause": "L’opció \"Es requereix una puntuació total\" requereix que l’opció \"Pausa\" estigui activada.",
     "fullScoreRequiredRetry": "L’opció \"Es requereix una puntuació total\" requereix que l’opció \"Torna-ho a provar\" estigui activada.",
-    "fullScoreRequiredTimeFrame": "Ja hi ha una interacció que requereix la puntuació total en el mateix interval que aquesta interacció.<br> Només es requerirà que es respongui a una de les interaccions.",
+    "fullScoreRequiredTimeFrame": "Ja hi ha una interacció que requereix la puntuació total en el mateix interval que aquesta interacció.<br /> Només es requerirà que es respongui a una de les interaccions.",
     "addEndscreen": "Afegeix una pantalla d’enviament a @timecode",
     "endscreen": "Pantalla d’enviament",
     "endscreenAlreadyExists": "Aquí ja hi ha una pantalla d’enviament. Moveu l’indicador de reproducció i afegiu una pantalla d’enviament o un marcador més endavant.",

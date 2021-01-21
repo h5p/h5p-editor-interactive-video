@@ -38,7 +38,7 @@
     "tourStepSummaryText":"Denna valfria, interaktiva sammanfattningsuppgiften kommer att visas i slutet på videon.",
     "fullScoreRequiredPause":"\"Alla rätt\" alternativet kräver att \"Paus\" är aktiverat.",
     "fullScoreRequiredRetry":"\"Alla rätt\" alternativet kräver att \"Försök igen\" är aktiverat.",
-    "fullScoreRequiredTimeFrame":"Det finns redan en innehållstyp som kräver alla rätt, på samma tidsintervall som denna interaktion.<br> Endast en av innehållstyperna kommer att kräva alla rätt.",
+    "fullScoreRequiredTimeFrame":"Det finns redan en innehållstyp som kräver alla rätt, på samma tidsintervall som denna interaktion.<br /> Endast en av innehållstyperna kommer att kräva alla rätt.",
     "addEndscreen":"Lägg till inlämningssida vid @timecode",
     "endscreen":"Inlämningssida",
     "endscreenAlreadyExists":"Inlämningssida finns redan här. Spola i videon och lägg till inlämningssida eller bokmärke vid annan tid.",

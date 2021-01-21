@@ -38,7 +38,7 @@
     "tourStepSummaryText": "Este examen de resumen opcional aparecerá al final del video.",
     "fullScoreRequiredPause": "La opción \"Se requiere puntaje completo\" requiere que esté habilitada \"Pausa\".",
     "fullScoreRequiredRetry": "La opción \"Se requiere puntaje completo\" requiere que esté habilitado \"Reintentar\"",
-    "fullScoreRequiredTimeFrame": "Ya existe una interacción que requiere de puntaje completo en el mismo intervalo de esta interacción.<br> Solamente una de las interacciones será necesaria para contestar.",
+    "fullScoreRequiredTimeFrame": "Ya existe una interacción que requiere de puntaje completo en el mismo intervalo de esta interacción.<br /> Solamente una de las interacciones será necesaria para contestar.",
     "addEndscreen": "Añadir pantalla de envío en @timecode",
     "endscreen": "Pantalla de envío",
     "endscreenAlreadyExists": "Pantalla de envío ya existe aquí. Mueva el puntero y añada una pantalla de envíoa o un marcador en otro momento.",

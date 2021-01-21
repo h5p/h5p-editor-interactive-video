@@ -38,7 +38,7 @@
     "tourStepSummaryText":"Denne valgfrie, interaktive opsummeringsopgave vil blive vist i slutningen af videoen.",
     "fullScoreRequiredPause":"\"Alle rigtige\" alternativet kræver at \"Pause\" er aktiveret.",
     "fullScoreRequiredRetry":"\"Alle rigtige\" alternativet kræver at \"Prøv igen\" er aktiveret.",
-    "fullScoreRequiredTimeFrame":"Det findes allerede en indholdstype som kræver alle rigtige i dette tidsinterval.<br> Bare en af indholdstyperne vil kræve alt rigtigt.",
+    "fullScoreRequiredTimeFrame":"Det findes allerede en indholdstype som kræver alle rigtige i dette tidsinterval.<br /> Bare en af indholdstyperne vil kræve alt rigtigt.",
     "addEndscreen":"Add submit screen at @timecode",
     "endscreen":"Submit screen",
     "endscreenAlreadyExists":"Submit screen already exists here. Move playhead and add a submit screen or a bookmark at another time.",

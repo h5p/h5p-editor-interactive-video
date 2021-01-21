@@ -38,7 +38,7 @@
     "tourStepSummaryText": "Este quiz opcional de resumo irá aparecer ao final do vídeo.",
     "fullScoreRequiredPause": "A opção \"Pontuação total exigida\" requer que \"Pausar\" esteja habilitado.",
     "fullScoreRequiredRetry": "A opção \"Pontuação total exigida\" requer que \"Tentar novamente\" esteja habilitado.",
-    "fullScoreRequiredTimeFrame": "Já existe uma interação que requer pontuação total no mesmo intervalo que esta interação.<br> Apenas uma das interações será obrigatória para responder.",
+    "fullScoreRequiredTimeFrame": "Já existe uma interação que requer pontuação total no mesmo intervalo que esta interação.<br /> Apenas uma das interações será obrigatória para responder.",
     "addEndscreen": "Adicionar tela de submissão em @timecode",
     "endscreen": "Tela de submissão",
     "endscreenAlreadyExists": "Uma tela de submissão já existe aqui. Mova o cursor de repordução e adicione uma uma tela de submisssão ou marcação em outro tempo.",

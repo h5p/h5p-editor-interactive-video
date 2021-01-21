@@ -38,7 +38,7 @@
     "tourStepSummaryText": "Deze optionele Samenvattingsquiz zal verschijnen aan het einde van de video.",
     "fullScoreRequiredPause": "\"Volledige score vereist\" optie vereist dat \"Pause\" is ingeschakeld.",
     "fullScoreRequiredRetry": "\"Volledige score vereist\" optie vereist dat \"Retry\" is ingeschakeld",
-    "fullScoreRequiredTimeFrame": "Er bestaat reeds een interactie die volledige score vereist in hetzelfde tijdsinterval.<br> Slechts één van de interacties is verplicht om te beantwoorden.",
+    "fullScoreRequiredTimeFrame": "Er bestaat reeds een interactie die volledige score vereist in hetzelfde tijdsinterval.<br /> Slechts één van de interacties is verplicht om te beantwoorden.",
     "addEndscreen": "Voeg inzendscherm toe op @timecode",
     "endscreen": "Inzendscherm",
     "endscreenAlreadyExists": "Er bestaat hier reeds een inzendscherm. Verplaats je positie en voeg een inzendscherm of bladwijzer toe op een ander tijdstip.",

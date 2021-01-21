@@ -38,7 +38,7 @@
     "tourStepSummaryText":"ستظهر مهمة الملخص التفاعلي الاختيارية هذه في نهاية الفيديو.",
     "fullScoreRequiredPause":"\"Full score required\" option requires that \"Pause\" is enabled.",
     "fullScoreRequiredRetry":"\"Full score required\" option requires that \"Retry\" is enabled.",
-    "fullScoreRequiredTimeFrame":"هناك بالفعل تفاعل يتطلب درجة كاملة في نفس الفترة مثل هذا التفاعل..<br> سوف تكون هناك حاجة واحدة فقط من التفاعلات للرد.",
+    "fullScoreRequiredTimeFrame":"هناك بالفعل تفاعل يتطلب درجة كاملة في نفس الفترة مثل هذا التفاعل..<br /> سوف تكون هناك حاجة واحدة فقط من التفاعلات للرد.",
     "addEndscreen":"إضافة شاشة النهاية",
     "endscreen":"إنهاء الشاشة",
     "endscreenAlreadyExists":"شاشة النهاية موجودة بالفعل هنا. نقل بلايهيد وإضافة شاشة نهاية أو إشارة مرجعية في وقت آخر.",

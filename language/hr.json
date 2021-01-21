@@ -20,7 +20,7 @@
   "tourButtonNext": "Sljedeće",
   "tourStepUploadIntroText": "<p>Ovaj obilazak vodi vas kroz najvažnije značajke interaktivnog video uređivača.</p><p>U bilo kojem trenutku započnite ovaj obilazak pritiskom na gumb Turneja u gornjem desnom kutu.</p><p>Pritisnite IZLAZ da preskočite ovaj obilazak ili pritisnite SLJEDEĆE za nastavak.</p>",
   "tourStepUploadFileTitle": "Dodavanje videa",
-  "tourStepUploadFileText": "<p>Započnite dodavanjem video datoteke. Možete prenijeti datoteku s računala, zalijepiti URL na YouTube videozapis ili podržanu video datoteku.</p><p>Da biste osigurali kompatibilnost putem web preglednika, možete prenijeti više formata datoteka istog videozapisa, poput mp4 i webm.</p><p>",
+  "tourStepUploadFileText": "<p>Započnite dodavanjem video datoteke. Možete prenijeti datoteku s računala, zalijepiti URL na YouTube videozapis ili podržanu video datoteku.</p><p>Da biste osigurali kompatibilnost putem web preglednika, možete prenijeti više formata datoteka istog videozapisa, poput mp4 i webm.</p>",
   "tourStepUploadAddInteractionsTitle": "Dodavanje interakcija",
   "tourStepUploadAddInteractionsText": "<p>Nakon što dodate videozapis, možete početi dodavati interakcije.</p><p>Za početak pritisnite karticu Dodaj interakcije.</p>",
   "tourStepCanvasToolbarTitle": "Dodaj interakciju",

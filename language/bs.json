@@ -38,7 +38,7 @@
     "tourStepSummaryText": "Opcija u kojoj se sažeto govori o videu biće pokazana nakon završetka videa.",
     "fullScoreRequiredPause": "\"Obavezan kompletan rezultat\" zahtjeva da je dugme \"Pausa\" omogućeno.",
     "fullScoreRequiredRetry": "\"Obavezan kompletan rezultat\" zahtjeva da je dugme \"Ponovi\" omogućeno.",
-    "fullScoreRequiredTimeFrame": "There already exists an interaction that requires full score at the same interval as this interaction.<br> Only one of the interactions will be required to answer.",
+    "fullScoreRequiredTimeFrame": "There already exists an interaction that requires full score at the same interval as this interaction.<br /> Only one of the interactions will be required to answer.",
     "addEndscreen":"Add submit screen at @timecode",
     "endscreen":"Submit screen",
     "endscreenAlreadyExists":"Submit screen already exists here. Move playhead and add a submit screen or a bookmark at another time.",

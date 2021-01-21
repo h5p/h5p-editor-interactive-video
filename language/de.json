@@ -38,7 +38,7 @@
     "tourStepSummaryText": "Diese optionale Zusammenfassungsaufgabe wird am Ende des Videos erscheinen.",
     "fullScoreRequiredPause": "Die Option \"Volle Punktzahl erforderlich\" setzt voraus, dass \"Pause\" aktiviert ist.",
     "fullScoreRequiredRetry": "Die Option \"Volle Punktzahl erforderlich\" setzt voraus, dass \"Wiederholen\" aktiviert ist.",
-    "fullScoreRequiredTimeFrame": "Es existiert bereits eine Interaktion, die die volle Punktzahl im selben Intervall wie diese Interaktion erfordert. <br> Nur eine der Interaktionen muss beantwortet werden.",
+    "fullScoreRequiredTimeFrame": "Es existiert bereits eine Interaktion, die die volle Punktzahl im selben Intervall wie diese Interaktion erfordert. <br /> Nur eine der Interaktionen muss beantwortet werden.",
     "addEndscreen": "Antwortübermittlung einfügen bei @timecode",
     "endscreen": "Antwortübermittlung",
     "endscreenAlreadyExists": "Antwortübermittlung existiert hier bereits. Bewege den Abspielknopf und füge ein Lesezeichen oder eine Antwortübermittlung an einer anderen Stelle hinzu.",

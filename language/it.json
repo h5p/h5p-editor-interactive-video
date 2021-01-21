@@ -38,7 +38,7 @@
     "tourStepSummaryText": "Questa attività di riepilogo facoltativa apparirà alla fine del video",
     "fullScoreRequiredPause": "L'opzione \"Punteggio completo obbligatorio\" richiede che \"Pausa\" sia abilitato",
     "fullScoreRequiredRetry": "L'opzione \"Punteggio completo richiesto\" richiede che \"Riprova\" sia abilitato",
-    "fullScoreRequiredTimeFrame": "Esiste già un'interazione che richiede il punteggio completo in questo stesso intervallo.<br>È ammessa una sola interazione per rispondere",
+    "fullScoreRequiredTimeFrame": "Esiste già un'interazione che richiede il punteggio completo in questo stesso intervallo.<br />È ammessa una sola interazione per rispondere",
     "addEndscreen": "Aggiungi schermata di invio a @timecode",
     "endscreen": "Schermata di invio",
     "endscreenAlreadyExists": "Esiste già una schermata di invio in questo punto. Sposta la testina di riproduzione e aggiungi una schermata di invio o un segnalibro in un altro punto",
