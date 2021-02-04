@@ -1,7 +1,7 @@
 {
   "libraryStrings": {
     "selectVideo": "Sinun täytyy valita video ennen kuin voit lisätä interaktiivisia elementtejä sille.",
-    "noVideoSource": "Videolädde puuttuu.",
+    "noVideoSource": "Videolähde puuttuu.",
     "notVideoField": "\":path\" ei ole video.",
     "notImageField": "\":path\" ei ole kuva.",
     "insertElement": "Klikkaa ja raahaa paikalleen :type",
