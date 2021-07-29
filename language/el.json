@@ -45,6 +45,11 @@
     "tooltipBookmarks":"Κάντε κλικ για να προσθέσετε σελιδοδείκτη στο τρέχον σημείο του βίντεο",
     "tooltipEndscreens":"Κάντε κλικ για να προσθέσετε οθόνη υποβολής στο τρέχον σημείο του βίντεο",
     "expandBreadcrumbButtonLabel": "Πίσω",
-    "collapseBreadcrumbButtonLabel": "Κλείσιμο πλοήγησης"
+    "collapseBreadcrumbButtonLabel": "Κλείσιμο πλοήγησης",
+    "deleteInteractionTitle": "Deleting interaction",
+    "deleteInteractionText": "Are you sure you wish to delete this interaction?",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "ok": "Ok"
   }
 }

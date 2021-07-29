@@ -45,6 +45,11 @@
     "tooltipBookmarks": "Clique para adicionar uma marcação no ponto atual do vídeo",
     "tooltipEndscreens": "Clique para adicionar uma tela de submissão no ponto atual do vídeo",
     "expandBreadcrumbButtonLabel": "Voltar",
-    "collapseBreadcrumbButtonLabel": "Fechar navegação"
+    "collapseBreadcrumbButtonLabel": "Fechar navegação",
+    "deleteInteractionTitle": "Deleting interaction",
+    "deleteInteractionText": "Are you sure you wish to delete this interaction?",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "ok": "Ok"
   }
 }

@@ -45,6 +45,11 @@
     "tooltipBookmarks": "Klikněte pro přidání záložky do vybraného bodu ve videu",
     "tooltipEndscreens": "Klikněte pro přidání Odesílací obrazovky do vybraného bodu ve videu",
     "expandBreadcrumbButtonLabel": "Jít zpět",
-    "collapseBreadcrumbButtonLabel": "Zavřít navigaci"
+    "collapseBreadcrumbButtonLabel": "Zavřít navigaci",
+    "deleteInteractionTitle": "Deleting interaction",
+    "deleteInteractionText": "Are you sure you wish to delete this interaction?",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "ok": "Ok"
   }
 }

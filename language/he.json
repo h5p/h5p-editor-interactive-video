@@ -45,6 +45,11 @@
     "tooltipBookmarks": "הקליקו להוספת סימניה בנקודת הזמן הנוכחית של הסרטון",
     "tooltipEndscreens": "הקליקו להוספת מסך הגשה בנקודת הזמן הנוכחית של הסרטון",
     "expandBreadcrumbButtonLabel": "חזרה לאחור",
-    "collapseBreadcrumbButtonLabel": "סגירת ניווט"
+    "collapseBreadcrumbButtonLabel": "סגירת ניווט",
+    "deleteInteractionTitle": "Deleting interaction",
+    "deleteInteractionText": "Are you sure you wish to delete this interaction?",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "ok": "Ok"
   }
 }

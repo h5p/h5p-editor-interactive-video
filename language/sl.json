@@ -45,6 +45,11 @@
     "tooltipBookmarks": "S klikom se na izbranem mestu videoposnetka doda zaznamek",
     "tooltipEndscreens": "S klikom se na izbranem mestu videoposnetka doda zaslon za potrditev odgovorov",
     "expandBreadcrumbButtonLabel": "Pojdi nazaj",
-    "collapseBreadcrumbButtonLabel": "Zapri navigacijo"
+    "collapseBreadcrumbButtonLabel": "Zapri navigacijo",
+    "deleteInteractionTitle": "Deleting interaction",
+    "deleteInteractionText": "Are you sure you wish to delete this interaction?",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "ok": "Ok"
   }
 }
