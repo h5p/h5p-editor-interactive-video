@@ -47,6 +47,7 @@
     "expandBreadcrumbButtonLabel": "חזרה לאחור",
     "collapseBreadcrumbButtonLabel": "סגירת ניווט",
     "deleteInteractionTitle": "Deleting interaction",
+    "deleteInteractionText": "Are you sure you wish to delete this interaction?",
     "cancel": "Cancel",
     "confirm": "Confirm",
     "ok": "Ok"

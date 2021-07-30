@@ -47,6 +47,7 @@
     "expandBreadcrumbButtonLabel": "Gå tilbake",
     "collapseBreadcrumbButtonLabel": "Lukk navigasjon",
     "deleteInteractionTitle": "Deleting interaction",
+    "deleteInteractionText": "Are you sure you wish to delete this interaction?",
     "cancel": "Cancel",
     "confirm": "Confirm",
     "ok": "Ok"

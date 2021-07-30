@@ -47,6 +47,7 @@
     "expandBreadcrumbButtonLabel": "Πίσω",
     "collapseBreadcrumbButtonLabel": "Κλείσιμο πλοήγησης",
     "deleteInteractionTitle": "Deleting interaction",
+    "deleteInteractionText": "Are you sure you wish to delete this interaction?",
     "cancel": "Cancel",
     "confirm": "Confirm",
     "ok": "Ok"
