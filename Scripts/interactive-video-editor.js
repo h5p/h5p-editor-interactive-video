@@ -1123,9 +1123,10 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     const removeFormInteractionDialogActions = function (confirmFlag) {
       if (confirmFlag) {
         that.removeInteraction(interaction);
+        that.IV.addSliderInteractions();
+        that.dnb.blurAll();
       }
-      that.IV.addSliderInteractions();
-      that.dnb.blurAll();
+      return;
     };
     that.on('formremove', handleFormremove);
 
