@@ -45,6 +45,10 @@
     "tooltipBookmarks": "Feu clic per afegir un marcador al punt actual del vídeo.",
     "tooltipEndscreens": "Feu clic per afegir una pantalla d’enviament al punt actual del vídeo.",
     "expandBreadcrumbButtonLabel": "Enrere",
-    "collapseBreadcrumbButtonLabel": "Tanca la navegació"
+    "collapseBreadcrumbButtonLabel": "Tanca la navegació",
+    "deleteInteractionTitle": "Deleting interaction",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "ok": "Ok"
   }
 }

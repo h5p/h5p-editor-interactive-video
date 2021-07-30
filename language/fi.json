@@ -45,6 +45,10 @@
     "tooltipBookmarks": "Klikkaa lisätäksesi kirjanmerkin tähän kyseiseen videon ajankohtaan.",
     "tooltipEndscreens": "Klikkaa lisätäksesi palautusikkunan tähän videon ajankohtaan.",
     "expandBreadcrumbButtonLabel": "Go back",
-    "collapseBreadcrumbButtonLabel": "Close navigation"
+    "collapseBreadcrumbButtonLabel": "Close navigation",
+    "deleteInteractionTitle": "Deleting interaction",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "ok": "Ok"
   }
 }

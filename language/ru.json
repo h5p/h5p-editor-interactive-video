@@ -45,6 +45,10 @@
     "tooltipBookmarks": "Для добавления закладки нажмите на текущую точку в видео",
     "tooltipEndscreens": "Для утверждения экрана нажмите на текущую точку в видео",
     "expandBreadcrumbButtonLabel": "Вернуться назад",
-    "collapseBreadcrumbButtonLabel": "Закрыть навигацию"
+    "collapseBreadcrumbButtonLabel": "Закрыть навигацию",
+    "deleteInteractionTitle": "Deleting interaction",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "ok": "Ok"
   }
 }

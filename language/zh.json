@@ -45,6 +45,10 @@
     "tooltipBookmarks":"點擊以在當前時間點添加書籤。",
     "tooltipEndscreens":"點擊以在當前時間點添加提交畫面。",
     "expandBreadcrumbButtonLabel": "Go back",
-    "collapseBreadcrumbButtonLabel": "Close navigation"
+    "collapseBreadcrumbButtonLabel": "Close navigation",
+    "deleteInteractionTitle": "Deleting interaction",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "ok": "Ok"
   }
 }
