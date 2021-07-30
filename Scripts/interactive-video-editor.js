@@ -1113,14 +1113,14 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         dialogText: t('removeInteraction'),
         cancelText: t('cancel'),
         confirmText: t('confirm'),
-      }, removeFormInteractionDiaologActions);
+      }, removeFormInteractionDialogActions);
     };
 
     /**
      * Callback confirm/cancel action
      * @param {boolean} [confirmFlag] Which button is clicked
      */
-    const removeFormInteractionDiaologActions = function (confirmFlag) {
+    const removeFormInteractionDialogActions = function (confirmFlag) {
       if (confirmFlag) {
         that.removeInteraction(interaction);
       }
@@ -1218,14 +1218,14 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           dialogText: t('removeInteraction'),
           cancelText: t('cancel'),
           confirmText: t('confirm'),
-        }, removeInteractionDiaologActions);
+        }, removeInteractionDialogActions);
       });
 
       /**
        * Callback confirm/cancel action
        * @param {boolean} [confirmFlag] Which button is clicked
        */
-      const removeInteractionDiaologActions = function (confirmFlag) {
+      const removeInteractionDialogActions = function (confirmFlag) {
         if (confirmFlag) {
           that.removeInteraction(interaction);
           that.dnb.dialog.close();
