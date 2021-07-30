@@ -45,11 +45,6 @@
     "tooltipBookmarks": "Kliknij, aby dodać zakładkę w tym miejscu w wideo.",
     "tooltipEndscreens": "Kliknij, aby dodać ekran wyników w tym miejscu w wideo",
     "expandBreadcrumbButtonLabel": "Go back",
-    "collapseBreadcrumbButtonLabel": "Close navigation",
-    "deleteInteractionTitle": "Deleting interaction",
-    "deleteInteractionText": "Are you sure you wish to delete this interaction?",
-    "cancel": "Cancel",
-    "confirm": "Confirm",
-    "ok": "Ok"
+    "collapseBreadcrumbButtonLabel": "Close navigation"
   }
 }

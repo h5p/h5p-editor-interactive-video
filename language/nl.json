@@ -45,11 +45,6 @@
     "tooltipBookmarks": "Klik om een bladwijzer toe te voegen op het huidige tijdstip in de video",
     "tooltipEndscreens": "Klik om een inzendscherm toe te voegen op het huidige tijdstip in de video",
     "expandBreadcrumbButtonLabel": "Ga terug",
-    "collapseBreadcrumbButtonLabel": "Sluit navigatie",
-    "deleteInteractionTitle": "Deleting interaction",
-    "deleteInteractionText": "Are you sure you wish to delete this interaction?",
-    "cancel": "Cancel",
-    "confirm": "Confirm",
-    "ok": "Ok"
+    "collapseBreadcrumbButtonLabel": "Sluit navigatie"
   }
 }

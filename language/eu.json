@@ -45,11 +45,6 @@
     "tooltipBookmarks": "Egin klik gehitzeko laster-marka bat bideoaren une honetan",
     "tooltipEndscreens": "Egin klik gehitzeko bidalketa-pantaila bat bideoaren une honetan",
     "expandBreadcrumbButtonLabel": "Joan atzera",
-    "collapseBreadcrumbButtonLabel": "Itxi nabigazioa",
-    "deleteInteractionTitle": "Deleting interaction",
-    "deleteInteractionText": "Are you sure you wish to delete this interaction?",
-    "cancel": "Cancel",
-    "confirm": "Confirm",
-    "ok": "Ok"
+    "collapseBreadcrumbButtonLabel": "Itxi nabigazioa"
   }
 }

@@ -45,11 +45,6 @@
     "tooltipBookmarks": "Кликнете, за да добавите отметка в текущата точка на видеоклипа",
     "tooltipEndscreens": "Кликнете, за да добавите submit екран в текущата точка във видеоклипа",
     "expandBreadcrumbButtonLabel": "Върни се",
-    "collapseBreadcrumbButtonLabel": "Затвaряне на навигацията",
-    "deleteInteractionTitle": "Deleting interaction",
-    "deleteInteractionText": "Are you sure you wish to delete this interaction?",
-    "cancel": "Cancel",
-    "confirm": "Confirm",
-    "ok": "Ok"
+    "collapseBreadcrumbButtonLabel": "Затвaряне на навигацията"
   }
 }

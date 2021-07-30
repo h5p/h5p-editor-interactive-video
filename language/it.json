@@ -45,11 +45,6 @@
     "tooltipBookmarks": "Clicca per aggiungere un segnalibro in questo punto del video",
     "tooltipEndscreens": "Clicca per aggiungere una schermata di invio in questo punto del video",
     "expandBreadcrumbButtonLabel": "Torna indietro",
-    "collapseBreadcrumbButtonLabel": "Chiudi navigazione",
-    "deleteInteractionTitle": "Deleting interaction",
-    "deleteInteractionText": "Are you sure you wish to delete this interaction?",
-    "cancel": "Cancel",
-    "confirm": "Confirm",
-    "ok": "Ok"
+    "collapseBreadcrumbButtonLabel": "Chiudi navigazione"
   }
 }

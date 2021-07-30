@@ -45,11 +45,6 @@
   "tooltipBookmarks": "Kliknite da biste dodali oznaku u trenutnoj točki videozapisa",
   "tooltipEndscreens": "Kliknite za dodavanje zaslona za slanje u trenutnoj točki videozapisa",
   "expandBreadcrumbButtonLabel": "Idi natrag",
-  "collapseBreadcrumbButtonLabel": "Zatvori navigaciju",
-  "deleteInteractionTitle": "Deleting interaction",
-  "deleteInteractionText": "Are you sure you wish to delete this interaction?",
-  "cancel": "Cancel",
-  "confirm": "Confirm",
-  "ok": "Ok"
+  "collapseBreadcrumbButtonLabel": "Zatvori navigaciju"
  }
 }

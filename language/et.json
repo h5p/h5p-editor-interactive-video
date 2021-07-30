@@ -45,11 +45,6 @@
     "tooltipBookmarks": "Kliki järjehoidja lisamiseks video jooksvale kaadrile",
     "tooltipEndscreens": "Kliki esitamiskuva lisamiseks video jooksvale kaadrile",
     "expandBreadcrumbButtonLabel": "Go back",
-    "collapseBreadcrumbButtonLabel": "Sulge navigatsioon",
-    "deleteInteractionTitle": "Deleting interaction",
-    "deleteInteractionText": "Are you sure you wish to delete this interaction?",
-    "cancel": "Cancel",
-    "confirm": "Confirm",
-    "ok": "Ok"
+    "collapseBreadcrumbButtonLabel": "Sulge navigatsioon"
   }
 }

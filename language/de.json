@@ -45,11 +45,6 @@
     "tooltipBookmarks": "Klicke hier, um ein Lesezeichen an der aktuellen Position einzufügen",
     "tooltipEndscreens": "Klicke hier, um eine Antwortübermittlung an der aktuellen Position einzufügen",
     "expandBreadcrumbButtonLabel": "Zurück",
-    "collapseBreadcrumbButtonLabel": "Navigation schließen",
-    "deleteInteractionTitle": "Deleting interaction",
-    "deleteInteractionText": "Are you sure you wish to delete this interaction?",
-    "cancel": "Cancel",
-    "confirm": "Confirm",
-    "ok": "Ok"
+    "collapseBreadcrumbButtonLabel": "Navigation schließen"
   }
 }
