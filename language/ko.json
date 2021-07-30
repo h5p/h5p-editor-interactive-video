@@ -48,7 +48,6 @@
     "expandBreadcrumbButtonLabel": "돌아가기",
     "collapseBreadcrumbButtonLabel": "탐색 닫기",
     "deleteInteractionTitle": "Deleting interaction",
-    "deleteInteractionText": "Are you sure you wish to delete this interaction?",
     "cancel": "Cancel",
     "confirm": "Confirm",
     "ok": "Ok"

@@ -1110,7 +1110,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       // Confirm deletion
       that.showConfirmationDialog({
         headerText: t('deleteInteractionTitle'),
-        dialogText: t('deleteInteractionText'),
+        dialogText: t('removeInteraction'),
         cancelText: t('cancel'),
         confirmText: t('confirm'),
       }, removeFormInteractionDiaologActions);
@@ -1215,7 +1215,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         // Confirm deletion
         that.showConfirmationDialog({
           headerText: t('deleteInteractionTitle'),
-          dialogText: t('deleteInteractionText'),
+          dialogText: t('removeInteraction'),
           cancelText: t('cancel'),
           confirmText: t('confirm'),
         }, removeInteractionDiaologActions);
