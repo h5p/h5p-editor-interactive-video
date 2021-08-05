@@ -1114,7 +1114,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         cancelText: t('cancel'),
         confirmText: t('confirm'),
       }, removeFormInteractionDialogActions);
+      e.preventRemove = true;
     };
+    that.on('formremove', handleFormremove);
 
     /**
      * Callback confirm/cancel action
@@ -1122,13 +1124,13 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
      */
     const removeFormInteractionDialogActions = function (confirmFlag) {
       if (confirmFlag) {
+        that.getFormManager().closeFormUntil(0);
         that.removeInteraction(interaction);
         that.IV.addSliderInteractions();
         that.dnb.blurAll();
       }
       return;
     };
-    that.on('formremove', handleFormremove);
 
     /**
      * The user is done editing, save and update the display.
