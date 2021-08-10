@@ -1,7 +1,7 @@
 {
   "libraryStrings": {
     "selectVideo": "Sinun täytyy valita video ennen kuin voit lisätä interaktiivisia elementtejä sille.",
-    "noVideoSource": "Videolädde puuttuu.",
+    "noVideoSource": "Videolähde puuttuu.",
     "notVideoField": "\":path\" ei ole video.",
     "notImageField": "\":path\" ei ole kuva.",
     "insertElement": "Klikkaa ja raahaa paikalleen :type",
@@ -26,7 +26,7 @@
     "tourStepCanvasToolbarTitle": "Lisää toiminto tai tehtävä",
     "tourStepCanvasToolbarText": "Lisätäksesi interaktiivisen elmentin, raahaa elementti työkaluriviltä ja tiputa se haluaamsi kohtaan videota.",
     "tourStepCanvasEditingTitle": "Interaktiivisen elementin muokkaaminen",
-    "tourStepCanvasEditingText": "<p>Kun interaktiivinen elementti on lisätty voit siirtää sitä raahamalla</p><p>Muuttaaksesi elementin kokoa valitse elementti ja tämän jälkeen voit muuttaa elementin kokoa raahamalla sitä nurkista (ei toimi painikemuotoisen elementin kanssa).<p>Muokataksesi elementin asetuksia valitse se ja paina kynä-ikonia. Poistaakesi elementin valitse se ja valitse roskoakori-ikoni.</p>",
+    "tourStepCanvasEditingText": "<p>Kun interaktiivinen elementti on lisätty voit siirtää sitä raahamalla</p><p>Muuttaaksesi elementin kokoa valitse elementti ja tämän jälkeen voit muuttaa elementin kokoa raahamalla sitä nurkista (ei toimi painikemuotoisen elementin kanssa).Muokataksesi elementin asetuksia valitse se ja paina kynä-ikonia. Poistaakesi elementin valitse se ja valitse roskoakori-ikoni.</p>",
     "tourStepCanvasBookmarksTitle": "Kirjanmerkit",
     "tourStepCanvasBookmarksText": "Voit lisätä kirjanmerkkejä kirjanmerkkivalikosta. Paina kirjanmerkki-painiketta avataksesi kirjanmerkkivalikon.",
     "tourStepCanvasEndscreensTitle": "Palautusikkunat",
@@ -44,7 +44,11 @@
     "endscreenAlreadyExists": "Tälle samalle ajankohdalle on jo määritetty palautusikkuna, lisää uusi palautusikkuna toiseen ajankohtaan.",
     "tooltipBookmarks": "Klikkaa lisätäksesi kirjanmerkin tähän kyseiseen videon ajankohtaan.",
     "tooltipEndscreens": "Klikkaa lisätäksesi palautusikkunan tähän videon ajankohtaan.",
-    "expandBreadcrumbButtonLabel": "Go back",
-    "collapseBreadcrumbButtonLabel": "Close navigation"
+    "expandBreadcrumbButtonLabel": "Paluu",
+    "collapseBreadcrumbButtonLabel": "Sulje navigointi",
+    "deleteInteractionTitle": "Deleting interaction",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "ok": "Ok"
   }
 }

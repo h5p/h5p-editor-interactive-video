@@ -38,13 +38,17 @@
     "tourStepSummaryText": "Seda valikulist kokkuvõtvat küsimustikku näidatakse video lõpus.",
     "fullScoreRequiredPause": "\"Täispunktid nõutud\" valik vajab, et \"Paus\" oleks lubatud.",
     "fullScoreRequiredRetry": "\"Täispunktid nõutud\" valik vajab, et \"Proovi uuesti\" oleks lubatud",
-    "fullScoreRequiredTimeFrame": "Juba on olemas interaktsioon, mis nõuab täispunkte samas vahemikus, kui see interaktsioon.<br> Vastata on vaja vaid ühele interaktsioonidest.",
+    "fullScoreRequiredTimeFrame": "Juba on olemas interaktsioon, mis nõuab täispunkte samas vahemikus, kui see interaktsioon.<br /> Vastata on vaja vaid ühele interaktsioonidest.",
     "addEndscreen": "Lisa esitamiskuva siia @timecode",
     "endscreen": "Esitamiskuva",
     "endscreenAlreadyExists": "Siin on esitamiskuva juba olemas. Liiguta videokursorit ja lisa esitamiskuva või järjehoidja hiljem.",
     "tooltipBookmarks": "Kliki järjehoidja lisamiseks video jooksvale kaadrile",
     "tooltipEndscreens": "Kliki esitamiskuva lisamiseks video jooksvale kaadrile",
     "expandBreadcrumbButtonLabel": "Go back",
-    "collapseBreadcrumbButtonLabel": "Close navigation"
+    "collapseBreadcrumbButtonLabel": "Sulge navigatsioon",
+    "deleteInteractionTitle": "Deleting interaction",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "ok": "Ok"
   }
 }
