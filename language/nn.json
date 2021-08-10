@@ -38,7 +38,7 @@
     "tourStepSummaryText":"Denne valgfrie, interaktive oppsummeringsoppgaven vil vises på slutten av videoen.",
     "fullScoreRequiredPause":"\"Alt rett\" alternativet krever at \"Pause\" er aktivert.",
     "fullScoreRequiredRetry":"\"Alt rett\" alternativet krever at \"Prøv igjen\" er aktivert.",
-    "fullScoreRequiredTimeFrame":"Det finnes allerede en innholdstype som krever alt rett i dette tidsintervallet.<br> Bare en av innholdstypene vil kreve alt rett.",
+    "fullScoreRequiredTimeFrame":"Det finnes allerede en innholdstype som krever alt rett i dette tidsintervallet.<br /> Bare en av innholdstypene vil kreve alt rett.",
     "addEndscreen":"Add submit screen at @timecode",
     "endscreen":"Submit screen",
     "endscreenAlreadyExists":"Submit screen already exists here. Move playhead and add a submit screen or a bookmark at another time.",

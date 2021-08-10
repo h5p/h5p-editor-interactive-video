@@ -38,7 +38,7 @@
     "tourStepSummaryText": "Vprašanja neobvezne aktivnosti Povzetek (Summary) se pokažejo po koncu ogleda videoposnetka.",
     "fullScoreRequiredPause": "Možnost \"Zahtevane vse točke\" pogojuje omogočeno možnost \"Premor\".",
     "fullScoreRequiredRetry": "Možnost \"Zahtevane vse točke\" pogojuje omogočeno možnost \"Poskusi ponovno\".",
-    "fullScoreRequiredTimeFrame": "Na tem mestu že obstaja aktivnost, ki za zaključek zahteva vse točke.<br> Udeleženci bodo morali rešiti le eno aktivnost.",
+    "fullScoreRequiredTimeFrame": "Na tem mestu že obstaja aktivnost, ki za zaključek zahteva vse točke.<br /> Udeleženci bodo morali rešiti le eno aktivnost.",
     "addEndscreen": "Dodaj zaslon za potrditev odgovorov na @timecode",
     "endscreen": "Zaslon za potrditev odgovorov",
     "endscreenAlreadyExists": "Zaslon za potrditev odgovorov na tem mestu že obstaja. Za ureditev novega je potrebno izbrati drug čas posnetka.",

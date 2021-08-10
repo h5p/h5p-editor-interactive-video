@@ -38,7 +38,7 @@
     "tourStepSummaryText": "Ce quiz optionnel apparaîtra à la fin de la vidéo.",
     "fullScoreRequiredPause": "L'option \"Score complet requis\" requiert que l'option \"Pause\" soit activée.",
     "fullScoreRequiredRetry": "L'option \"Score complet requis\" requiert que l'option \"Réessayer\" soit activée",
-    "fullScoreRequiredTimeFrame": "Il existe déjà une interaction qui requiert un score complet sur le même intervalle que cette interaction.<br> Une seule de ces interactions sera requise pour répondre.",
+    "fullScoreRequiredTimeFrame": "Il existe déjà une interaction qui requiert un score complet sur le même intervalle que cette interaction.<br /> Une seule de ces interactions sera requise pour répondre.",
     "addEndscreen": "Ajouter un écran de soumission à @timecode",
     "endscreen": "Écran de soumission",
     "endscreenAlreadyExists": "Un écran de soumission existe déjà ici. Déplacez le curseur et ajoutez un écran de soumission ou un signet à un autre moment.",

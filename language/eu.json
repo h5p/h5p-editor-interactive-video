@@ -38,7 +38,7 @@
     "tourStepSummaryText": "Aukerazko laburpen-galdetegi hau bideoaren bukaeran agertuko da.",
     "fullScoreRequiredPause": "\"Puntuazio osoa behar da\" opzioak behartzen du \"Pausarazi\" gaitua izatea.",
     "fullScoreRequiredRetry": "\"Puntuazio osoa behar da\" opzioak behartzen du \"Saiatu berriro\" gaitua izatea",
-    "fullScoreRequiredTimeFrame": "Dagoeneko badago interakzio honen tarte berean puntuazio osoa eskatzen duen beste interakzio bat.<br> Interakzioetako bat bakarrik erantzun beharko da.",
+    "fullScoreRequiredTimeFrame": "Dagoeneko badago interakzio honen tarte berean puntuazio osoa eskatzen duen beste interakzio bat.<br /> Interakzioetako bat bakarrik erantzun beharko da.",
     "addEndscreen": "Gehitu bidaltzeko pantaila hemen: @timecode",
     "endscreen": "Bidalketa-pantaila",
     "endscreenAlreadyExists": "Hemen dagoeneko badago bidalketa-pantaila bat. Mugitu erreprodukzio-burua eta gehitu  bidalketa-pantaila edo laster-marka beste une batean.",
