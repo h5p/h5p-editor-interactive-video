@@ -45,6 +45,10 @@
     "tooltipBookmarks": "Click to add bookmark at the current point in the video",
     "tooltipEndscreens": "Click to add submit screen at the current point in the video",
     "expandBreadcrumbButtonLabel": "Gå tilbake",
-    "collapseBreadcrumbButtonLabel": "Lukk navigasjon"
+    "collapseBreadcrumbButtonLabel": "Lukk navigasjon",
+    "deleteInteractionTitle": "Fjerne interaksjon",
+    "cancel": "Avbryt",
+    "confirm": "Bekreft",
+    "ok": "Ok"
   }
 }

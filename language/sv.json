@@ -45,6 +45,10 @@
     "tooltipBookmarks": "Klicka för att lägga till bokmärke på denna tidpunkt i videon",
     "tooltipEndscreens": "Klicka för att lägga till inlämningssida på denna tidpunkt i videon",
     "expandBreadcrumbButtonLabel": "Gå tillbaka",
-    "collapseBreadcrumbButtonLabel": "Stäng navigering"
+    "collapseBreadcrumbButtonLabel": "Stäng navigation",
+    "deleteInteractionTitle": "Deleting interaction",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "ok": "Ok"
   }
 }

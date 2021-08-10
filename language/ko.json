@@ -46,6 +46,10 @@
     "tooltipBookmarks": "동영상의 현재 지점에서 책갈피를 추가하려면 클릭하십시오",
     "tooltipEndscreens": "동영상의 현재 시점에서 제출 화면을 추가하려면 클릭하십시오.",
     "expandBreadcrumbButtonLabel": "돌아가기",
-    "collapseBreadcrumbButtonLabel": "탐색 닫기"
+    "collapseBreadcrumbButtonLabel": "탐색 닫기",
+    "deleteInteractionTitle": "Deleting interaction",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "ok": "Ok"
   }
 }

@@ -45,6 +45,10 @@
     "tooltipBookmarks":"Click to add bookmark at the current point in the video",
     "tooltipEndscreens":"Click to add submit screen at the current point in the video",
     "expandBreadcrumbButtonLabel": "Go back",
-    "collapseBreadcrumbButtonLabel": "Close navigation"
+    "collapseBreadcrumbButtonLabel": "Close navigation",
+    "deleteInteractionTitle": "Deleting interaction",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "ok": "Ok"
   }
 }

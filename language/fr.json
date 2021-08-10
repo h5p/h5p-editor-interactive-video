@@ -45,6 +45,10 @@
     "tooltipBookmarks": "Cliquez pour ajouter un signet pour le moment actuel de la vidéo",
     "tooltipEndscreens": "Cliquez pour ajouter un écran de soumission pour le moment actuel de la vidéo",
     "expandBreadcrumbButtonLabel": "Retour",
-    "collapseBreadcrumbButtonLabel": "Fermer la navigation"
+    "collapseBreadcrumbButtonLabel": "Fermer la navigation",
+    "deleteInteractionTitle": "Deleting interaction",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "ok": "Ok"
   }
 }

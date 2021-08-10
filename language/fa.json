@@ -45,6 +45,10 @@
     "tooltipBookmarks": "برای افزودن نشانک در نقطه کنونی در ویدئو کلیک کنید",
     "tooltipEndscreens": "برای افزودن صفحه ارسال در زمان کنونی در ویدئو کلیک کنید",
     "expandBreadcrumbButtonLabel": "برگشت به عقب",
-    "collapseBreadcrumbButtonLabel": "بستن راهبری"
+    "collapseBreadcrumbButtonLabel": "بستن راهبری",
+    "deleteInteractionTitle": "Deleting interaction",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "ok": "Ok"
   }
 }

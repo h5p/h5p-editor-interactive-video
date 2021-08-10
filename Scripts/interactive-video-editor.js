@@ -675,7 +675,12 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           that.dnb.focus(that.addInteraction(pasted.specific, options));
         }
         else {
-          alert(H5PEditor.t('H5P.DragNBar', 'unableToPaste'));
+          that.showConfirmationDialog({
+            headerText: H5PEditor.t('core', 'pasteError'),
+            dialogText: H5PEditor.t('H5P.DragNBar', 'unableToPaste'),
+            cancelText: ' ',
+            confirmText: t('ok'),
+          });
         }
       }
       else if (pasted.generic) {
@@ -690,7 +695,12 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           that.dnb.focus(that.addInteraction(pasted.generic.library, options));
         }
         else {
-          alert(H5PEditor.t('H5P.DragNBar', 'unableToPaste'));
+          that.showConfirmationDialog({
+            headerText: H5PEditor.t('core', 'pasteError'),
+            dialogText: H5PEditor.t('H5P.DragNBar', 'unableToPaste'),
+            cancelText: ' ',
+            confirmText: t('ok'),
+          });
         }
       }
     });
@@ -1058,6 +1068,23 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   };
 
   /**
+   * Add confirmation dialog to button.
+   * @param {object} dialogOptions Dialog options.
+   * @param {function} [handleActions] Handle both actions Confirmed and Canceled.
+   */
+  InteractiveVideoEditor.prototype.showConfirmationDialog = function (dialogOptions, handleActions) {
+    const confirmationDialog = new H5P.ConfirmationDialog(dialogOptions)
+      .appendTo(document.body);
+
+    if (handleActions) {
+      confirmationDialog.on('confirmed', () => handleActions(true));
+      confirmationDialog.on('canceled', () => handleActions(false));
+    }
+
+    confirmationDialog.show();
+  };
+
+  /**
    *
    * @param interaction
    */
@@ -1072,15 +1099,24 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
      * The user has clicked delete, remove the element.
      * @private
      */
-    const handleFormremove = function (e) {
-      e.preventRemove = !confirm(t('removeInteraction'));
-      if (e.preventRemove) {
-        return;
-      }
-      that.removeInteraction(interaction);
-      //that.dnb.blurAll();
+    const handleFormRemove = function (e) {
+      // Confirm deletion
+      that.showConfirmationDialog({
+        headerText: t('deleteInteractionTitle'),
+        dialogText: t('removeInteraction'),
+        cancelText: t('cancel'),
+        confirmText: t('confirm'),
+      }, confirmFlag => {
+        if (confirmFlag) {
+          that.getFormManager().closeFormUntil(0);
+          that.removeInteraction(interaction);
+          that.IV.addSliderInteractions();
+          that.dnb.blurAll();
+        }
+      });
+      e.preventRemove = true;
     };
-    that.on('formremove', handleFormremove);
+    that.on('formremove', handleFormRemove);
 
     /**
      * The user is done editing, save and update the display.
@@ -1123,7 +1159,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     const handleFormclose = function () {
       that.IV.addSliderInteractions();
       //interaction.focus(); ?????
-      that.off('formremove', handleFormremove);
+      that.off('formremove', handleFormRemove);
       that.off('formdone', handleFormdone);
       that.off('formclose', handleFormclose);
     };
@@ -1165,13 +1201,27 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       });
 
       newDnbElement.contextMenu.on('contextMenuRemove', function () {
-        if (confirm(t('removeInteraction'))) {
+        // Confirm deletion
+        that.showConfirmationDialog({
+          headerText: t('deleteInteractionTitle'),
+          dialogText: t('removeInteraction'),
+          cancelText: t('cancel'),
+          confirmText: t('confirm'),
+        }, removeInteractionDialogActions);
+      });
+
+      /**
+       * Callback confirm/cancel action
+       * @param {boolean} [confirmFlag] Which button is clicked
+       */
+      const removeInteractionDialogActions = function (confirmFlag) {
+        if (confirmFlag) {
           that.removeInteraction(interaction);
           that.dnb.dialog.close();
         }
         that.IV.addSliderInteractions();
         that.dnb.blurAll();
-      });
+      };
 
       newDnbElement.contextMenu.on('contextMenuBringToFront', function () {
         // Find interaction index
@@ -1322,15 +1372,30 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @param {number} id
    */
   InteractiveVideoEditor.prototype.removeInteraction = function (interaction) {
+    let interactionIndex;
     for (var i = 0; i < this.IV.interactions.length; i++) {
       if (this.IV.interactions[i] === interaction) {
         this.params.interactions.splice(i, 1);
         this.IV.interactions.splice(i, 1);
+        interactionIndex = i;
         break;
       }
     }
     H5PEditor.removeChildren(interaction.children);
     interaction.remove();
+
+    // IV has an internal array containing the current visible interactions.
+    // The array contains the interaction's array index. In addition to removing
+    // the index of the deleted interaction, we need to decrement the index for
+    // all interactions with a higher index than the one we have deleted.
+    for (let i = this.IV.visibleInteractions.length - 1; i >= 0; i--) {
+      if (this.IV.visibleInteractions[i] === interactionIndex) {
+        this.IV.visibleInteractions.splice(i, 1);
+      }
+      else if (this.IV.visibleInteractions[i] > interactionIndex) {
+        this.IV.visibleInteractions[i] = this.IV.visibleInteractions[i] - 1;
+      }
+    }
   };
 
   /**
