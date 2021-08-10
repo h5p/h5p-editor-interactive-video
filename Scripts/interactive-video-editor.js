@@ -1070,23 +1070,16 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   /**
    * Add confirmation dialog to button.
    * @param {object} dialogOptions Dialog options.
-   * @param {function} handleActions Handle both actions Confirmed and Canceled.
+   * @param {function} [handleActions] Handle both actions Confirmed and Canceled.
    */
   InteractiveVideoEditor.prototype.showConfirmationDialog = function (dialogOptions, handleActions) {
     const confirmationDialog = new H5P.ConfirmationDialog(dialogOptions)
-    .appendTo(document.body);
+      .appendTo(document.body);
 
-    confirmationDialog.on('confirmed', () => {
-      if (handleActions) {
-        handleActions(true);
-      }
-    });
-
-    confirmationDialog.on('canceled', () => {
-      if (handleActions) {
-        handleActions(false);
-      }
-    });
+    if (handleActions) {
+      confirmationDialog.on('confirmed', () => handleActions(true));
+      confirmationDialog.on('canceled', () => handleActions(false));
+    }
 
     confirmationDialog.show();
   };
@@ -1106,31 +1099,24 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
      * The user has clicked delete, remove the element.
      * @private
      */
-    const handleFormremove = function (e) {
+    const handleFormRemove = function (e) {
       // Confirm deletion
       that.showConfirmationDialog({
         headerText: t('deleteInteractionTitle'),
         dialogText: t('removeInteraction'),
         cancelText: t('cancel'),
         confirmText: t('confirm'),
-      }, removeFormInteractionDialogActions);
+      }, confirmFlag => {
+        if (confirmFlag) {
+          that.getFormManager().closeFormUntil(0);
+          that.removeInteraction(interaction);
+          that.IV.addSliderInteractions();
+          that.dnb.blurAll();
+        }
+      });
       e.preventRemove = true;
     };
-    that.on('formremove', handleFormremove);
-
-    /**
-     * Callback confirm/cancel action
-     * @param {boolean} [confirmFlag] Which button is clicked
-     */
-    const removeFormInteractionDialogActions = function (confirmFlag) {
-      if (confirmFlag) {
-        that.getFormManager().closeFormUntil(0);
-        that.removeInteraction(interaction);
-        that.IV.addSliderInteractions();
-        that.dnb.blurAll();
-      }
-      return;
-    };
+    that.on('formremove', handleFormRemove);
 
     /**
      * The user is done editing, save and update the display.
@@ -1173,7 +1159,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     const handleFormclose = function () {
       that.IV.addSliderInteractions();
       //interaction.focus(); ?????
-      that.off('formremove', handleFormremove);
+      that.off('formremove', handleFormRemove);
       that.off('formdone', handleFormdone);
       that.off('formclose', handleFormclose);
     };
