@@ -1372,15 +1372,30 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @param {number} id
    */
   InteractiveVideoEditor.prototype.removeInteraction = function (interaction) {
+    let interactionIndex;
     for (var i = 0; i < this.IV.interactions.length; i++) {
       if (this.IV.interactions[i] === interaction) {
         this.params.interactions.splice(i, 1);
         this.IV.interactions.splice(i, 1);
+        interactionIndex = i;
         break;
       }
     }
     H5PEditor.removeChildren(interaction.children);
     interaction.remove();
+
+    // IV has an internal array containing the current visible interactions.
+    // The array contains the interaction's array index. In addition to removing
+    // the index of the deleted interaction, we need to decrement the index for
+    // all interactions with a higher index than the one we have deleted.
+    for (let i = this.IV.visibleInteractions.length - 1; i >= 0; i--) {
+      if (this.IV.visibleInteractions[i] === interactionIndex) {
+        this.IV.visibleInteractions.splice(i, 1);
+      }
+      else if (this.IV.visibleInteractions[i] > interactionIndex) {
+        this.IV.visibleInteractions[i] = this.IV.visibleInteractions[i] - 1;
+      }
+    }
   };
 
   /**
