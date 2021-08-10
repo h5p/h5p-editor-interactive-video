@@ -1547,10 +1547,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @method startGuidedTour
    * @param  {Boolean}        force If true, don't care if user already has seen it
    */
-  InteractiveVideoEditor.prototype.startGuidedTour = function (force = false) {
-    if (InteractiveVideoEditor.showGuidedTour || force) {
+  InteractiveVideoEditor.prototype.startGuidedTour = function (force) {
+    if (InteractiveVideoEditor.showGuidedTour) {
       H5PEditor.InteractiveVideo.GuidedTours.start(this.currentTabIndex, force || false, t);
-      InteractiveVideoEditor.showGuidedTour = false;
       // Make sure the guided tour stays behind other important popups
     }
   };
