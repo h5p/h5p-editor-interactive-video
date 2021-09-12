@@ -46,9 +46,9 @@
     "tooltipEndscreens": "Klicke hier, um eine Antwortübermittlung an der aktuellen Position einzufügen",
     "expandBreadcrumbButtonLabel": "Zurück",
     "collapseBreadcrumbButtonLabel": "Navigation schließen",
-    "deleteInteractionTitle": "Deleting interaction",
-    "cancel": "Cancel",
-    "confirm": "Confirm",
+    "deleteInteractionTitle": "Lösche Interaktion",
+    "cancel": "Abbrechen",
+    "confirm": "Bestätigen",
     "ok": "Ok"
   }
 }
