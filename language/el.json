@@ -46,9 +46,9 @@
     "tooltipEndscreens":"Κάντε κλικ για να προσθέσετε οθόνη υποβολής στο τρέχον σημείο του βίντεο",
     "expandBreadcrumbButtonLabel": "Πίσω",
     "collapseBreadcrumbButtonLabel": "Κλείσιμο πλοήγησης",
-    "deleteInteractionTitle": "Deleting interaction",
-    "cancel": "Cancel",
-    "confirm": "Confirm",
-    "ok": "Ok"
+    "deleteInteractionTitle": "Διαγραφή αλληλεπίδρασης",
+    "cancel": "Άκυρο",
+    "confirm": "Επιβεβαίωση",
+    "ok": "Εντάξει"
   }
 }
