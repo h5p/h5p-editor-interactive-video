@@ -1081,7 +1081,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       confirmationDialog.on('canceled', () => handleActions(false));
     }
 
-    confirmationDialog.show();
+    confirmationDialog.show(this.$item.offset().top);
   };
 
   /**
