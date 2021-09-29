@@ -46,9 +46,9 @@
     "tooltipEndscreens": "Klicka för att lägga till inlämningssida på denna tidpunkt i videon",
     "expandBreadcrumbButtonLabel": "Gå tillbaka",
     "collapseBreadcrumbButtonLabel": "Stäng navigation",
-    "deleteInteractionTitle": "Deleting interaction",
-    "cancel": "Cancel",
-    "confirm": "Confirm",
-    "ok": "Ok"
+    "deleteInteractionTitle": "Raderar interaktion",
+    "cancel": "Avbryt",
+    "confirm": "Bekräfta",
+    "ok": "OK"
   }
 }
