@@ -1,12 +1,12 @@
 /*global H5PEditor, H5P, H5PIntegration*/
-H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) {
+H5PEditor.widgets.interactiveVideo = H5PEditor.NDLAInteractiveVideo = (function ($) {
 
   var counter = 0;
 
   /**
    * Initialize interactive video editor.
    *
-   * @class H5PEditor.InteractiveVideo
+   * @class H5PEditor.NDLAInteractiveVideo
    * @param {Object} parent
    * @param {Object} field
    * @param {Object} params
@@ -86,7 +86,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     // When wizard changes step
     parent.on('stepChanged', function (event) {
       that.currentTabIndex = event.data.id;
-      that.startGuidedTour(H5PEditor.InteractiveVideo.GuidedTours.isOpen());
+      that.startGuidedTour(H5PEditor.NDLAInteractiveVideo.GuidedTours.isOpen());
     });
 
     // Update paste button
@@ -134,7 +134,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @private
    * @type {string}
    */
-  InteractiveVideoEditor.clipboardKey = 'H5PEditor.InteractiveVideo';
+  InteractiveVideoEditor.clipboardKey = 'H5PEditor.NDLAInteractiveVideo';
   /**
    * Find a field, then run the callback.
    *
@@ -942,7 +942,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       }).indexOf(interaction.getLibraryName()) >= 0;
 
     if (eligibleForRequireCompletion) {
-      new H5PEditor.InteractiveVideo.RequireCompletion(self, interaction);
+      new H5PEditor.NDLAInteractiveVideo.RequireCompletion(self, interaction);
     }
 
     interaction.on('display', function (event) {
@@ -1614,7 +1614,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    */
   InteractiveVideoEditor.prototype.startGuidedTour = function (force) {
     if (InteractiveVideoEditor.showGuidedTour) {
-      H5PEditor.InteractiveVideo.GuidedTours.start(this.currentTabIndex, force || false, t);
+      H5PEditor.NDLAInteractiveVideo.GuidedTours.start(this.currentTabIndex, force || false, t);
       // Make sure the guided tour stays behind other important popups
     }
   };
@@ -1738,7 +1738,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     if (this.dnb !== undefined) {
       this.dnb.remove();
     }
-    H5PEditor.InteractiveVideo.GuidedTours.remove();
+    H5PEditor.NDLAInteractiveVideo.GuidedTours.remove();
     this.$item.remove();
   };
 
@@ -1765,7 +1765,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
    * @returns {string}
    */
   var t = InteractiveVideoEditor.t = function (key, vars) {
-    return H5PEditor.t('H5PEditor.InteractiveVideo', key, vars);
+    return H5PEditor.t('H5PEditor.NDLAInteractiveVideo', key, vars);
   };
 
   /**

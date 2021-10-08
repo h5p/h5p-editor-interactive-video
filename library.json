@@ -1,11 +1,11 @@
 {
-  "title": "Interactive Video Editor",
+  "title": "NDLA Interactive Video Editor",
   "license": "MIT",
   "majorVersion": 1,
   "minorVersion": 22,
   "patchVersion": 5,
   "runnable": 0,
-  "machineName": "H5PEditor.InteractiveVideo",
+  "machineName": "H5PEditor.NDLAInteractiveVideo",
   "author": "Joubel",
   "coreApi": {
     "majorVersion": 1,
@@ -43,7 +43,7 @@
       "minorVersion": 5
     },
     {
-      "machineName": "H5P.DragNBar",
+      "machineName": "H5P.NDLADragNBar",
       "majorVersion": 1,
       "minorVersion": 5
     },
@@ -83,7 +83,7 @@
       "minorVersion": 6
     },
     {
-      "machineName": "H5P.InteractiveVideo",
+      "machineName": "H5P.NDLAInteractiveVideo",
       "majorVersion": 1,
       "minorVersion": 22
     },
@@ -123,7 +123,7 @@
       "minorVersion": 0
     },
     {
-      "machineName": "H5P.DragQuestion",
+      "machineName": "H5P.NDLADragQuestion",
       "majorVersion": 1,
       "minorVersion": 13
     },
