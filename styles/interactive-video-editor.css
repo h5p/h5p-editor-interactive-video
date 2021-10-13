@@ -10,22 +10,22 @@
   font-style: normal;
 }
 
-.h5p-interactivevideo-editor . {
+.h5p-ndlainteractivevideo-editor .h5p-interactive-video {
   overflow: visible;
 }
 
-.h5p-interactivevideo-editor . .h5p-overlay.h5p-visible {
+.h5p-ndlainteractivevideo-editor .h5p-interactive-video .h5p-overlay.h5p-visible {
   overflow: visible;
 }
 
-.-dragnbar {
+.h5p-interactive-video-dragnbar {
   font-size: 1em;
   padding: 0;
   background: #f5f5f5;
   float: left;
   width: 100%;
 }
-.-dragnbar .h5p-dragnbar-ul {
+.h5p-interactive-video-dragnbar .h5p-dragnbar-ul {
   margin: 0;
   list-style: none;
   padding: 0;
@@ -33,7 +33,7 @@
   height: 100%;
   width: 100%;
 }
-.-dragnbar .h5p-dragnbar-li {
+.h5p-interactive-video-dragnbar .h5p-dragnbar-li {
   position: relative;
   float: left;
   margin: 0;
@@ -44,16 +44,16 @@
   border-right: none;
 }
 
-.-dragnbar .h5p-dragnbar-li:hover {
+.h5p-interactive-video-dragnbar .h5p-dragnbar-li:hover {
   background: none;
 }
 
-.-dragnbar .h5p-dragnbar-li:before {
+.h5p-interactive-video-dragnbar .h5p-dragnbar-li:before {
   top: 100%;
   font-size: 0.585em;
 }
 
-.-dragnbar .h5p-dragnbar-a {
+.h5p-interactive-video-dragnbar .h5p-dragnbar-a {
   width: 1em;
   height: 1.1em;
   line-height: inherit;
@@ -72,37 +72,37 @@
   font-family: 'H5PFontAwesome4';
 }
 
-.-dragnbar .h5p-dragnbar-li:first-child {
+.h5p-interactive-video-dragnbar .h5p-dragnbar-li:first-child {
   margin-left: 0.25em;
 }
 
 /* Paste button overrides */
-.-dragnbar .h5p-dragnbar-li.paste-button {
+.h5p-interactive-video-dragnbar .h5p-dragnbar-li.paste-button {
   float: right;
 }
-.-dragnbar .h5p-dragnbar-paste-button {
+.h5p-interactive-video-dragnbar .h5p-dragnbar-paste-button {
   font-size: 1.25em;
   padding: 0.01em 0.3em;
   margin: 0.25em 0;
 }
-.-dragnbar .h5p-dragnbar-paste-button::before {
+.h5p-interactive-video-dragnbar .h5p-dragnbar-paste-button::before {
   vertical-align: middle;
 }
-.-dragnbar .h5p-dragnbar-ul .h5p-dragnbar-li.paste-button .h5p-dragnbar-paste-button {
+.h5p-interactive-video-dragnbar .h5p-dragnbar-ul .h5p-dragnbar-li.paste-button .h5p-dragnbar-paste-button {
   border-width: 1px;
   border-radius: 0.25em;
 }
-.-dragnbar .h5p-dragnbar-ul .h5p-dragnbar-li.paste-button.disabled .h5p-dragnbar-paste-button {
+.h5p-interactive-video-dragnbar .h5p-dragnbar-ul .h5p-dragnbar-li.paste-button.disabled .h5p-dragnbar-paste-button {
   border-width: 1px;
   padding: 0.01em 0.3em;
   border-radius: 0.25em;
 }
 
-.-dragnbar .h5p-dragnbar-li-ul .h5p-dragnbar-li:first-child {
+.h5p-interactive-video-dragnbar .h5p-dragnbar-li-ul .h5p-dragnbar-li:first-child {
   margin-left: 0;
 }
 
-.-dragnbar .h5p-dragnbar-li-ul {
+.h5p-interactive-video-dragnbar .h5p-dragnbar-li-ul {
   padding: 0;
   list-style: none;
   position: absolute;
@@ -114,7 +114,7 @@
   background: rgb(245, 245, 245);
 }
 
-.-dragnbar .h5p-dragnbar-li-ul .h5p-dragnbar-li {
+.h5p-interactive-video-dragnbar .h5p-dragnbar-li-ul .h5p-dragnbar-li {
   float: none;
   box-sizing: border-box;
   border-left: 0;
@@ -127,26 +127,26 @@
   margin: 0;
 }
 
-.-dragnbar .h5p-dragnbar-li-ul .h5p-dragnbar-li:last-child {
+.h5p-interactive-video-dragnbar .h5p-dragnbar-li-ul .h5p-dragnbar-li:last-child {
   padding-bottom: 0.2em;
 }
 
-.-dragnbar .h5p-dragnbar-li-ul .h5p-dragnbar-a {
+.h5p-interactive-video-dragnbar .h5p-dragnbar-li-ul .h5p-dragnbar-a {
   margin: 0;
 }
 
 /* Rules for vertical menu buttons when they are in the horizontal menu */
-.-dragnbar ul:not(.h5p-dragnbar-li-ul) > .h5p-dragnbar-li > a.h5p-dragnbar-interactivevideo-button:before {
+.h5p-interactive-video-dragnbar ul:not(.h5p-dragnbar-li-ul) > .h5p-dragnbar-li > a.h5p-dragnbar-interactivevideo-button:before {
   vertical-align: bottom;
 }
 
-.-dragnbar ul:not(.h5p-dragnbar-li-ul) > .h5p-dragnbar-li > a.h5p-dragnbar-table-button:before,
-.-dragnbar ul:not(.h5p-dragnbar-li-ul) > .h5p-dragnbar-li > a.h5p-dragnbar-exportabletextarea-button:before,
-.-dragnbar ul:not(.h5p-dragnbar-li-ul) > .h5p-dragnbar-li > a.h5p-dragnbar-markthewords-button:before {
+.h5p-interactive-video-dragnbar ul:not(.h5p-dragnbar-li-ul) > .h5p-dragnbar-li > a.h5p-dragnbar-table-button:before,
+.h5p-interactive-video-dragnbar ul:not(.h5p-dragnbar-li-ul) > .h5p-dragnbar-li > a.h5p-dragnbar-exportabletextarea-button:before,
+.h5p-interactive-video-dragnbar ul:not(.h5p-dragnbar-li-ul) > .h5p-dragnbar-li > a.h5p-dragnbar-markthewords-button:before {
   vertical-align: super;
 }
 
-.-dragnbar ul:not(.h5p-dragnbar-li-ul) > .h5p-dragnbar-li > a.h5p-dragnbar-dialogcards-button:before {
+.h5p-interactive-video-dragnbar ul:not(.h5p-dragnbar-li-ul) > .h5p-dragnbar-li > a.h5p-dragnbar-dialogcards-button:before {
   font-size: 1.0em;
   vertical-align: baseline;
 }
@@ -158,74 +158,74 @@
   margin-right: 0.5em;
   vertical-align: bottom;
 }
-.-dragnbar .h5p-dragnbar-a,
-.-dragnbar .h5p-dragnbar-a:visited,
-.-dragnbar .h5p-dragnbar-a:link {
+.h5p-interactive-video-dragnbar .h5p-dragnbar-a,
+.h5p-interactive-video-dragnbar .h5p-dragnbar-a:visited,
+.h5p-interactive-video-dragnbar .h5p-dragnbar-a:link {
   color: #333;
 }
-.-dragnbar .h5p-dragnbar-a:hover {
+.h5p-interactive-video-dragnbar .h5p-dragnbar-a:hover {
   text-decoration: none;
   border-color: #999;
 }
-.-dragnbar .h5p-dragnbar-a:before {
+.h5p-interactive-video-dragnbar .h5p-dragnbar-a:before {
   font-size: 1em;
 }
-.-dragnbar .h5p-dragnbar-nil-button:before,
+.h5p-interactive-video-dragnbar .h5p-dragnbar-nil-button:before,
 .h5p-nil-interaction-icon:before {
   content: "\f146";
 }
-.-dragnbar .h5p-dragnbar-text-button:before,
+.h5p-interactive-video-dragnbar .h5p-dragnbar-text-button:before,
 .h5p-text-interaction-icon:before {
   content: "T";
 }
-.-dragnbar .h5p-dragnbar-table-button:before,
+.h5p-interactive-video-dragnbar .h5p-dragnbar-table-button:before,
 .h5p-table-interaction-icon:before {
   content: "\f0ce";
 }
-.-dragnbar .h5p-dragnbar-link-button:before,
+.h5p-interactive-video-dragnbar .h5p-dragnbar-link-button:before,
 .h5p-link-interaction-icon:before {
   content: "\f0c1";
 }
-.-dragnbar .h5p-dragnbar-image-button:before,
+.h5p-interactive-video-dragnbar .h5p-dragnbar-image-button:before,
 .h5p-image-interaction-icon:before {
   content: "\f03e";
 }
-.-dragnbar .h5p-dragnbar-gotoquestion-button:before,
+.h5p-interactive-video-dragnbar .h5p-dragnbar-gotoquestion-button:before,
 .h5p-gotoquestion-interaction-icon:before {
   content: "\f277";
 }
-.-dragnbar .h5p-dragnbar-truefalse-button:before,
+.h5p-interactive-video-dragnbar .h5p-dragnbar-truefalse-button:before,
 .h5p-truefalse-interaction-icon:before {
   font-family: 'H5PFontIcons';
   content: "\e902";
   line-height: 1em;
 }
-.-dragnbar .h5p-dragnbar-ivhotspot-button:before,
+.h5p-interactive-video-dragnbar .h5p-dragnbar-ivhotspot-button:before,
 .h5p-ivhotspot-interaction-icon:before {
   content: "\e901";
 }
-.-dragnbar .h5p-dragnbar-questionnaire-button:before,
+.h5p-interactive-video-dragnbar .h5p-dragnbar-questionnaire-button:before,
 .h5p-questionnaire-interaction-icon:before {
   content: "\e902";
 }
-.-dragnbar .h5p-dragnbar-more-button {
+.h5p-interactive-video-dragnbar .h5p-dragnbar-more-button {
   width: 0.3em;
 }
-.-dragnbar .h5p-dragnbar-more-button:before {
+.h5p-interactive-video-dragnbar .h5p-dragnbar-more-button:before {
   content: "\f142";
 }
 
 /* H5P specific fonts: */
-.-dragnbar .h5p-dragnbar-dragquestion-button:before,
-.-dragnbar .h5p-dragnbar-multichoice-button:before,
-.-dragnbar .h5p-dragnbar-blanks-button:before,
-.-dragnbar .h5p-dragnbar-summary-button:before,
-.-dragnbar .h5p-dragnbar-markthewords-button:before,
-.-dragnbar .h5p-dragnbar-dragtext-button:before,
-.-dragnbar .h5p-dragnbar-singlechoiceset-button:before,
-.-dragnbar .h5p-dragnbar-questionnaire-button:before,
-.-dragnbar .h5p-dragnbar-ivhotspot-button:before,
-.-dragnbar .h5p-dragnbar-freetextquestion-button:before  {
+.h5p-interactive-video-dragnbar .h5p-dragnbar-dragquestion-button:before,
+.h5p-interactive-video-dragnbar .h5p-dragnbar-multichoice-button:before,
+.h5p-interactive-video-dragnbar .h5p-dragnbar-blanks-button:before,
+.h5p-interactive-video-dragnbar .h5p-dragnbar-summary-button:before,
+.h5p-interactive-video-dragnbar .h5p-dragnbar-markthewords-button:before,
+.h5p-interactive-video-dragnbar .h5p-dragnbar-dragtext-button:before,
+.h5p-interactive-video-dragnbar .h5p-dragnbar-singlechoiceset-button:before,
+.h5p-interactive-video-dragnbar .h5p-dragnbar-questionnaire-button:before,
+.h5p-interactive-video-dragnbar .h5p-dragnbar-ivhotspot-button:before,
+.h5p-interactive-video-dragnbar .h5p-dragnbar-freetextquestion-button:before  {
   font-family: 'H5PInteractiveVideoEditor';
   font-size: 1.2em;
   vertical-align: top;
@@ -243,35 +243,35 @@
   font-family: 'H5PInteractiveVideoEditor';
 }
 
-.-dragnbar .h5p-dragnbar-summary-button:before,
+.h5p-interactive-video-dragnbar .h5p-dragnbar-summary-button:before,
 .h5p-summary-interaction-icon:before {
   content: "\e992";
 }
-.-dragnbar .h5p-dragnbar-multichoice-button:before,
+.h5p-interactive-video-dragnbar .h5p-dragnbar-multichoice-button:before,
 .h5p-multichoice-interaction-icon:before {
   content: "\e603";
 }
-.-dragnbar .h5p-dragnbar-blanks-button:before,
+.h5p-interactive-video-dragnbar .h5p-dragnbar-blanks-button:before,
 .h5p-blanks-interaction-icon:before {
   content: "\e994";
 }
-.-dragnbar .h5p-dragnbar-dragquestion-button:before,
+.h5p-interactive-video-dragnbar .h5p-dragnbar-dragquestion-button:before,
 .h5p-dragquestion-interaction-icon:before {
   content: "\e991";
 }
-.-dragnbar .h5p-dragnbar-markthewords-button:before,
+.h5p-interactive-video-dragnbar .h5p-dragnbar-markthewords-button:before,
 .h5p-markthewords-interaction-icon:before {
   content: "\e601";
 }
-.-dragnbar .h5p-dragnbar-dragtext-button:before,
+.h5p-interactive-video-dragnbar .h5p-dragnbar-dragtext-button:before,
 .h5p-dragtext-interaction-icon:before {
   content: "\e600";
 }
-.-dragnbar .h5p-dragnbar-singlechoiceset-button:before,
+.h5p-interactive-video-dragnbar .h5p-dragnbar-singlechoiceset-button:before,
 .h5p-singlechoiceset-interaction-icon:before {
   content: "\e993";
 }
-.-dragnbar .h5p-dragnbar-freetextquestion-button:before,
+.h5p-interactive-video-dragnbar .h5p-dragnbar-freetextquestion-button:before,
 .h5p-freetextquestion-interaction-icon:before {
   content: "\e900";
 }
