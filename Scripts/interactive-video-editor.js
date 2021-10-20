@@ -323,10 +323,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           // Validate the extra reporting availabe before showing the Free text Question
           // Allow for the org users
           const allowedLibraries = libraries.filter(function (library) {
-            return (library.name !== 'H5P.FreeTextQuestion') 
-              ? true 
-              : (H5P.isExtraReportingAvailable === undefined
-                  || H5P.isExtraReportingAvailable);
+            return (library.name !== 'H5P.FreeTextQuestion') ? true : !!H5PIntegration.reportingIsAvailable;
           });
           this.createDragNBar(allowedLibraries);
           this.setInteractionTitles();
