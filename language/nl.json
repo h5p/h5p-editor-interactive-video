@@ -47,8 +47,8 @@
     "expandBreadcrumbButtonLabel": "Ga terug",
     "collapseBreadcrumbButtonLabel": "Sluit navigatie",
     "deleteInteractionTitle": "Deleting interaction",
-    "cancel": "Cancel",
-    "confirm": "Confirm",
+    "cancel": "Annuleren",
+    "confirm": "Bevestigen",
     "ok": "Ok"
   }
 }
