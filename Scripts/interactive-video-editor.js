@@ -320,7 +320,12 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       H5PEditor.LibraryListCache.getLibraries(
         action.options,
         function (libraries) {
-          this.createDragNBar(libraries);
+          // Validate the extra reporting availabe before showing the Free text Question
+          // Allow for the org users
+          const allowedLibraries = libraries.filter(function (library) {
+            return (library.name !== 'H5P.FreeTextQuestion' || H5PEditor.reportingIsAvailable === undefined) ? true : H5PEditor.reportingIsAvailable;
+          });
+          this.createDragNBar(allowedLibraries);
           this.setInteractionTitles();
           this.startGuidedTour();
           this.IV.trigger('dnbEditorReady');
