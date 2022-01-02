@@ -5,7 +5,6 @@
     "notVideoField":"Το \":path\" δεν είναι βίντεο",
     "notImageField":"Το \":path\" δεν είναι εικόνα",
     "insertElement":"Κάντε κλικ και τοποθετήστε το :type",
-    "popupTitle":"Επεξεργασία του :type",
     "done":"Ολοκλήρωση",
     "loading":"Φόρτωση...",
     "remove":"Αφαίρεση",

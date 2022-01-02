@@ -6,7 +6,6 @@
     "notVideoField": "\":path\" 는 비디오가 아님.",
     "notImageField": "\":path\" 는 이미지가 아님.",
     "insertElement": "클릭해서 :type 로 끌어 놓기",
-    "popupTitle": "편집 :type",
     "done": "완료",
     "loading": "로딩중...",
     "remove": "삭제",

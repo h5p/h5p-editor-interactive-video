@@ -5,7 +5,6 @@
     "notVideoField": "':path' nie jest filmem.",
     "notImageField": "':path' nie jest obrazem.",
     "insertElement": "Kliknij i przeciągnij, aby utworzyć :type",
-    "popupTitle": "Edytuj :type",
     "done": "Gotowe",
     "loading": "Ładuję...",
     "remove": "Usuń",
