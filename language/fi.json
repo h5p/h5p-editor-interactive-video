@@ -5,7 +5,6 @@
     "notVideoField": "\":path\" ei ole video.",
     "notImageField": "\":path\" ei ole kuva.",
     "insertElement": "Klikkaa ja raahaa paikalleen :type",
-    "popupTitle": "Editoi :type",
     "done": "Valmis",
     "loading": "Lataa...",
     "remove": "Poista",

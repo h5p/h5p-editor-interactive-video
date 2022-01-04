@@ -5,7 +5,6 @@
     "notVideoField": "\":path\" no es un vídeo.",
     "notImageField": "\":path\" no es una imatge.",
     "insertElement": "Feu clic i arrossegueu per col·locar :type",
-    "popupTitle": "Edita :type",
     "done": "Fet",
     "loading": "S’està carregant...",
     "remove": "Suprimeix",

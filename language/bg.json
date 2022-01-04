@@ -5,7 +5,6 @@
     "notVideoField": "\":path\" не е видео.",
     "notImageField": "\":path\" не е изображение.",
     "insertElement": "Кликнете и плъзнете, за да поставите :тип",
-    "popupTitle": "Редактиране на :типа",
     "done": "Готово",
     "loading": "Зареждане...",
     "remove": "Премахване",

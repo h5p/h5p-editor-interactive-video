@@ -5,7 +5,6 @@
     "notVideoField": "\":path\" er ikke en video.",
     "notImageField": "\":path\" er ikke et bilde.",
     "insertElement": "Klikk å dra for å plassere :type",
-    "popupTitle": "Endre :type",
     "done": "Ferdig",
     "loading": "Laster...",
     "remove": "Fjern",

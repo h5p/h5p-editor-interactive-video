@@ -5,7 +5,6 @@
     "notVideoField": "\":path\" n'est pas une vidéo.",
     "notImageField": "\":path\" n'est pas une image.",
     "insertElement": "Cliquez et glissez jusqu'à l'emplacement :type",
-    "popupTitle": "Édition :type",
     "done": "Valider",
     "loading": "Chargement...",
     "remove": "Supprimer",
