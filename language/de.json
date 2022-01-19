@@ -5,7 +5,6 @@
     "notVideoField": "Unter \":path\" ist kein Video zu finden.",
     "notImageField": "Unter \":path\" ist kein Bild zu finden.",
     "insertElement": "Klicken und an die gewünschte Stelle ziehen, um :type zu platzieren",
-    "popupTitle": ":type bearbeiten",
     "done": "Fertig",
     "loading": "Lädt...",
     "remove": "Entfernen",

@@ -5,7 +5,6 @@
     "notVideoField": "\":path\" is geen video.",
     "notImageField": "\":path\" is geen afbeelding.",
     "insertElement": "Klik-en-sleep naar positie :type",
-    "popupTitle": "Bewerk :type",
     "done": "Klaar",
     "loading": "Aan het laden...",
     "remove": "Verwijder",
@@ -46,9 +45,9 @@
     "tooltipEndscreens": "Klik om een inzendscherm toe te voegen op het huidige tijdstip in de video",
     "expandBreadcrumbButtonLabel": "Ga terug",
     "collapseBreadcrumbButtonLabel": "Sluit navigatie",
-    "deleteInteractionTitle": "Deleting interaction",
-    "cancel": "Cancel",
-    "confirm": "Confirm",
+    "deleteInteractionTitle": "Verwijderen van interactie",
+    "cancel": "Annuleren",
+    "confirm": "Bevestigen",
     "ok": "Ok"
   }
 }

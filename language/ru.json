@@ -5,7 +5,6 @@
     "notVideoField": "\":path\" не является видео.",
     "notImageField": "\":path\" не является изображением.",
     "insertElement": "Нажмите и переместите на место :type",
-    "popupTitle": "Изменить :type",
     "done": "Готово",
     "loading": "Загрузка...",
     "remove": "Удалить",

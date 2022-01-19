@@ -5,7 +5,6 @@
     "notVideoField": "\":path\" is not a video.",
     "notImageField": "\":path\" is not a image.",
     "insertElement": "Click and drag to place :type",
-    "popupTitle": "Edit :type",
     "done": "Done",
     "loading": "Loading...",
     "remove": "Delete",

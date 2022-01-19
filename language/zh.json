@@ -5,7 +5,6 @@
     "notVideoField": "\":path\" - 無法識別的影片。",
     "notImageField": "\":path\" - 無法識別的圖片。",
     "insertElement": "点击并拖拽以添加 :type",
-    "popupTitle": "變更 :type",
     "done": "完成",
     "loading": "正在加载...",
     "remove": "移除",

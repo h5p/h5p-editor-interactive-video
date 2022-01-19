@@ -5,7 +5,6 @@
     "notVideoField": "\":path\" no es un vídeo.",
     "notImageField": "\":path\" no es una imatge.",
     "insertElement": "Feu clic i arrossegueu per col·locar :type",
-    "popupTitle": "Edita :type",
     "done": "Fet",
     "loading": "S’està carregant...",
     "remove": "Suprimeix",
@@ -42,13 +41,13 @@
     "addEndscreen": "Afegeix una pantalla d’enviament a @timecode",
     "endscreen": "Pantalla d’enviament",
     "endscreenAlreadyExists": "Aquí ja hi ha una pantalla d’enviament. Moveu l’indicador de reproducció i afegiu una pantalla d’enviament o un marcador més endavant.",
-    "tooltipBookmarks": "Feu clic per afegir un marcador al punt actual del vídeo.",
-    "tooltipEndscreens": "Feu clic per afegir una pantalla d’enviament al punt actual del vídeo.",
+    "tooltipBookmarks": "Feu clic per afegir un marcador al punt actual del vídeo",
+    "tooltipEndscreens": "Feu clic per afegir una pantalla d’enviament al punt actual del vídeo",
     "expandBreadcrumbButtonLabel": "Enrere",
     "collapseBreadcrumbButtonLabel": "Tanca la navegació",
-    "deleteInteractionTitle": "Deleting interaction",
-    "cancel": "Cancel",
-    "confirm": "Confirm",
-    "ok": "Ok"
+    "deleteInteractionTitle": "S'està suprimint la interacció",
+    "cancel": "Cancel·la",
+    "confirm": "Confirma",
+    "ok": "D'acord"
   }
 }
