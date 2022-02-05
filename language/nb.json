@@ -5,7 +5,7 @@
     "notVideoField": "\":path\" er ikke en video.",
     "notImageField": "\":path\" er ikke et bilde.",
     "insertElement": "Klikk å dra for å plassere :type",
-    "done": "Ferdig",
+    "done": "Done",
     "loading": "Laster...",
     "remove": "Fjern",
     "removeInteraction": "Er du sikker på at du vil fjerne denne interaksjonen?",
@@ -46,7 +46,7 @@
     "expandBreadcrumbButtonLabel": "Gå tilbake",
     "collapseBreadcrumbButtonLabel": "Lukk navigasjon",
     "deleteInteractionTitle": "Fjerne interaksjon",
-    "cancel": "Avbryt",
+    "cancel": "Cancel",
     "confirm": "Bekreft",
     "ok": "Ok"
   }
