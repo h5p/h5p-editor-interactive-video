@@ -10,7 +10,7 @@
     "loading": "로딩중...",
     "remove": "삭제",
     "removeInteraction": "이 상호작용을 삭제하시겠습니까?",
-    "addBookmark": "@timecode에 북마크 추가",
+    "addBookmark": "@timecode 에 북마크 추가",
     "newBookmark": "새로운 북마크",
     "bookmarkAlreadyExists": "북마크는 이미 여기에 존재함. 플레이헤드를 이동하여 책갈피 또는 제출 화면을 다른 시간에 추가하십시오.",
     "tourButtonStart": "둘러보기",
@@ -46,9 +46,9 @@
     "tooltipEndscreens": "동영상의 현재 시점에서 제출 화면을 추가하려면 클릭하십시오.",
     "expandBreadcrumbButtonLabel": "돌아가기",
     "collapseBreadcrumbButtonLabel": "탐색 닫기",
-    "deleteInteractionTitle": "Deleting interaction",
-    "cancel": "Cancel",
-    "confirm": "Confirm",
-    "ok": "Ok"
+    "deleteInteractionTitle": "상호작용 삭제하기",
+    "cancel": "취소",
+    "confirm": "확인",
+    "ok": "오케이"
   }
 }
