@@ -387,7 +387,7 @@
   margin: 0;
   padding: 0;
 }
-.h5p-interactivevideo-editor textarea, .h5p-interactivevideo-editor input[type="text"]:not(.h5p-dragnbar-x):not(.h5p-dragnbar-y), .h5p-interactivevideo-editor .ckeditor {
+.h5p-interactivevideo-editor textarea, .h5p-interactivevideo-editor input[type="text"]:not(.h5p-dragnbar-x):not(.h5p-dragnbar-y):not(.h5p-hub-search-bar), .h5p-interactivevideo-editor .ckeditor {
   border: 1px solid #dbdbdb;
   border-radius: 0;
   background: #fff;
