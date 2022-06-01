@@ -45,9 +45,9 @@
     "tooltipEndscreens": "Klikněte pro přidání Odesílací obrazovky do vybraného bodu ve videu",
     "expandBreadcrumbButtonLabel": "Jít zpět",
     "collapseBreadcrumbButtonLabel": "Zavřít navigaci",
-    "deleteInteractionTitle": "Deleting interaction",
-    "cancel": "Cancel",
-    "confirm": "Confirm",
+    "deleteInteractionTitle": "Odstranit interakce",
+    "cancel": "Zrušit",
+    "confirm": "Potvrdit",
     "ok": "Ok"
   }
 }
