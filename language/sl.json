@@ -45,9 +45,9 @@
     "tooltipEndscreens": "S klikom se na izbranem mestu videoposnetka doda zaslon za potrditev odgovorov",
     "expandBreadcrumbButtonLabel": "Pojdi nazaj",
     "collapseBreadcrumbButtonLabel": "Zapri navigacijo",
-    "deleteInteractionTitle": "Deleting interaction",
-    "cancel": "Cancel",
-    "confirm": "Confirm",
-    "ok": "Ok"
+    "deleteInteractionTitle": "Brisanje interakcije",
+    "cancel": "Prekliči",
+    "confirm": "Potrdi",
+    "ok": "V redu"
   }
 }
