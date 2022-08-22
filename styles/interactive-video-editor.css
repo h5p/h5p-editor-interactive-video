@@ -387,17 +387,17 @@
   margin: 0;
   padding: 0;
 }
-.h5p-interactivevideo-editor textarea, .h5p-interactivevideo-editor input[type="text"]:not(.h5p-dragnbar-x):not(.h5p-dragnbar-y), .h5p-interactivevideo-editor .ckeditor {
+.h5p-interactivevideo-editor .h5peditor-form textarea, .h5p-interactivevideo-editor .h5peditor-form input[type="text"]:not(.h5p-dragnbar-x):not(.h5p-dragnbar-y), .h5p-interactivevideo-editor .ckeditor {
   border: 1px solid #dbdbdb;
   border-radius: 0;
   background: #fff;
 }
-.h5p-interactivevideo-editor textarea:focus, .h5p-interactivevideo-editor input[type="text"]:not(.h5p-dragnbar-x):not(.h5p-dragnbar-y):focus {
+.h5p-interactivevideo-editor .h5peditor-form textarea:focus, .h5p-interactivevideo-editor .h5peditor-form input[type="text"]:not(.h5p-dragnbar-x):not(.h5p-dragnbar-y):focus {
   background: #fff;
   border-color: #dbdbdb;
   box-shadow: 0 0 0.25em #dbdbdb inset;
 }
-.h5p-interactivevideo-editor table.h5p-table, .h5p-interactivevideo-editor .h5p-table td, .h5p-interactivevideo-editor .h5p-table th {
+.h5p-interactivevideo-editor .h5peditor-form table.h5p-table, .h5p-interactivevideo-editor .h5peditor-form .h5p-table td, .h5p-interactivevideo-editor .h5peditor-form .h5p-table th {
   border: 1px dashed #999;
 }
 
