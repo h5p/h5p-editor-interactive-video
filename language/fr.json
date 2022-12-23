@@ -45,9 +45,9 @@
     "tooltipEndscreens": "Cliquez pour ajouter un écran de soumission pour le moment actuel de la vidéo",
     "expandBreadcrumbButtonLabel": "Retour",
     "collapseBreadcrumbButtonLabel": "Fermer la navigation",
-    "deleteInteractionTitle": "Deleting interaction",
-    "cancel": "Cancel",
-    "confirm": "Confirm",
+    "deleteInteractionTitle": "Suppression d'une interaction",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
     "ok": "Ok"
   }
 }
