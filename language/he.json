@@ -7,8 +7,8 @@
     "insertElement": "יש להקליק ולגרור למקום :type",
     "done": "הסתיים",
     "loading": "טוען...",
-    "remove": "הסרה",
-    "removeInteraction": "האם למחוק אינטראקציה זו?",
+    "remove": "מחיקה",
+    "removeInteraction": "האם למחוק שאלה זו?",
     "addBookmark": "הוספת סימניה ב: @timecode",
     "newBookmark": "סימניה חדשה",
     "bookmarkAlreadyExists": "הסימניות כבר קיימות כאן. יש להעביר את המיקום בציר־הזמן כדי להוסיף סימניה במיקום אחר.",
@@ -45,9 +45,9 @@
     "tooltipEndscreens": "הקליקו להוספת מסך הגשה בנקודת הזמן הנוכחית של הסרטון",
     "expandBreadcrumbButtonLabel": "חזרה לאחור",
     "collapseBreadcrumbButtonLabel": "סגירת ניווט",
-    "deleteInteractionTitle": "Deleting interaction",
-    "cancel": "Cancel",
-    "confirm": "Confirm",
-    "ok": "Ok"
+    "deleteInteractionTitle": "מחיקת שאלה",
+    "cancel": "ביטול",
+    "confirm": "אישור",
+    "ok": "כן"
   }
 }
