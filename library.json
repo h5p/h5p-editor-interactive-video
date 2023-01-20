@@ -53,6 +53,11 @@
       "minorVersion": 1
     },
     {
+      "machineName": "H5P.Audio",
+      "majorVersion": 1,
+      "minorVersion": 5
+    },
+    {
       "machineName": "H5P.Text",
       "majorVersion": 1,
       "minorVersion": 1
