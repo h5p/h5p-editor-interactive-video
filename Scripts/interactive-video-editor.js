@@ -1534,6 +1534,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       if (options.pasted) {
         params.pasted = true;
       }
+      if (type === 'H5P.MultiMediaChoice') {
+        params.action.params.behaviour = { aspectRatio: '16to9' }
+      }
     }
     else {
       // Change starting time, but keep the same length
