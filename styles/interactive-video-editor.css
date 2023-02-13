@@ -461,7 +461,7 @@
 .h5p-interactivevideo-editor .h5p-bookmark input[type="text"].h5p-bookmark-input,
 .h5p-interactivevideo-editor .h5p-endscreen input[type="text"].h5p-endscreen-input:focus,
 .h5p-interactivevideo-editor .h5p-endscreen input[type="text"].h5p-endscreen-input {
-  background: transparent;
+  background-color: #000 !important;
   border: 0;
   color: #fefefe;
   outline: none;
