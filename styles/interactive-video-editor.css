@@ -457,11 +457,12 @@
   opacity: 1;
 }
 
-.h5p-interactivevideo-editor .h5p-bookmark input[type="text"].h5p-bookmark-input:focus,
+.h5p-interactivevideo-editor .h5p-bookmark
+.h5p-bookmark-text input[type="text"].h5p-bookmark-input:focus,
 .h5p-interactivevideo-editor .h5p-bookmark input[type="text"].h5p-bookmark-input,
 .h5p-interactivevideo-editor .h5p-endscreen input[type="text"].h5p-endscreen-input:focus,
 .h5p-interactivevideo-editor .h5p-endscreen input[type="text"].h5p-endscreen-input {
-  background: transparent;
+  background: #000;
   border: 0;
   color: #fefefe;
   outline: none;
