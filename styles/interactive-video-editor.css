@@ -403,8 +403,62 @@
   border-color: #dbdbdb;
   box-shadow: 0 0 0.25em #dbdbdb inset;
 }
-.h5p-interactivevideo-editor .h5peditor-form table.h5p-table, .h5p-interactivevideo-editor .h5peditor-form .h5p-table td, .h5p-interactivevideo-editor .h5peditor-form .h5p-table th {
-  border: 1px dashed #999;
+
+/* Table styling to imitate ckeditor 5 */
+.h5p-interactivevideo-editor .h5p-table {
+  /* The figure around the table */
+  figure.table {
+    font-size: .875em;
+    display: table;
+    table-layout: fixed;
+    margin: 0 auto;
+    padding: 0;
+
+    /* The actual table */
+    table {
+      border-collapse: collapse;
+      height: 100%;
+      width: 100%;
+      border-spacing: 0;
+      border-width: 1px;
+      border-color:  #494949;
+
+      td, th {
+        padding: 1px;
+        border-color:  #494949;
+        border-bottom-style: solid;
+      }
+
+      td {
+        border-width: 0.083em;
+      }
+
+      th {
+        text-align: center;
+        border-width: .167em;
+      }
+
+      tr:last-child td {
+        border-bottom: 0;
+      }
+    }
+
+    figcaption {
+      background-color: transparent;
+      caption-side: top;
+      color: #333;
+      display: table-caption;
+      font-size: .75em;
+      outline-offset: -1px;
+      padding: .6em;
+      text-align: center;
+      word-break: break-word;
+    }
+  }
+
+  .table-overflow-protection {
+    clear: both;
+  }
 }
 
 .h5p-interactivevideo-editor .library .wizard {
