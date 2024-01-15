@@ -439,7 +439,7 @@
         border-width: .167em;
       }
 
-      tr:last-child td {
+      tr:last-child > td {
         border-bottom: 0;
       }
     }
