@@ -1,10 +1,10 @@
 {
   "libraryStrings": {
-    "selectVideo": "Du må velge ein video før du kan sette ut interaksjonar.",
-    "noVideoSource": "Ingen videokilde",
+    "selectVideo": "Du må velje ein video før du kan legge til interaksjonar.",
+    "noVideoSource": "Video mangler",
     "notVideoField": "\":path\" er ikkje ein video.",
     "notImageField": "\":path\" er ikkje eit bilete.",
-    "insertElement": "Klikk å dra for å plassere :type",
+    "insertElement": "Klikk og dra for å plassere :type på ønskt stad",
     "done": "Done",
     "loading": "Lastar.",
     "remove": "Fjern",
