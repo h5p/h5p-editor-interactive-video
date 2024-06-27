@@ -29,7 +29,7 @@ H5PEditor.InteractiveVideo.GuidedTours = (function () {
             {
               title: t('tourStepUploadFileTitle'),
               text: t('tourStepUploadFileText'),
-              attachTo: {element: '.field.video .h5p-dnd__av-container', on: 'bottom'},
+              attachTo: {element: '.field.video .h5p-dnd__av-container .h5p-dnd__box__url', on: 'bottom'},
               highlightElement: true
             },
             {
