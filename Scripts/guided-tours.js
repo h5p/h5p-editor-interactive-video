@@ -179,6 +179,10 @@ H5PEditor.InteractiveVideo.GuidedTours = (function () {
       var tour = GuidedTours.tours[i].instance;
       tour && tour.destroy();
     }
+
+    // Clear the tours array and currentTourId
+    GuidedTours.tours = undefined;
+    currentTourId = undefined;
   };
 
   return GuidedTours;
