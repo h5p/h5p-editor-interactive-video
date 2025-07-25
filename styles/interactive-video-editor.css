@@ -408,7 +408,6 @@
 .h5p-interactivevideo-editor .h5p-table {
   /* The figure around the table */
   figure.table {
-    font-size: .875em;
     display: table;
     table-layout: fixed;
     margin: 0 auto;
