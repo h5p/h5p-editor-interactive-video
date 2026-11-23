@@ -471,7 +471,7 @@
 }
 .h5p-interactivevideo-editor .h5p-add-bookmark,
 .h5p-interactivevideo-editor .h5p-add-endscreen {
-  padding: 0 12px 8px;
+  padding: 12px 8px;
   color: #fefefe;
   font-style: italic;
   cursor: pointer;
